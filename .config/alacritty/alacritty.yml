@@ -1,0 +1,81 @@
+live_config_reload: true
+startup_mode: Maximized
+
+window:
+  opacity: 0.77
+  padding:
+    x: 18
+    y: 16
+  dynamic_padding: false
+  decorations: buttonless
+  startup_mode: Maximized
+
+font:
+  normal:
+    family: "mononoki Nerd Font"
+    style: Regular
+  size: 19.0
+colors:
+  name: Brewer (dark)
+  author: Chris Kempson
+  primary:
+    background: "#0c0d0e"
+    foreground: "#b7b8b9"
+  cursor:
+    text: "#0c0d0e"
+    cursor: "#b7b8b9"
+  normal:
+    black: "#0c0d0e"
+    red: "#e31a1c"
+    green: "#31a354"
+    yellow: "#dca060"
+    blue: "#3182bd"
+    magenta: "#756bb1"
+    cyan: "#80b1d3"
+    white: "#b7b8b9"
+  bright:
+    black: "#737475"
+    red: "#e31a1c"
+    green: "#31a354"
+    yellow: "#dca060"
+    blue: "#3182bd"
+    magenta: "#756bb1"
+    cyan: "#80b1d3"
+    white: "#fcfdfe"
+theme: Brewer.dark
+
+key_bindings:
+  # Rename the current tmux window
+  - { key: Comma, mods: Command, chars: "\x02," }
+  # Select a new tmux session for the attached client interactively
+  # Select window 1-9
+  - { key: A, mods: Command, chars: "tmux a\n" }
+  - { key: Key0, mods: Command, chars: "\x020" }
+  - { key: Key1, mods: Command, chars: "\x021" }
+  - { key: Key2, mods: Command, chars: "\x022" }
+  - { key: Key3, mods: Command, chars: "\x023" }
+  - { key: Key4, mods: Command, chars: "\x024" }
+  - { key: Key5, mods: Command, chars: "\x025" }
+  - { key: Key6, mods: Command, chars: "\x026" }
+  - { key: Key7, mods: Command, chars: "\x027" }
+  - { key: Key8, mods: Command, chars: "\x028" }
+  - { key: Key9, mods: Command, chars: "\x029" }
+  # Switch to last tmux session
+  - { key: H, mods: Command, chars: "\x02h" }
+  - { key: J, mods: Command, chars: "\x02j" }
+  - { key: K, mods: Command, chars: "\x02k" }
+  - { key: L, mods: Command, chars: "\x02l" }
+  - { key: LBracket, mods: Command, chars: "\x02p" }
+  - { key: RBracket, mods: Command, chars: "\x02n" }
+  - { key: S, mods: Command, chars: "\x02s" }
+  - { key: T, mods: Command, chars: "\x02o" }
+  - { key: D, mods: Command, chars: "\x02d" }
+  - { key: D, mods: Command|Shift, chars: "\x02W" }
+  - { key: P, mods: Command, chars: "\x02w" }
+  - { key: E, mods: Command, chars: "\x02T" }
+  - { key: G, mods: Command, chars: "\x02[" }
+  - { key: Backslash, mods: Command, chars: "\x02-" }
+  - { key: Backslash, mods: Command|Shift, chars: "\x02_" }
+  - { key: W, mods: Command, chars: "\x02x" }
+  - { key: S, mods: Command, chars: "\x02s" }
+  - { key: R, mods: Command, chars: "\x02r" }
