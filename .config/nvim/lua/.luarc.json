@@ -4,5 +4,8 @@
         "vim",
         "code_action_keys",
         "BufAdd"
+    ],
+    "diagnostics.disable": [
+        "different-requires"
     ]
 }

@@ -1,20 +1,29 @@
-require("rocky.plugins-setup")
-require("rocky.core.option")
-require("rocky.core.keymap")
-require("rocky.core.colorscheme")
-require("rocky.plugins.autopairs")
-require("rocky.plugins.treesitter")
-require("rocky.plugins.runner")
-require("rocky.plugins.comment")
-require("rocky.plugins.transparent")
+---@diagnostic disable: undefined-global
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+vim.g.mapleader = " "
+require("lazy").setup("plugins")
+
+--vim options&keymaps
+require("core.option")
+_G.__luacache_config = {
+	chunks = {
+		enable = true,
+		path = vim.fn.stdpath("cache") .. "/luacache_chunks",
+	},
+	modpaths = {
+		enable = true,
+		path = vim.fn.stdpath("cache") .. "/luacache_modpaths",
+	},
+}
 require("impatient")
-require("rocky.plugins.nvim-cmp")
-require("rocky.lsp.mason")
-require("rocky.lsp.lspsaga")
-require("rocky.lsp.null-ls")
-require("rocky.lsp.lsp-config")
-require("rocky.lsp.snip")
-require("rocky.core.statusline")
-require("rocky.plugins.bufferline")
-require("rocky.plugins.gitsigns")
-require("rocky.plugins.fzf")
