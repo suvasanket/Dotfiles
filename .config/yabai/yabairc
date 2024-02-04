@@ -1,0 +1,81 @@
+# default layout (can be bsp, stack or float)
+yabai -m config layout bsp
+
+# New window spawns to the right if vertical split, or bottom if horizontal split
+yabai -m config window_placement second_child
+
+# mission-control desktop labels
+yabai -m space 1 --label code
+yabai -m space 2 --label web
+yabai -m space 3 --label comms
+
+# Override default layout for space 2 only
+yabai -m config --space 4 layout float
+
+# padding set to 12px
+yabai -m config top_padding 37
+yabai -m config bottom_padding 37
+yabai -m config left_padding 37
+yabai -m config right_padding 37
+yabai -m config window_gap 10
+# add 20 padding to the top and 0 padding to the bottom of every space located on the main display
+yabai -m config external_bar main:35:0
+
+# center mouse on window with focus
+yabai -m config mouse_follows_focus off
+
+yabai -m config focus_follows_mouse off
+
+# modifier for clicking and dragging with mouse
+yabai -m config mouse_modifier alt
+# set modifier + left-click drag to move window
+yabai -m config mouse_action1 move
+# set modifier + right-click drag to resize window
+yabai -m config mouse_action2 resize
+
+# when window is dropped in center of another window, swap them (on edges it will split it)
+yabai -m mouse_drop_action swap
+
+# RULES
+UNMANAGED=(
+    Activity Monitor
+    Alfred
+    App Store
+    Archive Utility
+    Calculator
+    Dictionary
+    Finder
+    Photo Booth
+    Screen Sharing
+    Software Update
+    System Information
+    System Preferences
+    System Settings
+    Calendar
+    Calculator
+    CleanMyMac X
+    TickTick
+    1Piece Preferences
+    Stickies
+)
+
+for (( i=1; i<="${#UNMANAGED[@]}"; i++ )); do 
+    yabai -m rule --add label="unmanage_${UNMANAGED[(( $i - 1 ))]}" app="^${UNMANAGED[(( $i - 1 ))]}.*$" manage=off
+done
+
+STICKY=(
+    System Settings
+    Alfred
+)
+
+for (( i=1; i<="${#STICKY[@]}"; i++ )); do 
+    yabai -m rule --add label="sticky_${STICKY[(( $i - 1 ))]}" app="^${STICKY[(( $i - 1 ))]}.*$" sticky=on
+done
+
+yabai -m rule --add app="^Arc$" title="^Space.*$" manage=off layer=below
+yabai -m rule --add app="^Arc$" title="^$" manage=off layer=below
+
+# yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
+# yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
+
+echo "yabai configuration loaded.."

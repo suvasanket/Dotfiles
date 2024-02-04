@@ -1,0 +1,95 @@
+# Modes
+:: default : sketchybar -m --set modal icon="" label=""
+:: window @ : sketchybar -m --set modal icon="" label="window mode"
+:: launch @ : sketchybar -m --set modal icon="󱓞" label="launch mode"
+
+# Mode Shortcuts
+window, launch < space ; default
+
+window   < ctrl - w ; default
+launch < ctrl - space ; default
+
+default < ctrl - w ; window
+default < cmd - space ; launch
+
+### launch mode ###
+launch < a : open /Applications/Arc.app && skhd -k 'space'
+launch < c : open /System/Applications/Calendar.app && skhd -k 'space'
+launch < s : open /Applications/Orion.app && skhd -k 'space'
+launch < i : open /Applications/iTerm.app && skhd -k 'space'
+launch < f : open /System/Library/CoreServices/Finder.app && skhd -k 'space'
+launch < o : open /Applications/Obsidian.app && skhd -k 'space'
+launch < t : open /Applications/TickTick.app && skhd -k 'space'
+launch < u : open /Applications/CleanMyMac\ X.app && skhd -k 'space'
+launch < m : open /System/Applications/Utilities/Activity\ Monitor.app && skhd -k 'space'
+
+### window mode ###
+# change window focus within space
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - h : yabai -m window --focus west
+alt - l : yabai -m window --focus east
+
+# alt - t : yabai -m window --toggle float && /tmp/yabai-restore/$(yabai -m query --windows --window | jq -re '.id').restore 2>/dev/null || true
+window < 0 : yabai -m space --balance
+window < space : yabai -m window --toggle split
+window < m : yabai -m window --toggle zoom-fullscreen && skhd -k 'space'
+window < b : yabai -m space --layout bsp && skhd -k 'space'
+window < s : yabai -m space --layout stack && skhd -k 'space'
+window < t : yabai -m window --toggle float --grid 4:4:1:1:2:2 && skhd -k 'space'
+window < a : yabai -m space --toggle padding --toggle gap && skhd -k 'space'
+
+# change window focus within space
+window < j : yabai -m window --focus south
+window < k : yabai -m window --focus north
+window < h : yabai -m window --focus west
+window < l : yabai -m window --focus east
+
+# move window and split
+window < ctrl - h : yabai -m window --swap west
+window < ctrl - j : yabai -m window --swap south
+window < ctrl - k : yabai -m window --swap north
+window < ctrl - l : yabai -m window --swap east
+
+# increase window size
+window < cmd - h : yabai -m window --resize left:-20:0
+window < cmd - j : yabai -m window --resize bottom:0:20
+window < cmd - k : yabai -m window --resize top:0:-20
+window < cmd - l : yabai -m window --resize right:20:0
+# decrease window size
+window < shift + cmd - l : yabai -m window --resize left:20:0
+window < shift + cmd - k : yabai -m window --resize bottom:0:-20
+window < shift + cmd - j : yabai -m window --resize top:0:20
+window < shift + cmd - h : yabai -m window --resize right:-20:0
+
+cmd + ctrl - 1 : yabai -m window --space  1 && skhd -k 'cmd - 1'
+cmd + ctrl - 2 : yabai -m window --space  2 && skhd -k 'cmd - 2'
+cmd + ctrl - 3 : yabai -m window --space  3 && skhd -k 'cmd - 3'
+cmd + ctrl - 4 : yabai -m window --space  4 && skhd -k 'cmd - 4'
+cmd + ctrl - 5 : yabai -m window --space  5 && skhd -k 'cmd - 5'
+
+## karabiner
+
+cmd - f [
+"Activity Monitor" : skhd -k 'alt + cmd - f'
+]
+
+ctrl - j [ 
+* : skhd -k 'down' 
+"iTerm2" ~
+"Arc" ~
+]
+ctrl - k [ 
+* : skhd -k 'up'
+"iTerm2" ~
+"Arc" ~
+]
+ctrl - 0x21 [
+* : skhd -k 'escape'
+"iTerm2" ~
+]
+
+# stop/start/restart yabai
+ctrl + alt - q : yabai --stop-service
+ctrl + alt - s : yabai --start-service
+ctrl + alt - r : yabai --restart-service

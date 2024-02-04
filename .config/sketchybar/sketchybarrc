@@ -1,0 +1,94 @@
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+##### Bar Appearance #####
+bar=(
+  height=32
+  blur_radius=40
+  position=top
+  sticky=off
+  padding_left=10
+  padding_right=10
+  y_offset=5
+  margin=5
+  corner_radius=10
+  color=0x15ffffff
+)
+
+sketchybar --bar "${bar[@]}"
+
+##### Changing Defaults #####
+
+sketchybar --default icon.font="CaskaydiaCove Nerd Font:Bold:17.0"  \
+                     icon.color=0xffffffff                 \
+                     label.font="CaskaydiaCove Nerd Font:Bold:14.0" \
+                     label.color=0xffffffff                \
+                     padding_left=5                        \
+                     padding_right=5                       \
+                     label.padding_left=4                  \
+                     label.padding_right=4                 \
+                     icon.padding_left=4                   \
+                     icon.padding_right=4
+
+##### Adding Mission Control Space Indicators #####
+
+# SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+#
+# for i in "${!SPACE_ICONS[@]}"
+# do
+#   sid=$(($i+1))
+#   sketchybar --add space space.$sid left                                 \
+#              --set space.$sid space=$sid                                 \
+#                               icon=$sid                     \
+#                               background.color=0x44ffffff                \
+#                               background.corner_radius=5                 \
+#                               background.height=20                       \
+#                               label.drawing=off                 \
+#                               script="$PLUGIN_DIR/space.sh"   \
+#                               click_script="skhd -k 'cmd - $sid'"
+# done
+
+##### Adding Left Items #####
+
+##front app##
+sketchybar --add item front_app left                               \
+           --set front_app       script="$PLUGIN_DIR/front_app.sh" \
+                                 icon.font="sketchybar-app-font:Regular:16.0" \
+           --subscribe front_app front_app_switched
+
+##modal##
+sketchybar --add item modal center                         \
+           --set modal  \
+                                 icon=                        \
+                                 padding_left=10                   \
+                                 padding_right=10                  \
+
+##media##
+sketchybar --add item music left \
+           --set music label.max_chars=40 \
+                       background.drawing=off \
+                       update_freq=1                       \
+                       script="$PLUGIN_DIR/music.sh" \
+           --subscribe music media_change
+
+##### Adding Right Items #####
+##time##
+sketchybar --add item clock right                              \
+           --set clock   update_freq=10                        \
+                         icon=󱑇                              \
+                         script="$PLUGIN_DIR/clock.sh"         \
+
+##battery##
+sketchybar --add item battery right                            \
+           --set battery script="$PLUGIN_DIR/battery.sh"       \
+                         update_freq=120                       \
+           --subscribe battery system_woke power_source_change 
+
+##wifi##
+sketchybar --add item wifi right \
+           --set wifi script="$PLUGIN_DIR/wifi.sh" \
+                      update_freq=10                       \
+                      label.align=right
+
+
+##### Finalizing Setup #####
+sketchybar --update
