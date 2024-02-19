@@ -19,10 +19,10 @@ return {
 				enabled = true,
 				view = "cmdline_popup", --cmdline/cmdline_popup
 				format = {
-					cmdline = { pattern = "^:", icon = "󰅂", lang = "vim" },
-					search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
-					search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
-					input = { pattern = "'<,'>s/", icon = "󰬲", title = "" },
+					cmdline = { pattern = "^:", icon = "", lang = "vim" },
+					search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
+					search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
+					input = { pattern = "'<,'>s/", icon = "󰟧", title = "" },
 				},
 			},
 			routes = {
@@ -92,7 +92,7 @@ return {
 			-- minimum_width = 30,
 			render = "wrapped-compact",
 			stages = "fade_in_slide_out",
-			top_down = false,
+			top_down = true,
 			icons = {
 				DEBUG = " ",
 				ERROR = "󱙝 ",

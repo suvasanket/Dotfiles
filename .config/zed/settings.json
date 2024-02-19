@@ -7,8 +7,12 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "theme": "Rosé Pine",
+  "theme": "Andromeda",
   "vim_mode": true,
   "ui_font_size": 16,
-  "buffer_font_size": 16
+  "buffer_font_size": 16,
+  "terminal": {
+    "font_family": "CaskaydiaCove Nerd Font",
+    "working_directory": "current_project_directory"
+  }
 }

@@ -30,6 +30,7 @@ return {
 			{ "<leader>f;", "<cmd>Telescope command_history<cr>", desc = "CommandHist" },
 			{ "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Oldfiles" },
 			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Findfiles" },
+			{ "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Symbols" },
 			{ "<leader>bs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Symbols" },
 			{ "<leader>bg", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "current_buffer_fuzzy_find" },
 			{ "<leader>ws", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Workspace_symbols" },

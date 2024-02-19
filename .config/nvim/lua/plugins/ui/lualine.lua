@@ -5,52 +5,52 @@ return {
 	config = function()
 		local thyme = require("lualine.themes.codedark")
 		local colors = {
-			inactive = "#A2B29F",
+			inactive = "#B0A695",
 			color1 = "#80a0ff",
-			color2 = "#C8E4B2",
+			color2 = "#D4ADFC",
 			color4 = "#080808",
 			color5 = "#DFCCFB",
 			color6 = "#ff5189",
 			color7 = "#FFE382",
 			color8 = "#A8A196",
-			bg = "NONE",
-			nbg = "#352F44",
-			ibg = "#1A120B",
+			bg = "#2B2B2B",
+			abg = "#6D5D6E",
+			bbg = "#4F4557",
 		}
-
 		thyme = {
 			normal = {
-				a = { fg = colors.color2, bg = colors.bg, gui = "bold" },
-				b = { fg = colors.color5, bg = colors.bg },
+				a = { fg = colors.color2, bg = colors.abg, gui = "bold" },
+				b = { fg = colors.color5, bg = colors.bbg },
 				c = { fg = colors.color8, bg = colors.bg },
 			},
 			insert = {
-				a = { fg = colors.color7, bg = colors.bg, gui = "bold" },
-				b = { fg = colors.color5, bg = colors.bg },
+				a = { fg = colors.color7, bg = colors.abg, gui = "bold" },
+				b = { fg = colors.color5, bg = colors.bbg },
 				c = { fg = colors.color8, bg = colors.bg },
 			},
 			visual = {
-				a = { fg = colors.color6, bg = colors.bg, gui = "bold" },
-				b = { fg = colors.color5, bg = colors.bg },
+				a = { fg = colors.color6, bg = colors.abg, gui = "bold" },
+				b = { fg = colors.color5, bg = colors.bbg },
 				c = { fg = colors.color8, bg = colors.bg },
 			},
 			replace = {
-				a = { fg = colors.color1, bg = colors.bg, gui = "bold" },
-				b = { fg = colors.color5, bg = colors.bg },
+				a = { fg = colors.color1, bg = colors.abg, gui = "bold" },
+				b = { fg = colors.color5, bg = colors.bbg },
 				c = { fg = colors.color8, bg = colors.bg },
 			},
 			inactive = {
-				a = { fg = colors.inactive, bg = colors.bg, gui = "bold" },
-				b = { fg = colors.inactive, bg = colors.bg },
+				a = { fg = colors.inactive, bg = colors.abg, gui = "bold" },
+				b = { fg = colors.inactive, bg = colors.bbg },
 				c = { fg = colors.color8, bg = colors.bg },
 			},
 		}
+
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
 				theme = thyme,
 				component_separators = { left = "", right = "" },
-				section_separators = { left = "", right = "" },
+				section_separators = { left = " ", right = " " },
 				disabled_filetypes = {
 					statusline = { "alpha", "minintro" },
 					winbar = { "alpha" },
@@ -64,17 +64,13 @@ return {
 			sections = {
 				lualine_a = {
 					{
-						function()
-							return "▊"
-						end,
-						padding = { left = 0, right = 0 },
-					},
-					{
 						"mode",
 						fmt = function(str)
-							return "[" .. str:sub(1, 3) .. "]"
+							return str:sub(1, 3)
 						end,
 					},
+				},
+				lualine_b = {
 					{
 						"filename",
 						path = 1,
@@ -87,8 +83,12 @@ return {
 						},
 					},
 				},
-				lualine_b = {},
-				lualine_c = {},
+				lualine_c = {
+					{
+						"branch",
+						icon = "",
+					},
+				},
 				lualine_x = {
 					{
 						function()
@@ -107,17 +107,11 @@ return {
 						"diagnostics",
 						symbols = { error = " ", warn = " ", info = " " },
 					},
-					{
-						"branch",
-						icon = "",
-					},
 				},
 				lualine_y = {
 					{
 						"filetype",
-						colored = true,
-						icon_only = false,
-						icon = { align = "left" },
+						icon = false,
 					},
 				},
 				lualine_z = {
@@ -127,36 +121,24 @@ return {
 							local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 							local clients = vim.lsp.get_active_clients()
 							if next(clients) == nil then
-								return "󱘺 "
+								return " "
 							end
 							for _, client in ipairs(clients) do
 								local filetypes = client.config.filetypes
 								if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-									return "󰪩 " .. client.name
+									return "󱄙  " .. client.name
 								end
 							end
-							return "󰴀 "
+							return "󰚦 [no lsp]"
 						end,
-					},
-					{
-						function()
-							return "▊"
-						end,
-						padding = { left = 1, right = 0 },
 					},
 				},
 			},
 			inactive_sections = {
 				lualine_a = {
 					{
-						function()
-							return "▊"
-						end,
-						padding = { left = 0, right = 0 },
-					},
-					{
 						"filename",
-						path = 1,
+						path = 0,
 						shorting_target = 40,
 						symbols = {
 							modified = "󰳻",
@@ -170,14 +152,7 @@ return {
 				lualine_c = {},
 				lualine_x = {},
 				lualine_y = {},
-				lualine_z = {
-					{
-						function()
-							return "▊"
-						end,
-						padding = { left = 1, right = 0 },
-					},
-				},
+				lualine_z = {},
 			},
 			-- inactive_winbar = { lualine_z = { "filename" } },
 			tabline = {
@@ -203,6 +178,7 @@ return {
 				"lazy",
 				"Trouble",
 				"nvim-dap-ui",
+				"oil",
 			},
 		})
 	end,

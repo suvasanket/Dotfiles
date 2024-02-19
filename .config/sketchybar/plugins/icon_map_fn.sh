@@ -10,7 +10,7 @@ function icon_map() {
   "VMware Fusion")
     icon_result=":vmware_fusion:"
     ;;
-  "Alacritty" | "Hyper" | "kitty" | "Terminal" | "终端" | "WezTerm")
+  "Alacritty" | "Hyper" | "kitty" | "Terminal" | "终端" | "WezTerm" | "iTerm2")
     icon_result=":terminal:"
     ;;
   "Microsoft To Do" | "Things")
@@ -265,7 +265,7 @@ function icon_map() {
   "网易云音乐")
     icon_result=":netease_music:"
     ;;
-  "GrandTotal" | "Receipts" | "iTerm2")
+  "GrandTotal" | "Receipts")
     icon_result=":dollar:"
     ;;
   "zoom.us")

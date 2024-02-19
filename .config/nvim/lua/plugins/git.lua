@@ -28,22 +28,11 @@ return {
 		},
 	},
 
-	--neogit
+	--git
 	{
-		"NeogitOrg/neogit",
-		keys = { { "<leader>gg", "<cmd>Neogit<cr>" } },
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
-			"nvim-telescope/telescope.nvim", -- optional
-		},
-		opts = {
-			signs = {
-				-- { CLOSED, OPENED }
-				hunk = { "", "" },
-				item = { "", "" },
-				section = { "", "" },
-			},
+		"tpope/vim-fugitive",
+		keys = {
+			{ "<leader>g", "<cmd>Git<cr>" },
 		},
 	},
 

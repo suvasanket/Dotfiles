@@ -7,9 +7,9 @@ add_newline = false
 # right_format = """$all"""
 
 [character]
-error_symbol = '[](red)'
-success_symbol = '[](#78D6C6)'
-vimcmd_symbol = '[](#C8E4B2)'
+error_symbol = '[](red)'
+success_symbol = '[](#78D6C6)'
+vimcmd_symbol = '[](#C8E4B2)'
 vimcmd_replace_one_symbol = '[](#DFCCFB)'
 vimcmd_replace_symbol = '[󰬲](#DFCCFB)'
 vimcmd_visual_symbol = '[󰗘](#ff5189)'

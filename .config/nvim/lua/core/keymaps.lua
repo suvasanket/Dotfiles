@@ -19,9 +19,8 @@ map("n", "<leader>l", cmd("Lazy"))
 map({ "n", "x" }, "<leader>p", '"+p', { desc = "clipboard paste" })
 map("x", "<c-p>", [["_dP]], { desc = "blackhole paste" })
 map("i","<s-cr>","<c-e><cr>")
-map("n","<C-q>",cmd("q"))
-map("n","<C-t>",cmd("tabn"))
-map("n","<S-C-t>",cmd("tabp"))
+map("n","H","0")
+map("n","L","$")
 
 --insert
 map({ "i", "c" }, "<C-h>", "<left>")
@@ -33,7 +32,7 @@ map("i", "<C-k>", "<up>")
 map("c", "<C-a>", "<home>")
 map("c", "<C-e>", "<end>")
 
---buffer
+--buffer & tabs
 map("n", "<leader>-", cmd("split"))
 map("n", "<leader>|", cmd("vsplit"))
 map("t", "<C-[>", "<C-\\><C-n>")
@@ -42,6 +41,9 @@ map("n", "]b", cmd("bnext"))
 map("n", "[b", cmd("bprevious"))
 map("n", "[t", cmd("tabp"))
 map("n", "]t", cmd("tabn"))
+map("n","<C-q>",cmd("q"))
+map("n","<C-t>",cmd("tabn"))
+map("n","<S-C-t>",cmd("tabp"))
 
 --git
 map(

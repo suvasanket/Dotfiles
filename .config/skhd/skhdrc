@@ -10,7 +10,7 @@ window   < ctrl - w ; default
 launch < ctrl - space ; default
 
 default < ctrl - w ; window
-default < cmd - space ; launch
+default < ctrl - space ; launch
 
 ### launch mode ###
 launch < a : open /Applications/Arc.app && skhd -k 'space'
@@ -19,7 +19,7 @@ launch < s : open /Applications/Orion.app && skhd -k 'space'
 launch < i : open /Applications/iTerm.app && skhd -k 'space'
 launch < f : open /System/Library/CoreServices/Finder.app && skhd -k 'space'
 launch < o : open /Applications/Obsidian.app && skhd -k 'space'
-launch < t : open /Applications/TickTick.app && skhd -k 'space'
+launch < 0x29 : open /Applications/TickTick.app && skhd -k 'space'
 launch < u : open /Applications/CleanMyMac\ X.app && skhd -k 'space'
 launch < m : open /System/Applications/Utilities/Activity\ Monitor.app && skhd -k 'space'
 
@@ -36,8 +36,8 @@ window < space : yabai -m window --toggle split
 window < m : yabai -m window --toggle zoom-fullscreen && skhd -k 'space'
 window < b : yabai -m space --layout bsp && skhd -k 'space'
 window < s : yabai -m space --layout stack && skhd -k 'space'
-window < t : yabai -m window --toggle float --grid 4:4:1:1:2:2 && skhd -k 'space'
-window < a : yabai -m space --toggle padding --toggle gap && skhd -k 'space'
+window < a : yabai -m window --toggle float && skhd -k 'space'
+window < t : yabai -m space --toggle padding --toggle gap && skhd -k 'space'
 
 # change window focus within space
 window < j : yabai -m window --focus south
@@ -77,16 +77,17 @@ cmd - f [
 ctrl - j [ 
 * : skhd -k 'down' 
 "iTerm2" ~
-"Arc" ~
 ]
 ctrl - k [ 
 * : skhd -k 'up'
 "iTerm2" ~
-"Arc" ~
 ]
 ctrl - 0x21 [
 * : skhd -k 'escape'
 "iTerm2" ~
+]
+cmd - q [
+"Finder" : skhd -k 'cmd - w'
 ]
 
 # stop/start/restart yabai

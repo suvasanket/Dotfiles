@@ -8,8 +8,8 @@ return {
 				silent = true,
 				footer = "First, solve the problem",
 				content_hooks = {
-				  starter.gen_hook.adding_bullet("█ ",nil),
-				  starter.gen_hook.aligning('center', 'center'),
+					starter.gen_hook.adding_bullet("█ ", nil),
+					starter.gen_hook.aligning("center", "center"),
 				},
 			})
 		end,

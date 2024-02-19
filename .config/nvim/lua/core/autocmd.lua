@@ -109,14 +109,14 @@ autocmd("InsertEnter", {
 	pattern = "*.*",
 	group = "insrt",
 	callback = function()
-		vim.o.cursorline = false
+		vim.o.cursorline = true
 	end,
 })
 autocmd("InsertLeave", {
 	group = "insrt",
 	pattern = "*.*",
 	callback = function()
-		vim.o.cursorline = true
+		vim.o.cursorline = false
 	end,
 })
 
