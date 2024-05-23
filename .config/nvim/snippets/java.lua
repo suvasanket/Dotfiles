@@ -1,4 +1,5 @@
 -- vim: foldmethod=marker
+-- vim: foldlevel=0
 local ls = require("luasnip") --{{{
 local s = ls.s
 local i = ls.i

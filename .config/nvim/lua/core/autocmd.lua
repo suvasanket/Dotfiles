@@ -1,7 +1,9 @@
 --{{{
+-- vim: foldmethod=marker
+-- vim: foldlevel=0
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
-local hl = function(name, val, id)
+local hi = function(name, val, id)
 	local defaultid = 0
 	if id then
 		defaultid = id
@@ -15,14 +17,14 @@ autocmd("VimEnter", {
 	pattern = "*",
 	callback = function()
 		-- hl("CursorLine", { blend = 3 })
-		hl("DiagnosticFloatingInfo", { blend = 5 })
-		hl("Folded", { fg = "#7D7C7C" })
-		hl("Search", { link = "IncSearch" })
-		hl("IlluminatedWordText", { link = "Visual" })
-		hl("IlluminatedWordRead", { link = "Visual" })
-		hl("IlluminatedWordWrite", { link = "Visual" })
-		hl("hlyank", { bg = "#FF9B50" })
-		hl("SignColumn", { fg = "NONE" })
+		-- hl("DiagnosticFloatingInfo", { blend = 5 })
+		hi("Folded", { fg = "#7D7C7C" })
+		hi("Search", { link = "IncSearch" })
+		hi("IlluminatedWordText", { link = "Visual" })
+		hi("IlluminatedWordRead", { link = "Visual" })
+		hi("IlluminatedWordWrite", { link = "Visual" })
+		hi("hlyank", { bg = "#FF9B50" })
+		hi("CmpItemAbbrMatchFuzzyDefault", { fg = "#F2613F" })
 	end,
 })
 
@@ -75,33 +77,22 @@ autocmd("FileType", {
 })
 
 --terminal win
+augroup("term", { clear = true })
 autocmd("TermOpen", {
+	group = "term",
 	pattern = "*",
 	callback = function()
-		vim.cmd("setlocal listchars= nonumber norelativenumber")
+		vim.cmd("setlocal nonumber norelativenumber")
 		vim.cmd.startinsert()
 	end,
 })
-
---fugitive keymap
-autocmd("FileType", {
-	pattern = "fugitive",
-	callback = function(event)
-		vim.keymap.set("n", "P", "<cmd>Git push<cr>", { buffer = event.buf, silent = true })
-		vim.keymap.set("n", "p", "<cmd>Git pull<cr>", { buffer = event.buf, silent = true })
-	end,
-})
-
---undotree
-autocmd("FileType", {
-	pattern = "undotree",
-	callback = function()
-		vim.cmd([[
-		nmap <buffer> <C-p> <plug>UndotreeNextState
-		nmap <buffer> <C-n> <plug>UndotreePreviousState
-		]])
-	end,
-})
+-- autocmd("TermClose", {
+-- 	group="term",
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.cmd("setlocal number relativenumber")
+-- 	end,
+-- })
 
 --insert mode
 augroup("insrt", { clear = true })
@@ -109,26 +100,39 @@ autocmd("InsertEnter", {
 	pattern = "*.*",
 	group = "insrt",
 	callback = function()
-		vim.o.cursorline = true
+		vim.o.cursorline = false
 	end,
 })
 autocmd("InsertLeave", {
 	group = "insrt",
 	pattern = "*.*",
 	callback = function()
-		vim.o.cursorline = false
+		vim.o.cursorline = true
 	end,
 })
 
---tabline
-autocmd("FileType",{
-	command="set showtabline=1"
+--luasnip auto insert templete
+augroup("SnippetAutoInsert", { clear = true })
+autocmd("BufNewFile", {
+	group = "SnippetAutoInsert",
+	pattern = "*/snippets/*.lua",
+	callback = function()
+		local boilerplate_path = "/Users/suvasanketrout/.config/nvim/snippets/boilerplate.lua"
+		local content = vim.fn.readfile(boilerplate_path)
+
+		vim.api.nvim_buf_set_lines(0, 0, -1, false, content)
+
+		local filename = vim.fn.expand("%:t") -- Gets the tail of the filename
+		local ext = vim.fn.fnamemodify(filename, ":r") -- Extracts the extension
+
+		vim.cmd(':%s/"\\*\\.lua"/"\\*.' .. ext .. '"')
+		vim.cmd("w")
+		vim.cmd("e")
+	end,
 })
 
---oil keymap
-autocmd("FileType", {
-	pattern = "oil",
-	callback = function(event)
-		vim.keymap.set("n", "<CR>", "<cmd>w<cr>", { buffer = event.buf, silent = true })
-	end,
+--source
+autocmd("BufWritePost", {
+	pattern = { "*/ftplugin/*.lua", "*/core/*.lua" },
+	command = "source%",
 })

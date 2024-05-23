@@ -4,6 +4,7 @@ return {
 	{ "hrsh7th/cmp-cmdline", event = "CmdlineEnter" },
 	{ "hrsh7th/cmp-path", event = "InsertEnter" },
 	{ "saadparwaiz1/cmp_luasnip", event = "InsertEnter" },
+	{ "onsails/lspkind.nvim", event = { "InsertEnter", "CmdlineEnter" } },
 	--nvim-cmp
 	{
 		"hrsh7th/nvim-cmp",
@@ -16,22 +17,35 @@ return {
 			cmp.setup({
 				sources = {
 					{ name = "path" },
-					{ name = "nvim_lsp", keyword_length = 1 },
 					{ name = "luasnip", keyword_length = 1 },
+					{ name = "nvim_lsp", keyword_length = 1 },
 					{ name = "buffer", keyword_length = 1 },
 				},
 
 				formatting = {
-					fields = { "abbr", "kind", "menu" },
+					fields = { "kind", "abbr", "menu" },
 					format = function(entry, vim_item)
+						local kind =
+							require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+						local strings = vim.split(kind.kind, "%s", { trimempty = true })
+						kind.kind = " " .. (strings[1] or "") .. " "
+						kind.menu = "    (" .. (strings[2] or "") .. ")"
+
 						vim_item.menu = ({
-							buffer = "(Buffer)",
-							nvim_lsp = "(LSP)",
-							luasnip = "(Snip)",
-							nvim_lua = "(Lua)",
+							buffer = "",
+							nvim_lsp = "",
+							luasnip = "󰇘",
 						})[entry.source.name]
+
 						return vim_item
 					end,
+				},
+				window = {
+					completion = {
+						winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+						col_offset = -3,
+						side_padding = 0,
+					},
 				},
 				completion = {
 					-- keyword_length = 4,
@@ -42,44 +56,13 @@ return {
 						require("luasnip").lsp_expand(args.body)
 					end,
 				},
-				window = {
-					completion = {
-						border = "rounded",
-					},
-					documentation = {
-						border = "rounded",
-					},
-				},
 				experimental = {
-					ghost_text = false,
+					ghost_text = true,
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-u>"] = cmp.mapping.scroll_docs(-4),
 					["<C-d>"] = cmp.mapping.scroll_docs(4),
-					["<C-e>"] = cmp.mapping.abort(),
-					["<cr>"] = cmp.mapping.confirm({ select = true }),
-					["<tab>"] = function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif require("luasnip").expand_or_jumpable() then
-							require("luasnip").expand_or_jump()
-						else
-							fallback()
-						end
-					end,
-					["<s-tab>"] = function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif require("luasnip").jumpable(-1) then
-							require("luasnip").jump(-1)
-						else
-							fallback()
-						end
-					end,
-					["<S-CR>"] = cmp.mapping.confirm({
-						behavior = cmp.ConfirmBehavior.Replace,
-						select = true,
-					}),
+					["<C-s>"] = cmp.mapping.confirm({ select = true }),
 				}),
 			})
 
@@ -98,7 +81,9 @@ return {
 			})
 
 			cmp.setup.cmdline(":", {
-				mapping = cmp.mapping.preset.cmdline(),
+				mapping = cmp.mapping.preset.cmdline({
+					["<end>"] = cmp.mapping.confirm({ select = true }),
+				}),
 				sources = {
 					{ name = "path", keyword_length = 1 },
 					{ name = "cmdline", keyword_length = 1 },

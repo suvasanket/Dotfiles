@@ -1,4 +1,6 @@
 --{{{
+-- vim: foldmethod=marker
+-- vim: foldlevel=0
 local function get_jdtls()
 	local mason_registry = require("mason-registry")
 	local jdtls = mason_registry.get_package("jdtls")
@@ -40,6 +42,7 @@ end
 return {
 	{
 		"mfussenegger/nvim-jdtls",
+		enabled = false,
 		ft = "java",
 		config = function()
 			-- {{{Autocmd

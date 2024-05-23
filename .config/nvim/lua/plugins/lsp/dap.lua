@@ -2,6 +2,7 @@ return {
 	--Dap
 	{
 		"mfussenegger/nvim-dap",
+		enabled=false,
 		dependencies = {
 			{ "rcarriga/nvim-dap-ui" },
 			{ "theHamsta/nvim-dap-virtual-text", opts = {} },

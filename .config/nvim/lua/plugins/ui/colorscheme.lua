@@ -1,39 +1,30 @@
 return {
-	--og
 	{
-		"rose-pine/neovim",
-		name = "rose-pine",
-		opts = {
-			dark_variant = "moon",
-			disable_background = true,
-			disable_float_background = true,
+		"navarasu/onedark.nvim",
+		config = function()
+			require("onedark").setup({
+				style = "warmer",
+				transparent = true,
+				diagnostics = {
+					darker = false, -- darker colors for diagnostic
+				},
+				code_style = {
+					comments = "italic",
+					keywords = "none",
+					functions = "bold",
+					strings = "none",
+					variables = "none",
+				},
+				highlights = {
+					PmenuSel = { bg = "#282C34", fg = "NONE" },
+					Pmenu = { fg = "#C5CDD9", bg = "#22252A" },
 
-			groups = {
-				border = "subtle",
-				comment = "muted",
-			},
-
-			highlight_groups = {
-				TelescopeBorder = { fg = "subtle", bold = true },
-				PmenuSel = { fg = "pine", bg = "muted", blend = 3, bold = true },
-				FloatBorder = { fg = "iris" },
-				ColorColumn = { bg = "rose" },
-				-- CursorLine = { bg = "muted", blend = 10 },
-				StatusLine = { fg = "love", bg = "NONE", blend = 10 },
-				Search = { bg = "gold", inherit = true },
-				MiniIndentscopeSymbol = { fg = "pine" },
-				MiniIndentscopeSymbolOff = { fg = "pine", bold = true },
-				CursorLineNr = { fg = "iris" },
-				CmpItemMenu = {  fg = "subtle", italic = true },
-				CmpItemAbbr = { fg = "text" },
-				CmpItemAbbrMatch = { fg = "foam" },
-				CmpItemAbbrMatchFuzzy = { fg = "foam" },
-				CmpItemKindVariable = { fg = "iris" },
-				GitSignsAdd = { bg = "none" },
-				GitSignsChange = { bg = "none" },
-				GitSignsDelete = { bg = "none" },
-				NeogitFold = { fg = "muted" },
-			},
-		},
+					CmpItemAbbrDeprecated = { fg = "#7E8294", bg = "NONE", strikethrough = true },
+					CmpItemAbbrMatch = { fg = "#82AAFF", bg = "NONE", bold = true },
+					CmpItemAbbrMatchFuzzy = { fg = "#82AAFF", bg = "NONE", bold = true },
+				},
+			})
+			require("onedark").load()
+		end,
 	},
 }

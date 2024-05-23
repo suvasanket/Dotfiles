@@ -1,5 +1,6 @@
----@diagnostic disable: unused-local
+--{{{
 -- vim: foldmethod=marker
+-- vim: foldlevel=0
 local ls = require("luasnip") --{{{
 local s = ls.s
 local i = ls.i
@@ -69,10 +70,12 @@ local function cs(trigger, nodes, opts) --{{{
 
 	table.insert(target_table, snippet) -- insert snippet into appropriate table
 end --}}}
+--}}}
 
 -- Start Refactoring --
 
-cs( -- main func
+-- main func
+cs(
 	"main",
 	fmt(
 		[[

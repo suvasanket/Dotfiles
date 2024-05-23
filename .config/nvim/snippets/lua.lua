@@ -1,4 +1,7 @@
+--{{{
+---@diagnostic disable: unused-local
 -- vim: foldmethod=marker
+-- vim: foldlevel=0
 local ls = require("luasnip") --{{{
 local s = ls.s --> snippet
 local i = ls.i --> insert node
@@ -68,8 +71,9 @@ local function cs(trigger, nodes, opts) --{{{
 
 	table.insert(target_table, snippet) -- insert snippet into appropriate table
 end --}}}
+---}}}
 
--- Start Refactoring --
+--Start--
 
 -- [CMD] multiline vim.cmd
 cs("CMD", {
@@ -108,7 +112,8 @@ cs(
 	"luaSnippet",
 	fmt(
 		[=[
-cs("{}", fmt( -- {}
+--{}
+cs("{}", fmt(
 [[
 {}
 ]], {{
@@ -116,8 +121,8 @@ cs("{}", fmt( -- {}
   }}){})
     ]=],
 		{
-			i(1, ""),
-			i(2, "Description"),
+			i(1, "desc"),
+			i(2, "trig"),
 			i(3, ""),
 			i(4, ""),
 			c(5, {
@@ -138,8 +143,12 @@ cs(
 c({}, {{ {} }}),
 ]],
 		{
-			i(1, ""),
-			i(2, ""),
+			i(1, "num"),
+			c(2, {
+				fmt([[t("{}")]],{i(1,"textnode")}),
+				fmt([=[fmt([[{}]],{{{}}})]=],{i(1,"pattern"),i(2,"node")})
+
+			}),
 		}
 	),
 	{ pattern = "*/snippets/*.lua", "jcn" }

@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+FONT="SF Pro:Bold:13"
+
+bar=(
+    # the bar doesn't need to be shown
+    height=0
+    # to allow for position calculation from top of display
+    topmost=off
+)
+
+sketchydate --bar "${bar[@]}"
+
+source "item.sh"
+
+sketchydate --update
+
+echo "sketchydate configuration loaded.."

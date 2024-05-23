@@ -8,7 +8,7 @@ return {
 		event = "BufRead",
 	},
 	{
-		"roxma/vim-tmux-clipboard",
-		event = "BufRead",
+		"moll/vim-bbye",
+		cmd = "Bdelete",
 	},
 }

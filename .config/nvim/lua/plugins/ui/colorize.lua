@@ -1,7 +1,7 @@
 return {
 	"echasnovski/mini.hipatterns",
 	version = "*",
-	ft = { "css", "js", "html", "lua", "yml" },
+	ft = { "css", "js", "html", "lua", "yml", "tmux", "sh", "toml", "conf" },
 	config = function()
 		local hipatterns = require("mini.hipatterns")
 		require("mini.hipatterns").setup({

@@ -3,7 +3,7 @@ return {
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
-		enabled = true,
+		enabled = false,
 		keys = {
 			{ "<esc>", "<cmd>Noice dismiss<cr>" },
 		},
@@ -19,10 +19,10 @@ return {
 				enabled = true,
 				view = "cmdline_popup", --cmdline/cmdline_popup
 				format = {
-					cmdline = { pattern = "^:", icon = "", lang = "vim" },
-					search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
-					search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
-					input = { pattern = "'<,'>s/", icon = "󰟧", title = "" },
+					cmdline = { pattern = "^:", icon = "", lang = "vim" },
+					search_down = { kind = "search", pattern = "^/", icon = "/", lang = "regex" },
+					search_up = { kind = "search", pattern = "^%?", icon = "/", lang = "regex" },
+					input = { icon = "", title = "" },
 				},
 			},
 			routes = {
@@ -73,32 +73,32 @@ return {
 				inc_rename = true, -- enables an input dialog for inc-rename.nvim
 			},
 		},
-	},
-
-	--nvim-notify
-	{
-		"rcarriga/nvim-notify",
-		event = "VeryLazy",
-		opts = {
-			fps = 50,
-			background_colour = "#182912",
-			timeout = 4000,
-			max_height = function()
-				return math.floor(vim.o.lines * 0.75)
-			end,
-			max_width = function()
-				return math.floor(vim.o.columns * 0.45)
-			end,
-			-- minimum_width = 30,
-			render = "wrapped-compact",
-			stages = "fade_in_slide_out",
-			top_down = true,
-			icons = {
-				DEBUG = " ",
-				ERROR = "󱙝 ",
-				INFO = " ",
-				TRACE = " ",
-				WARN = "",
+		dependencies = {
+			{
+				"rcarriga/nvim-notify",
+				event = "VeryLazy",
+				opts = {
+					fps = 50,
+					background_colour = "#182912",
+					timeout = 4000,
+					max_height = function()
+						return math.floor(vim.o.lines * 0.75)
+					end,
+					max_width = function()
+						return math.floor(vim.o.columns * 0.45)
+					end,
+					-- minimum_width = 30,
+					render = "wrapped-compact",
+					stages = "fade_in_slide_out",
+					top_down = false,
+					icons = {
+						DEBUG = " ",
+						ERROR = "󱙝 ",
+						INFO = " ",
+						TRACE = " ",
+						WARN = "",
+					},
+				},
 			},
 		},
 	},

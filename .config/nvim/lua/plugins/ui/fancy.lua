@@ -1,18 +1,43 @@
 return {
 	{
-		"echasnovski/mini.animate",
-		event = "VeryLazy",
-		opts = {
-			scroll = { enable = false },
-		},
+		"echasnovski/mini.indentscope",
+		event = "Filetype",
+		config = function()
+			require("mini.indentscope").setup({
+				-- Draw options
+				draw = {
+					delay = 100,
+					priority = 2,
+				},
+
+				mappings = {
+					object_scope = "ii",
+					object_scope_with_border = "ai",
+					goto_top = "[i",
+					goto_bottom = "]i",
+				},
+
+				options = {
+					border = "both",
+					indent_at_cursor = true,
+					try_as_border = false,
+				},
+
+				symbol = "│",
+			})
+		end,
 	},
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = "kevinhwang91/promise-async",
-		event = "BufReadPost",
+		event = "Filetype",
 		config = function()
 			require("ufo").setup({
-				close_fold_kinds = { "imports", "comment" },
+				close_fold_kinds_for_ft = {
+					default = { "imports", "comment" },
+					json = { "array" },
+					c = { "comment", "region" },
+				},
 				enable_get_fold_virt_text = true,
 
 				---@diagnostic disable-next-line: unused-local
@@ -24,6 +49,7 @@ return {
 	},
 	{
 		"tzachar/highlight-undo.nvim",
+		event = "BufReadPost",
 		keys = {
 			{ "u" },
 			{ "<C-r>" },
@@ -32,6 +58,7 @@ return {
 			duration = 2000,
 		},
 	},
+
 	{
 		"nvimdev/hlsearch.nvim",
 		event = "BufRead",
@@ -39,9 +66,19 @@ return {
 			require("hlsearch").setup()
 		end,
 	},
+
 	{
 		"smjonas/inc-rename.nvim",
 		event = "LspAttach",
 		opts = {},
+	},
+
+	{
+		"cappyzawa/trim.nvim",
+		event = "BufRead",
+		opts = {
+			highlight = false,
+			highlight_bg = "#413543",
+		},
 	},
 }

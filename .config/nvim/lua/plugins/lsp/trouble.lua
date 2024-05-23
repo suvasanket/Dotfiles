@@ -5,14 +5,15 @@ return {
 	opts = {
 		-- severity = vim.diagnostic.severity.ERROR, -- nil (ALL) or vim.diagnostic.severity.ERROR | WARN | INFO | HINT
 		padding = false, -- add an extra new line on top of the list
-		auto_close = true,
+		auto_close = false,
+		auto_open = false,
 		indent_lines = false, -- add an indent guide below the fold icons
 		signs = {
 			error = "",
 			warning = "",
 			hint = "",
 			information = "",
-			other = "",
+			other = "",
 		},
 		action_keys = {
 			open_split = { "<c-s>" },

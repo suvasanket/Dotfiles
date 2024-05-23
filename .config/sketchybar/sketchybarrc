@@ -1,94 +1,99 @@
-PLUGIN_DIR="$CONFIG_DIR/plugins"
+#!/bin/bash
 
-##### Bar Appearance #####
+source "$CONFIG_DIR/colors.sh" # Loads all defined colors
+source "$CONFIG_DIR/icons.sh" # Loads all defined icons
+
+ITEM_DIR="$CONFIG_DIR/items" # Directory where the items are configured
+PLUGIN_DIR="$CONFIG_DIR/plugins" # Directory where all the plugin scripts are stored
+SCRIPTS_DIR="$CONFIG_DIR/scripts"
+
+FONT="SF Pro" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
+# FONT="CaskaydiaCove Nerd Font"
+PADDINGS=3 # All paddings use this value (icon, label, background)
+
+# Setting up and starting the helper process
+HELPER=git.felix.helper
+killall helper
+(cd $CONFIG_DIR/helper && make)
+$CONFIG_DIR/helper/helper $HELPER > /dev/null 2>&1 &
+
+# Unload the macOS on screen indicator overlay for volume change
+launchctl unload -F /System/Library/LaunchAgents/com.apple.OSDUIHelper.plist > /dev/null 2>&1 &
+
+# Setting up the general bar appearance of the bar
 bar=(
-  height=32
+  height=45
+  color=$BAR_COLOR
+  border_width=0
+  border_color=$BAR_BORDER_COLOR
+  shadow=on
+  position=bottom
+  sticky=on
+  padding_left=9
+  padding_right=9
+  y_offset=3
+  margin=10
+  corner_radius=17
   blur_radius=40
-  position=top
-  sticky=off
-  padding_left=10
-  padding_right=10
-  y_offset=5
-  margin=5
-  corner_radius=10
-  color=0x15ffffff
+  topmost=true
 )
 
 sketchybar --bar "${bar[@]}"
 
-##### Changing Defaults #####
+# Setting up default values
+defaults=(
+  updates=when_shown
+  icon.font="$FONT:Bold:14.0"
+  icon.color=$ICON_COLOR
+  icon.padding_left=$PADDINGS
+  icon.padding_right=$PADDINGS
+  label.font="$FONT:Semibold:13.0"
+  label.color=$LABEL_COLOR
+  label.padding_left=$PADDINGS
+  label.padding_right=$PADDINGS
+  padding_right=$PADDINGS
+  padding_left=$PADDINGS
+  background.height=26
+  background.corner_radius=15
+  background.border_width=0
+  popup.background.border_width=2
+  popup.background.corner_radius=15
+  popup.background.border_color=$POPUP_BORDER_COLOR
+  popup.background.color=$POPUP_BACKGROUND_COLOR
+  popup.blur_radius=20
+  popup.background.shadow.drawing=on
+  scroll_texts=on
+)
 
-sketchybar --default icon.font="CaskaydiaCove Nerd Font:Bold:17.0"  \
-                     icon.color=0xffffffff                 \
-                     label.font="CaskaydiaCove Nerd Font:Bold:14.0" \
-                     label.color=0xffffffff                \
-                     padding_left=5                        \
-                     padding_right=5                       \
-                     label.padding_left=4                  \
-                     label.padding_right=4                 \
-                     icon.padding_left=4                   \
-                     icon.padding_right=4
+sketchybar --default "${defaults[@]}"
 
-##### Adding Mission Control Space Indicators #####
+# Left
+# source "$ITEM_DIR/apple.sh"
+source "$ITEM_DIR/front_app.sh"
+source "$ITEM_DIR/spaces.sh"
+source "$ITEM_DIR/yabai.sh"
+# source "$ITEM_DIR/media.sh"
 
-# SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
-#
-# for i in "${!SPACE_ICONS[@]}"
-# do
-#   sid=$(($i+1))
-#   sketchybar --add space space.$sid left                                 \
-#              --set space.$sid space=$sid                                 \
-#                               icon=$sid                     \
-#                               background.color=0x44ffffff                \
-#                               background.corner_radius=5                 \
-#                               background.height=20                       \
-#                               label.drawing=off                 \
-#                               script="$PLUGIN_DIR/space.sh"   \
-#                               click_script="skhd -k 'cmd - $sid'"
-# done
+# Center
+# source "$ITEM_DIR/spotify.sh"
 
-##### Adding Left Items #####
+# Right
+# source "$ITEM_DIR/calendar.sh"
+source "$ITEM_DIR/dateTime.sh"
+# source "$ITEM_DIR/brew.sh"
+# source "$ITEM_DIR/github.sh"
+source "$ITEM_DIR/wifi.sh"
+source "$ITEM_DIR/battery.sh"
+source "$ITEM_DIR/volume.sh"
+source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/modal.sh"
+# source "$ITEM_DIR/svim.sh"
 
-##front app##
-sketchybar --add item front_app left                               \
-           --set front_app       script="$PLUGIN_DIR/front_app.sh" \
-                                 icon.font="sketchybar-app-font:Regular:16.0" \
-           --subscribe front_app front_app_switched
+sketchybar --hotload on
 
-##modal##
-sketchybar --add item modal center                         \
-           --set modal  \
-                                 icon=                        \
-                                 padding_left=10                   \
-                                 padding_right=10                  \
-
-##media##
-sketchybar --add item music left \
-           --set music label.max_chars=40 \
-                       background.drawing=off \
-                       update_freq=1                       \
-                       script="$PLUGIN_DIR/music.sh" \
-           --subscribe music media_change
-
-##### Adding Right Items #####
-##time##
-sketchybar --add item clock right                              \
-           --set clock   update_freq=10                        \
-                         icon=󱑇                              \
-                         script="$PLUGIN_DIR/clock.sh"         \
-
-##battery##
-sketchybar --add item battery right                            \
-           --set battery script="$PLUGIN_DIR/battery.sh"       \
-                         update_freq=120                       \
-           --subscribe battery system_woke power_source_change 
-
-##wifi##
-sketchybar --add item wifi right \
-           --set wifi script="$PLUGIN_DIR/wifi.sh" \
-                      update_freq=10                       \
-                      label.align=right
-
-
-##### Finalizing Setup #####
+# Forcing all item scripts to run (never do this outside of sketchybarrc)
 sketchybar --update
+# sketchydate
+# bottombar
+
+echo "sketchybar configuation loaded.."

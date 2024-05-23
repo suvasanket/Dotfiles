@@ -1,7 +1,10 @@
+--{{{
 ---@diagnostic disable: lowercase-global
+-- vim: foldmethod=marker
+-- vim: foldlevel=0
 local create_command = vim.api.nvim_create_user_command
 local ex = vim.fn.expand
-cwd = vim.fn.expand("%:p:h")
+pwd = vim.fn.expand("%:p:h")
 file = vim.fn.expand("%:t")
 filewe = vim.fn.expand("%:t:r")
 
@@ -9,10 +12,12 @@ function term(cmd)
 	local ter = table.concat({ "split | resize 15 | term ", cmd })
 	vim.cmd(ter)
 end
+
 function sh(cmd)
 	local zhs = table.concat({ "!", cmd })
 	vim.cmd(zhs)
 end
+--}}}
 --misc
 create_command("CmpEnable", "lua require('cmp').setup.buffer { enabled = true }", {})
 create_command("CmpDisable", "lua require('cmp').setup.buffer { enabled = false }", {})
@@ -34,6 +39,7 @@ function javac()
 	local shit = "cd " .. cwd .. " && javac " .. file .. " && java " .. filewe .. " && rm " .. filewe .. ".class"
 	term(shit)
 end
+
 function clang()
 	local file = ex("%:t")
 	local filewe = ex("%:t:r")
@@ -41,7 +47,7 @@ function clang()
 end
 
 --run
-create_command("Run", function()
+create_command("Runy", function()
 	vim.ui.select(scripts, {
 		prompt = "Scripts",
 	}, function(choice)
@@ -55,3 +61,30 @@ create_command("Run", function()
 		end
 	end)
 end, {})
+
+--luasnip
+create_command("LuaSnipOpen", function()
+	require("luasnip.loaders").edit_snippet_files({
+		extend = function(ft, paths)
+			if #paths == 0 then
+				return {
+					{ "$CONFIG/" .. ft .. ".lua", string.format("%s/%s.lua", "$HOME/.config/nvim/snippets", ft) },
+				}
+			end
+			return {}
+		end,
+	})
+end, {})
+
+--ftplugin
+local function openftplugin()
+    local filepath = vim.fn.stdpath('config').. '/ftplugin/'.. vim.bo.filetype.. '.lua'
+    if not vim.fn.filereadable(filepath) then
+        vim.fn.mkdir(vim.fn.stdpath('config').. '/ftplugin', 'p')
+        vim.fn.writefile({}, filepath)
+    end
+    vim.cmd('vsplit '.. filepath)
+end
+
+-- Register the user command
+create_command('Ftplugin', openftplugin, {})

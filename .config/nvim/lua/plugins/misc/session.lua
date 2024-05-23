@@ -2,7 +2,6 @@ return {
 	"Shatur/neovim-session-manager",
 	cmd = {
 		"SessionManager",
-		"SessionManager load_current_dir_session"
 	},
 	keys = {
 		{ "<leader>ql", "<cmd>SessionManager load_last_session<cr>", desc = "last session" },

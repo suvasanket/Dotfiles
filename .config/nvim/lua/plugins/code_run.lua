@@ -9,6 +9,7 @@ return {
 				typescript = "deno run",
 				rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
 				javascript = "cd $dir && node $fileName",
+				ruby = "cd $dir && ruby $fileName",
 			},
 			project = {
 				["~/codes/projects/java/chat-app/"] = {
@@ -21,7 +22,7 @@ return {
 			startinsert = true,
 		},
 		keys = {
-			{ "<leader>r", "<esc><cmd>RunCode<CR>", mode = { "n" }, desc = "RunCode" },
+			{ "<leader>r", "<cmd>RunCode<CR>", mode = { "n" }, desc = "RunCode" },
 		},
 	},
 }

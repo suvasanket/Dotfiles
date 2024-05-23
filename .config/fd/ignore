@@ -1,10 +1,12 @@
 /Documents/
 /Downloads/
 /Library/
-/dev/
 /Movies/
 /Music/
 /Pictures/
 /.cache/
 /Applications/
 /Public/
+.dev/
+.rustup/
+.mongodb/

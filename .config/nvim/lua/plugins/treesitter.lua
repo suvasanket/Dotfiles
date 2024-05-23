@@ -7,7 +7,6 @@ return {
 		dependencies = {
 			{ "nvim-treesitter/nvim-treesitter-textobjects" },
 			{ "David-Kunz/markid" },
-			{ "HiPhish/nvim-ts-rainbow2" },
 		},
 		config = function()
 			require("nvim-treesitter.configs").setup({

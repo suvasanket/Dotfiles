@@ -5,5 +5,3 @@
 4. Multiplexer : `tmux`
 5. Window Manager : `yabai`
 6. Editor : `nvim`
-
-## Some Screenshots

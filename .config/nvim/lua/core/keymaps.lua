@@ -1,4 +1,6 @@
 --{{{
+-- vim: foldmethod=marker
+-- vim: foldlevel=0
 local function map(mode, lhs, rhs, opts)
 	local options = { noremap = true, silent = true }
 	if opts then
@@ -16,11 +18,12 @@ end
 map("n", "<tab>", "za")
 map("n", "<S-tab>", "zi")
 map("n", "<leader>l", cmd("Lazy"))
-map({ "n", "x" }, "<leader>p", '"+p', { desc = "clipboard paste" })
-map("x", "<c-p>", [["_dP]], { desc = "blackhole paste" })
-map("i","<s-cr>","<c-e><cr>")
-map("n","H","0")
-map("n","L","$")
+-- map({ "n", "x" }, "<leader>p", '"+p', { desc = "clipboard paste" })
+map("n", "<leader>tt", cmd("split|resize 15|term"), { desc = "terminal" })
+map({ "x", "n" }, "<leader>p", [["_dP]], { desc = "blackhole paste" })
+map("n", "<D-C-n>", cmd("bnext"))
+map("n", "<D-C-p>", cmd("bprevious"))
+map("n", "<leader>f", cmd("Telescope find_files"))
 
 --insert
 map({ "i", "c" }, "<C-h>", "<left>")
@@ -41,9 +44,8 @@ map("n", "]b", cmd("bnext"))
 map("n", "[b", cmd("bprevious"))
 map("n", "[t", cmd("tabp"))
 map("n", "]t", cmd("tabn"))
-map("n","<C-q>",cmd("q"))
-map("n","<C-t>",cmd("tabn"))
-map("n","<S-C-t>",cmd("tabp"))
+map("n", "zx", cmd("Bdelete"))
+map("n", "<C-\\>", cmd("q"))
 
 --git
 map(

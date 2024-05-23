@@ -13,7 +13,7 @@ return {
 				format.black,
 				format.stylua,
 				format.clang_format,
-				format.beautysh,
+				format.shfmt,
 
 				diagnostics.zsh,
 
@@ -22,4 +22,7 @@ return {
 			},
 		})
 	end,
+	dependencies = {
+		"ThePrimeagen/refactoring.nvim",
+	},
 }
