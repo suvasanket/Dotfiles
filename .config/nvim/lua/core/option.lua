@@ -4,17 +4,10 @@ local c = vim.cmd
 --appearance
 vim.cmd.colorscheme("onedark")
 o.termguicolors = true
--- o.signcolumn = "auto"
-o.hlsearch = false
+o.signcolumn = "auto"
 o.fillchars = {
 	fold = " ",
-	eob = " ",
-}
-o.listchars = {
-	-- tab = " ",
-	eol = "󱞥",
-	-- trail = " ",
-	-- nbsp = " ",
+	-- eob = " ",
 }
 o.hlsearch = true
 
@@ -90,11 +83,10 @@ o.showtabline = 2
 
 o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
-vim.g.pasta_disabled_filetypes = { "fugitive" }
+vim.g.pasta_disabled_filetypes = { "fugitive", "compilation" }
 
 -- Fix common typos
 c([[
-    cnoreabbrev w silent w
     cnoreabbrev W! w!
     cnoreabbrev W1 w!
     cnoreabbrev w1 w!

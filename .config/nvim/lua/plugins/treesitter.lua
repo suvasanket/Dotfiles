@@ -5,8 +5,12 @@ return {
 		build = ":TSUpdate",
 		event = { "BufRead", "BufNewFile" },
 		dependencies = {
+			--textobjects
 			{ "nvim-treesitter/nvim-treesitter-textobjects" },
+			--multicolor
 			{ "David-Kunz/markid" },
+			--endwise
+			{ "RRethy/nvim-treesitter-endwise" },
 		},
 		config = function()
 			require("nvim-treesitter.configs").setup({
@@ -58,7 +62,7 @@ return {
 					},
 				},
 				markid = { enable = true },
-				rainbow = { enable = true },
+				endwise = { enable = true },
 			})
 		end,
 	},

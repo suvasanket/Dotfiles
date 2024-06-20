@@ -7,6 +7,7 @@ media=(
   icon.padding_right=5
   label.padding_right=15
   # icon.color=$GREEN
+  label.color=$APASTEL
   scroll_texts=off
   updates=on
   update_freq=1
@@ -15,7 +16,6 @@ media=(
   background.height=30
   click_script="nowplaying-cli togglePlayPause"
   icon.y_offset=0.5
-  y_offset=-6
 )
 
 sketchybar  \

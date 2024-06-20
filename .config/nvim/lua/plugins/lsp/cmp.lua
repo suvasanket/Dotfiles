@@ -12,8 +12,8 @@ return {
 		dependencies = {},
 		config = function()
 			local cmp = require("cmp")
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+			-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			-- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 			cmp.setup({
 				sources = {
 					{ name = "path" },
@@ -32,9 +32,9 @@ return {
 						kind.menu = "    (" .. (strings[2] or "") .. ")"
 
 						vim_item.menu = ({
-							buffer = "",
-							nvim_lsp = "",
-							luasnip = "󰇘",
+							buffer = "󰎞",
+							nvim_lsp = "󰅟",
+							luasnip = "",
 						})[entry.source.name]
 
 						return vim_item
@@ -57,12 +57,18 @@ return {
 					end,
 				},
 				experimental = {
-					ghost_text = true,
+					ghost_text = false,
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-u>"] = cmp.mapping.scroll_docs(-4),
 					["<C-d>"] = cmp.mapping.scroll_docs(4),
-					["<C-s>"] = cmp.mapping.confirm({ select = true }),
+					["<C-a>"] = function()
+						if cmp.visible() then
+							cmp.confirm({ select = true })
+						else
+							cmp.complete()
+						end
+					end,
 				}),
 			})
 

@@ -3,9 +3,6 @@ return {
 	{
 		"L3MON4D3/LuaSnip",
 		event = "InsertEnter",
-		keys = {
-			{ "<leader><cr>", "<cmd>LuaSnipOpen<cr>", desc = "snippet file" },
-		},
 		config = function()
 			local ls = require("luasnip") --{{{
 

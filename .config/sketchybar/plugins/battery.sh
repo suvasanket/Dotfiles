@@ -14,19 +14,19 @@ fi
 DRAWING=on
 COLOR=$WHITE
 case ${PERCENTAGE} in
-   100) ICON="󰁹" 
+   100) ICON="󰁹"
      ;;
-    9[0-9]) ICON="󰂂" 
+    9[0-9]) ICON="󰂂"
       ;;
-    8[0-9]) ICON="󰂁" 
+    8[0-9]) ICON="󰂁"
       ;;
-    7[0-9]) ICON="󰂀" 
+    7[0-9]) ICON="󰂀"
       ;;
-    6[0-9]) ICON="󰁿" 
+    6[0-9]) ICON="󰁿"
       ;;
-    5[0-9]) ICON="󰁾" 
+    5[0-9]) ICON="󰁾"
       ;;
-    4[0-9]) ICON="󰁽" 
+    4[0-9]) ICON="󰁽"
       ;;
     3[0-9]) ICON="󰁼"; COLOR=$ORANGE
       ;;
@@ -38,9 +38,9 @@ case ${PERCENTAGE} in
 esac
 
 if [[ $CHARGING != "" ]]; then
-  ICON="󰂄"
-  COLOR=$GREEN
+  ICON=""
+  COLOR=$PASTEL
   # DRAWING=off
 fi
 
-sketchybar --set $NAME drawing=$DRAWING icon="$ICON" icon.color=$COLOR
+sketchybar --set $NAME drawing=$DRAWING icon="$ICON" label="$PERCENTAGE" icon.color=$COLOR

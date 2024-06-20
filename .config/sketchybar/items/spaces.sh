@@ -21,7 +21,7 @@ do
     label.y_offset=-1
     label.background.color=$BACKGROUND_1
     label.background.height=25
-    label.background.corner_radius=15
+    label.background.corner_radius=9
     background.color=$BG1
     update_freq=1
     script="$PLUGIN_DIR/space.sh"
@@ -65,4 +65,3 @@ sketchybar --add bracket spaces '/space\..*/' \
            --add item space_creator left               \
            --set space_creator "${space_creator[@]}"   \
            --subscribe space_creator space_windows_change
-

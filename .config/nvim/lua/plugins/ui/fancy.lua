@@ -70,7 +70,10 @@ return {
 	{
 		"smjonas/inc-rename.nvim",
 		event = "LspAttach",
-		opts = {},
+		opts = {
+			cmd_name = "Rename",
+			save_in_cmdline_history = false,
+		},
 	},
 
 	{

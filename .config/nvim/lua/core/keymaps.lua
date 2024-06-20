@@ -12,40 +12,52 @@ end
 local function cmd(command)
 	return table.concat({ "<Cmd>", command, "<CR>" })
 end
+local filetypemap = require("core.filetype_keymap")
 --}}}
 
 --general
 map("n", "<tab>", "za")
 map("n", "<S-tab>", "zi")
 map("n", "<leader>l", cmd("Lazy"))
--- map({ "n", "x" }, "<leader>p", '"+p', { desc = "clipboard paste" })
+map({ "n", "x" }, "gp", '"+p', { desc = "clipboard paste" })
+map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
 map("n", "<leader>tt", cmd("split|resize 15|term"), { desc = "terminal" })
 map({ "x", "n" }, "<leader>p", [["_dP]], { desc = "blackhole paste" })
-map("n", "<D-C-n>", cmd("bnext"))
-map("n", "<D-C-p>", cmd("bprevious"))
-map("n", "<leader>f", cmd("Telescope find_files"))
+map("n", "<C-q>", function()
+	local result = vim.fn.len(vim.fn.getqflist())
+	if result ~= 0 then
+		vim.cmd("Trouble quickfix")
+		print(result)
+	else
+		print("Quickfix is empty")
+	end
+end, { desc = "quickfix open" })
+map("n", "H", "<C-o>")
+map("n", "L", "<C-i>")
 
---insert
-map({ "i", "c" }, "<C-h>", "<left>")
-map({ "i", "c" }, "<C-l>", "<right>")
-map("i", "<C-j>", "<down>")
-map("i", "<C-k>", "<up>")
+--ftmap
 
--- Beginning and end of line in `:` command mode
-map("c", "<C-a>", "<home>")
-map("c", "<C-e>", "<end>")
+--master
+map("n", "\\s", cmd("LuaSnipOpen"))
+map("n", "\\f", cmd("Ftplugin"))
+map("n", "\\lq", cmd("LspStop"))
+map("n", "\\ls", cmd("LspStart"))
+map("n", "\\cs", cmd("CmpEnable"))
+map("n", "\\cq", cmd("CmpDisable"))
 
 --buffer & tabs
-map("n", "<leader>-", cmd("split"))
+map("n", "<leader>_", cmd("split"))
 map("n", "<leader>|", cmd("vsplit"))
 map("t", "<C-[>", "<C-\\><C-n>")
+map("n", "<C-t>", cmd("tabnew"))
 map("n", "<leader>bf", "gg=G<C-o>", { desc = "buffer format" })
-map("n", "]b", cmd("bnext"))
-map("n", "[b", cmd("bprevious"))
-map("n", "[t", cmd("tabp"))
-map("n", "]t", cmd("tabn"))
-map("n", "zx", cmd("Bdelete"))
-map("n", "<C-\\>", cmd("q"))
+-- map("n", "<C-\\>", cmd("q"))
+
+map("n", "zn", cmd("bnext"))
+map("n", "zp", cmd("bprevious"))
+map("n", "<C-p>", cmd("tabp"))
+map("n", "<C-n>", cmd("tabn"))
+map("n", "<C-e>", "<C-^>")
 
 --git
 map(

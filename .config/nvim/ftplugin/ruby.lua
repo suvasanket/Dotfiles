@@ -1,1 +1,1 @@
-vim.cmd[[compiler ruby]]
+vim.cmd.compiler("ruby")

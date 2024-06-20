@@ -33,7 +33,8 @@ return {
 				end,
 				desc = "smart_open"
 			},
-			{ "<leader>sh", "<cmd>Telescope help_tags<cr>",                 desc = "CommandHist" },
+			{ "<leader>f",  "<cmd>Telescope find_files<cr>",                desc = "find_files" },
+			{ "<leader>sh", "<cmd>Telescope help_tags<cr>",                 desc = "help_tags" },
 			{ "<leader>s;", "<cmd>Telescope command_history<cr>",           desc = "CommandHist" },
 			{ "<leader>so", "<cmd>Telescope oldfiles<cr>",                  desc = "Oldfiles" },
 			{ "<leader>sf", "<cmd>Telescope find_files<cr>",                desc = "Findfiles" },
@@ -41,17 +42,17 @@ return {
 			{ "<leader>bs", "<cmd>Telescope lsp_document_symbols<cr>",      desc = "Symbols" },
 			{ "<leader>bg", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "current_buffer_fuzzy_find" },
 			{ "<leader>ws", "<cmd>Telescope lsp_workspace_symbols<cr>",     desc = "Workspace_symbols" },
-			{ "<leader>wg", "<cmd>Telescope grep_string<cr>",               desc = "Live_grep" },
-			{ "<leader>wd", "<cmd>Telescope diagnostics<cr>",               desc = "Workspace diagnostics" },
+			{ "<leader><cr>", "<cmd>Telescope live_grep<cr>",                 desc = "Live_grep" },
+			-- { "<leader>wd", "<cmd>Telescope diagnostics<cr>",               desc = "Workspace diagnostics" },
 			{ "<leader>gb", "<cmd>Telescope git_branches<cr>",              desc = "git branches" },
 			{ "<leader>gf", "<cmd>Telescope git_files<cr>",                 desc = "git files" },
 			{ "<leader>gc", "<cmd>Telescope git_commits<cr>",               desc = "git commits" },
 			{ "<leader>s",  "<cmd>Telescope<cr>" },
 		},
 		config = function()
+			require("telescope").load_extension("smart_open")
 			require("telescope").setup({
 				defaults = {
-					borderchars={ " ", " ", " ", " ", " ", " ", " ", " " },
 					layout_strategy = "horizontal",
 					layout_config = {
 						height = 0.8,
@@ -81,6 +82,11 @@ return {
 					find_files = {
 						previewer = true,
 						hidden = true,
+						mappings = {
+							i = {
+								-- ["<CR>"] = require("telescope.actions").select_tab_drop,
+							},
+						},
 					},
 					git_commits = {
 						theme = "dropdown",
@@ -105,9 +111,10 @@ return {
 						},
 					},
 				},
-				extensions = {},
+				extensions = {
+					smart_open = {},
+				},
 			})
-			require("telescope").load_extension("smart_open")
 		end,
 	},
 }

@@ -1,22 +1,18 @@
 local function use_trouble()
 	local status_ok, trouble = pcall(require, "trouble")
-	local result = vim.api.nvim_exec('echo len(getqflist())', true)
+	local result = vim.fn.len(vim.fn.getqflist())
 	if status_ok then
-		if result == '0' then
-			vim.cmd"TroubleClose"
-			print("Quickfix is empty")
+		if result == 0 then
+			vim.defer_fn(function()
+				vim.cmd.cclose()
+				trouble.close("quickfix")
+			end, 0)
 		else
-			if vim.fn.getloclist(0, { filewinid = 1 }).filewinid ~= 0 then
-				vim.defer_fn(function()
-					vim.cmd.lclose()
-					trouble.open("loclist")
-				end, 0)
-			else
-				vim.defer_fn(function()
-					vim.cmd.cclose()
-					trouble.open("quickfix")
-				end, 0)
-			end
+			vim.defer_fn(function()
+				vim.cmd.cclose()
+				trouble.open("quickfix")
+				print(result)
+			end, 0)
 		end
 	end
 end

@@ -3,6 +3,8 @@
 ### Sonokai
 export BLACK=0xff181819
 export WHITE=0xffb5b5b5
+export PASTEL=0xffabd290
+export APASTEL=0x9e7f7f7f
 # export WHITE=0xff383838
 export RED=0xfffc5d7c
 export GREEN=0xff9ed072
@@ -34,7 +36,7 @@ export BG2=0xff414550
 # General bar colors
 export BAR_COLOR=$BG0
 export BAR_BORDER_COLOR=$BG2
-export BACKGROUND_1=0x903c3e4f
+export BACKGROUND_1=0x822e2d2d
 export BACKGROUND_2=0xff575757
 export ICON_COLOR=$WHITE # Color of all icons
 export LABEL_COLOR=$WHITE # Color of all labels

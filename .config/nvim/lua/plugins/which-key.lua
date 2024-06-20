@@ -17,11 +17,14 @@ return {
 					a = { "add_workspace_folder" },
 					r = { "remove_workspace_folder" },
 				},
+				s = {
+					name = "+search",
+				},
 				c = {
 					name = "+code",
 				},
 				g = { name = "+git" },
-				d = { name = "+dap" },
+				d = { name = "+debug" },
 				b = { name = "+buffer" },
 				n = { name = "+notes" },
 				f = { name = "+find" },
@@ -121,6 +124,10 @@ return {
 						o = { "nextAroundBlocks" },
 					},
 				},
+			},
+			["\\"] = {
+				c = { "+cmp" },
+				l = { "+lsp" },
 			},
 		})
 		vim.o.timeout = true

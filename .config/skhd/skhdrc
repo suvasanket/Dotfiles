@@ -1,55 +1,53 @@
 ################ Modes ##################
-:: default : sketchybar -m --set modal icon="" label=""
-:: window @ : sketchybar -m --set modal icon="󰭠"
-:: resize @ : sketchybar -m --set modal icon="󰙖"
-:: launch @ : sketchybar -m --set modal icon="󱓞"
-
-# :: default : sketchybar -m --set modal icon="" label="" && borders active_color=0x00000000
-# :: window @ : sketchybar -m --set modal icon="󰭠" && borders active_color=0xfff0600c width=5
-# :: resize @ : sketchybar -m --set modal icon="󰙖" && borders active_color=0xffdee61c width=5
+# :: default : sketchybar -m --set modal icon="" label=""
+# :: window @ : sketchybar -m --set modal icon="󰭠"
+# :: resize @ : sketchybar -m --set modal icon="󰙖"
 # :: launch @ : sketchybar -m --set modal icon="󱓞"
 
+:: default : sketchybar -m --set modal icon="" label="" && borders active_color=0x00000000
+:: window @ : sketchybar -m --set modal icon="󰭠" && borders active_color=0xfff0600c width=5
+:: resize @ : sketchybar -m --set modal icon="󰙖" && borders active_color=0xffdee61c width=5
+:: launch @ : sketchybar -m --set modal icon="󱓞"
+
 window, launch, resize < space ; default
-default < alt - w ; window
-default < alt - r ; resize
-default < ctrl - space ; launch
+default < alt + shift - w ; window
+default < alt + shift - r ; resize
+default < alt - space ; launch
 
 ############################## Good Stuff ##########################################
-alt - tab : yabai -m window --focus recent
-alt + shift - w : yabai -m window --toggle float \
-             yabai -m window --grid 5:5:1:1:3:3
+# alt - tab : yabai -m window --focus recent
+alt - tab : skhd -k 'ctrl - tab'
 
 
 ############################## App launcher ########################################
-lalt - i : open /Applications/iTerm.app
-lalt - a : open /Applications/Arc.app
+lalt - i : skhd -k 'alt - 1'; open /Applications/iTerm.app
+lalt - a : skhd -k 'alt - 2'; open /Applications/Floorp.app
 lalt - o : open /Applications/Obsidian.app
-lalt - f : open /System/Library/CoreServices/Finder.app
-# lalt - f : open /Applications/Path\ Finder.app
+lalt - f : open /Users/suvasanketrout/Downloads/
+# lalt - a : open /Applications/Arc.app
 
 #launch
-launch < ctrl - space ; default
-launch < c : open /System/Applications/Calendar.app && skhd -k 'space'
-launch < 0x29 : open /Users/suvasanketrout/Applications/Todoist.app && skhd -k 'space'
-# launch < 0x29 : open /Applications/Todoist.app && skhd -k 'space'
-# launch < 0x29 : open /Applications/TickTick.app && skhd -k 'space'
-launch < u : open /Applications/CleanMyMac\ X.app && skhd -k 'space'
-launch < m : open /System/Applications/Utilities/Activity\ Monitor.app && skhd -k 'space'
+launch < alt - space ; default
+launch < c : open /System/Applications/Calendar.app; skhd -k 'space'
+launch < 0x29 : open /Users/suvasanketrout/Applications/Todoist.app; skhd -k 'space'
+launch < u : open /Applications/CleanMyMac\ X.app; skhd -k 'space'
+launch < m : open /System/Applications/Utilities/Activity\ Monitor.app; skhd -k 'space'
 ############################## App launcher ########################################
 
 ######################## window mode #######################################
 window < alt + shift - w ; default
 window < r ; resize
 
+# window < a : yabai -m window --toggle float || yabai -m window --grid 5:5:1:1:3:3 && skhd -k 'space'
 window < c : yabai -m window --toggle split
 window < 0 : yabai -m space --balance
 window < f : yabai -m window --toggle float
 window < m : yabai -m window --toggle zoom-fullscreen && skhd -k 'space'
 window < b : yabai -m space --layout bsp && skhd -k 'space'
-# window < s : yabai -m space --layout stack && skhd -k 'space'
-window < s : ~/.config/skhd/stagemanager.sh && skhd -k 'space'
-window < a : ~/dotfiles/.config/skhd/focusname.sh && skhd -k 'space'
-window < backspace : ~/dotfiles/.config/skhd/focusname_re.sh && skhd -k 'space'
+# window < s : yabai -m space --layout stack && skhd -k 'space' && skhd -k 'cmd + shift - f3'
+window < s : ~/.config/skhd/stagemanager.sh
+window < alt + shift - a : ~/dotfiles/.config/skhd/focusname.sh && skhd -k 'space'
+window < alt + shift - r : ~/dotfiles/.config/skhd/focusname_re.sh && skhd -k 'space'
 window < t : yabai -m space --toggle padding --toggle gap && skhd -k 'space'
 
 # change window focus within space
@@ -83,11 +81,11 @@ resize < shift - j : yabai -m window --resize top:0:20
 resize < shift - h : yabai -m window --resize right:-20:0
 ############################ resize mode ##################################
 
-lalt + shift - 1 : yabai -m window --space  1 && yabai -m window --focus recent
-lalt + shift - 2 : yabai -m window --space  2 && yabai -m window --focus recent
-lalt + shift - 3 : yabai -m window --space  3 && yabai -m window --focus recent
-lalt + shift - 4 : yabai -m window --space  4 && yabai -m window --focus recent
-lalt + shift - 5 : yabai -m window --space  5 && yabai -m window --focus recent
+lalt + shift - 1 : yabai -m window --space  1; yabai -m window --focus recent
+lalt + shift - 2 : yabai -m window --space  2; yabai -m window --focus recent
+lalt + shift - 3 : yabai -m window --space  3; yabai -m window --focus recent
+lalt + shift - 4 : yabai -m window --space  4; yabai -m window --focus recent
+lalt + shift - 5 : yabai -m window --space  5; yabai -m window --focus recent
 
 # change window focus
 lalt - j : yabai -m window --focus south
@@ -102,20 +100,29 @@ lalt + shift - k : yabai -m window --swap north
 lalt + shift - l : yabai -m window --swap east
 
 ############################### APP specific keymap ###################################
-ctrl - j [ 
-* : skhd -k 'down' 
+ctrl - j [
+* : skhd -k 'down'
 "iTerm2" ~
 "Zed" ~
+"Terminal" ~
 ]
-ctrl - k [ 
+ctrl - k [
 * : skhd -k 'up'
 "iTerm2" ~
 "Zed" ~
+"Terminal" ~
 ]
 ctrl - 0x21 [
 * : skhd -k 'escape'
 "iTerm2" ~
 "Zed" ~
+"Terminal" ~
+]
+ctrl - c [
+* : skhd -k 'escape'
+"iTerm2" ~
+"Zed" ~
+"Terminal" ~
 ]
 
 cmd - q [

@@ -83,7 +83,7 @@ cs("CMD", {
 })
 
 -- single line vim.cmd
-cs("cmd", fmt("vim.cm[[{}]]", { i(1, "") }))
+cs("cmd", fmt("vim.cmd[[{}]]", { i(1, "") }))
 
 -- {regexSnippet} LuaSnippet
 cs(
@@ -91,7 +91,7 @@ cs(
 	fmt(
 		[=[
 cs( -- {}
-{{ trig = "{}", regTrig = true, hidden = true }}, fmt([[ 
+{{ trig = "{}", regTrig = true, hidden = true }}, fmt([[
 {}
 ]], {{
   {}
@@ -139,19 +139,34 @@ cs("{}", fmt(
 cs(
 	"choice_node_snippet",
 	fmt(
-		[[ 
+		[[
 c({}, {{ {} }}),
 ]],
 		{
 			i(1, "num"),
 			c(2, {
-				fmt([[t("{}")]],{i(1,"textnode")}),
-				fmt([=[fmt([[{}]],{{{}}})]=],{i(1,"pattern"),i(2,"node")})
-
+				fmt([[t("{}")]], { i(1, "textnode") }),
+				fmt([=[fmt([[{}]],{{{}}})]=], { i(1, "pattern"), i(2, "node") }),
 			}),
 		}
 	),
 	{ pattern = "*/snippets/*.lua", "jcn" }
+)
+
+--some
+cs(
+	"foldblock",
+	fmt(
+		[[
+--{{{{{{ {}
+{}
+--}}}}}}
+]],
+		{
+			i(1,"desc"),
+			i(2)
+		}
+	)
 )
 
 -- End Refactoring --

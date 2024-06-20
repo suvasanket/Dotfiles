@@ -1,6 +1,7 @@
 return {
 	{
 		"CRAG666/code_runner.nvim",
+		enabled = false,
 		opts = {
 			filetype = {
 				c = "cd $dir && clang $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt && rm $fileNameWithoutExt",

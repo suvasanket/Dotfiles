@@ -23,8 +23,26 @@ autocmd("VimEnter", {
 		hi("IlluminatedWordText", { link = "Visual" })
 		hi("IlluminatedWordRead", { link = "Visual" })
 		hi("IlluminatedWordWrite", { link = "Visual" })
+		hi("TroubleNormal", { link = "Normal" })
+		hi("TroubleNormalNC", { link = "Normal" })
 		hi("hlyank", { bg = "#FF9B50" })
 		hi("CmpItemAbbrMatchFuzzyDefault", { fg = "#F2613F" })
+		hi("NormalFloat", { link = "Normal" })
+		hi("FloatBorder", { bg = none })
+	end,
+})
+
+--ft keymap
+autocmd("FileType", {
+	pattern = { "fugitive", "trouble" },
+	callback = function(event)
+		local ft = vim.bo.filetype
+		if ft == "fugitive" then
+			vim.keymap.set("n", "P", ":Git push", { buffer = event.buf })
+			vim.keymap.set("n", "p", ":Git pull", { buffer = event.buf })
+		elseif ft == "trouble" then
+			vim.keymap.set("n", "<C-q>", "<cmd>Clearqflist<cr>", { buffer = event.buf, silent = true })
+		end
 	end,
 })
 
@@ -45,7 +63,6 @@ autocmd("FileType", {
 		"man",
 		"lspinfo",
 		"fugitive",
-		"crunner",
 		"qf",
 		"noice",
 	},
@@ -77,9 +94,7 @@ autocmd("FileType", {
 })
 
 --terminal win
-augroup("term", { clear = true })
 autocmd("TermOpen", {
-	group = "term",
 	pattern = "*",
 	callback = function()
 		vim.cmd("setlocal nonumber norelativenumber")
@@ -131,8 +146,27 @@ autocmd("BufNewFile", {
 	end,
 })
 
---source
+--hotreload
+augroup("hotreload", { clear = true })
 autocmd("BufWritePost", {
+	group = "hotreload",
 	pattern = { "*/ftplugin/*.lua", "*/core/*.lua" },
-	command = "source%",
+	command = "silent source%",
+})
+
+autocmd("BufWritePost", {
+	group = "hotreload",
+	pattern = { "tmux.conf", "skhdrc", "yabairc", "statusline.lua", ".aerospace.toml" },
+	callback = function()
+		local filename = vim.fn.expand("%")
+		if filename == "tmux.conf" then
+			vim.cmd("silent !tmux source /Users/suvasanketrout/.config/tmux/tmux.conf")
+		elseif filename == "skhdrc" then
+			vim.cmd("silent !skhd --restart-service")
+		elseif filename == "yabairc" then
+			vim.cmd("silent !yabai --restart-service")
+		elseif filename == ".aerospace.toml" then
+			vim.cmd("silent !aerospace reload-config")
+		end
+	end,
 })

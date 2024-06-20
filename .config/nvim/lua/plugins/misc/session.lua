@@ -5,7 +5,7 @@ return {
 	},
 	keys = {
 		{ "<leader>ql", "<cmd>SessionManager load_last_session<cr>", desc = "last session" },
-		{ "<leader>qs", "<cmd>SessionManager load_session<cr>", desc = "load session" },
+		{ "<leader>qs", "<cmd>SessionManager<cr>", desc = "SessionManager" },
 		{ "<leader>qd", "<cmd>SessionManager delete_session<cr>", desc = "delete session" },
 	},
 	event = {"QuitPre"},

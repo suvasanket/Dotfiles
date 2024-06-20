@@ -17,6 +17,7 @@ function sh(cmd)
 	local zhs = table.concat({ "!", cmd })
 	vim.cmd(zhs)
 end
+
 --}}}
 --misc
 create_command("CmpEnable", "lua require('cmp').setup.buffer { enabled = true }", {})
@@ -78,13 +79,34 @@ end, {})
 
 --ftplugin
 local function openftplugin()
-    local filepath = vim.fn.stdpath('config').. '/ftplugin/'.. vim.bo.filetype.. '.lua'
-    if not vim.fn.filereadable(filepath) then
-        vim.fn.mkdir(vim.fn.stdpath('config').. '/ftplugin', 'p')
-        vim.fn.writefile({}, filepath)
-    end
-    vim.cmd('vsplit '.. filepath)
+	local filepath = vim.fn.stdpath("config") .. "/ftplugin/" .. vim.bo.filetype .. ".lua"
+	if not vim.fn.filereadable(filepath) then
+		vim.fn.mkdir(vim.fn.stdpath("config") .. "/ftplugin", "p")
+		vim.fn.writefile({}, filepath)
+	end
+	vim.cmd("vsplit " .. filepath)
 end
 
 -- Register the user command
-create_command('Ftplugin', openftplugin, {})
+create_command("Ftplugin", openftplugin, {})
+
+--qflist
+create_command("Clearqflist", function()
+	vim.fn.setqflist({})
+	print("qflist cleaned")
+end, {})
+
+create_command("Echoqflist", function()
+	local result = vim.api.nvim_exec("echo len(getqflist())", true)
+	print(result)
+end, {})
+
+vim.cmd([[
+	cnoreabbrev clearqflist Clearqflist
+]])
+
+create_command("MakeC",function ()
+	vim.cmd("Trouble close")
+	vim.cmd("w")
+	vim.cmd("Make%")
+end,{})

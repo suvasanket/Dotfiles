@@ -2,10 +2,12 @@
 
 battery=(
   script="$PLUGIN_DIR/battery.sh"
-  icon.font="$FONT:Regular:19.0"
+  icon.font="JetBrainsMono Nerd Font:Regular:14.0"
+  label.font="JetBrainsMono Nerd Font:Bold:14.0"
+  label.color=$APASTEL
   padding_right=5
   padding_left=0
-  label.drawing=off
+  # icon.drawing=off
   update_freq=120
   updates=on
   y_offset=0

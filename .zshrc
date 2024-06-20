@@ -1,7 +1,21 @@
+############ HomeBrew ##############
+
 if [[ -f "/opt/homebrew/bin/brew" ]] then
   # If you're using macOS, you'll want this enabled
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+## Python ##
+export PATH="$(brew --prefix)/opt/python@3.12/libexec/bin:$PATH"
+
+## Ruby ##
+if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+  export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+  export PATH=`gem environment gemdir`/bin:$PATH
+fi
+
+export PATH=$PATH:~/.gem/ruby/3.3.0/bin
+
+############ ZINIT ##############
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -21,7 +35,7 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
-# Add in snippets
+# Add in snippets (omz style)
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
@@ -35,8 +49,8 @@ zinit cdreplay -q
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Keybindings
-bindkey -v
-bindkey '^e' autosuggest-accept
+bindkey -e
+bindkey '^a' autosuggest-accept
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
@@ -66,8 +80,6 @@ if [[ $TMUX ]]; then
     alias clear='clear && tmux clear-history'
 fi
 alias ls="exa --icons --color-scale -x"
-alias v="nvim"
-alias vi="nvim ."
 alias s="exec zsh"
 alias gsed="sed"
 alias ff="tmux new-window 'fd --type f --hidden |fzf|xargs nvim'"
@@ -77,9 +89,22 @@ alias gi="git init"
 alias vuc="cd && cd .vim && rm -rf undodir && mkdir undodir && cdh"
 alias "mvn create"="mvn archetype:generate"
 alias ta="tmux a || tmux new -s 'Home'"
+alias v="nvim"
+alias vo="nvim ."
 alias vf="nvim -c 'Telescope smart_open'"
+alias vl="nvim -c'SessionManager load_last_session'"
+cdl() { cd "$@" && ls; }
+gemuninstall() { gem list --no-version | grep'$@' | xargs gem uninstall}
+alias doom="~/.config/emacs/bin/doom"
 
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
