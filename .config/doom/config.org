@@ -1,16 +1,32 @@
-;; (setq doom-font (font-spec :famiLy "Iosevka Comfy Motion Fixed" :size 18 :weight 'Medium)
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 17 :weight 'SemiBold)
-      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 20 :weight 'Bold))
+#+title: Config
+#+property: header-args :tangle config.el
 
+* ui
+** Fonts
+#+begin_src emacs-lisp
+  ;; (setq doom-font (font-spec :famiLy "Iosevka Comfy Motion Fixed" :size 18 :weight 'Medium)
+  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 17 :weight 'SemiBold)
+        doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 20 :weight 'Bold))
+#+end_src
+
+** themes
+#+begin_src emacs-lisp
 (setq doom-theme 'adwaita-dark)
 ;; (setq doom-theme 'doom-monokai-pro)
+#+end_src
 
+** line number
+#+begin_src emacs-lisp
 (setq display-line-numbers-type 'relative)
-
+#+end_src
+** transparency
+#+begin_src emacs-lisp
 ;; set transparency
 ;; (set-frame-parameter (selected-frame) 'alpha '(98 98))
 ;; (add-to-list 'default-frame-alist '(alpha 98 98))
-
+#+end_src
+** spacious padding
+#+begin_src emacs-lisp
 (use-package! spacious-padding
   :init
   (spacious-padding-mode 1)
@@ -27,23 +43,36 @@
   ;; (setq spacious-padding-subtle-mode-line
   ;;       '(:mode-line-active shadow :mode-line-inactive shadow))
   )
-
+#+end_src
+* dashboard
+#+begin_src emacs-lisp
 (setq fancy-splash-image "~/.dev/splash_img/meditate.png")
 ;; (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 (setq +doom-dashboard-menu-sections (cl-subseq +doom-dashboard-menu-sections 0 1))
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-footer)
+#+end_src
 
+* tabbar
++ not in use
+#+begin_src emacs-lisp
 (setq centaur-tabs-style "alternate"
       centaur-tabs-height 20
       centaur-tabs-set-bar nil
       centaur-tabs-set-close-button nil)
+#+end_src
 
+* macos
+** frame
+#+begin_src emacs-lisp
 ;; (add-to-list 'default-frame-alist '(undecorated . t))
 (setq confirm-kill-emacs nil)
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 (setq ns-use-proxy-icon nil)
+#+end_src
 
+** emacs client auto focus on open
+#+begin_src emacs-lisp
 (when (featurep 'ns)
   (defun ns-raise-emacs ()
     "Raise Emacs."
@@ -56,7 +85,11 @@
   (add-hook 'after-make-frame-functions 'ns-raise-emacs-with-frame)
   (when (display-graphic-p)
     (ns-raise-emacs)))
+#+end_src
 
+* modeline
+** doom modeline
+#+begin_src emacs-lisp
 ;; (after! doom-modeline
 ;;   (remove-hook 'doom-modeline-mode-hook #'size-indication-mode) ; filesize in modeline
 ;;   (remove-hook 'doom-modeline-mode-hook #'column-number-mode)   ; cursor column in modeline
@@ -70,7 +103,10 @@
 ;;   )
 ;; (custom-set-faces!
 ;;   '(doom-modeline-bar :inherit modeline-bg))
+#+end_src
 
+** lambda line
+#+begin_src emacs-lisp
 (use-package! lambda-line
   :custom
   (lambda-line-position 'bottom) ;; Set position of status-line
@@ -92,7 +128,11 @@
   (when (eq lambda-line-position 'top)
     (setq-default mode-line-format (list "%_"))
     (setq mode-line-format (list "%_"))))
+#+end_src
 
+* org mode
+** Org Better defaults
+#+begin_src emacs-lisp
 (after! org
   (setopt org-startup-indented t
           org-ellipsis ""
@@ -113,41 +153,63 @@
           org-highlight-latex-and-related '(native)
           org-goto-auto-isearch nil)
   )
+#+end_src
 
+** mapings
+#+begin_src emacs-lisp
 (map! :after evil-org
       :map evil-org-mode-map
       :n "SPC ." #'org-roam-node-find)
+#+end_src
 
-(use-package! org-modern
-  :custom
-  (org-modern-star "replace")
-  (org-modern-label-border 0.4)
-  (org-modern-replace-stars "◉○◈◇✳")
+** org modern
+#+begin_src emacs-lisp
+    (use-package! org-modern
+      :custom
+      (org-modern-star "replace")
+      (org-modern-label-border 0.4)
+      (org-modern-replace-stars "◉○◈◇✳")
 
-  :config
-  (global-org-modern-mode)
-  )
+      :config
+      (global-org-modern-mode)
+      )
+#+end_src
 
-(setq consult-buffer-filter
-    '("\\` " "\\`\\*.*\\'")
-    )
-
+** tangle
+#+begin_src emacs-lisp
+  (setq consult-buffer-filter
+      '("\\` " "\\`\\*.*\\'")
+      )
+#+end_src
+* dired
+** options
+#+begin_src emacs-lisp
 (add-hook 'dired-mode-hook
           (lambda ()
             (dired-hide-details-mode)
             (dired-sort-toggle-or-edit)))
+#+end_src
 
+** kill bg dired buffers
+#+begin_src emacs-lisp
 (defun kill-dired-buffers ()
   (interactive)
   (mapc (lambda (buffer)
           (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
             (kill-buffer buffer)))
         (buffer-list)))
+#+end_src
 
+** mappings
+#+begin_src emacs-lisp
 (map! :map dired-mode-map
       :gnv "h" 'dired-up-directory
       :gnv "l"  'dired-find-alternate-file)
+#+end_src
 
+* projectile
+
+#+begin_src emacs-lisp
 (setq projectile-switch-project-action #'projectile-dired)
 (setq projectile-sort-order 'recentf)
 (setq projectile-project-search-path '("~/codes/" ))
@@ -155,11 +217,18 @@
   (let ((evil-vsplit-window-right t))
     (+evil/window-vsplit-and-follow)
     (find-file f)))
+#+end_src
 
+* Mappings
+** minibuffer
+#+begin_src emacs-lisp
 (define-key minibuffer-mode-map (kbd "C-v") (kbd "C-; o"))
 (map! :map minibuffer-mode-map
       "C-a" #'embark-act)
+#+end_src
 
+** evil
+#+begin_src emacs-lisp
 (map! :after evil
       :n "C-s-p" 'previous-buffer
       :n "C-s-n" 'next-buffer
@@ -170,24 +239,40 @@
       :n "C-j" 'evil-window-down
       :n "C-k" 'evil-window-up
       :n "C-l" 'evil-window-right)
+#+end_src
 
+#+begin_src emacs-lisp
 (map! :leader
       :desc "kill dired buffers"
       "b d" #'kill-dired-buffers)
+#+end_src
 
+** override
+#+begin_src emacs-lisp
 ;; (map! :map 'override
 ;;       :n "SPC b d" #'kill-dired-buffers
 ;;       )
+#+end_src
 
+* completion
+** corfu
+#+begin_src emacs-lisp
 (setq corfu-preselect 'first)
 (map! :map corfu-map
       :gi "C-a" 'corfu-complete)
+#+end_src
 
+* vterm
+#+begin_src emacs-lisp
 ;;vterm
 (map! :after vterm
       :map vterm-mode-map
       :ni "ESC" #'vterm-send-escape)
+#+end_src
 
+* consult
+#+begin_src emacs-lisp
 (setq consult-buffer-filter
       '("\\` " "\\`\\*.*\\'")
       )
+#+end_src

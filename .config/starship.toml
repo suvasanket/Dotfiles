@@ -1,7 +1,7 @@
 add_newline = true
 
 # format="""
-# $character 
+# $character
 # $custom
 # """
 # right_format = """$all"""
@@ -75,7 +75,8 @@ style = "#A8A196"
 format = "[ $version]($style) "
 style = "#A8A196"
 
-
 [ruby]
 format = "[ $version]($style) "
 style = "red"
+detect_variables = ['RBENV_VERSION']
+# disabled = true

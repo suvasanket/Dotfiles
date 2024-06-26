@@ -31,8 +31,8 @@ return {
 			skip_confirm_for_simple_edits = true,
 			keymaps = {
 				["g?"] = "actions.show_help",
-				["H"] = "actions.parent",
-				["L"] = "actions.select",
+				["h"] = "actions.parent",
+				["l"] = "actions.select",
 				["<C-v>"] = "actions.select_vsplit",
 				["<C-s>"] = "actions.select_split",
 				["<C-t>"] = "actions.select_tab",

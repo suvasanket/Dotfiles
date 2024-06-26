@@ -50,3 +50,8 @@
 ;; (unpin! t)
 
 (package! org-modern)
+(package! spacious-padding)
+(package! solaire-mode :disable t)
+(package! adwaita-dark-theme)
+(package! lambda-line
+  :recipe (:host github :repo "Lambda-Emacs/lambda-line"))
