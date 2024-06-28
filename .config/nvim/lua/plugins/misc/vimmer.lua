@@ -4,6 +4,10 @@ return {
 		event = "BufRead",
 	},
 	{
+		"tpope/vim-unimpaired",
+		event = "VeryLazy"
+	},
+	{
 		"ku1ik/vim-pasta",
 		event = "BufRead",
 	},

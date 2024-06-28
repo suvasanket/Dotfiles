@@ -3,7 +3,7 @@ return {
 	enabled = true,
 	lazy = false,
 	keys = {
-		{ "-", "<cmd>Oil<cr>" },
+		{ "-", "<cmd>Oil --float<cr>" },
 	},
 	config = function()
 		require("oil").setup({
@@ -48,10 +48,18 @@ return {
 				["go"] = "actions.open_external",
 				["g."] = "actions.toggle_hidden",
 				["g\\"] = "actions.toggle_trash",
+				["<C-c>"] = false,
 			},
 
 			view_options = {
 				show_hidden = true,
+				is_always_hidden = function(name, bufnr)
+					if name == ".DS_Store" then
+						return true
+					else
+						return false
+					end
+				end,
 			},
 		})
 	end,

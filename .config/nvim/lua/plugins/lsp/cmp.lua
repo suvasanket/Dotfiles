@@ -17,9 +17,9 @@ return {
 			cmp.setup({
 				sources = {
 					{ name = "path" },
-					{ name = "luasnip", keyword_length = 1 },
-					{ name = "nvim_lsp", keyword_length = 1 },
-					{ name = "buffer", keyword_length = 1 },
+					{ name = "luasnip", keyword_length = 3 },
+					{ name = "nvim_lsp", keyword_length = 4 },
+					{ name = "buffer", keyword_length = 4 },
 				},
 
 				formatting = {
@@ -46,6 +46,9 @@ return {
 						col_offset = -3,
 						side_padding = 0,
 					},
+					documentation = {
+						bordered = true
+					}
 				},
 				completion = {
 					-- keyword_length = 4,

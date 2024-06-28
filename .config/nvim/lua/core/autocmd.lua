@@ -28,7 +28,7 @@ autocmd("VimEnter", {
 		hi("hlyank", { bg = "#FF9B50" })
 		hi("CmpItemAbbrMatchFuzzyDefault", { fg = "#F2613F" })
 		hi("NormalFloat", { link = "Normal" })
-		hi("FloatBorder", { bg = none })
+		hi("FloatBorder", { bg = NONE })
 	end,
 })
 
@@ -65,6 +65,7 @@ autocmd("FileType", {
 		"fugitive",
 		"qf",
 		"noice",
+		"vim"
 	},
 	callback = function(event)
 		vim.cmd("setlocal listchars= nonumber norelativenumber")

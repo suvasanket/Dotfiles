@@ -2,6 +2,7 @@ return {
 	--jk
 	{
 		"max397574/better-escape.nvim",
+		event = "InsertEnter",
 		config = function()
 			require("better_escape").setup({
 				mapping = { "jk", "kj" }, -- a table with mappings to use

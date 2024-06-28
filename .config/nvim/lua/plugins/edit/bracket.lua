@@ -1,15 +1,24 @@
 return {
 	{
-		"windwp/nvim-autopairs",
-		event = { "InsertEnter" },
+		"altermo/ultimate-autopair.nvim",
+		event = { "InsertEnter", "CmdlineEnter" },
 		opts = {
-			map_cr = true,
-			map_bs = true,
+			--Config goes here
 		},
 	},
 	{
 		"windwp/nvim-ts-autotag",
-		ft = { "html", "css" },
+		ft = { "html", "css", "eruby" },
+		config = function()
+			require("nvim-ts-autotag").setup({
+				opts = {
+					-- Defaults
+					enable_close = true, -- Auto close tags
+					enable_rename = true, -- Auto rename pairs of tags
+					enable_close_on_slash = true, -- Auto close on trailing </
+				},
+			})
+		end,
 	},
 	{
 		"kylechui/nvim-surround",

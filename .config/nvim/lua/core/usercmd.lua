@@ -110,3 +110,8 @@ create_command("MakeC",function ()
 	vim.cmd("w")
 	vim.cmd("Make%")
 end,{})
+
+--history delete
+create_command("CmdlineHistoryDel",function ()
+	vim.fn.histdel(':')
+end,{})

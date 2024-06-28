@@ -68,6 +68,7 @@ alt-o = 'exec-and-forget open /Applications/Obsidian.app'
 alt-i = 'exec-and-forget open /Applications/iTerm.app'
 alt-a = 'exec-and-forget open /Applications/Vivaldi.app'
 alt-t = 'exec-and-forget open /Applications/Microsoft\ To\ Do.app'
+alt-v = 'exec-and-forget open /Applications/IINA.app'
 # alt-e = ['workspace 1','exec-and-forget emacsclient -a "" -c "$@"']
 ### APP ql ###
 

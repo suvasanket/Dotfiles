@@ -16,8 +16,7 @@ fzf-tmux \
     --no-separator \
     -h 75% \
     -w 70% \
-    --prompt='󰈞 ' \
-    --pointer='' \
+    --prompt=' ' \
     --tiebreak=index \
     --bind 'ctrl-d:reload(fd --search-path $HOME --type d --hidden)+change-preview(tree {})' \
     | \

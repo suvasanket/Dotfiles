@@ -32,7 +32,7 @@ o.autochdir = true
 o.relativenumber = true
 o.number = true
 o.cursorline = true
-o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20"
+-- o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20"
 -- o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
 
 --tab indent
