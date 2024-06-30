@@ -10,9 +10,9 @@ if [ "$PLAYBACK_RATE" == "0" ]; then
 else
     ICON=
 fi
-  
+
 if [ "$PLAYBACK_RATE" != "null" ]; then
-  sketchybar --set $NAME icon="$ICON" label="$TRACK" drawing=on click_script="nowplaying-cli togglePlayPause"
+  sketchybar --set $NAME icon="$ICON" label="$TRACK" drawing=on click_script="$NPCLI togglePlayPause"
 else
   sketchybar --set $NAME drawing=off
 fi

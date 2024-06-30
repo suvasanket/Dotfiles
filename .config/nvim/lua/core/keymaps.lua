@@ -38,7 +38,7 @@ map("n", "L", "<C-i>")
 
 --ftmap
 
---master
+--maste
 map("n", "\\s", cmd("LuaSnipOpen"))
 map("n", "\\f", cmd("Ftplugin"))
 map("n", "\\lq", cmd("LspStop"))
@@ -52,7 +52,7 @@ map("n", "<leader>|", cmd("vsplit"))
 map("t", "<C-[>", "<C-\\><C-n>")
 map("n", "<C-t>", cmd("tabnew"))
 map("n", "<leader>bf", "gg=G<C-o>", { desc = "buffer format" })
--- map("n", "<C-\\>", cmd("q"))
+map("n", "<C-\\>", cmd("q"))
 
 map("n", "zn", cmd("bnext"))
 map("n", "zp", cmd("bprevious"))
@@ -71,6 +71,9 @@ map("n", "<leader>gr", function()
 	local user_input = vim.fn.input("url:")
 	vim.cmd("G remote add origin " .. user_input)
 end, { desc = "git add remote" })
+
+--smart-enter
+map("i", "<S-CR>", "<C-c>O")
 
 --smart-dele
 map("n", "dd", function()

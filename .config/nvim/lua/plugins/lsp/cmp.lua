@@ -12,6 +12,7 @@ return {
 		dependencies = {},
 		config = function()
 			local cmp = require("cmp")
+			local luasnip = require("luasnip")
 			-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 			-- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 			cmp.setup({
@@ -34,7 +35,7 @@ return {
 						vim_item.menu = ({
 							buffer = "󰎞",
 							nvim_lsp = "󰅟",
-							luasnip = "",
+							luasnip = "󰇘",
 						})[entry.source.name]
 
 						return vim_item
@@ -46,9 +47,7 @@ return {
 						col_offset = -3,
 						side_padding = 0,
 					},
-					documentation = {
-						bordered = true
-					}
+					documentation = cmp.config.window.bordered(),
 				},
 				completion = {
 					-- keyword_length = 4,

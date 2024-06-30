@@ -1,4 +1,4 @@
---{{{ Some spooky stuff
+--{{{ helper
 -- vim: foldmethod=marker
 -- vim: foldlevel=0
 local lsp = require("lspconfig")
@@ -100,46 +100,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 --}}}
-
---lua
-lsp.lua_ls.setup({
-	settings = {
-		Lua = {
-			hint = {
-				enable = true,
-			},
-		},
-	},
-})
-
---tsserver
-lsp.tsserver.setup({
-	root_dir = root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
-	settings = {
-		javascript = {
-			inlayHints = {
-				includeInlayEnumMemberValueHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayParameterNameHints = "all",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayVariableTypeHints = true,
-			},
-		},
-	},
-})
-
---css
-lsp.cssls.setup({
-	single_file_support = false,
-})
-
---html
-lsp.emmet_ls.setup({})
-
---python
-lsp.jedi_language_server.setup({})
 
 --ruby
 lsp.solargraph.setup({})

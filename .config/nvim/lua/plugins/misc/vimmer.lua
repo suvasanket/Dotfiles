@@ -20,14 +20,9 @@ return {
 	{
 		"Asheq/close-buffers.vim",
 		keys = {
-			{ "zx", "<cmd>Bdelete other<cr>", desc = "delete buffer" },
-			{ "zc", "<cmd>Bdelete hidden<cr>", desc = "delete buffer" },
-		},
-	},
-	{
-		"mhinz/vim-sayonara",
-		keys = {
-			{ "<C-\\>", "<cmd>Sayonara<cr>", desc = "quit" },
+			{ "zx", "<cmd>Bdelete hidden<cr>", desc = "delete buffer" },
+			{ "zc", "<cmd>Bdelete menu<cr>", desc = "buffer menu" },
+			{ "<C-S-\\>", "<cmd>Bdelete this<cr>", desc = "this" },
 		},
 	},
 }

@@ -1,0 +1,3 @@
+-- vim.keymap.set({"n"}, "<leader>f", "<cmd>Telescope fd cwd=$HOME find_command=fd,-t=d<cr>", { desc = "find dir" })
+-- ftmap{ "n","J","j" }
+-- ftmap{ "n","K","k" }

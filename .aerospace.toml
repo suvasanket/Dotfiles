@@ -66,7 +66,8 @@ cmd-shift-w = 'close'
 alt-f = 'exec-and-forget open /System/Library/CoreServices/Finder.app'
 alt-o = 'exec-and-forget open /Applications/Obsidian.app'
 alt-i = 'exec-and-forget open /Applications/iTerm.app'
-alt-a = 'exec-and-forget open /Applications/Vivaldi.app'
+alt-a = 'exec-and-forget open /Applications/Chromium.app'
+# alt-a = 'exec-and-forget open /Applications/Vivaldi.app'
 alt-t = 'exec-and-forget open /Applications/Microsoft\ To\ Do.app'
 alt-v = 'exec-and-forget open /Applications/IINA.app'
 # alt-e = ['workspace 1','exec-and-forget emacsclient -a "" -c "$@"']
@@ -95,8 +96,16 @@ if.app-id = 'com.vivaldi.Vivaldi'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = 'md.obsidian'
+if.app-id = 'org.chromium.Chromium'
+run = ['move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'com.colliderli.iina'
 run = ['move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = ['move-node-to-workspace 4']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'

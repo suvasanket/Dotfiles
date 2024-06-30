@@ -47,7 +47,9 @@ return {
 		},
 		config = function()
 			require("telescope").setup({
+				winblend = 20;
 				defaults = {
+					borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
 					layout_strategy = "horizontal",
 					layout_config = {
 						height = 0.8,
@@ -57,56 +59,21 @@ return {
 						},
 					},
 					sorting_strategy = "ascending",
-					prompt_title = false,
-					preview_title = false,
+					preview = {
+						filesize_limit = 0.1,
+					},
 					prompt_prefix = "> ",
 					selection_caret = " ",
 					mappings = {
-						n = {
-							["q"] = require("telescope.actions").close,
-						},
 						i = {
 							["<C-[>"] = require("telescope.actions").close,
 							["<C-j>"] = "move_selection_next",
 							["<C-k>"] = "move_selection_previous",
+							["<C-u>"] = false
 						},
 					},
 				},
 				pickers = {
-					colorscheme = {
-						enable_preview = true,
-					},
-					find_files = {
-						previewer = true,
-						hidden = true,
-						mappings = {
-							i = {
-								-- ["<CR>"] = require("telescope.actions").select_tab_drop,
-							},
-						},
-					},
-					git_commits = {
-						theme = "dropdown",
-						layout_config = {
-							height = 0.4,
-						},
-					},
-					git_branches = {
-						theme = "dropdown",
-						layout_config = {
-							height = 0.4,
-						},
-					},
-					grep_string = {
-						layout_config = {
-							preview_width = 0.6,
-						},
-					},
-					current_buffer_fuzzy_find = {
-						layout_config = {
-							preview_width = 0.6,
-						},
-					},
 				},
 				extensions = {
 					smart_open = {
