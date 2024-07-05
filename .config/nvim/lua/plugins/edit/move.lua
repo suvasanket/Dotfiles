@@ -1,25 +1,25 @@
 return {
 	"echasnovski/mini.move",
 	keys = {
-		{ "<C-h>", mode = "x" },
-		{ "<C-j>", mode = "x" },
-		{ "<C-k>", mode = "x" },
-		{ "<C-l>", mode = "x" },
+		{ "H", mode = { "x", "n" } },
+		{ "J", mode = { "x", "n" } },
+		{ "K", mode = { "x", "n" } },
+		{ "L", mode = { "x", "n" } },
 	},
 	config = function()
 		require("mini.move").setup({
 			mappings = {
 				-- Cove visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
-				left = "<C-h>",
-				right = "<C-l>",
-				down = "<C-j>",
-				up = "<C-k>",
+				left = "H",
+				right = "L",
+				down = "J",
+				up = "K",
 
 				-- Cove current line in Normal mode
-				line_left = "",
-				line_right = "",
-				line_down = "",
-				line_up = "",
+				line_left = "H",
+				line_right = "L",
+				line_down = "J",
+				line_up = "K",
 			},
 
 			-- Options which control moving behavior

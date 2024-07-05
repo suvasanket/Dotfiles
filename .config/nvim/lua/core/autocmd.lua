@@ -1,8 +1,6 @@
---{{{
--- vim: foldmethod=marker
--- vim: foldlevel=0
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
+require("core.helper")
+
+--HighLight
 local hi = function(name, val, id)
 	local defaultid = 0
 	if id then
@@ -10,39 +8,30 @@ local hi = function(name, val, id)
 	end
 	vim.api.nvim_set_hl(defaultid, name, val)
 end
---}}}
-
---HghLight
 autocmd("VimEnter", {
 	pattern = "*",
 	callback = function()
-		-- hl("CursorLine", { blend = 3 })
-		-- hl("DiagnosticFloatingInfo", { blend = 5 })
 		hi("Folded", { fg = "#7D7C7C" })
 		hi("Search", { link = "IncSearch" })
+
 		hi("IlluminatedWordText", { link = "Visual" })
 		hi("IlluminatedWordRead", { link = "Visual" })
 		hi("IlluminatedWordWrite", { link = "Visual" })
+
 		hi("TroubleNormal", { link = "Normal" })
 		hi("TroubleNormalNC", { link = "Normal" })
 		hi("hlyank", { bg = "#FF9B50" })
 		hi("CmpItemAbbrMatchFuzzyDefault", { fg = "#F2613F" })
 		hi("NormalFloat", { link = "Normal" })
 		hi("FloatBorder", { bg = NONE })
-	end,
-})
 
---ft keymap
-autocmd("FileType", {
-	pattern = { "fugitive", "trouble" },
-	callback = function(event)
-		local ft = vim.bo.filetype
-		if ft == "fugitive" then
-			vim.keymap.set("n", "P", ":Git push", { buffer = event.buf })
-			vim.keymap.set("n", "p", ":Git pull", { buffer = event.buf })
-		elseif ft == "trouble" then
-			vim.keymap.set("n", "<C-q>", "<cmd>Clearqflist<cr>", { buffer = event.buf, silent = true })
-		end
+		hi("TelescopeBorder", {  fg = "#272829", bg = "#222222" })
+		hi("TelescopeNormal", {  bg = "#222222" })
+		hi("TelescopePromptBorder", { link = "TelescopeBorder" })
+		hi("TelescopeResultsBorder", { link = "TelescopeBorder" })
+		hi("TelescopePreviewBorder", { link = "TelescopeBorder" })
+
+		hi("Pmenu", { bg = "#222222" })
 	end,
 })
 
@@ -71,7 +60,8 @@ autocmd("FileType", {
 		vim.cmd("setlocal listchars= nonumber norelativenumber")
 		vim.opt_local.wrap = false
 		vim.bo[event.buf].buflisted = false
-		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+		map("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+		map("n", "<esc>", "<cmd>noh<cr>", { buffer = event.buf, silent = true })
 	end,
 })
 
@@ -157,7 +147,7 @@ autocmd("BufWritePost", {
 
 autocmd("BufWritePost", {
 	group = "hotreload",
-	pattern = { "tmux.conf", "skhdrc", "yabairc", "statusline.lua", ".aerospace.toml" },
+	pattern = { "tmux.conf", "skhdrc", "yabairc", "statusline.lua", "aerospace.toml" },
 	callback = function()
 		local filename = vim.fn.expand("%")
 		if filename == "tmux.conf" then
@@ -166,7 +156,7 @@ autocmd("BufWritePost", {
 			vim.cmd("silent !skhd --restart-service")
 		elseif filename == "yabairc" then
 			vim.cmd("silent !yabai --restart-service")
-		elseif filename == ".aerospace.toml" then
+		elseif filename == "aerospace.toml" then
 			vim.cmd("silent !aerospace reload-config")
 		end
 	end,

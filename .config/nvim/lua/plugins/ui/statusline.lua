@@ -6,7 +6,7 @@ return {
 			yellow = "#FFFF80",
 			cyan = "#79dac8",
 			black = "#0F0F0F",
-			white = "#c6c6c6",
+			white = "#C8C6C6",
 			red = "#ff5189",
 			green = "#BACD92",
 			grey = "#303030",
@@ -15,11 +15,11 @@ return {
 		local bubbles_theme = {
 			normal = {
 				a = { fg = colors.green, bg = colors.grey, gui = "bold" },
-				b = { fg = colors.green, bg = colors.grey },
-				c = { fg = colors.green, bg = colors.grey },
+				b = { fg = colors.white, bg = colors.grey },
+				c = { fg = colors.white, bg = colors.grey },
 			},
 			insert = {
-				-- a = { fg = colors.grey, bg = colors.green, gui = "bold" },
+				a = { fg = colors.grey, bg = colors.green, gui = "bold" },
 				b = { fg = colors.grey, bg = colors.green },
 				c = { fg = colors.grey, bg = colors.green },
 			},
@@ -39,11 +39,11 @@ return {
 				c = { fg = colors.black, bg = colors.red },
 			},
 
-			-- inactive = {
-			-- 	a = { fg = colors.white },
-			-- 	b = { fg = colors.white },
-			-- 	c = { fg = colors.white },
-			-- },
+			inactive = {
+				a = { fg = colors.green, bg = colors.grey },
+				b = { fg = colors.green, bg = colors.grey },
+				c = { fg = colors.green, bg = colors.grey },
+			},
 		}
 		local lsp = function()
 			local bufnr = vim.api.nvim_get_current_buf()
@@ -78,18 +78,23 @@ return {
 					},
 				},
 				lualine_b = {
-					{ "branch", icon = "󰊢", separator = "" },
-					"%=",
-				},
-				lualine_c = {
 					{ "filetype", icon_only = true, padding = { left = 1, right = 0 }, separator = "" },
-					{ "filename", path = 3, padding = { left = 0, right = 0 } },
+					{ "filename", path = 1, padding = { left = 0, right = 0 } },
+					-- "%=",
 				},
+				lualine_c = {},
 				lualine_x = {
-					{ "diagnostics", sections = { 'error' }, symbols = { error = " ", warn = " ", info = " ", hint = "󰛨 " } },
+					{
+						"diagnostics",
+						sections = { "error" },
+						symbols = { error = "", warn = "", info = "", hint = "" },
+					},
 					lsp,
 				},
 				lualine_y = {
+					{ "branch", icon = { "󰊢", color = { fg = "red" } }, separator = "" },
+				},
+				lualine_z = {
 					{
 						function()
 							return "["
@@ -106,11 +111,29 @@ return {
 						padding = { left = 0, right = 1 },
 					},
 				},
+			},
+			tabline = {
+			},
+			extensions = {},
+			inactive_sections = {
+				lualine_a = {
+					{
+						"mode",
+						fmt = function(str)
+							return str:sub(1, 3)
+						end,
+						"%",
+					},
+				},
+				lualine_b = {},
+				lualine_c = {
+					{ "filetype", icon_only = true, padding = { left = 1, right = 0 }, separator = "" },
+					{ "filename", path = 1, padding = { left = 0, right = 0 } },
+				},
+				lualine_x = {},
+				lualine_y = {},
 				lualine_z = {},
 			},
-			tabline = {},
-			extensions = {},
-			inactive = {},
 		})
 	end,
 }

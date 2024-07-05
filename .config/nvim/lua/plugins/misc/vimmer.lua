@@ -11,18 +11,17 @@ return {
 		"ku1ik/vim-pasta",
 		event = "BufRead",
 	},
-	-- {
-	-- 	"moll/vim-bbye",
-	-- 	keys = {
-	-- 		{ "zx", "<cmd>Bdelete<cr>", desc = "delete buffer" },
-	-- 	},
-	-- },
 	{
-		"Asheq/close-buffers.vim",
+		"moll/vim-bbye",
 		keys = {
-			{ "zx", "<cmd>Bdelete hidden<cr>", desc = "delete buffer" },
-			{ "zc", "<cmd>Bdelete menu<cr>", desc = "buffer menu" },
-			{ "<C-S-\\>", "<cmd>Bdelete this<cr>", desc = "this" },
+			{ "<C-S-\\>", "<cmd>Bdelete<cr>", desc = "delete buffer" },
+		},
+	},
+	{
+		"kazhala/close-buffers.nvim",
+		keys = {
+			{ "zx", "<cmd>BDelete hidden<cr>", desc = "delete buffer" },
+			{ "zX", "<cmd>BDelete all<cr>", desc = "delete buffer" },
 		},
 	},
 }

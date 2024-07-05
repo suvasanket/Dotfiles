@@ -6,7 +6,9 @@ return {
 	{
 		"nvim-tree/nvim-web-devicons",
 		event = "VimEnter",
-		opts = {},
+		config = function ()
+			require("nvim-web-devicons").set_default_icon('', '#658147', 65)
+		end
 	},
 
 	--nui

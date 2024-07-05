@@ -19,9 +19,11 @@ return {
 					PmenuSel = { bg = "#282C34", fg = "NONE" },
 					Pmenu = { fg = "#C5CDD9", bg = "#22252A" },
 
-					CmpItemAbbrDeprecated = { fg = "#7E8294", bg = "NONE", strikethrough = true },
-					CmpItemAbbrMatch = { fg = "#82AAFF", bg = "NONE", bold = true },
-					CmpItemAbbrMatchFuzzy = { fg = "#82AAFF", bg = "NONE", bold = true },
+					CmpItemAbbrDeprecated = { fg = "#7E8294", bg = "NONE" },
+					CmpItemAbbrMatch = { fg = "#DAC0A3", bg = "NONE", fmt = "bold" },
+					CmpItemAbbrMatchFuzzy = { fg = "#DAC0A3", bg = "NONE", fmt = "bold" },
+
+					TelescopeBorder = { fg = "#303030" , bg = "#303030" }
 				},
 			})
 			require("onedark").load()

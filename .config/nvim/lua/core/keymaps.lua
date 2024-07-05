@@ -1,19 +1,11 @@
---{{{
--- vim: foldmethod=marker
--- vim: foldlevel=0
-local function map(mode, lhs, rhs, opts)
-	local options = { noremap = true, silent = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.keymap.set(mode, lhs, rhs, options)
-end
+require("core.helper")
 
-local function cmd(command)
-	return table.concat({ "<Cmd>", command, "<CR>" })
-end
-local filetypemap = require("core.filetype_keymap")
---}}}
+-- ** buffer only map (buffer of a specified ft) ** --
+bufmap("compilation", "n", "n", cmd("NextError"))
+bufmap("compilation", "n", "p", cmd("PrevError"))
+bufmap("compilation", "n", "r", cmd("Recompile"))
+
+bufmap("trouble", "n", "<C-q>", cmd("Clearqflist"))
 
 --general
 map("n", "<tab>", "za")
@@ -36,9 +28,7 @@ end, { desc = "quickfix open" })
 map("n", "H", "<C-o>")
 map("n", "L", "<C-i>")
 
---ftmap
-
---maste
+--master
 map("n", "\\s", cmd("LuaSnipOpen"))
 map("n", "\\f", cmd("Ftplugin"))
 map("n", "\\lq", cmd("LspStop"))
@@ -61,6 +51,8 @@ map("n", "<C-n>", cmd("tabn"))
 map("n", "<C-e>", "<C-^>")
 
 --git
+bufmap("fugitive", "n", "P", ":G push")
+bufmap("fugitive", "n", "p", ":G pull")
 map(
 	"n",
 	"<leader>gl",

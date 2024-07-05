@@ -45,6 +45,9 @@ alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
 
+alt-rightSquareBracket = 'workspace next'
+alt-leftSquareBracket = 'workspace prev'
+
 alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
 alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
 alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
@@ -68,7 +71,7 @@ alt-o = 'exec-and-forget open /Applications/Obsidian.app'
 alt-i = 'exec-and-forget open /Applications/iTerm.app'
 alt-a = 'exec-and-forget open /Applications/Chromium.app'
 # alt-a = 'exec-and-forget open /Applications/Vivaldi.app'
-alt-t = 'exec-and-forget open /Applications/Microsoft\ To\ Do.app'
+alt-t = 'exec-and-forget open /Applications/TickTick.app'
 alt-v = 'exec-and-forget open /Applications/IINA.app'
 # alt-e = ['workspace 1','exec-and-forget emacsclient -a "" -c "$@"']
 ### APP ql ###
@@ -112,15 +115,7 @@ if.app-id = 'com.apple.mail'
 run = ['move-node-to-workspace 4']
 
 [[on-window-detected]]
-if.app-id = 'com.microsoft.to-do-mac'
-run = ['move-node-to-workspace 4']
-#
-[[on-window-detected]]
 if.app-id = 'com.macpaw.CleanMyMac4'
-run = ['layout floating','move-node-to-workspace 5']
-
-[[on-window-detected]]
-if.app-id = 'com.apple.ActivityMonitor'
 run = ['layout floating','move-node-to-workspace 5']
 
 [[on-window-detected]]

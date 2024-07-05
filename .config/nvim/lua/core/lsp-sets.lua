@@ -71,6 +71,18 @@ lsp.util.default_config = vim.tbl_extend("force", lsp.util.default_config, {
 	on_attach = on_attach,
 })
 
+--}}}
+
+--ruby
+lsp.solargraph.setup({})
+-- lsp.rubocop.setup({})
+
+--c/c++
+capabilities.offsetEncoding = { "utf-16" }
+lsp.clangd.setup({
+	capabilities = capabilities,
+})
+
 --keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
@@ -78,7 +90,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations toggle focus=true<cr>", opts)
 		vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references toggle focus=true<cr>", opts)
 		vim.keymap.set("n", "gtd", "<cmd>Trouble lsp_type_definitions toggle focus=true<cr>", opts)
-		vim.keymap.set("n", "<leader>cd", "<cmd>Trouble diagnostics toggle<cr>", { desc = "diagnostic" })
+		vim.keymap.set("n", "cd", "<cmd>Trouble diagnostics toggle<cr>", { desc = "diagnostic" })
 		vim.keymap.set(
 			"n",
 			"\\i",
@@ -90,7 +102,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<F2>", ":Rename ", { silent = true, desc = "rename" })
 		vim.keymap.set("n", "gd", ":lua vim.lsp.buf.definition()<cr>", opts)
 		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-		vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, opts)
+		-- vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, opts)
+		vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, opts)
 		vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
 		vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
 		vim.keymap.set("n", "<leader>wl", function()
@@ -98,15 +111,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end, opts)
 		vim.keymap.set({ "n", "i" }, "<C-s>", vim.lsp.buf.format, opts)
 	end,
-})
---}}}
-
---ruby
-lsp.solargraph.setup({})
--- lsp.rubocop.setup({})
-
---c/c++
-capabilities.offsetEncoding = { "utf-16" }
-lsp.clangd.setup({
-	capabilities = capabilities,
 })
