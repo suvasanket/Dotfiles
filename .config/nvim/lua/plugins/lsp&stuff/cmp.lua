@@ -1,5 +1,9 @@
 return {
-	{ "hrsh7th/cmp-nvim-lsp", event = "InsertEnter" },
+	{
+		"hrsh7th/cmp-nvim-lsp",
+		event = "InsertEnter",
+		dependencies = "hrsh7th/cmp-nvim-lsp-signature-help"
+	},
 	{ "hrsh7th/cmp-buffer", event = { "InsertEnter", "CmdlineEnter" } },
 	{ "hrsh7th/cmp-cmdline", event = "CmdlineEnter" },
 	{ "hrsh7th/cmp-path", event = "InsertEnter" },
@@ -20,6 +24,7 @@ return {
 					{ name = "path" },
 					{ name = "luasnip", keyword_length = 3 },
 					{ name = "nvim_lsp", keyword_length = 4 },
+					{ name = "nvim_lsp_signature_help" },
 					{ name = "buffer", keyword_length = 4 },
 				},
 
@@ -48,7 +53,9 @@ return {
 						side_padding = 0,
 						winblend = 7
 					},
-					documentation = cmp.config.window.bordered(),
+					documentation = {
+						winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+					}
 				},
 				completion = {
 					-- keyword_length = 4,

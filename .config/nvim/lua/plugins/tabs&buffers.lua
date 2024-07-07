@@ -1,7 +1,8 @@
 return {
+	-- tabline
 	{
 		"nanozuki/tabby.nvim",
-		event = "VimEnter",
+		event = "TabEnter",
 		dependencies = {
 			{ "nvim-tree/nvim-web-devicons" },
 			{
@@ -11,26 +12,38 @@ return {
 		},
 		config = function()
 			local theme = {
-				current = { fg = "#BACD92", bg = "#303030", style = "bold" },
-				not_current = { fg = "#a3a3a3", bg = "#303030" },
-
-				fill = { bg = "#303030" },
+				fill = "TabLineFill",
+				-- Also you can do this: fill = { fg='#f2e9de', bg='#907aa9', style='italic' }
+				head = "TabLine",
+				current_tab = "TabLineSel",
+				tab = "TabLine",
+				win = "TabLine",
+				tail = "TabLine",
 			}
-
-			require("tabby.tabline").set(function(line)
-				return {
-					line.tabs().foreach(function(tab)
-						local hl = tab.is_current() and theme.current or theme.not_current
-						return {
-							line.sep(" ", hl, theme.fill),
-							tab.name(),
-							line.sep(" ", hl, theme.fill),
-							hl = hl,
-						}
-					end),
-					hl = theme.fill,
-				}
-			end)
+			require("tabby").setup({
+				line = function(line)
+					return {
+						{
+							line.sep("", theme.head, theme.fill),
+						},
+						line.tabs().foreach(function(tab)
+							local hl = tab.is_current() and theme.current_tab or theme.tab
+							return {
+								line.sep("", hl, theme.fill),
+								-- tab.is_current() and "" or "",
+								tab.name(),
+								tab.close_btn(""),
+								line.sep("", hl, theme.fill),
+								hl = hl,
+								margin = " ",
+							}
+						end),
+						line.spacer(),
+						hl = theme.fill,
+					}
+				end,
+				-- option = {}, -- setup modules' option,
+			})
 		end,
 	},
 }

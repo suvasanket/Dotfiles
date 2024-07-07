@@ -77,11 +77,13 @@ return {
 	},
 
 	{
-		"cappyzawa/trim.nvim",
+		"echasnovski/mini.trailspace",
 		event = "BufRead",
-		opts = {
-			highlight = false,
-			highlight_bg = "#413543",
-		},
+		keys = { { "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>", desc = "trim whitespaces" } },
+		config = function()
+			require("mini.trailspace").setup({
+				only_in_normal_buffers = true,
+			})
+		end,
 	},
 }

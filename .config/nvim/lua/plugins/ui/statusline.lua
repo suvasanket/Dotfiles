@@ -10,13 +10,14 @@ return {
 			red = "#ff5189",
 			green = "#BACD92",
 			grey = "#303030",
+			grey_white = "#B4B4B3"
 		}
 
 		local bubbles_theme = {
 			normal = {
-				a = { fg = colors.green, bg = colors.grey, gui = "bold" },
-				b = { fg = colors.white, bg = colors.grey },
-				c = { fg = colors.white, bg = colors.grey },
+				a = { fg = colors.grey_white, bg = colors.grey, gui = "bold" },
+				b = { fg = colors.grey_white, bg = colors.grey },
+				c = { fg = colors.grey_white, bg = colors.grey },
 			},
 			insert = {
 				a = { fg = colors.grey, bg = colors.green, gui = "bold" },
@@ -40,9 +41,9 @@ return {
 			},
 
 			inactive = {
-				a = { fg = colors.green, bg = colors.grey },
-				b = { fg = colors.green, bg = colors.grey },
-				c = { fg = colors.green, bg = colors.grey },
+				a = { fg = colors.grey_white, bg = colors.grey },
+				b = { fg = colors.grey_white, bg = colors.grey },
+				c = { fg = colors.grey_white, bg = colors.grey },
 			},
 		}
 		local lsp = function()
@@ -79,7 +80,17 @@ return {
 				},
 				lualine_b = {
 					{ "filetype", icon_only = true, padding = { left = 1, right = 0 }, separator = "" },
-					{ "filename", path = 1, padding = { left = 0, right = 0 } },
+					{
+						"filename",
+						path = 1,
+						padding = { left = 0, right = 0 },
+						symbols = {
+							modified = "",
+							readonld = "!",
+							unnamed = "[No Name]",
+							newfile = "[New]",
+						},
+					},
 					-- "%=",
 				},
 				lualine_c = {},
@@ -112,8 +123,7 @@ return {
 					},
 				},
 			},
-			tabline = {
-			},
+			tabline = {},
 			extensions = {},
 			inactive_sections = {
 				lualine_a = {

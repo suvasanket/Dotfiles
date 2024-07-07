@@ -11,6 +11,19 @@ return {
 		end
 	},
 
+	-- kind
+	{
+		"onsails/lspkind.nvim",
+		event = { "InsertEnter", "CmdlineEnter" },
+		config = function ()
+			require('lspkind').init({
+				symbol_map = {
+					Variable = "󰫧",
+				}
+			})
+		end
+	},
+
 	--nui
 	{ "MunifTanjim/nui.nvim", event = "VeryLazy" },
 

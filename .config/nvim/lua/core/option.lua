@@ -2,7 +2,7 @@ local opt = vim.opt
 local cmd = vim.cmd
 
 --appearance
-vim.cmd.colorscheme("onedark")
+vim.cmd.colorscheme("fleet")
 opt.termguicolors = true
 opt.signcolumn = "auto"
 opt.fillchars = {

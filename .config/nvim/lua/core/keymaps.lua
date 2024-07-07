@@ -7,6 +7,8 @@ bufmap("compilation", "n", "r", cmd("Recompile"))
 
 bufmap("trouble", "n", "<C-q>", cmd("Clearqflist"))
 
+bufmap("markdown", "n", "<leader>ff", cmd("ObsidianQuickSwitch"))
+
 --general
 map("n", "<tab>", "za")
 map("n", "<S-tab>", "zi")
@@ -25,8 +27,10 @@ map("n", "<C-q>", function()
 		print("Quickfix is empty")
 	end
 end, { desc = "quickfix open" })
-map("n", "H", "<C-o>")
-map("n", "L", "<C-i>")
+map("i", "<C-l>", "<right>")
+map("i", "<C-k>", "<up>")
+map("i", "<C-j>", "<down>")
+map("i", "<C-h>", "<left>")
 
 --master
 map("n", "\\s", cmd("LuaSnipOpen"))

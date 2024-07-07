@@ -1,6 +1,7 @@
 return {
 	"petertriho/nvim-scrollbar",
 	event = "BufRead",
+	enabled = false,
 	opts = {
 		handle = {
 			blend = 30, -- Integer between 0 and 100. 0 for fully opaque and 100 to full transparent. Defaults to 30.

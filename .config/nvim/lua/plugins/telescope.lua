@@ -144,7 +144,7 @@ return {
 			end
 			require("telescope").setup({
 				defaults = {
-					winblend = 2;
+					winblend = 5;
 					prompt_title = false,
 					results_title = false,
 					preview_title = false,

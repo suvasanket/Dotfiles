@@ -18,7 +18,7 @@ require("lazy").setup({
 		{ import = "plugins.misc" },
 		{ import = "plugins.ui" },
 		{ import = "plugins.edit" },
-		{ import = "plugins.lsp" },
+		{ import = "plugins.lsp&stuff" },
 	},
 	ui = { border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" } },
 
