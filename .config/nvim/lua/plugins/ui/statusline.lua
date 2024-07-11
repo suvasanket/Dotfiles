@@ -86,9 +86,9 @@ return {
 						padding = { left = 0, right = 0 },
 						symbols = {
 							modified = "",
-							readonld = "!",
-							unnamed = "[No Name]",
-							newfile = "[New]",
+							readonly = "!",
+							unnamed = "[unnamed]",
+							newfile = "󰎔",
 						},
 					},
 					-- "%=",
@@ -138,7 +138,17 @@ return {
 				lualine_b = {},
 				lualine_c = {
 					{ "filetype", icon_only = true, padding = { left = 1, right = 0 }, separator = "" },
-					{ "filename", path = 1, padding = { left = 0, right = 0 } },
+					{
+						"filename",
+						path = 1,
+						padding = { left = 0, right = 0 },
+						symbols = {
+							modified = "",
+							readonly = "󰈡",
+							unnamed = "[unnamed]",
+							newfile = "󰎔",
+						},
+					},
 				},
 				lualine_x = {},
 				lualine_y = {},

@@ -153,7 +153,7 @@ c({}, {{ {} }}),
 	{ pattern = "*/snippets/*.lua", "jcn" }
 )
 
---some
+-- vim style fold block
 cs(
 	"foldblock",
 	fmt(

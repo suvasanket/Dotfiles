@@ -16,11 +16,12 @@ autocmd("VimEnter", {
 		hi("IlluminatedWordRead", { link = "Visual" })
 		hi("IlluminatedWordWrite", { link = "Visual" })
 
+		hi("TreesitterContext", { link = "CursorLine" })
+
 		hi("TroubleNormal", { link = "Normal" })
 		hi("TroubleNormalNC", { link = "Normal" })
 
 		hi("hlyank", { bg = "#FF9B50" })
-		hi("CmpItemAbbrMatchFuzzyDefault", { fg = "#F2613F" })
 		hi("NormalFloat", { link = "Normal" })
 		hi("FloatBorder", { bg = NONE })
 
@@ -30,6 +31,7 @@ autocmd("VimEnter", {
 		hi("TelescopeResultsBorder", { link = "TelescopeBorder" })
 		hi("TelescopePreviewBorder", { link = "TelescopeBorder" })
 
+		hi("CmpItemAbbrMatchFuzzyDefault", { fg = "#F2613F" })
 		hi("PmenuSel", { bg = "#282C34", fg = "NONE" })
 		hi("Pmenu", { fg = "#C5CDD9", bg = "#22252A" })
 		hi("CmpItemAbbrDeprecated", { fg = "#7E8294", bg = "NONE" })
@@ -42,6 +44,9 @@ autocmd("VimEnter", {
 		hi("@string", { fg = "#EADBC8" })
 		hi("MiniIndentscopeSymbol", { fg = "#45474B" })
 		hi("FloatBorder", { fg = "#434242" })
+		hi("DiagnosticSignError", { fg = "#eb5f61" })
+		hi("DiagnosticSignWarn", { fg = "#ee7f25" })
+		hi("ObsidianRefText", { fg = "#DBB5B5" })
 	end,
 })
 

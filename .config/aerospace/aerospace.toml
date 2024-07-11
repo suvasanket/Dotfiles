@@ -58,7 +58,7 @@ alt-tab = 'workspace-back-and-forth'
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 alt-shift-w = ['mode service','exec-and-forget sketchybar -m --set modal icon="󰭠"']
-alt-shift-a = ['mode join','exec-and-forget sketchybar -m --set modal icon="󱈘"']
+# alt-shift-a = ['mode join','exec-and-forget sketchybar -m --set modal icon="󱈘"']
 
 # cmd-h = []
 # ctrl-cmd-f = 'macos-native-fullscreen'
@@ -136,10 +136,10 @@ space = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""
 #s = ['layout sticky tiling', 'mode main'] # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 
 # 'join' binding mode declaration
-[mode.join.binding]
-alt-shift-h = ['join-with left', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-alt-shift-j = ['join-with down', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-alt-shift-k = ['join-with up', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-alt-shift-l = ['join-with right', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-esc = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-space = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+# [mode.join.binding]
+# alt-shift-h = ['join-with left', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+# alt-shift-j = ['join-with down', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+# alt-shift-k = ['join-with up', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+# alt-shift-l = ['join-with right', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+# esc = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+# space = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']

@@ -1,4 +1,5 @@
 return {
+	-- jk
 	{
 		"rainbowhxch/accelerated-jk.nvim",
 		keys = {
@@ -6,5 +7,10 @@ return {
 			{ "k", "<Plug>(accelerated_jk_gk)" },
 		},
 		config = function() end,
+	},
+	-- [  ]
+	{
+		"tpope/vim-unimpaired",
+		event = "VeryLazy",
 	},
 }

@@ -4,20 +4,18 @@ require("core.helper")
 bufmap("compilation", "n", "n", cmd("NextError"))
 bufmap("compilation", "n", "p", cmd("PrevError"))
 bufmap("compilation", "n", "r", cmd("Recompile"))
+bufmap("compilation", "n", "<C-r>", cmd("Recompile"))
+bufmap("compilation", "n", "u", "gg")
 
 bufmap("trouble", "n", "<C-q>", cmd("Clearqflist"))
 
-bufmap("markdown", "n", "<leader>ff", cmd("ObsidianQuickSwitch"))
-
---general
+-- general
 map("n", "<tab>", "za")
 map("n", "<S-tab>", "zi")
+map("n", "zx", cmd("bd"))
 map("n", "<leader>l", cmd("Lazy"))
 map({ "n", "i" }, "<F1>", cmd("silent w!"))
-map({ "n", "x" }, "gp", '"+p', { desc = "clipboard paste" })
-map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
 map("n", "<leader>tt", cmd("split|resize 15|term"), { desc = "terminal" })
-map({ "x", "n" }, "<leader>p", [["_dP]], { desc = "blackhole paste" })
 map("n", "<C-q>", function()
 	local result = vim.fn.len(vim.fn.getqflist())
 	if result ~= 0 then
@@ -27,10 +25,33 @@ map("n", "<C-q>", function()
 		print("Quickfix is empty")
 	end
 end, { desc = "quickfix open" })
+
+-- insert move
 map("i", "<C-l>", "<right>")
 map("i", "<C-k>", "<up>")
 map("i", "<C-j>", "<down>")
 map("i", "<C-h>", "<left>")
+
+-- copy paste
+map({ "n", "x" }, "gp", function()
+	local mode = vim.api.nvim_get_mode()["mode"]
+	if not vim.api.nvim_get_current_line():match("^%s*$") and mode == "n" then
+		return '"+]p`[v`]='
+	else
+		return '"+p`[v`]='
+	end
+end, { expr = true, desc = "clip paste" })
+map({ "n", "x" }, "gP", function()
+	if vim.api.nvim_get_current_line():match("^%s*$") then
+		return '"+p`[v`]='
+	else
+		return '<esc>O<esc>"+p`[v`]='
+	end
+end, { expr = true, desc = "clip paste prev" })
+map({ "n", "x" }, "p", "p`[v`]=")
+map({ "n", "x" }, "P", "P`[v`]=")
+map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
+map({ "x", "n" }, "<leader>p", [["_dP]], { desc = "blackhole paste" })
 
 --master
 map("n", "\\s", cmd("LuaSnipOpen"))
@@ -116,13 +137,29 @@ map("v", ">", ">gv", {})
 map("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
 
 -- Search and Replace
-map("n", "c.", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { desc = "search and replace word under cursor" })
-map("n", "c>", [[:%s/\V<C-r><C-a>//g<Left><Left>]], { desc = "search and replace WORD under cursor" })
-map("x", "c.", [[:<C-u>%s/\V<C-r>=luaeval("require'utils'.get_visual_selection(true)")<CR>//g<Left><Left>]])
+map("n", "c.", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
+map("n", "c>", [[:s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
 
 --copied from prime
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 map("i", "<C-c>", "<esc>")
+
+-- project smart find_file
+map("n", "<leader>ff", function()
+	local workspace = vim.lsp.buf.list_workspace_folders()
+	local wd = ""
+	if workspace[1] ~= nil then
+		wd = workspace[1]
+	else
+		wd = vim.fn.getcwd()
+	end
+	local cd_pro = "cd " .. wd .. " | "
+
+	local prefix = wd:match(".*/(.*)") .. "/>"
+	local smart_open = "Telescope smart_open smart_open cwd_only=true"
+	local op1 = "prompt_title=false preview_title=false result_title=false"
+	local op2 = "layout_config={preview_width=0.5} prompt_prefix=" .. prefix
+
+	return "<cmd>" .. cd_pro .. " " .. smart_open .. " " .. op1 .. " " .. op2 .. "<cr>"
+end, { expr = true })

@@ -2,13 +2,9 @@ return {
 	-- tabline
 	{
 		"nanozuki/tabby.nvim",
-		event = "TabEnter",
+		event = "VeryLazy",
 		dependencies = {
 			{ "nvim-tree/nvim-web-devicons" },
-			{
-				"tiagovla/scope.nvim",
-				opts = {},
-			},
 		},
 		config = function()
 			local theme = {
@@ -45,5 +41,10 @@ return {
 				-- option = {}, -- setup modules' option,
 			})
 		end,
+	},
+	-- close buffer
+	{
+		"kazhala/close-buffers.nvim",
+		cmd = "BDelete",
 	},
 }

@@ -20,6 +20,15 @@ autocmd("FileType", {
 	end,
 })
 
+-- auto remove hidden buffers
+autocmd("BufHidden", {
+	callback = function ()
+		vim.fn.timer_start(10000, function()
+			vim.cmd("silent! BDelete hidden")
+		end)
+	end
+})
+
 -- Persistent Cursor
 autocmd("BufReadPost", {
 	callback = function()

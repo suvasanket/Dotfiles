@@ -39,7 +39,7 @@ opt.cursorline = true
 opt.tabstop = 4
 opt.shiftwidth = 4
 opt.softtabstop = 4
-opt.wrap = false
+opt.wrap = true
 opt.list = false
 opt.expandtab = true
 
@@ -82,8 +82,6 @@ opt.hidden = true
 opt.showtabline = 1
 
 opt.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
-
-vim.g.pasta_disabled_filetypes = { "fugitive", "compilation" }
 
 -- Fix common typos
 cmd([[

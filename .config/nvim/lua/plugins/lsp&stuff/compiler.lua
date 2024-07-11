@@ -52,9 +52,9 @@ return {
 	{
 		"ej-shafran/compile-mode.nvim",
 		branch = "latest",
-		cmd = "Compile",
+		cmd = { "Compile", "Recompile" },
 		keys = {
-			{ "<leader>cc", cmd("Compile"), desc = "Compile" },
+			{ "<leader>cc", ":Compile ", desc = "Compile" },
 			{ "<leader>cr", cmd("Recompile"), desc = "Recompile" },
 		},
 		dependencies = {
@@ -62,7 +62,15 @@ return {
 			{ "m00qek/baleia.nvim", tag = "v1.3.0" },
 		},
 		opts = {
-			default_command = "ruby",
+			default_command = "node",
+			error_regexp_table = {
+				javascript = {
+					regex = "at [^ ]+ (\\(.+?\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\)",
+					filename = 1,
+					row = 2,
+					col = 3,
+				},
+			},
 		},
 	},
 }

@@ -13,19 +13,10 @@ return {
 				},
 			},
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			{
-				"ahmedkhalf/project.nvim",
-				event = { "VeryLazy" },
-				config = function()
-					require("project_nvim").setup({
-						detection_methods = { "lsp", "pattern" },
-						patterns = { ".git", "Gemfile", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
-					})
-				end,
-			},
 		},
 		--stylua: ignore
 		keys = {
+			{ "<C-S-\\>", "<cmd>Telescope commands prompt_title=false prompt_prefix=:<cr>" },
 			{
 				"<C-f>",
 				function()
@@ -66,7 +57,7 @@ return {
 			--buffer
 			{
 				"zc",
-				"<cmd>Telescope buffers theme=ivy layout_config={height=0.4} previewer=false prompt_title=false preview_title=false result_title=false<cr>",
+				"<cmd>Telescope buffers prompt_title=false preview_title=false result_title=false<cr>",
 				desc = "Symbols",
 			},
 			{
@@ -85,23 +76,7 @@ return {
 				"<cmd>Telescope lsp_workspace_symbols prompt_title=false preview_title=false result_title=false<cr>",
 				desc = "Workspace_symbols",
 			},
-			{
-
-				"<leader>ff",
-				function()
-					require("telescope").extensions.smart_open.smart_open({
-						cwd_only = true,
-						prompt_title = false,
-						preview_title = false,
-						result_title = false,
-						prompt_prefix = " 󰱼 ",
-						layout_config = {
-							preview_width = 0.5,
-						}
-					})
-				end,
-				desc = "find_files",
-			},
+			-- "<leader>ff",
 			{
 				"<leader>fc",
 				"<cmd>Telescope find_files prompt_title=false preview_title=false result_title=false<cr>",
@@ -135,8 +110,18 @@ return {
 			},
 		},
 		config = function()
-			require('telescope.pickers.layout_strategies').horizontal_merged = function(picker, max_columns, max_lines, layout_config)
-				local layout = require('telescope.pickers.layout_strategies').horizontal(picker, max_columns, max_lines, layout_config)
+			require("telescope.pickers.layout_strategies").horizontal_merged = function(
+				picker,
+				max_columns,
+				max_lines,
+				layout_config
+			)
+				local layout = require("telescope.pickers.layout_strategies").horizontal(
+					picker,
+					max_columns,
+					max_lines,
+					layout_config
+				)
 				layout.results.line = layout.results.line - 1
 				layout.results.height = layout.results.height + 1
 				-- layout.results.title = ''
@@ -144,17 +129,17 @@ return {
 			end
 			require("telescope").setup({
 				defaults = {
-					winblend = 5;
+					winblend = 5,
 					prompt_title = false,
 					results_title = false,
 					preview_title = false,
 					borderchars = {
-						prompt = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
-						results = {' ', '▐', '▄', '▌', '▌', '▐', '▟', '▙' };
-						preview = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
+						prompt = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
+						results = { " ", "▐", "▄", "▌", "▌", "▐", "▟", "▙" },
+						preview = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
 					},
-					previewer = false;
-					layout_strategy = 'horizontal_merged',
+					previewer = false,
+					layout_strategy = "horizontal_merged",
 					layout_config = {
 						height = 0.6,
 						width = 0.7,
@@ -174,7 +159,7 @@ return {
 							["<C-[>"] = require("telescope.actions").close,
 							["<C-j>"] = "move_selection_next",
 							["<C-k>"] = "move_selection_previous",
-							["<C-u>"] = false
+							["<C-u>"] = false,
 						},
 					},
 				},
@@ -182,7 +167,6 @@ return {
 					smart_open = {
 						match_algorithm = "fzf",
 					},
-					projects = {},
 					fzf = {
 						override_generic_sorter = true,
 						override_file_sorter = true,

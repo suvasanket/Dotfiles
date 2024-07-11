@@ -36,7 +36,7 @@ return {
 				["<C-v>"] = "actions.select_vsplit",
 				["<C-s>"] = "actions.select_split",
 				["<C-t>"] = "actions.select_tab",
-				["<leader>p"] = "actions.preview",
+				["<leader><cr>"] = "actions.preview",
 				["<C-h>"] = false,
 				["<C-l>"] = false,
 				["q"] = "actions.close",
