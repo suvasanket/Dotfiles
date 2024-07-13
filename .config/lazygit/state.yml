@@ -1,11 +1,17 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/suvasanketrout/codes/projects/ruby/foodlog
-- /Users/suvasanketrout/dotfiles
-- /Users/suvasanketrout/codes/projects/python/FaceReconationAttendance
-- /Users/suvasanketrout/codes/projects/java/chat-app
+    - /Users/suvasanketrout/dotfiles
+    - /Users/suvasanketrout/codes/projects/ruby/foodlog
+    - /Users/suvasanketrout/codes/projects/python/FaceReconationAttendance
+    - /Users/suvasanketrout/codes/projects/java/chat-app
 startuppopupversion: 5
+lastversion: 0.42.0
 customcommandshistory:
-- q
+    - q
 hidecommandlog: false
 ignorewhitespaceindiffview: false
+diffcontextsize: 3
+localbranchsortorder: recency
+remotebranchsortorder: alphabetical
+gitlogorder: topo-order
+gitlogshowgraph: when-maximised

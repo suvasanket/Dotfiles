@@ -150,16 +150,16 @@ map("n", "<leader>ff", function()
 	local workspace = vim.lsp.buf.list_workspace_folders()
 	local wd = ""
 	if workspace[1] ~= nil then
-		wd = workspace[1]
+		wd = workspace[#workspace]
 	else
 		wd = vim.fn.getcwd()
 	end
 	local cd_pro = "cd " .. wd .. " | "
 
-	local prefix = wd:match(".*/(.*)") .. "/>"
+	local prefix = wd:match(".*/(.*)") .. ">"
 	local smart_open = "Telescope smart_open smart_open cwd_only=true"
 	local op1 = "prompt_title=false preview_title=false result_title=false"
 	local op2 = "layout_config={preview_width=0.5} prompt_prefix=" .. prefix
 
 	return "<cmd>" .. cd_pro .. " " .. smart_open .. " " .. op1 .. " " .. op2 .. "<cr>"
-end, { expr = true })
+end, { expr = true, desc = "project files" })
