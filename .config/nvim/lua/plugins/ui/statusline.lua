@@ -10,7 +10,7 @@ return {
 			red = "#ff5189",
 			green = "#BACD92",
 			grey = "#303030",
-			grey_white = "#B4B4B3"
+			grey_white = "#B4B4B3",
 		}
 
 		local bubbles_theme = {
@@ -62,6 +62,11 @@ return {
 			end
 			return "󰅠 " .. table.concat(c, ",")
 		end
+
+		local my_extension = {
+			sections = { lualine_a = { { "filename", file_status = false } } },
+			filetypes = { "NeogitStatus", "NeogitPopup" },
+		}
 
 		require("lualine").setup({
 			options = {
@@ -124,7 +129,12 @@ return {
 				},
 			},
 			tabline = {},
-			extensions = {},
+			extensions = {
+				"oil",
+				"lazy",
+				"trouble",
+				my_extension,
+			},
 			inactive_sections = {
 				lualine_a = {
 					{
