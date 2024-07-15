@@ -5,11 +5,11 @@ return {
 		vim.o.timeout = true
 		vim.o.timeoutlen = 300
 		require("which-key").setup({
-			preset = "classic",
+			preset = "helix",
 			win = {
-				-- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+				border = "single",
 				wo = {
-					winblend = 15,
+					winblend = 50,
 				},
 			},
 			spec = {

@@ -36,7 +36,7 @@ return {
 			},
 			--search
 			{
-				"<leader>s",
+				"<leader>ss",
 				"<cmd>Telescope builtin prompt_title=false preview_title=false result_title=false<cr>",
 			},
 			{
