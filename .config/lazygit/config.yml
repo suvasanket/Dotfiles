@@ -51,7 +51,7 @@ gui:
     commandLogSize: 8
     splitDiff: 'auto' # one of 'auto' | 'always'
     skipRewordInEditorWarning: false # for skipping the confirmation before launching the reword editor
-    border: 'single' # one of 'single' | 'double' | 'rounded' | 'hidden'
+    border: 'rounded' # one of 'single' | 'double' | 'rounded' | 'hidden'
     animateExplosion: true # shows an explosion animation when nuking the working tree
     spinner:
         frames:
@@ -117,7 +117,7 @@ promptToReturnFromSubprocess: false # display confirmation when subprocess termi
 keybinding:
     universal:
         quit: '<C-q>'
-        return: 'q' # return to previous menu, will quit if there's nowhere to return
+        return: '<esc>' # return to previous menu, will quit if there's nowhere to return
         quitWithoutChangingDirectory: 'Q'
         togglePanel: '<tab>' # goto the next panel
         prevItem: '<up>' # go one line up
@@ -140,13 +140,13 @@ keybinding:
         optionMenu: <disabled> # show help menu
         optionMenu-alt1: '?' # show help menu
         select: '<space>'
-        goInto: 'l'
+        goInto: '<enter>'
         openRecentRepos: '<c-r>'
         confirm: '<enter>'
         remove: 'd'
         new: 'n'
-        edit: '<enter>'
-        openFile: 'o'
+        edit: 'o'
+        openFile: 'O'
         scrollUpMain: '<pgup>' # main panel scroll up
         scrollDownMain: '<pgdown>' # main panel scroll down
         scrollUpMain-alt1: 'K' # main panel scroll up

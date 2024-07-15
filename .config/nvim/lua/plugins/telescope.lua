@@ -1,3 +1,4 @@
+require("core.helper")
 return {
 	--Telescope
 	{
@@ -16,7 +17,7 @@ return {
 		},
 		--stylua: ignore
 		keys = {
-			{ "<C-S-\\>", "<cmd>Telescope commands prompt_title=false prompt_prefix=:<cr>" },
+			{ "<C-S-\\>", cmd_tele("commands") },
 			{
 				"<C-f>",
 				function()
@@ -35,79 +36,23 @@ return {
 				desc = "smart_open",
 			},
 			--search
-			{
-				"<leader>ss",
-				"<cmd>Telescope builtin prompt_title=false preview_title=false result_title=false<cr>",
-			},
-			{
-				"<leader>sh",
-				"<cmd>Telescope help_tags prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "help_tags",
-			},
-			{
-				"<leader>s;",
-				"<cmd>Telescope command_history prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "CommandHist",
-			},
-			{
-				"<leader>so",
-				"<cmd>Telescope oldfiles prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "Oldfiles",
-			},
+			{ "<leader>ss", cmd_tele("builtin") },
+			{ "<leader>sh", cmd_tele("help_tags"), desc = "help_tags" },
+			{ "<leader>s;", cmd_tele("command_history"), desc = "CommandHist" },
+			{ "<leader>so", cmd_tele("oldfiles"), desc = "Oldfiles" },
 			--buffer
-			{
-				"zc",
-				"<cmd>Telescope buffers prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "Symbols",
-			},
-			{
-				"<leader>bs",
-				"<cmd>Telescope lsp_document_symbols prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "Symbols",
-			},
-			{
-				"<leader>bg",
-				"<cmd>Telescope current_buffer_fuzzy_find prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "current_buffer_fuzzy_find",
-			},
+			{ "zc", cmd_tele("buffers"), desc = "Symbols" },
+			{ "<leader>bs", cmd_tele("lsp_document_symbols"), desc = "Symbols" },
+			{ "<leader>/", cmd_tele("current_buffer_fuzzy_find"), desc = "current_buffer_fuzzy_find" },
 			--find
-			{
-				"<leader>ws",
-				"<cmd>Telescope lsp_workspace_symbols prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "Workspace_symbols",
-			},
-			-- "<leader>ff",
-			{
-				"<leader>fc",
-				"<cmd>Telescope find_files prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "find_files",
-			},
-			{
-				"<leader>fg",
-				"<cmd>Telescope live_grep prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "Live_grep",
-			},
-			{
-				"<leader>fd",
-				"<cmd>Telescope fd cwd=$HOME find_command=fd,-t=d,-H disable_devicons=true previewer=false prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "find dir",
-			},
+			{ "<leader>ws", cmd_tele("lsp_workspace_symbols"), desc = "Workspace_symbols" },
+			{ "<leader>fc", cmd_tele("find_files"), desc = "find_files" },
+			{ "<leader>fg", cmd_tele("live_grep"), desc = "Live_grep" },
+			{ "<leader>fd", cmd_tele("fd cwd=$HOME find_command=fd,-t=d,-H disable_devicons=true previewer=false"), desc = "find dir" },
 			--git
-			{
-				"<leader>gb",
-				"<cmd>Telescope git_branches prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "git branches",
-			},
-			{
-				"<leader>gf",
-				"<cmd>Telescope git_files prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "git files",
-			},
-			{
-				"<leader>gc",
-				"<cmd>Telescope git_commits prompt_title=false preview_title=false result_title=false<cr>",
-				desc = "git commits",
-			},
+			{ "<leader>gb", cmd_tele("git_branches"), desc = "git branches" },
+			{ "<leader>gf", cmd_tele("git_files"), desc = "git files" },
+			{ "<leader>gc", cmd_tele("git_commits"), desc = "git commits" },
 		},
 		config = function()
 			require("telescope.pickers.layout_strategies").horizontal_merged = function(

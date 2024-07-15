@@ -63,7 +63,7 @@ return {
 			return "󰅠 " .. table.concat(c, ",")
 		end
 
-		local my_extension = {
+		local neogit = {
 			sections = { lualine_a = { { "filename", file_status = false } } },
 			filetypes = { "NeogitStatus", "NeogitPopup" },
 		}
@@ -133,7 +133,8 @@ return {
 				"oil",
 				"lazy",
 				"trouble",
-				my_extension,
+				"fugitive",
+				neogit,
 			},
 			inactive_sections = {
 				lualine_a = {

@@ -21,3 +21,7 @@ function bufmap(ft, mode, map, cmd)
 		end,
 	})
 end
+
+function cmd_tele(cmd)
+	return table.concat({ "<cmd>Telescope ", cmd, " prompt_title=false preview_title=false result_title=false<cr>" })
+end
