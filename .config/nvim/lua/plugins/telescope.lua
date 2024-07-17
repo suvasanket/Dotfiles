@@ -17,6 +17,7 @@ return {
 		},
 		--stylua: ignore
 		keys = {
+			{"<leader>'", "<cmd>Telescope resume<cr>", desc = "Telescope resume"},
 			{ "<C-S-\\>", cmd_tele("commands") },
 			{
 				"<C-f>",
@@ -111,6 +112,7 @@ return {
 				extensions = {
 					smart_open = {
 						match_algorithm = "fzf",
+						prompt_prefix = " l ",
 					},
 					fzf = {
 						override_generic_sorter = true,

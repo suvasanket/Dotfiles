@@ -6,11 +6,15 @@ return {
 		vim.o.timeoutlen = 300
 		require("which-key").setup({
 			preset = "helix",
+			show_help = false,
 			win = {
-				border = "single",
+				border = "rounded",
 				wo = {
-					winblend = 50,
+					winblend = 15,
 				},
+			},
+			icons = {
+				mappings = false,
 			},
 			spec = {
 				{ "<leader><leader>", group = "swap" },
@@ -92,7 +96,10 @@ return {
 				{ "yino", desc = "nextAroundBlocks" },
 				{ "yio", desc = "AroundBlocks" },
 				{ "zx", group = "kill-buffer" },
-			}
+			},
 		})
 	end,
+	keys = {
+		{ "<leader>?", function() require("which-key").show({ global = false }) end, desc = "Buffer Local Keymaps (which-key)" },
+	},
 }

@@ -12,51 +12,6 @@ capabilities.textDocument.foldingRange = {
 	lineFoldingOnly = true,
 }
 
---lsp-virtualText_prefix--
-vim.diagnostic.config({
-	signs = true,
-	virtual_text = false,
-	update_in_insert = false,
-	underline = false,
-	severity_sort = true,
-	float = {
-		border = "rounded",
-		severity_sort = true,
-		header = {},
-		suffix = function(diag)
-			local message
-			if diag.code then
-				message = ("%s (%s)"):format(diag.source, diag.code)
-			else
-				message = diag.source
-			end
-			return " " .. message, "DiagnosticFloatingSuffix"
-		end,
-		prefix = function(diagnostic)
-			if diagnostic.severity == vim.diagnostic.severity.ERROR then
-				return "" -- Nerd font icon for error
-			elseif diagnostic.severity == vim.diagnostic.severity.WARN then
-				return "" -- Nerd font icon for warning
-			elseif diagnostic.severity == vim.diagnostic.severity.INFO then
-				return "" -- Nerd font icon for info
-			else
-				return "" -- Nerd font icon for hint
-			end
-		end,
-		format = function(diag)
-			return diag.message
-		end,
-	},
-})
-
---lsp-gutterSigns--
-local signs = { Error = "", Warn = "󰔶", Hint = "", Info = "" }
-for type, icon in pairs(signs) do
-	---@diagnostic disable-next-line: redefined-local
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
-
 --lsp on_attach
 local on_attach = function(client, bufnr)
 	--inlay hint
@@ -112,3 +67,47 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set({ "n", "i" }, "<C-s>", vim.lsp.buf.format, opts)
 	end,
 })
+-- diagnostic config --
+vim.diagnostic.config({
+	signs = true,
+	virtual_text = false,
+	update_in_insert = false,
+	underline = false,
+	severity_sort = true,
+	float = {
+		border = "rounded",
+		severity_sort = true,
+		header = {},
+		suffix = function(diag)
+			local message
+			if diag.code then
+				message = ("%s (%s)"):format(diag.source, diag.code)
+			else
+				message = diag.source
+			end
+			return " " .. message, "DiagnosticFloatingSuffix"
+		end,
+		prefix = function(diagnostic)
+			if diagnostic.severity == vim.diagnostic.severity.ERROR then
+				return "" -- Nerd font icon for error
+			elseif diagnostic.severity == vim.diagnostic.severity.WARN then
+				return "" -- Nerd font icon for warning
+			elseif diagnostic.severity == vim.diagnostic.severity.INFO then
+				return "" -- Nerd font icon for info
+			else
+				return "" -- Nerd font icon for hint
+			end
+		end,
+		format = function(diag)
+			return diag.message
+		end,
+	},
+})
+
+-- lsp-gutterSigns --
+local signs = { Error = "", Warn = "󰔶", Hint = "", Info = "" }
+for type, icon in pairs(signs) do
+	---@diagnostic disable-next-line: redefined-local
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end

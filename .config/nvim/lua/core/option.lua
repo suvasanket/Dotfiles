@@ -1,87 +1,87 @@
-local opt = vim.opt
+local o = vim.opt
 local cmd = vim.cmd
 
 --appearance
 vim.cmd.colorscheme("fleet")
-opt.termguicolors = true
-opt.signcolumn = "auto"
-opt.fillchars = {
+o.termguicolors = true
+-- o.signcolumn = "auto"
+o.fillchars = {
 	fold = " ",
 	-- eob = " ",
 }
-opt.hlsearch = true
+o.hlsearch = true
 
-opt.foldcolumn = "0" -- '0' is not bad
-opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-opt.foldlevelstart = 99
-opt.foldenable = true
+-- o.foldcolumn = "0" -- '0' is not bad
+o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+o.foldlevelstart = 99
+o.foldenable = true
 
 --netrw
 vim.g.did_load_netrw = 0
 
 --some op options
-opt.swapfile = false
-opt.backup = false
-opt.undodir = os.getenv("HOME") .. "/.dev/undodir"
-opt.viewdir = os.getenv("HOME") .. "/.dev/vim_ses"
-opt.undofile = true
-opt.updatetime = 50
-opt.autochdir = true
+o.swapfile = false
+o.backup = false
+o.undodir = os.getenv("HOME") .. "/.dev/undodir"
+o.viewdir = os.getenv("HOME") .. "/.dev/vim_ses"
+o.undofile = true
+o.updatetime = 50
+o.autochdir = true
 
 --line and cursor
-opt.relativenumber = true
-opt.number = true
-opt.cursorline = true
+o.relativenumber = true
+o.number = true
+o.cursorline = true
 -- o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20"
 -- o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
 
 --tab indent
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.softtabstop = 4
-opt.wrap = true
-opt.list = false
-opt.expandtab = true
+o.tabstop = 4
+o.shiftwidth = 4
+o.softtabstop = 4
+o.wrap = true
+o.list = false
+o.expandtab = true
 
 --search
-opt.ignorecase = true
-opt.smartcase = true
+o.ignorecase = true
+o.smartcase = true
 
 --backsapce
-opt.backspace = "indent,eol,start"
+o.backspace = "indent,eol,start"
 
 --clipboard
 -- o.clipboard:append("unnamedplus")
 
 --split
-opt.splitright = true
-opt.splitbelow = true
-opt.splitkeep = "screen"
+o.splitright = true
+o.splitbelow = true
+o.splitkeep = "screen"
 
-opt.iskeyword:append("-")
+o.iskeyword:append("-")
 
 --scrolloff
-opt.scrolloff = 17
+o.scrolloff = 17
 
 --indent
-opt.autoindent = true
-opt.smartindent = false
-opt.showmode = false
+o.autoindent = true
+o.smartindent = false
+o.showmode = false
 
 --status line
-opt.laststatus = 0
-opt.ruler = false
+o.laststatus = 0
+o.ruler = false
 
 --conceal
-opt.conceallevel = 2
+o.conceallevel = 2
 -- o.concealcursor = "n"
 
-opt.hidden = true
+o.hidden = true
 
 --tabline
-opt.showtabline = 1
+o.showtabline = 1
 
-opt.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Fix common typos
 cmd([[

@@ -41,12 +41,13 @@ autocmd("VimEnter", {
 
 		--fleet
 		hi("TabLineSel", { fg = "#B4B4B3" })
-		hi("@string", { fg = "#EADBC8" })
+		hi("@string", { fg = "#80AF81" })
 		hi("MiniIndentscopeSymbol", { fg = "#45474B" })
 		hi("FloatBorder", { fg = "#434242" })
 		hi("DiagnosticSignError", { fg = "#eb5f61" })
 		hi("DiagnosticSignWarn", { fg = "#ee7f25" })
 		hi("ObsidianRefText", { fg = "#DBB5B5" })
+		-- hi("WhichKeyNormal", { link = "CursorLine" })
 	end,
 })
 

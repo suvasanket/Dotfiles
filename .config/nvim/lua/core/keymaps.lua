@@ -161,10 +161,13 @@ map("n", "<leader>ff", function()
 	end
 	local cd_pro = "cd " .. wd .. " | "
 
-	local prefix = wd:match(".*/(.*)") .. ">"
+	print("../" .. wd:match(".*/(.*)") .. "/")
 	local smart_open = "Telescope smart_open smart_open cwd_only=true"
 	local op1 = "prompt_title=false preview_title=false result_title=false"
-	local op2 = "layout_config={preview_width=0.5} prompt_prefix=" .. prefix
+	local op2 = "layout_config={preview_width=0.5} prompt_prefix=\\ \\ "
+	vim.fn.timer_start(5000, function()
+		vim.cmd("echo ''")
+	end)
 
 	return "<cmd>" .. cd_pro .. " " .. smart_open .. " " .. op1 .. " " .. op2 .. "<cr>"
 end, { expr = true, desc = "project files" })
