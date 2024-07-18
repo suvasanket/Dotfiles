@@ -105,23 +105,41 @@ vim.cmd([[
 	cnoreabbrev clearqflist Clearqflist
 ]])
 
-create_command("MakeC",function ()
+create_command("MakeC", function()
 	vim.cmd("Trouble close")
 	vim.cmd("w")
 	vim.cmd("Make%")
-end,{})
+end, {})
 
 --history delete
-create_command("CmdlineHistoryDel",function ()
-	vim.fn.histdel(':')
-end,{})
+create_command("CmdlineHistoryDel", function()
+	vim.fn.histdel(":")
+end, {})
+
+-- git --
 
 -- add remote
-create_command("Gremoteadd", function ()
+create_command("Gremoteadd", function()
 	local user_input = vim.fn.input("remote url:")
 	if user_input ~= "" then
 		vim.cmd("G remote add origin " .. user_input)
 	else
 		print("no input")
+	end
+end, {})
+
+create_command("Gsmartcommit", function()
+	local handle = io.popen("git remote -v")
+	local result = handle:read("*a")
+	handle:close()
+	local message = vim.fn.input("commit message:")
+
+	if message ~= "" then
+		vim.cmd("G commit -am " .. '"'.. message .. '"')
+		if result ~= "" then
+			vim.cmd("Git! push")
+		end
+	else
+		print("abort")
 	end
 end,{})
