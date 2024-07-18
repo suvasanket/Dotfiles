@@ -128,18 +128,38 @@ create_command("Gremoteadd", function()
 	end
 end, {})
 
-create_command("Gsmartcommit", function()
-	local handle = io.popen("git remote -v")
-	local result = handle:read("*a")
-	handle:close()
-	local message = vim.fn.input("commit message:")
+-- Ensure plenary.nvim is installed
+require('plenary')
+
+-- Import Plenary's async utilities
+local async = require('plenary.async')
+
+-- Define the command using Plenary's async utilities
+vim.api.nvim_create_user_command("Gcommitpush", async.void(function()
+	-- Function to run a command and capture its output
+	local function run_cmd(cmd)
+		local result = {}
+		local handle = io.popen(cmd)
+		for line in handle:lines() do
+			table.insert(result, line)
+		end
+		handle:close()
+		return table.concat(result, "\n")
+	end
+
+	-- Check if a Git remote is set
+	local result = run_cmd("git remote -v")
+	local message = vim.fn.input("commit message: ")
 
 	if message ~= "" then
-		vim.cmd("G commit -am " .. '"'.. message .. '"')
+		-- Perform Git commit
+		run_cmd("git commit -am \"" .. message .. "\"")
+
+		-- Check if Git remote exists and push
 		if result ~= "" then
-			vim.cmd("Git! push")
+			run_cmd("git push")
 		end
 	else
 		print("abort")
 	end
-end,{})
+end), {})
