@@ -115,3 +115,13 @@ end,{})
 create_command("CmdlineHistoryDel",function ()
 	vim.fn.histdel(':')
 end,{})
+
+-- add remote
+create_command("Gremoteadd", function ()
+	local user_input = vim.fn.input("remote url:")
+	if user_input ~= "" then
+		vim.cmd("G remote add origin " .. user_input)
+	else
+		print("no input")
+	end
+end,{})

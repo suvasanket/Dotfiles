@@ -81,18 +81,13 @@ map("n", "<C-n>", cmd("tabn"))
 map("n", "<C-e>", "<C-^>")
 
 --git
-bufmap("fugitive", "n", "P", ":G push")
-bufmap("fugitive", "n", "p", ":G pull")
+bufmap("fugitive", "n", "ga", "<cmd>Gremoteadd<cr>")
 map(
 	"n",
 	"<leader>gl",
 	'<cmd>lcd%:p:h<cr><cmd>lua require("lazy.util").float_term({ "lazygit" }, { interactive = true })<cr>',
 	{ desc = "lazygit" }
 )
-map("n", "<leader>gr", function()
-	local user_input = vim.fn.input("url:")
-	vim.cmd("G remote add origin " .. user_input)
-end, { desc = "git add remote" })
 
 --smart-enter
 map("i", "<S-CR>", "<C-c>O")
