@@ -24,24 +24,24 @@ local function async_cmd(cmd, on_success, on_error)
 	vim.fn.jobstart(cmd, {
 		stdout_buffered = true,
 		stderr_buffered = true,
-		on_stdout = function(_, data)
-			if data then
-				for _, line in ipairs(data) do
-					if line ~= "" then
-						print(line)
-					end
-				end
-			end
-		end,
-		on_stderr = function(_, data)
-			if data then
-				for _, line in ipairs(data) do
-					if line ~= "" then
-						vim.api.nvim_err_writeln(line)
-					end
-				end
-			end
-		end,
+		-- on_stdout = function(_, data)
+		-- 	if data then
+		-- 		for _, line in ipairs(data) do
+		-- 			if line ~= "" then
+		-- 				print(line)
+		-- 			end
+		-- 		end
+		-- 	end
+		-- end,
+		-- on_stderr = function(_, data)
+		-- 	if data then
+		-- 		for _, line in ipairs(data) do
+		-- 			if line ~= "" then
+		-- 				vim.api.nvim_err_writeln(line)
+		-- 			end
+		-- 		end
+		-- 	end
+		-- end,
 		on_exit = function(_, code)
 			if code == 0 then
 				if on_success then
