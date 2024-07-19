@@ -49,7 +49,7 @@ return {
 			"nvim-telescope/telescope.nvim", -- optional
 		},
 		keys = {
-			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Git" },
+			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "NeoGit" },
 		},
 		opts = {
 			console_timeout = 3000,
@@ -73,6 +73,7 @@ return {
 		},
 	},
 
+	-- the one n only
 	{
 		"tpope/vim-fugitive",
 		cmd = { "Git", "G" },

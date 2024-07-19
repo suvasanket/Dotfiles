@@ -1,4 +1,5 @@
 --{{{
+---@diagnostic disable: need-check-nil
 ---@diagnostic disable: lowercase-global
 -- vim: foldmethod=marker
 -- vim: foldlevel=0
@@ -8,16 +9,52 @@ pwd = vim.fn.expand("%:p:h")
 file = vim.fn.expand("%:t")
 filewe = vim.fn.expand("%:t:r")
 
-function term(cmd)
+local function term(cmd)
 	local ter = table.concat({ "split | resize 15 | term ", cmd })
 	vim.cmd(ter)
 end
 
-function sh(cmd)
+local function sh(cmd)
 	local zhs = table.concat({ "!", cmd })
 	vim.cmd(zhs)
 end
 
+-- async cmd
+local function async_cmd(cmd, on_success, on_error)
+	vim.fn.jobstart(cmd, {
+		stdout_buffered = true,
+		stderr_buffered = true,
+		on_stdout = function(_, data)
+			if data then
+				for _, line in ipairs(data) do
+					if line ~= "" then
+						print(line)
+					end
+				end
+			end
+		end,
+		on_stderr = function(_, data)
+			if data then
+				for _, line in ipairs(data) do
+					if line ~= "" then
+						vim.api.nvim_err_writeln(line)
+					end
+				end
+			end
+		end,
+		on_exit = function(_, code)
+			if code == 0 then
+				if on_success then
+					on_success()
+				end
+			else
+				if on_error then
+					on_error()
+				end
+			end
+		end,
+	})
+end
 --}}}
 --misc
 create_command("CmpEnable", "lua require('cmp').setup.buffer { enabled = true }", {})
@@ -33,7 +70,7 @@ create_command("CmpDisable", "lua require('cmp').setup.buffer { enabled = false 
 ]]
 
 scripts = { "javac", "cdebug" }
-function javac()
+local function javac()
 	local cwd = ex("%:p:h")
 	local file = ex("%:t")
 	local filewe = ex("%:t:r")
@@ -41,7 +78,7 @@ function javac()
 	term(shit)
 end
 
-function clang()
+local function clang()
 	local file = ex("%:t")
 	local filewe = ex("%:t:r")
 	sh("clang --debug " .. file .. " -o " .. filewe)
@@ -58,7 +95,7 @@ create_command("Runy", function()
 		elseif choice == "cdebug" then
 			clang()
 		else
-			vim.cmd("echo'👍'")
+			vim.cmd("echo'done'")
 		end
 	end)
 end, {})
@@ -120,7 +157,7 @@ end, {})
 
 -- add remote
 create_command("Gremoteadd", function()
-	local user_input = vim.fn.input("remote url:")
+	local user_input = vim.fn.input("remote url: ")
 	if user_input ~= "" then
 		vim.cmd("G remote add origin " .. user_input)
 	else
@@ -128,38 +165,26 @@ create_command("Gremoteadd", function()
 	end
 end, {})
 
--- Ensure plenary.nvim is installed
-require('plenary')
-
--- Import Plenary's async utilities
-local async = require('plenary.async')
-
--- Define the command using Plenary's async utilities
-vim.api.nvim_create_user_command("Gcommitpush", async.void(function()
-	-- Function to run a command and capture its output
-	local function run_cmd(cmd)
-		local result = {}
-		local handle = io.popen(cmd)
-		for line in handle:lines() do
-			table.insert(result, line)
-		end
-		handle:close()
-		return table.concat(result, "\n")
-	end
-
-	-- Check if a Git remote is set
-	local result = run_cmd("git remote -v")
+-- smart commit push
+create_command("Gcommit", function()
 	local message = vim.fn.input("commit message: ")
-
 	if message ~= "" then
-		-- Perform Git commit
-		run_cmd("git commit -am \"" .. message .. "\"")
+		message = '"' .. message .. '"'
+		async_cmd({ "git", "commit", "-am", message }, function()
+			print("commited")
+		end, function()
+			error("error while commit")
+		end)
 
-		-- Check if Git remote exists and push
-		if result ~= "" then
-			run_cmd("git push")
+		if vim.cmd("G remote -v") then
+			ans = vim.fn.confirm("push to remote??", "&Yes\n&No")
+			if ans == 1 then
+				async_cmd({ "git", "push" }, function()
+					print("pushed")
+				end, function()
+					error("error during push")
+				end)
+			end
 		end
-	else
-		print("abort")
 	end
-end), {})
+end, {})
