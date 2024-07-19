@@ -105,7 +105,7 @@ vim.diagnostic.config({
 })
 
 -- lsp-gutterSigns --
-local signs = { Error = "", Warn = "󰔶", Hint = "", Info = "" }
+local signs = { Error = "", Warn = "󰔶", Hint = "", Info = "" }
 for type, icon in pairs(signs) do
 	---@diagnostic disable-next-line: redefined-local
 	local hl = "DiagnosticSign" .. type

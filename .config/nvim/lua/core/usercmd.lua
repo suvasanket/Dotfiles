@@ -138,12 +138,18 @@ end, {})
 -- git --
 
 -- add remote
-create_command("Gremoteadd", function()
+create_command("GremoteUrl", function()
 	local user_input = vim.fn.input("remote url: ")
 	if user_input ~= "" then
-		vim.cmd("G remote add origin " .. user_input)
-	else
-		print("no input")
+		async_cmd({ "git", "remote", "add", "origin", user_input }, function()
+			print("remote added")
+		end, function()
+			ans = vim.fn.confirm("DO you really want to update remote url ?", "&Yes\n&No")
+			if ans == 1 then
+				vim.cmd("Git remote set-url origin " .. user_input)
+			end
+			print("git remote set to " .. user_input)
+		end)
 	end
 end, {})
 
@@ -151,20 +157,20 @@ end, {})
 create_command("Gcommit", function()
 	local message = vim.fn.input("commit message: ")
 	if message ~= "" then
-		message = '"' .. message .. '"'
 		async_cmd({ "git", "commit", "-am", message }, function()
 			print("commited")
 		end, function()
-			error("error while commit")
+			print("error while commit")
 		end)
 
-		if vim.cmd("G remote -v") then
+		local remote = vim.api.nvim_exec("G remote -v", true)
+		if remote ~= "" then
 			ans = vim.fn.confirm("push to remote??", "&Yes\n&No")
 			if ans == 1 then
 				async_cmd({ "git", "push" }, function()
 					print("pushed")
 				end, function()
-					error("error during push")
+					print("error during push")
 				end)
 			end
 		end

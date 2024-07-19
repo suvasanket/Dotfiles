@@ -81,7 +81,7 @@ map("n", "<C-n>", cmd("tabn"))
 map("n", "<C-e>", "<C-^>")
 
 --git
-bufmap("fugitive", "n", "ga", "<cmd>Gremoteadd<cr>")
+bufmap("fugitive", "n", "gm", "<cmd>GremoteUrl<cr>")
 map(
 	"n",
 	"<leader>gl",
@@ -156,7 +156,6 @@ map("n", "<leader>ff", function()
 	end
 	local cd_pro = "cd " .. wd .. " | "
 
-	print("../" .. wd:match(".*/(.*)") .. "/")
 	local smart_open = "Telescope smart_open smart_open cwd_only=true"
 	local op1 = "prompt_title=false preview_title=false result_title=false"
 	local op2 = "layout_config={preview_width=0.5} prompt_prefix=\\ \\ "
