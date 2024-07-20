@@ -44,5 +44,8 @@ return {
 	{
 		"tpope/vim-fugitive",
 		cmd = { "Git", "G" },
+		keys = {
+			{"<leader>gg", "<cmd>G<cr>", desc = "Great"}
+		}
 	},
 }

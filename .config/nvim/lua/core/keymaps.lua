@@ -68,11 +68,11 @@ map("t", "<C-[>", "<C-\\><C-n>")
 map("n", "<C-t>", cmd("tabnew | Oil"))
 map("n", "<leader>bf", "gg=G<C-o>", { desc = "buffer format" })
 map("n", "<C-\\>", cmd("q"))
-map("n", "<leader>1", "1gt")
-map("n", "<leader>2", "2gt")
-map("n", "<leader>3", "3gt")
-map("n", "<leader>4", "4gt")
-map("n", "<leader>5", "5gt")
+map("n", "<leader>1", "1gt", { desc = "tab 1" })
+map("n", "<leader>2", "2gt", { desc = "tab 2" })
+map("n", "<leader>3", "3gt", { desc = "tab 3" })
+map("n", "<leader>4", "4gt", { desc = "tab 4" })
+map("n", "<leader>5", "5gt", { desc = "tab 5" })
 
 map("n", "zn", cmd("bnext"))
 map("n", "zp", cmd("bprevious"))
@@ -83,12 +83,8 @@ map("n", "<C-e>", "<C-^>")
 --git
 bufmap("fugitive", "n", "gm", "<cmd>GremoteUrl<cr>")
 bufmap("fugitive", "n", "x", "<cmd>GitDeleteCached<cr>")
-map(
-	"n",
-	"<leader>gl",
-	'<cmd>lcd%:p:h<cr><cmd>lua require("lazy.util").float_term({ "lazygit" }, { interactive = true })<cr>',
-	{ desc = "lazygit" }
-)
+bufmap("fugitive", "n", "gc", cmd_tele("git_commits"))
+map( "n", "<leader>gc", "<cmd>Gcommit<cr>", { desc = "smart commit" } )
 
 --smart-enter
 map("i", "<S-CR>", "<C-c>O")

@@ -48,6 +48,7 @@ autocmd("VimEnter", {
 		hi("DiagnosticSignWarn", { fg = "#ee7f25" })
 		hi("ObsidianRefText", { fg = "#DBB5B5" })
 		-- hi("WhichKeyNormal", { link = "CursorLine" })
+		hi("RenderMarkdownCode", { link = "CursorLine" })
 	end,
 })
 

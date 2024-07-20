@@ -53,7 +53,6 @@ return {
 			--git
 			{ "<leader>gb", cmd_tele("git_branches"), desc = "git branches" },
 			{ "<leader>gf", cmd_tele("git_files"), desc = "git files" },
-			{ "<leader>gc", cmd_tele("git_commits"), desc = "git commits" },
 		},
 		config = function()
 			require("telescope.pickers.layout_strategies").horizontal_merged = function(

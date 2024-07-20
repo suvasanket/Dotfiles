@@ -10,6 +10,7 @@ return {
 				{ text = { builtin.foldfunc }, click = "v:lua.ScFa" },
 				{ text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
 				{ sign = { name = { ".*" }, namespace = { "gitsigns" }, colwidth = 2, auto = false }, click = "v:lua.ScSa" },
+				{ sign = { name = { ".*" }, namespace = { "markdown" }, colwidth = 2, auto = true }, click = "v:lua.ScSa" },
 			},
 		})
 	end,
