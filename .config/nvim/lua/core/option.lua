@@ -4,7 +4,7 @@ local cmd = vim.cmd
 --appearance
 vim.cmd.colorscheme("fleet")
 o.termguicolors = true
--- o.signcolumn = "auto"
+o.signcolumn = "auto"
 o.fillchars = {
 	fold = " ",
 	-- eob = " ",

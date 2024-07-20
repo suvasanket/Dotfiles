@@ -18,25 +18,6 @@ local function sh(cmd)
 	local zhs = table.concat({ "!", cmd })
 	vim.cmd(zhs)
 end
-
--- async cmd
-local function async_cmd(cmd, on_success, on_error)
-	vim.fn.jobstart(cmd, {
-		stdout_buffered = true,
-		stderr_buffered = true,
-		on_exit = function(_, code)
-			if code == 0 then
-				if on_success then
-					on_success()
-				end
-			else
-				if on_error then
-					on_error()
-				end
-			end
-		end,
-	})
-end
 --}}}
 --misc
 create_command("CmpEnable", "lua require('cmp').setup.buffer { enabled = true }", {})
@@ -175,4 +156,10 @@ create_command("Gcommit", function()
 			end
 		end
 	end
+end, {})
+
+create_command("GitDeleteCached", function()
+	local line = vim.fn.getline(".")
+	local pattern = line:match("^%S*%s(.+)$")
+	vim.cmd("G rm --cached -r " .. pattern)
 end, {})

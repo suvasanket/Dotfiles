@@ -65,7 +65,7 @@ map("n", "\\cq", cmd("CmpDisable"))
 map("n", "<leader>_", cmd("split"))
 map("n", "<leader>|", cmd("vsplit"))
 map("t", "<C-[>", "<C-\\><C-n>")
-map("n", "<C-t>", cmd("tabnew"))
+map("n", "<C-t>", cmd("tabnew | Oil"))
 map("n", "<leader>bf", "gg=G<C-o>", { desc = "buffer format" })
 map("n", "<C-\\>", cmd("q"))
 map("n", "<leader>1", "1gt")
@@ -82,6 +82,7 @@ map("n", "<C-e>", "<C-^>")
 
 --git
 bufmap("fugitive", "n", "gm", "<cmd>GremoteUrl<cr>")
+bufmap("fugitive", "n", "x", "<cmd>GitDeleteCached<cr>")
 map(
 	"n",
 	"<leader>gl",

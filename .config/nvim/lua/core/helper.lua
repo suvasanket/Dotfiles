@@ -13,6 +13,25 @@ function cmd(command)
 	return table.concat({ "<Cmd>", command, "<CR>" })
 end
 
+-- async cmd
+function async_cmd(cmd, on_success, on_error)
+	vim.fn.jobstart(cmd, {
+		stdout_buffered = true,
+		stderr_buffered = true,
+		on_exit = function(_, code)
+			if code == 0 then
+				if on_success then
+					on_success()
+				end
+			else
+				if on_error then
+					on_error()
+				end
+			end
+		end,
+	})
+end
+
 function bufmap(ft, mode, map, cmd)
 	autocmd("FileType", {
 		pattern = { ft },

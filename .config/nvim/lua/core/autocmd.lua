@@ -9,7 +9,7 @@ autocmd("FileType", {
 		"fugitive",
 		"qf",
 		"noice",
-		"vim"
+		"vim",
 	},
 	callback = function(event)
 		vim.cmd("setlocal listchars= nonumber norelativenumber")
@@ -22,11 +22,11 @@ autocmd("FileType", {
 
 -- auto remove hidden buffers
 autocmd("BufHidden", {
-	callback = function ()
+	callback = function()
 		vim.fn.timer_start(10000, function()
 			vim.cmd("silent! BDelete hidden")
 		end)
-	end
+	end,
 })
 
 -- Persistent Cursor
