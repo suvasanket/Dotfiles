@@ -2,7 +2,7 @@ return {
 	-- tabline
 	{
 		"nanozuki/tabby.nvim",
-		event = "VeryLazy",
+		event = "TabNew",
 		dependencies = {
 			{ "nvim-tree/nvim-web-devicons" },
 		},

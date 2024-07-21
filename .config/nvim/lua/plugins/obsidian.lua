@@ -25,6 +25,7 @@ return {
 		"MeanderingProgrammer/markdown.nvim",
 		name = "render-markdown",
 		ft = "markdown",
+		enabled = false,
 		config = function()
 			require("render-markdown").setup({
 				bullet = {

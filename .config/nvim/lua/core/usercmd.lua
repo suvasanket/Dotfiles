@@ -159,8 +159,32 @@ create_command("Gcommit", function()
 	end
 end, {})
 
+-- delete file from git not system
 create_command("GitDeleteCached", function()
 	local line = vim.fn.getline(".")
 	local pattern = line:match("^%S*%s(.+)$")
 	vim.cmd("G rm --cached -r " .. pattern)
+end, {})
+
+-- GBrowse without plugin
+create_command("GBrowse", function ()
+	local g_remote = vim.api.nvim_exec("G remote -v", true)
+	local url = g_remote:match("https://[^%s]+%.git%s+%(push%)"):gsub("%.git%s+%(push%)", "")
+	local branch_name = vim.api.nvim_exec("!git branch -v", true):match("%* (%S+)")
+	local g_root = vim.api.nvim_exec("!git rev-parse --show-toplevel", true)
+	local git_root = g_root:match("([/][^\r\n]+)"):gsub("\r", "")
+
+	local file_path = vim.fn.expand('%:p')
+	local relative_path = file_path:sub(#git_root + 2)
+
+	local repo_url = url .. "/blob/" .. branch_name .. "/" .. relative_path
+
+	async_cmd({"open", repo_url},
+	function ()
+		print("opening " .. file_path)
+	end,
+	function ()
+		print("failed to open")
+	end
+	)
 end, {})
