@@ -14,7 +14,7 @@ function cmd(command)
 end
 
 -- async cmd
-function async_cmd(cmd, on_success, on_error)
+function shell_cmd(cmd, on_success, on_error)
 	vim.fn.jobstart(cmd, {
 		stdout_buffered = true,
 		stderr_buffered = true,

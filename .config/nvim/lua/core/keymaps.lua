@@ -12,7 +12,7 @@ bufmap("trouble", "n", "<C-q>", cmd("Clearqflist"))
 -- general
 map("n", "<tab>", "za")
 map("n", "<S-tab>", "zi")
-map("n", "zx", cmd("bd"))
+map("n", "zx", cmd("bd!"))
 map("n", "<leader>l", cmd("Lazy"))
 map({ "n", "i" }, "<F1>", cmd("silent w!"))
 map("n", "<leader>tt", cmd("split|resize 15|term"), { desc = "terminal" })
@@ -143,7 +143,7 @@ map("n", "N", "Nzzzv")
 map("i", "<C-c>", "<esc>")
 
 -- project smart find_file
-map("n", "<leader>ff", function()
+map("n", "<leader>.", function()
 	local workspace = vim.lsp.buf.list_workspace_folders()
 	local wd = ""
 	if workspace[1] ~= nil then
@@ -162,3 +162,11 @@ map("n", "<leader>ff", function()
 
 	return "<cmd>" .. cd_pro .. " " .. smart_open .. " " .. op1 .. " " .. op2 .. "<cr>"
 end, { expr = true, desc = "project files" })
+
+-- line move in normal and visual
+map("n", "J", ":m .+1<CR>==")
+map("n", "K", ":m .-2<CR>==")
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
+map("n", "H", "<<")
+map("n", "L", ">>")

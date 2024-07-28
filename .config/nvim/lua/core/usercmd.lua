@@ -122,7 +122,7 @@ end, {})
 create_command("GremoteUrl", function()
 	local user_input = vim.fn.input("remote url: ")
 	if user_input ~= "" then
-		async_cmd({ "git", "remote", "add", "origin", user_input }, function()
+		shell_cmd({ "git", "remote", "add", "origin", user_input }, function()
 			print("remote added")
 		end, function()
 			ans = vim.fn.confirm("DO you really want to update remote url ?", "&Yes\n&No")
@@ -138,7 +138,7 @@ end, {})
 create_command("Gcommit", function()
 	local message = vim.fn.input("commit message: ")
 	if message ~= "" then
-		async_cmd({ "git", "commit", "-am", message }, function()
+		shell_cmd({ "git", "commit", "-am", message }, function()
 			print("commited")
 		end, function()
 			print("error while commit")
@@ -149,7 +149,7 @@ create_command("Gcommit", function()
 			local loc = remote:match("https://[^/]+/([%w-]+/[%w-]+)%.git%s+%(push%)")
 			ans = vim.fn.confirm("remote available, do you want to push ?", "&Yes\n&No")
 			if ans == 1 then
-				async_cmd({ "git", "push" }, function()
+				shell_cmd({ "git", "push" }, function()
 					print("pushed to " .. loc)
 				end, function()
 					print("error during push")
@@ -167,7 +167,7 @@ create_command("GitDeleteCached", function()
 end, {})
 
 -- GBrowse without plugin
-create_command("GBrowse", function ()
+create_command("Gbrowse", function ()
 	local g_remote = vim.api.nvim_exec("G remote -v", true)
 	local url = g_remote:match("https://[^%s]+%.git%s+%(push%)"):gsub("%.git%s+%(push%)", "")
 	local branch_name = vim.api.nvim_exec("!git branch -v", true):match("%* (%S+)")
@@ -179,9 +179,9 @@ create_command("GBrowse", function ()
 
 	local repo_url = url .. "/blob/" .. branch_name .. "/" .. relative_path
 
-	async_cmd({"open", repo_url},
+	shell_cmd({"open", repo_url},
 	function ()
-		print("opening " .. file_path)
+		print("opening " .. vim.fn.expand('%:p:t'))
 	end,
 	function ()
 		print("failed to open")

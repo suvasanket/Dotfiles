@@ -17,13 +17,14 @@ return {
 				},
 			},
 			ui = {
-				enable = false,
+				enable = true,
 			},
 		},
 	},
 	{
 		"MeanderingProgrammer/markdown.nvim",
 		name = "render-markdown",
+		dependencies = "nvim-treesitter/nvim-treesitter",
 		ft = "markdown",
 		enabled = false,
 		config = function()
@@ -31,14 +32,15 @@ return {
 				bullet = {
 					enabled = true,
 					icons = { " ", "○ ", "◆ ", "◇ " },
-					highlight = "RenderMarkdownBullet",
 				},
 				heading = {
 					enabled = true,
-					sign = true,
-					icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
-					signs = { "# " },
+					sign = false,
+					icons = { '󰉫 ', '󰉬 ', '󰉭 ', '󰲧 ', '󰲩 ', '󰲫 ' },
 				},
+				code = {
+					sign = false,
+				}
 			})
 		end,
 	},

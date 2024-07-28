@@ -101,7 +101,7 @@ return {
 					selection_caret = "  ",
 					mappings = {
 						i = {
-							["<C-[>"] = require("telescope.actions").close,
+							-- ["<C-[>"] = require("telescope.actions").close,
 							["<C-j>"] = "move_selection_next",
 							["<C-k>"] = "move_selection_previous",
 							["<C-u>"] = false,

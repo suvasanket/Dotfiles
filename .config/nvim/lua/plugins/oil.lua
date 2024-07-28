@@ -1,54 +1,71 @@
+require("core.helper")
 return {
 	"stevearc/oil.nvim",
 	enabled = true,
 	lazy = false,
 	keys = {
-		{ "-", "<cmd>Oil --float<cr>" },
+		{ "-", "<cmd>Oil<cr>" },
 	},
 	config = function()
-		require("oil").setup({
+		local oil = require("oil")
+		oil.setup({
 			default_file_explorer = true,
-			cleanup_delay_ms = 200,
-			columns = {
-				-- "permissions",
-				"icon",
-				-- "size",
-				-- "mtime",
-			},
-			win_options = {
-				wrap = false,
-				signcolumn = "no",
-				cursorcolumn = false,
-				foldcolumn = "0",
-				spell = false,
-				list = false,
-				conceallevel = 3,
-				concealcursor = "nvic",
-				number = true,
-				relativenumber = true,
-			},
 			delete_to_trash = true,
 			skip_confirm_for_simple_edits = true,
 			keymaps = {
-				["g?"] = "actions.show_help",
 				["h"] = "actions.parent",
 				["l"] = "actions.select",
 				["<C-v>"] = "actions.select_vsplit",
 				["<C-s>"] = "actions.select_split",
-				["<C-t>"] = "actions.select_tab",
-				["<leader><cr>"] = "actions.preview",
+				["<C-t>"] = {
+					"actions.select",
+					opts = {
+						close = true,
+						tab = true,
+					},
+				},
+				["<leader>p"] = "actions.preview",
 				["<C-h>"] = false,
 				["<C-l>"] = false,
 				["q"] = "actions.close",
-				["<D-r>"] = "actions.refresh",
-				["<bs>"] = "actions.open_cwd",
-				["`"] = "actions.cd",
-				["~"] = "actions.tcd",
-				["gs"] = "actions.change_sort",
-				["go"] = "actions.open_external",
-				["g."] = "actions.toggle_hidden",
-				["g\\"] = "actions.toggle_trash",
+				["<leader>xx"] = "actions.refresh",
+				["<C-d>"] = "actions.preview_scroll_down",
+				["<C-u>"] = "actions.preview_scroll_up",
+
+				["gt"] = "actions.toggle_trash",
+				["gh"] = "<cmd>edit $HOME<CR>",
+				["gl"] = "<cmd>edit $HOME/Downloads/<CR>",
+
 				["<C-c>"] = false,
+				["<tab>"] = {
+					desc = "Toggle file detail view",
+					callback = function()
+						detail = not detail
+						if detail then
+							require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+						else
+							require("oil").set_columns({ "icon" })
+						end
+					end,
+				},
+				["U"] = function()
+					oil.discard_all_changes()
+				end,
+				["."] = function()
+					local cwd = oil.get_current_dir()
+					local line = vim.fn.getline(".")
+					local pattern = line:match("[%S]+%s+[%S]+%s+(.*)")
+					-- local file = oil.get_cursor_entry().name
+					if cwd and pattern then
+						local full_path = cwd .. pattern
+						vim.api.nvim_feedkeys(": " .. full_path, "n", false)
+						vim.schedule(function()
+							vim.api.nvim_input("<Home>!")
+							require("oil.actions").refresh.callback()
+						end)
+					end
+				end,
+				["<leader>tt"] = "actions.open_terminal",
 			},
 
 			view_options = {
