@@ -1,4 +1,5 @@
 require("core.hilight")
+require("core.buf_write")
 
 -- Use 'q' to quit from common plugins
 autocmd("FileType", {
@@ -23,7 +24,7 @@ autocmd("FileType", {
 -- auto remove hidden buffers
 autocmd("BufHidden", {
 	callback = function()
-		vim.fn.timer_start(10000, function()
+		vim.fn.timer_start(100000, function()
 			vim.cmd("silent! BDelete hidden")
 		end)
 	end,
@@ -98,30 +99,5 @@ autocmd("BufNewFile", {
 		vim.cmd(':%s/"\\*\\.lua"/"\\*.' .. ext .. '"')
 		vim.cmd("w")
 		vim.cmd("e")
-	end,
-})
-
---hotreload
-augroup("hotreload", { clear = true })
-autocmd("BufWritePost", {
-	group = "hotreload",
-	pattern = { "*/ftplugin/*.lua", "*/core/*.lua" },
-	command = "silent source%",
-})
-
-autocmd("BufWritePost", {
-	group = "hotreload",
-	pattern = { "tmux.conf", "skhdrc", "yabairc", "statusline.lua", "aerospace.toml" },
-	callback = function()
-		local filename = vim.fn.expand("%")
-		if filename == "tmux.conf" then
-			vim.cmd("silent !tmux source /Users/suvasanketrout/.config/tmux/tmux.conf")
-		elseif filename == "skhdrc" then
-			vim.cmd("silent !skhd --restart-service")
-		elseif filename == "yabairc" then
-			vim.cmd("silent !yabai --restart-service")
-		elseif filename == "aerospace.toml" then
-			vim.cmd("silent !aerospace reload-config")
-		end
 	end,
 })

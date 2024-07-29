@@ -39,7 +39,7 @@ esac
 
 if [[ $CHARGING != "" ]]; then
   ICON=""
-  COLOR=$PASTEL
+  COLOR=$YELLOW
   # DRAWING=off
 fi
 

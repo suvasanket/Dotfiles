@@ -159,6 +159,8 @@ cs(
 	fmt(
 		[[
 --{{{{{{ {}
+-- vim: foldmethod=marker
+-- vim: foldlevel=0
 {}
 --}}}}}}
 ]],

@@ -1,7 +1,6 @@
 require("core.helper")
 return {
 	"stevearc/oil.nvim",
-	enabled = true,
 	lazy = false,
 	keys = {
 		{ "-", "<cmd>Oil<cr>" },
@@ -42,9 +41,9 @@ return {
 					callback = function()
 						detail = not detail
 						if detail then
-							require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+							oil.set_columns({ "icon", "permissions", "size", "mtime" })
 						else
-							require("oil").set_columns({ "icon" })
+							oil.set_columns({ "icon" })
 						end
 					end,
 				},

@@ -1,7 +1,7 @@
 return {
 	{
 		"0xhoussam/fleet.nvim",
-		config = function()
+		init = function()
 			vim.cmd("colorscheme fleet")
 		end
 	}

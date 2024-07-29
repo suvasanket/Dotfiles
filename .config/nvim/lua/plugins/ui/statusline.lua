@@ -59,7 +59,7 @@ return {
 		end
 
 		local telescope = {
-			sections = { lualine_a = { function () return "%=  Telescope" end } },
+			sections = { lualine_a = { function () return " Telescope" end } },
 			filetypes = { "TelescopePrompt", "TelescopeResults" },
 		}
 
