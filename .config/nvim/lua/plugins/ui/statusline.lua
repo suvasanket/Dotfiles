@@ -13,7 +13,7 @@ return {
 			grey_white = "#B4B4B3",
 		}
 
-		local bubbles_theme = {
+		local personal_theme = {
 			normal = {
 				a = { fg = colors.grey_white, bg = colors.grey, gui = "bold" },
 				b = { fg = colors.grey_white, bg = colors.grey },
@@ -40,11 +40,6 @@ return {
 				c = { fg = colors.black, bg = colors.red },
 			},
 
-			inactive = {
-				a = { fg = colors.grey_white, bg = colors.grey },
-				b = { fg = colors.grey_white, bg = colors.grey },
-				c = { fg = colors.grey_white, bg = colors.grey },
-			},
 		}
 		local lsp = function()
 			local bufnr = vim.api.nvim_get_current_buf()
@@ -63,15 +58,11 @@ return {
 			return "󰅠 " .. table.concat(c, ",")
 		end
 
-		local neogit = {
-			sections = { lualine_a = { { "filename", file_status = false } } },
-			filetypes = { "NeogitStatus", "NeogitPopup" },
-		}
-
 		require("lualine").setup({
 			options = {
-				theme = bubbles_theme,
+				theme = personal_theme,
 				component_separators = "|",
+				globalstatus = true,
 				section_separators = { left = "", right = "" },
 			},
 			sections = {
@@ -87,11 +78,11 @@ return {
 					{ "filetype", icon_only = true, padding = { left = 1, right = 0 }, separator = "" },
 					{
 						"filename",
-						path = 1,
+						path = 4,
 						padding = { left = 0, right = 0 },
 						symbols = {
 							modified = "",
-							readonly = "!",
+							readonly = "󰈡",
 							unnamed = "[unnamed]",
 							newfile = "󰎔",
 						},
@@ -134,36 +125,6 @@ return {
 				"lazy",
 				"trouble",
 				"fugitive",
-				neogit,
-			},
-			inactive_sections = {
-				lualine_a = {
-					{
-						"mode",
-						fmt = function(str)
-							return str:sub(1, 3)
-						end,
-						"%",
-					},
-				},
-				lualine_b = {},
-				lualine_c = {
-					{ "filetype", icon_only = true, padding = { left = 1, right = 0 }, separator = "" },
-					{
-						"filename",
-						path = 1,
-						padding = { left = 0, right = 0 },
-						symbols = {
-							modified = "",
-							readonly = "󰈡",
-							unnamed = "[unnamed]",
-							newfile = "󰎔",
-						},
-					},
-				},
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = {},
 			},
 		})
 	end,

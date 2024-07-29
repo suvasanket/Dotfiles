@@ -49,6 +49,7 @@ autocmd("VimEnter", {
 		hi("ObsidianRefText", { fg = "#DBB5B5" })
 		-- hi("WhichKeyNormal", { link = "CursorLine" })
 		hi("RenderMarkdownCode", { link = "CursorLine" })
+		hi("WinSeparator", { link = "TabLineSel" })
 	end,
 })
 
