@@ -82,13 +82,14 @@ return {
 				}),
 			})
 
-			-- Set configuration for specific filetype.
+			-- git commit
 			cmp.setup.filetype("gitcommit", {
 				sources = {
 					{ name = "buffer" },
 				},
 			})
 
+			-- search
 			cmp.setup.cmdline({ "/", "?" }, {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
@@ -96,6 +97,7 @@ return {
 				},
 			})
 
+			-- cmdline
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline({
 					["<end>"] = cmp.mapping.confirm({ select = true }),
@@ -104,6 +106,13 @@ return {
 					{ name = "path", keyword_length = 1 },
 					{ name = "cmdline", keyword_length = 1 },
 				},
+			})
+
+			-- dadbod
+			cmp.setup.filetype("sql", {
+				sources = {
+					{ name = "vim-dadbod-completion" },
+				}
 			})
 		end,
 	},
