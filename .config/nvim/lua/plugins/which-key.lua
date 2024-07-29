@@ -8,7 +8,7 @@ return {
 			preset = "helix",
 			show_help = false,
 			win = {
-				border = "rounded",
+				border = "single",
 				wo = {
 					winblend = 15,
 				},

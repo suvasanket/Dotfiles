@@ -58,6 +58,11 @@ return {
 			return "󰅠 " .. table.concat(c, ",")
 		end
 
+		local telescope = {
+			sections = { lualine_a = { function () return "%=  Telescope" end } },
+			filetypes = { "TelescopePrompt", "TelescopeResults" },
+		}
+
 		require("lualine").setup({
 			options = {
 				theme = personal_theme,
@@ -125,6 +130,7 @@ return {
 				"lazy",
 				"trouble",
 				"fugitive",
+				telescope
 			},
 		})
 	end,

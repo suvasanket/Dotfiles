@@ -147,7 +147,7 @@ create_command("Gcommit", function()
 		local remote = vim.api.nvim_exec("G remote -v", true)
 		if remote ~= "" then
 			local loc = remote:match("https://[^/]+/([%w-]+/[%w-]+)%.git%s+%(push%)")
-			ans = vim.fn.confirm("remote available, do you want to push ?", "&Yes\n&No")
+			ans = vim.fn.confirm("push to \"" .. loc .. "\"", "&Yes\n&No")
 			if ans == 1 then
 				shell_cmd({ "git", "push" }, function()
 					print("pushed to " .. loc)
