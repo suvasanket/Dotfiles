@@ -1,16 +1,4 @@
 return {
-	--lua plugins that are other to use
-	{ "nvim-lua/plenary.nvim", event = "VeryLazy" },
-
-	--web devicons
-	{
-		"nvim-tree/nvim-web-devicons",
-		event = "VimEnter",
-		config = function()
-			require("nvim-web-devicons").set_default_icon("", "#658147", 65)
-		end,
-	},
-
 	-- kind
 	{
 		"onsails/lspkind.nvim",
@@ -24,13 +12,10 @@ return {
 		end,
 	},
 
-	--nui
-	{ "MunifTanjim/nui.nvim", event = "VeryLazy" },
-
 	--dressing
 	{
 		"stevearc/dressing.nvim",
-		event = "VeryLazy",
+		lazy = true,
 		opts = {
 			input = {
 				mappings = {

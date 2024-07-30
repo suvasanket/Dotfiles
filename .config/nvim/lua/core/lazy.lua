@@ -13,7 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 require("lazy").setup({
-	checker = {
+	change_detection = {
 		notify = false,
 	},
 	spec = {

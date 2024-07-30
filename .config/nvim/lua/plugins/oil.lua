@@ -1,7 +1,7 @@
 require("core.helper")
 return {
 	"stevearc/oil.nvim",
-	lazy = false,
+	event = "VeryLazy",
 	keys = {
 		{ "-", "<cmd>Oil<cr>" },
 	},

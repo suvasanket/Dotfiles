@@ -72,9 +72,9 @@ local function cs(trigger, nodes, opts) --{{{
 end --}}}
 --}}}
 
---snippets here
+-- * snippets start * --
 
 
---End }}}--
 
+-- * snippets end * --
 return snippets, autosnippets

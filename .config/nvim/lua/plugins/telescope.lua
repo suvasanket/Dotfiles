@@ -47,7 +47,8 @@ return {
 			{ "<leader>/", cmd_tele("current_buffer_fuzzy_find"), desc = "current_buffer_fuzzy_find" },
 			--find
 			{ "<leader>ws", cmd_tele("lsp_workspace_symbols"), desc = "Workspace_symbols" },
-			{ "<leader>fc", cmd_tele("find_files"), desc = "find_files" },
+			{ "<leader>ff", cmd_tele("find_files"), desc = "find_files" },
+			{ "<leader>fc", cmd_tele("find_files cwd=~/.config/nvim/"), desc = "config" },
 			{ "<leader>fg", cmd_tele("live_grep"), desc = "Live_grep" },
 			{ "<leader>fd", cmd_tele("fd cwd=$HOME find_command=fd,-t=d,-H disable_devicons=true previewer=false"), desc = "find dir" },
 			--git
@@ -101,7 +102,7 @@ return {
 					selection_caret = "  ",
 					mappings = {
 						i = {
-							-- ["<C-[>"] = require("telescope.actions").close,
+							["<C-[>"] = require("telescope.actions").close,
 							["<C-j>"] = "move_selection_next",
 							["<C-k>"] = "move_selection_previous",
 							["<C-u>"] = false,

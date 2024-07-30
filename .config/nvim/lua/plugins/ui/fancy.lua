@@ -1,7 +1,7 @@
 return {
 	{
 		"echasnovski/mini.indentscope",
-		event = "Filetype",
+		event = "BufRead",
 		config = function()
 			require("mini.indentscope").setup({
 				-- Draw options

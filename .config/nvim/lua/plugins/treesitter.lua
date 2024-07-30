@@ -4,14 +4,6 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		event = { "BufRead", "BufNewFile" },
-		dependencies = {
-			--textobjects
-			{ "nvim-treesitter/nvim-treesitter-textobjects" },
-			--multicolor
-			{ "David-Kunz/markid" },
-			--endwise
-			{ "RRethy/nvim-treesitter-endwise" },
-		},
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "lua", "javascript", "java", "html", "css", "vim", "c" },
@@ -65,24 +57,30 @@ return {
 				endwise = { enable = true },
 			})
 		end,
-	},
-
-	--ts-context
-	{
-		"nvim-treesitter/nvim-treesitter-context",
-		event = "VeryLazy",
-		cmd = "TSContextToggle",
-		opts = {
-			enable = true,
-			max_lines = 0,
-			min_window_height = 1,
-			line_numbers = true,
-			multiline_threshold = 20,
-			trim_scope = "outer",
-			mode = "topline",
-			separator = nil,
-			zindex = 20,
-			on_attach = nil,
+		dependencies = {
+			--textobjects
+			{ "nvim-treesitter/nvim-treesitter-textobjects" },
+			--multicolor
+			{ "David-Kunz/markid" },
+			--endwise
+			{ "RRethy/nvim-treesitter-endwise" },
+			--ts-context
+			{
+				"nvim-treesitter/nvim-treesitter-context",
+				cmd = "TSContextToggle",
+				opts = {
+					enable = true,
+					max_lines = 0,
+					min_window_height = 1,
+					line_numbers = true,
+					multiline_threshold = 20,
+					trim_scope = "outer",
+					mode = "topline",
+					separator = nil,
+					zindex = 20,
+					on_attach = nil,
+				},
+			},
 		},
 	},
 }
