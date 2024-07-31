@@ -128,8 +128,8 @@ create_command("GremoteUrl", function()
 			ans = vim.fn.confirm("DO you really want to update remote url ?", "&Yes\n&No")
 			if ans == 1 then
 				vim.cmd("Git remote set-url origin " .. user_input)
+				print("git remote set to " .. user_input)
 			end
-			print("git remote set to " .. user_input)
 		end)
 	end
 end, {})

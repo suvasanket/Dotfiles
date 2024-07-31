@@ -153,14 +153,14 @@ map("n", "<leader>.", function()
 	end
 	local cd_pro = "cd " .. wd .. " | "
 
-	local smart_open = "Telescope smart_open smart_open cwd_only=true"
+	local search = "Telescope frecency workspace=CWD"
 	local op1 = "prompt_title=false preview_title=false result_title=false"
-	local op2 = "layout_config={preview_width=0.5} prompt_prefix=\\ \\ "
+	local op2 = "layout_config={preview_width=0.5} prompt_prefix=\\ 󱝩\\ "
 	vim.fn.timer_start(5000, function()
 		vim.cmd("echo ''")
 	end)
 
-	return "<cmd>" .. cd_pro .. " " .. smart_open .. " " .. op1 .. " " .. op2 .. "<cr>"
+	return "<cmd>" .. cd_pro .. " " .. search .. " " .. op1 .. " " .. op2 .. "<cr>"
 end, { expr = true, desc = "project files" })
 
 -- line move in normal and visual
