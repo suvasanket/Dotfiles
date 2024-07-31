@@ -68,7 +68,8 @@ cmd-shift-w = 'close'
 ### APP ql ###
 alt-f = 'exec-and-forget open /System/Library/CoreServices/Finder.app'
 alt-o = 'exec-and-forget open /Applications/Obsidian.app'
-alt-i = 'exec-and-forget open /Applications/iTerm.app'
+# alt-i = 'exec-and-forget open /Applications/iTerm.app'
+alt-i = 'exec-and-forget open /Applications/WezTerm.app'
 alt-a = 'exec-and-forget open /Applications/Chromium.app'
 # alt-a = 'exec-and-forget open /Applications/Vivaldi.app'
 alt-t = 'exec-and-forget open /Applications/TickTick.app'
@@ -79,7 +80,7 @@ alt-v = 'exec-and-forget open /Applications/IINA.app'
 
 ## APP SPACES
 [[on-window-detected]]
-if.app-id = 'com.googlecode.iterm2'
+if.app-id = 'com.github.wez.wezterm'
 run = ['move-node-to-workspace 1']
 
 [[on-window-detected]]
