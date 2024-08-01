@@ -26,6 +26,7 @@ return {
 				["<leader>p"] = "actions.preview",
 				["<C-h>"] = false,
 				["<C-l>"] = false,
+				["<C-p>"] = false,
 				["q"] = "actions.close",
 				["<leader>xx"] = "actions.refresh",
 				["<C-d>"] = "actions.preview_scroll_down",
