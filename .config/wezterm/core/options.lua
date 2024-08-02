@@ -54,4 +54,5 @@ return {
 	-- confirm quit
 	window_close_confirmation = 'NeverPrompt',
 
+	default_workspace = "default",
 }

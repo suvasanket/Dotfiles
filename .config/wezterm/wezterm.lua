@@ -18,17 +18,19 @@ end)
 wezterm.on("restore_session", function(window)
 	session_manager.restore_state(window)
 end)
-wezterm.on("update-right-status", function(window, pane)
-	window:set_right_status(window:active_workspace())
-end)
 
 wezterm.on("update-right-status", function(window, pane)
-	local date = wezterm.strftime("%Y-%m-%d %H:%M:%S")
 	local workspace = window:active_workspace()
+	if workspace == "default" then
+		window:set_right_status(wezterm.format({
+			{ Text = "" },
+		}))
+	else
+		window:set_right_status(wezterm.format({
+			{ Text = workspace .. " " },
+		}))
+	end
 
-	window:set_right_status(wezterm.format({
-		{ Text = workspace .. " " },
-	}))
 end)
 
 wezterm.on("save_and_quit", function(window, pane)
