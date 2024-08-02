@@ -8,10 +8,12 @@ return {
 			"ABolish Abolish",
 			"pirnt print",
 			"{fucn,func}t{io,oi}n {func}t{io}n",
-			"helo hello"
+			"helo hello",
+			"lcoal local",
+			"enw new",
 		}
 		for _, cmd in ipairs(abolish) do
 			vim.cmd("Abolish " .. cmd)
 		end
-	end
+	end,
 }

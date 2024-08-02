@@ -12,6 +12,7 @@ bufmap("trouble", "n", "<C-q>", cmd("Clearqflist"))
 -- general
 map("n", "<tab>", "za")
 map("n", "<S-tab>", "zi")
+map("n", "<esc>", ":noh<cr><esc>")
 map("n", "zx", cmd("bd!"))
 map("n", "<leader>l", cmd("Lazy"))
 map({ "n", "i" }, "<F1>", cmd("silent w!"))
@@ -26,17 +27,22 @@ map("n", "<C-q>", function()
 	end
 end, { desc = "quickfix open" })
 
--- insert move
+-- insert mode
+map("i", "<S-CR>", "<C-c>O")
 map("i", "<C-l>", "<right>")
 map("i", "<C-k>", "<up>")
 map("i", "<C-j>", "<down>")
 map("i", "<C-h>", "<left>")
 
+-- system mappings
+map({"i", "c"}, "<C-e>", "<end>")
+map({"i", "c"}, "<C-a>", "<home>")
+
 -- copy paste
 map({ "n", "x" }, "gp", function()
 	local mode = vim.api.nvim_get_mode()["mode"]
 	if not vim.api.nvim_get_current_line():match("^%s*$") and mode == "n" then
-		return '"+]p`[v`]='
+		return 'o<esc>"+p`[v`]='
 	else
 		return '"+p`[v`]='
 	end
@@ -48,10 +54,11 @@ map({ "n", "x" }, "gP", function()
 		return '<esc>O<esc>"+p`[v`]='
 	end
 end, { expr = true, desc = "clip paste prev" })
+map({ "n", "x" }, "]p", ":pu<cr>")
 map({ "n", "x" }, "p", "p`[v`]=")
 map({ "n", "x" }, "P", "P`[v`]=")
 map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
-map({ "x", "n" }, "<leader>p", [["_dP]], { desc = "blackhole paste" })
+map("x", "p", [["_dP]], { desc = "blackhole paste" })
 
 --master
 map("n", "\\s", cmd("LuaSnipOpen"))
@@ -65,7 +72,7 @@ map("n", "\\cq", cmd("CmpDisable"))
 map("n", "<leader>_", cmd("split"))
 map("n", "<leader>|", cmd("vsplit"))
 map("t", "<C-[>", "<C-\\><C-n>")
-map("n", "<C-t>", cmd("tabnew | Oil"))
+map("n", "<C-t>", cmd("tabnew"))
 map("n", "<leader>bf", "gg=G<C-o>", { desc = "buffer format" })
 map("n", "<C-\\>", cmd("q"))
 map("n", "<leader>1", "1gt", { desc = "tab 1" })
@@ -86,10 +93,7 @@ bufmap("fugitive", "n", "x", "<cmd>GitDeleteCached<cr>")
 bufmap("fugitive", "n", "gc", cmd_tele("git_commits"))
 map( "n", "<leader>gc", "<cmd>Gcommit<cr>", { desc = "smart commit" } )
 
---smart-enter
-map("i", "<S-CR>", "<C-c>O")
-
---smart-dele
+--smart-delete
 map("n", "dd", function()
 	local line_data = vim.api.nvim_win_get_cursor(0)
 	local current_line = vim.api.nvim_buf_get_lines(0, line_data[1] - 1, line_data[1], false)
@@ -170,3 +174,7 @@ map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 map("n", "H", "<<")
 map("n", "L", ">>")
+
+-- unimapaired
+map("n", "]<space>", cmd("call append(line('.'), '')"))
+map("n", "[<space>", cmd("call append(line('.')-1, '')"))

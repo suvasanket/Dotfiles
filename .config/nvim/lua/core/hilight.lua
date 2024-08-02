@@ -47,9 +47,9 @@ autocmd("VimEnter", {
 		hi("DiagnosticSignError", { fg = "#eb5f61" })
 		hi("DiagnosticSignWarn", { fg = "#ee7f25" })
 		hi("ObsidianRefText", { fg = "#DBB5B5" })
-		-- hi("WhichKeyNormal", { link = "CursorLine" })
 		hi("RenderMarkdownCode", { link = "CursorLine" })
 		hi("WinSeparator", { link = "TabLineSel" })
+		-- hi("WhichKeyNormal", { link = "CursorLine" })
 	end,
 })
 

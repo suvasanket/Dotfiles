@@ -85,6 +85,9 @@ return {
 							["<C-k>"] = "move_selection_previous",
 							["<C-u>"] = false,
 						},
+						n = {
+							["q"] = require("telescope.actions").close,
+						}
 					},
 				},
 				extensions = {
@@ -94,6 +97,7 @@ return {
 						override_file_sorter = true,
 					},
 					frecency = {
+						auto_validate = true,
 						sorter = require("telescope").extensions.fzf.native_fzf_sorter(),
 						hide_current_buffer = true,
 						path_display = { "tail" },

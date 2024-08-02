@@ -72,7 +72,7 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					["<C-u>"] = cmp.mapping.scroll_docs(-4),
 					["<C-d>"] = cmp.mapping.scroll_docs(4),
-					["<C-a>"] = function()
+					["<tab>"] = function()
 						if cmp.visible() then
 							cmp.confirm({ select = true })
 						else

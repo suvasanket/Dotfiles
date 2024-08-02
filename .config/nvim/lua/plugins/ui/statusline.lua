@@ -1,6 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	event = "VimEnter",
+	event = "BufEnter",
 	config = function()
 		local colors = {
 			yellow = "#FFFF80",

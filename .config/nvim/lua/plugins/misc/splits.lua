@@ -1,11 +1,10 @@
 return {
 	"mrjones2014/smart-splits.nvim",
-	--stylua: ignore
 	keys = {
-		{ "<M-h>", function() require("smart-splits").resize_left() end },
-		{ "<M-j>", function() require("smart-splits").resize_down() end },
-		{ "<M-k>", function() require("smart-splits").resize_up() end },
-		{ "<M-l>", function() require("smart-splits").resize_right() end },
+		{ "<C-S-h>", function() require("smart-splits").resize_left() end },
+		{ "<C-S-j>", function() require("smart-splits").resize_down() end },
+		{ "<C-S-k>", function() require("smart-splits").resize_up() end },
+		{ "<C-S-l>", function() require("smart-splits").resize_right() end },
 		-- moving between splits
 		{ "<C-h>", function() require("smart-splits").move_cursor_left() end },
 		{ "<C-j>", function() require("smart-splits").move_cursor_down() end },

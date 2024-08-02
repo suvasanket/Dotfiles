@@ -4,7 +4,7 @@ autocmd("LspAttach", {
 		map("n", "gi", "<cmd>Trouble lsp_implementations toggle focus=true<cr>", opts)
 		map("n", "gr", "<cmd>Trouble lsp_references toggle focus=true<cr>", opts)
 		map("n", "gtd", "<cmd>Trouble lsp_type_definitions toggle focus=true<cr>", opts)
-		map("n", "cd", "<cmd>Trouble diagnostics toggle<cr>", { desc = "diagnostic" })
+		map("n", "cd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "diagnostic" })
 		map(
 			"n",
 			"\\i",
@@ -13,7 +13,7 @@ autocmd("LspAttach", {
 		)
 		map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { silent = true, desc = "code_action" })
 		map("n", "<leader>cs", "<cmd>Trouble lsp toggle<cr>", { desc = "symbols" })
-		map("n", "<leader>cr", ":Rename ", { silent = true, desc = "rename" })
+		map("n", "<leader>cr", vim.lsp.buf.rename, { silent = true, desc = "rename" })
 		map("n", "gd", ":lua vim.lsp.buf.definition()<cr>", opts)
 		map("n", "gD", vim.lsp.buf.declaration, opts)
 		-- map("n", "<leader>k", vim.lsp.buf.signature_help, opts)

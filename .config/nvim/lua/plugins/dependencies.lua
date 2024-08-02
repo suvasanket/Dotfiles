@@ -15,7 +15,8 @@ return {
 	--dressing
 	{
 		"stevearc/dressing.nvim",
-		lazy = true,
+		enabled = false,
+		event = { "LspAttach" },
 		opts = {
 			input = {
 				mappings = {
