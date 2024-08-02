@@ -55,7 +55,6 @@ return {
 					local cwd = oil.get_current_dir()
 					local line = vim.fn.getline(".")
 					local pattern = line:match("[%S]+%s+[%S]+%s+(.*)")
-					-- local file = oil.get_cursor_entry().name
 					if cwd and pattern then
 						local full_path = cwd .. pattern
 						vim.api.nvim_feedkeys(": " .. full_path, "n", false)

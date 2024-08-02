@@ -1,0 +1,7 @@
+dev/undodir
+dev/vim_ses
+dev/frecency
+dev/apache-maven-3.9.4
+*/.DS_Store
+.config/nvim/lazy-lock.json
+.config/nvm/
