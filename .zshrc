@@ -1,3 +1,15 @@
+## exports ##
+export MANPAGER="gum pager"
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+--color=fg:#939393,fg+:#d0d0d0,bg:#181818,bg+:#262626
+--color=hl:#60c7bb,hl+:#5effec,info:#8a8a8a,marker:#ffffff
+--color=prompt:#d7005f,spinner:#c392f4,pointer:#af5fff,header:#525252
+--color=gutter:#181818,border:#343333,separator:#565656,scrollbar:#191919
+--color=label:#aeaeae,query:#d9d9d9
+--border="bold" --border-label="" --preview-window="border-bold" --prompt=" "
+--marker="+" --pointer=" " --separator="" --scrollbar=""
+--layout="reverse" --info="right"'
+
 ############ HomeBrew ##############
 
 if [[ -f "/opt/homebrew/bin/brew" ]] then
@@ -14,6 +26,14 @@ if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
 fi
 
 export PATH=$PATH:~/.gem/ruby/3.3.0/bin
+
+## kitty ##
+# if test -n "$KITTY_INSTALLATION_DIR"; then
+#     export KITTY_SHELL_INTEGRATION="enabled"
+#     autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
+#     kitty-integration
+#     unfunction kitty-integration
+# fi
 
 ############ ZINIT ##############
 
@@ -45,11 +65,9 @@ autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 # Keybindings
 bindkey -e
+bindkey '^r' 'gum filter < $HISTFILE --height 20'
 bindkey '^a' autosuggest-accept
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
@@ -98,7 +116,7 @@ gemuninstall() { gem list --no-version | grep'$@' | xargs gem uninstall}
 alias doom="~/.config/emacs/bin/doom"
 
 # Shell integrations
-eval "$(fzf --zsh)"
+FZF_CTRL_R_COMMAND= source <(fzf --zsh)
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"
 

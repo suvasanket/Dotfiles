@@ -6,9 +6,9 @@ PLAYBACK_RATE="$($NPCLI get PlaybackRate)"
 TRACK="$($NPCLI get title)"
 
 if [ "$PLAYBACK_RATE" == "0" ]; then
-    ICON=
+    ICON=
 else
-    ICON=
+    ICON=
 fi
 
 if [ "$PLAYBACK_RATE" != "null" ]; then

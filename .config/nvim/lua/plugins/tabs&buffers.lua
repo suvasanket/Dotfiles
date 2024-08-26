@@ -3,6 +3,7 @@ return {
 	{
 		"nanozuki/tabby.nvim",
 		event = "TabNew",
+		enabled = false,
 		dependencies = {
 			{ "nvim-tree/nvim-web-devicons" },
 		},

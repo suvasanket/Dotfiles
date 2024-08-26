@@ -9,7 +9,7 @@ return {
 				preset = "helix",
 				show_help = false,
 				win = {
-					border = "single",
+					border = "none",
 					wo = {
 						winblend = 15,
 					},
@@ -19,7 +19,6 @@ return {
 				},
 				spec = {
 					{ "<leader><leader>", group = "swap" },
-					{ "<leader>b", group = "buffer" },
 					{ "<leader>c", group = "code" },
 					{ "<leader>d", group = "debug" },
 					{ "<leader>f", group = "find" },
@@ -28,8 +27,8 @@ return {
 					{ "<leader>m", group = "refactor" },
 					{ "<leader>n", group = "notes" },
 					{ "<leader>q", group = "macro/session" },
-					{ "<leader>r", group = "run" },
 					{ "<leader>s", group = "search" },
+					{ "<leader>r", group = "refactor" },
 					{ "<leader>w", group = "workspace" },
 					{ "<leader>wa", desc = "add_workspace_folder" },
 					{ "<leader>wl", desc = "list_workspace_folders" },

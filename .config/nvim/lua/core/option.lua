@@ -5,10 +5,6 @@ local cmd = vim.cmd
 vim.cmd.colorscheme("fleet")
 o.termguicolors = true
 o.signcolumn = "auto"
-o.fillchars = {
-	fold = " ",
-	-- eob = " ",
-}
 o.hlsearch = true
 
 -- o.foldcolumn = "0" -- '0' is not bad
@@ -31,7 +27,7 @@ o.autochdir = true
 --line and cursor
 o.relativenumber = true
 o.number = true
-o.cursorline = true
+o.cursorline = false
 -- o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20"
 o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
 
@@ -39,7 +35,7 @@ o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait40-blinko
 o.tabstop = 4
 o.shiftwidth = 4
 o.softtabstop = 4
-o.wrap = true
+o.wrap = false
 o.list = false
 o.expandtab = true
 

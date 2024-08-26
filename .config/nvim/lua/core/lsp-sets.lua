@@ -1,23 +1,15 @@
 autocmd("LspAttach", {
 	callback = function(args)
 		local opts = { noremap = true, silent = true, buffer = args.buf }
-		map("n", "gi", "<cmd>Trouble lsp_implementations toggle focus=true<cr>", opts)
-		map("n", "gr", "<cmd>Trouble lsp_references toggle focus=true<cr>", opts)
-		map("n", "gtd", "<cmd>Trouble lsp_type_definitions toggle focus=true<cr>", opts)
-		map("n", "cd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "diagnostic" })
-		map(
-			"n",
-			"\\i",
-			"<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>",
-			{ desc = "toggle inlay_hints" }
-		)
-		map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { silent = true, desc = "code_action" })
-		map("n", "<leader>cs", "<cmd>Trouble lsp toggle<cr>", { desc = "symbols" })
-		map("n", "<leader>cr", vim.lsp.buf.rename, { silent = true, desc = "rename" })
-		map("n", "gd", ":lua vim.lsp.buf.definition()<cr>", opts)
+		map("n", "gi", vim.lsp.buf.implementation, opts)
+		map("n", "gr", vim.lsp.buf.references, opts)
+		map("n", "gtd", vim.lsp.buf.type_definition, opts)
+		map("n", "gd", vim.lsp.buf.definition, opts)
 		map("n", "gD", vim.lsp.buf.declaration, opts)
-		-- map("n", "<leader>k", vim.lsp.buf.signature_help, opts)
-		map("n", "<leader>k", vim.lsp.buf.hover, opts)
+		map("n", "gk", vim.lsp.buf.hover, opts)
+		map("n", "<leader>k", vim.lsp.buf.signature_help, opts)
+		map("n", "<leader>cr", vim.lsp.buf.rename, { silent = true, desc = "rename" })
+		map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { silent = true, desc = "code_action" })
 		map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
 		map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
 		map("n", "<leader>wl", function()
@@ -28,8 +20,8 @@ autocmd("LspAttach", {
 })
 -- diagnostic config --
 vim.diagnostic.config({
-	signs = true,
-	virtual_text = false,
+	signs = false,
+	virtual_text = true,
 	update_in_insert = false,
 	underline = false,
 	severity_sort = true,
@@ -63,8 +55,14 @@ vim.diagnostic.config({
 	},
 })
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	border = "single",
+})
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+	border = "single",
+})
 -- lsp-gutterSigns --
-local signs = { Error = "", Warn = "󰔶", Hint = "", Info = "" }
+local signs = { Error = "", Warn = "󰔶", Hint = "", Info = "" }
 for type, icon in pairs(signs) do
 	---@diagnostic disable-next-line: redefined-local
 	local hl = "DiagnosticSign" .. type

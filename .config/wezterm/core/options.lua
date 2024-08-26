@@ -1,6 +1,5 @@
 return {
 	-- Color scheme and background color
-	color_scheme = "fleet",
 	colors = {
 		background = "#181818",
 		tab_bar = {

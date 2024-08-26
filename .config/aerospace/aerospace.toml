@@ -60,7 +60,8 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 alt-shift-w = ['mode service','exec-and-forget sketchybar -m --set modal icon="󰭠"']
 # alt-shift-a = ['mode join','exec-and-forget sketchybar -m --set modal icon="󱈘"']
 
-# cmd-h = []
+cmd-h = []
+alt-cmd-h = []
 # ctrl-cmd-f = 'macos-native-fullscreen'
 cmd-m = 'macos-native-minimize'
 cmd-shift-w = 'close'
@@ -68,35 +69,23 @@ cmd-shift-w = 'close'
 ### APP ql ###
 alt-f = 'exec-and-forget open /System/Library/CoreServices/Finder.app'
 alt-o = 'exec-and-forget open /Applications/Obsidian.app'
-# alt-i = 'exec-and-forget open /Applications/iTerm.app'
-alt-i = 'exec-and-forget open /Applications/WezTerm.app'
+alt-i = 'exec-and-forget open /Applications/kitty.app'
 alt-a = 'exec-and-forget open /Applications/Chromium.app'
-# alt-a = 'exec-and-forget open /Applications/Vivaldi.app'
 alt-t = 'exec-and-forget open /Applications/TickTick.app'
 alt-v = 'exec-and-forget open /Applications/IINA.app'
-# alt-e = ['workspace 1','exec-and-forget emacsclient -a "" -c "$@"']
 ### APP ql ###
 
 
 ## APP SPACES
+
+# 1
 [[on-window-detected]]
-if.app-id = 'com.github.wez.wezterm'
+if.app-id = 'net.kovidgoyal.kitty'
 run = ['move-node-to-workspace 1']
 
+# 2
 [[on-window-detected]]
-if.app-id = 'org.gnu.Emacs'
-run = ['move-node-to-workspace 1']
-
-[[on-window-detected]]
-if.app-id = 'company.thebrowser.Browser'
-run = ['move-node-to-workspace 2']
-
-[[on-window-detected]]
-if.app-id = 'org.mozilla.floorp'
-run = ['move-node-to-workspace 2']
-
-[[on-window-detected]]
-if.app-id = 'com.vivaldi.Vivaldi'
+if.app-id = 'com.kagi.kagimacOS'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
@@ -104,9 +93,23 @@ if.app-id = 'org.chromium.Chromium'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = 'com.colliderli.iina'
-run = ['move-node-to-workspace 3']
+if.app-id = 'com.brave.Browser'
+run = ['move-node-to-workspace 2']
 
+[[on-window-detected]]
+if.app-id = 'org.mozilla.floorp'
+run = ['move-node-to-workspace 2']
+
+# 3
+[[on-window-detected]]
+if.app-id = 'org.videolan.vlc'
+run = ['layout floating','move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = 'com.kv.Aural'
+run = ['layout floating','move-node-to-workspace 3']
+
+# 4
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
 run = ['move-node-to-workspace 4']
@@ -115,6 +118,7 @@ run = ['move-node-to-workspace 4']
 if.app-id = 'com.apple.mail'
 run = ['move-node-to-workspace 4']
 
+# 5
 [[on-window-detected]]
 if.app-id = 'com.macpaw.CleanMyMac4'
 run = ['layout floating','move-node-to-workspace 5']
@@ -127,13 +131,14 @@ run = ['layout floating']
 
 # 'service' binding mode declaration.
 [mode.service.binding]
-r = ['flatten-workspace-tree', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""'] # reset layout
-f = ['layout floating tiling', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""'] # Toggle between floating and tiling layout
-w = ['close-all-windows-but-current', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+r = ['flatten-workspace-tree', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+f = ['layout floating tiling', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+o = ['close-all-windows-but-current', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
 s = ['layout accordion horizontal vertical', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
 b = ['layout tiles horizontal vertical', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-esc = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+alt-shift-w = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
 space = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
+i = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
 #s = ['layout sticky tiling', 'mode main'] # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 
 # 'join' binding mode declaration

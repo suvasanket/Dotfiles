@@ -7,9 +7,9 @@ path = "~/dotfiles/.config/skhd"
 startup_command = "v skhdrc"
 
 [[session]]
-name = "conf"
-path = "~/dotfiles"
-startup_command = "nvim -c 'Telescope find_files'"
+name = "Home"
+path = "~/"
+startup_command = "nvim"
 
 [[session]]
 name = "ruby"

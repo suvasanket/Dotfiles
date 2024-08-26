@@ -4,8 +4,9 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
+			"stevearc/dressing.nvim",
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
 		},
 		config = function()
 			-- lsp config --
@@ -40,33 +41,33 @@ return {
 			-- mason --
 			require("mason").setup({
 				ui = {
-					border = "single"
+					border = "single",
 				},
 			})
 
 			require("mason-lspconfig").setup()
 			-- server setup --
 			require("mason-lspconfig").setup_handlers({
-				function (server_name) -- default handler (optional)
-					require("lspconfig")[server_name].setup {}
+				function(server_name) -- default handler (optional)
+					require("lspconfig")[server_name].setup({})
 				end,
 
-				["lua_ls"] = function ()
+				["lua_ls"] = function()
 					local lspconfig = require("lspconfig")
-					lspconfig.lua_ls.setup {
+					lspconfig.lua_ls.setup({
 						settings = {
 							Lua = {
 								diagnostics = {
-									globals = { "vim" }
-								}
-							}
-						}
-					}
+									globals = { "vim" },
+								},
+							},
+						},
+					})
 				end,
 			})
 			require("lspconfig.ui.windows").default_options.border = "single"
 		end,
 	},
-	--lsptimeout
-	{ "hinell/lsp-timeout.nvim", event = "LspAttach" },
+	-- --lsptimeout
+	-- { "hinell/lsp-timeout.nvim", event = "LspAttach" },
 }

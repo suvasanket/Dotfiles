@@ -2,6 +2,9 @@ require("core.helper")
 return {
 	"stevearc/oil.nvim",
 	event = "VeryLazy",
+	dependencies = {
+		{ "nvim-tree/nvim-web-devicons" },
+	},
 	keys = {
 		{ "-", "<cmd>Oil<cr>" },
 	},
@@ -59,7 +62,7 @@ return {
 						local full_path = cwd .. pattern
 						vim.api.nvim_feedkeys(": " .. full_path, "n", false)
 						vim.schedule(function()
-							vim.api.nvim_input("<Home>!")
+							vim.api.nvim_input("<Home>")
 							require("oil.actions").refresh.callback()
 						end)
 					end

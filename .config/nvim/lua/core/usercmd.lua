@@ -1,8 +1,8 @@
+-- vim: foldmethod=marker
+-- vim: foldlevel=0
 --{{{
 ---@diagnostic disable: need-check-nil
 ---@diagnostic disable: lowercase-global
--- vim: foldmethod=marker
--- vim: foldlevel=0
 local create_command = vim.api.nvim_create_user_command
 local ex = vim.fn.expand
 pwd = vim.fn.expand("%:p:h")
@@ -93,7 +93,7 @@ create_command("Ftplugin", openftplugin, {})
 --qflist
 create_command("Clearqflist", function()
 	vim.fn.setqflist({})
-	print("qflist cleaned")
+	vim.cmd("cclose")
 end, {})
 
 create_command("Echoqflist", function()
@@ -146,7 +146,7 @@ create_command("Gcommit", function()
 
 		local remote = vim.api.nvim_exec("G remote -v", true)
 		if remote ~= "" then
-			local loc = remote:match("https://[^/]+/([%w-]+/[%w-]+)%.git%s+%(push%)")
+			local loc = remote:match("https://[^/]+/([%w-]+/[%w-]+)%.?git?%s+%(%w+%)")
 			ans = vim.fn.confirm("push to \"" .. loc .. "\"", "&Yes\n&No")
 			if ans == 1 then
 				shell_cmd({ "git", "push" }, function()

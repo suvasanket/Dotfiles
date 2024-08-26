@@ -24,11 +24,11 @@ end
 
 -- lua dir source
 post_act("*/ftplugin/*.lua", function()
-	vim.cmd("silent source%")
+	vim.cmd("silent source")
 end)
 
 post_act("*/core/*.lua", function()
-	vim.cmd("silent source%")
+	vim.cmd("silent source")
 end)
 
 -- tmux hot reload
@@ -53,4 +53,12 @@ post_act("statusline.lua", function()
 	vim.fn.timer_start(2000, function()
 		vim.cmd("silent Lazy reload lualine.nvim")
 	end)
+end)
+
+post_act("karabiner-config.ts", function ()
+	vim.cmd("silent !tsc karabiner-config.ts && node karabiner-config.js")
+end)
+
+post_act("kitty.conf", function ()
+	vim.api.nvim_feedkeys("<C-S-F5>", "n", false)
 end)

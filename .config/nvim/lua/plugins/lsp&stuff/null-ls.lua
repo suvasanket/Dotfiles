@@ -1,7 +1,6 @@
 return {
 	"nvimtools/none-ls.nvim",
 	dependencies = {
-		{ "ThePrimeagen/refactoring.nvim" },
 		{ "jay-babu/mason-null-ls.nvim" },
 	},
 	event = { "LspAttach", "BufReadPost" },

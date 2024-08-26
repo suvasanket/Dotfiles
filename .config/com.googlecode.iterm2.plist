@@ -989,6 +989,8 @@
 	<true/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>LanguageAgnosticKeyBindings</key>
+	<false/>
 	<key>NeverWarnAboutShortLivedSessions_49FA7709-0D6F-4E91-864B-3453078196A1</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_49FA7709-0D6F-4E91-864B-3453078196A1_selection</key>
@@ -1372,7 +1374,7 @@
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
-			<string>ta</string>
+			<string></string>
 			<key>Initial Use Transparency</key>
 			<true/>
 			<key>Jobs to Ignore</key>

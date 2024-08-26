@@ -54,7 +54,7 @@ return {
 					},
 				},
 				markid = { enable = true },
-				endwise = { enable = true },
+				-- endwise = { enable = true },
 			})
 		end,
 		dependencies = {
@@ -63,7 +63,7 @@ return {
 			--multicolor
 			{ "David-Kunz/markid" },
 			--endwise
-			{ "RRethy/nvim-treesitter-endwise" },
+			-- { "RRethy/nvim-treesitter-endwise" },
 			--ts-context
 			{
 				"nvim-treesitter/nvim-treesitter-context",

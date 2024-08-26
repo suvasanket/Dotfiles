@@ -11,6 +11,8 @@ return {
 			"helo hello",
 			"lcoal local",
 			"enw new",
+			"lenght length",
+			"St{ri,ir}{gn,ng} St{ri}{ng}",
 		}
 		for _, cmd in ipairs(abolish) do
 			vim.cmd("Abolish " .. cmd)

@@ -1,6 +1,9 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "BufEnter",
+	dependencies = {
+		{ "nvim-tree/nvim-web-devicons" },
+	},
 	config = function()
 		local colors = {
 			yellow = "#FFFF80",
@@ -39,7 +42,6 @@ return {
 				b = { fg = colors.black, bg = colors.red },
 				c = { fg = colors.black, bg = colors.red },
 			},
-
 		}
 		local lsp = function()
 			local bufnr = vim.api.nvim_get_current_buf()
@@ -59,7 +61,11 @@ return {
 		end
 
 		local telescope = {
-			sections = { lualine_a = { function () return " Telescope" end } },
+			sections = { lualine_a = {
+				function()
+					return " Telescope"
+				end,
+			} },
 			filetypes = { "TelescopePrompt", "TelescopeResults" },
 		}
 
@@ -100,8 +106,16 @@ return {
 						"diagnostics",
 						sections = { "error" },
 						symbols = { error = "", warn = "", info = "", hint = "" },
+						on_click = function ()
+							vim.cmd("Trouble diagnostics toggle filter.buf=0")
+						end
 					},
-					lsp,
+					{
+						lsp,
+						on_click = function ()
+							vim.cmd("LspInfo")
+						end
+					},
 				},
 				lualine_y = {
 					{ "branch", icon = { "󰊢", color = { fg = "red" } }, separator = "" },
@@ -130,7 +144,7 @@ return {
 				"lazy",
 				"trouble",
 				"fugitive",
-				telescope
+				telescope,
 			},
 		})
 	end,

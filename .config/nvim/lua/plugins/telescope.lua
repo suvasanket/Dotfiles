@@ -3,17 +3,22 @@ return {
 	--Telescope
 	{
 		"nvim-telescope/telescope.nvim",
-		cmd = {
-			"Telescope",
-		},
+		cmd = "Telescope",
 		dependencies = {
+			{ "nvim-tree/nvim-web-devicons" },
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			{ "nvim-telescope/telescope-frecency.nvim" },
+			{ "stevearc/quicker.nvim" },
+			{
+				"danielfalk/smart-open.nvim",
+				dependencies = {
+					{ "kkharji/sqlite.lua" },
+				},
+			},
 		},
 		keys = {
 			{ "<leader>'", "<cmd>Telescope resume<cr>", desc = "Telescope resume" },
 			{ "<C-S-\\>", cmd_tele("commands") },
-			{ "<C-f>", cmd_tele("frecency workspace=home"), desc = "home find file" },
+			{ "<leader>.", cmd_tele("smart_open") },
 			--search
 			{ "<leader>ss", cmd_tele("builtin") },
 			{ "<leader>sh", cmd_tele("help_tags"), desc = "help_tags" },
@@ -21,12 +26,12 @@ return {
 			{ "<leader>so", cmd_tele("oldfiles"), desc = "Oldfiles" },
 			--buffer
 			{ "zc", cmd_tele("buffers"), desc = "Symbols" },
-			{ "<leader>bs", cmd_tele("lsp_document_symbols"), desc = "Symbols" },
+			{ "<leader>cs", cmd_tele("lsp_document_symbols"), desc = "Symbols" },
 			{ "<leader>/", cmd_tele("current_buffer_fuzzy_find"), desc = "current_buffer_fuzzy_find" },
 			--find
 			{ "<leader>ws", cmd_tele("lsp_workspace_symbols"), desc = "Workspace_symbols" },
-			{ "<leader>ff", cmd_tele("frecency workspace=CWD"), desc = "find_files" },
-			{ "<leader>fc", cmd_tele("frecency workspace=config"), desc = "config" },
+			{ "<leader>ff", cmd_tele("fd cwd=$HOME find_command=fd,-t=f,-H prompt_prefix=\\ ~/\\ "), desc = "find_files" },
+			{ "<leader>fc", cmd_tele("fd cwd=~/dotfiles/ find_command=fd,-t=f,-H"), desc = "config" },
 			{ "<leader>fg", cmd_tele("live_grep"), desc = "Live_grep" },
 			{ "<leader>fd", cmd_tele("fd cwd=$HOME find_command=fd,-t=d,-H disable_devicons=true previewer=false"), desc = "find dir" },
 			--git
@@ -87,7 +92,7 @@ return {
 						},
 						n = {
 							["q"] = require("telescope.actions").close,
-						}
+						},
 					},
 				},
 				extensions = {
@@ -96,21 +101,12 @@ return {
 						override_generic_sorter = true,
 						override_file_sorter = true,
 					},
-					frecency = {
-						auto_validate = true,
-						sorter = require("telescope").extensions.fzf.native_fzf_sorter(),
-						hide_current_buffer = true,
-						path_display = { "tail" },
-						workspaces = {
-							["home"] = "/Users/suvasanketrout/",
-							["config"] = "/Users/suvasanketrout/.config/nvim/",
-							["codes"] = "/Users/suvasanketrout/codes/"
-						}
+					smart_open = {
+						match_algorithm = "fzf",
 					},
 				},
 			})
-			require("telescope").load_extension("frecency")
-			require('telescope').load_extension('fzf')
+			require("telescope").load_extension("fzf")
 		end,
 	},
 }

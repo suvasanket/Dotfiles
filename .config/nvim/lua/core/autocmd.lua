@@ -24,7 +24,7 @@ autocmd("FileType", {
 -- auto remove hidden buffers
 autocmd("BufHidden", {
 	callback = function()
-		vim.fn.timer_start(100000, function()
+		vim.fn.timer_start(10000, function()
 			vim.cmd("silent! BDelete hidden")
 		end)
 	end,
@@ -55,30 +55,6 @@ autocmd("TermOpen", {
 	callback = function()
 		vim.cmd("setlocal nonumber norelativenumber")
 		vim.cmd.startinsert()
-	end,
-})
--- autocmd("TermClose", {
--- 	group="term",
--- 	pattern = "*",
--- 	callback = function()
--- 		vim.cmd("setlocal number relativenumber")
--- 	end,
--- })
-
---insert mode
-augroup("insrt", { clear = true })
-autocmd("InsertEnter", {
-	pattern = "*.*",
-	group = "insrt",
-	callback = function()
-		vim.o.cursorline = false
-	end,
-})
-autocmd("InsertLeave", {
-	group = "insrt",
-	pattern = "*.*",
-	callback = function()
-		vim.o.cursorline = true
 	end,
 })
 
