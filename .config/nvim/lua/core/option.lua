@@ -28,7 +28,7 @@ o.autochdir = true
 o.relativenumber = true
 o.number = true
 o.cursorline = false
--- o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20"
+-- o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
 o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
 
 --tab indent
@@ -65,8 +65,8 @@ o.smartindent = false
 o.showmode = false
 
 --status line
-o.laststatus = 0
-o.ruler = false
+-- o.laststatus = 0
+-- o.ruler = false
 
 --conceal
 o.conceallevel = 2

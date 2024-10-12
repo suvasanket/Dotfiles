@@ -1,10 +1,27 @@
 require("core.helper")
+local function get_wd()
+	local workspace = vim.lsp.buf.list_workspace_folders()
+	local wd = nil
+	local v = vim
+
+	if workspace[1] ~= nil then
+		wd = workspace[1]
+	else
+		local git_root = v.fn.systemlist("git rev-parse --show-toplevel")
+		if v.v.shell_error == 0 then
+			wd = git_root
+		end
+	end
+	return wd
+end
+
 return {
 	--Telescope
 	{
-		"nvim-telescope/telescope.nvim",
+		'nvim-telescope/telescope.nvim',
 		cmd = "Telescope",
 		dependencies = {
+			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-tree/nvim-web-devicons" },
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			{ "stevearc/quicker.nvim" },
@@ -18,12 +35,12 @@ return {
 		keys = {
 			{ "<leader>'", "<cmd>Telescope resume<cr>", desc = "Telescope resume" },
 			{ "<C-S-\\>", cmd_tele("commands") },
-			{ "<leader>.", cmd_tele("smart_open") },
 			--search
 			{ "<leader>ss", cmd_tele("builtin") },
 			{ "<leader>sh", cmd_tele("help_tags"), desc = "help_tags" },
 			{ "<leader>s;", cmd_tele("command_history"), desc = "CommandHist" },
 			{ "<leader>so", cmd_tele("oldfiles"), desc = "Oldfiles" },
+			{ "<leader>sm", cmd_tele("man_pages"), desc = "Unix_Manuals" },
 			--buffer
 			{ "zc", cmd_tele("buffers"), desc = "Symbols" },
 			{ "<leader>cs", cmd_tele("lsp_document_symbols"), desc = "Symbols" },
@@ -32,11 +49,49 @@ return {
 			{ "<leader>ws", cmd_tele("lsp_workspace_symbols"), desc = "Workspace_symbols" },
 			{ "<leader>ff", cmd_tele("fd cwd=$HOME find_command=fd,-t=f,-H prompt_prefix=\\ ~/\\ "), desc = "find_files" },
 			{ "<leader>fc", cmd_tele("fd cwd=~/dotfiles/ find_command=fd,-t=f,-H"), desc = "config" },
-			{ "<leader>fg", cmd_tele("live_grep"), desc = "Live_grep" },
 			{ "<leader>fd", cmd_tele("fd cwd=$HOME find_command=fd,-t=d,-H disable_devicons=true previewer=false"), desc = "find dir" },
 			--git
 			{ "<leader>gb", cmd_tele("git_branches"), desc = "git branches" },
 			{ "<leader>gf", cmd_tele("git_files"), desc = "git files" },
+
+			-- smart find
+			{ "<C-f>", function()
+					local working_dir = get_wd()
+					vim.cmd("cd " .. working_dir)
+					require("telescope").extensions.smart_open.smart_open({
+						cwd_only = true,
+						filename_first = false,
+						prompt_title = false,
+						preview_title = false,
+						result_title = false,
+						attach_mappings = function(_, map)
+							map({"i", "n"}, "<C-g>", function()
+								require("telescope.builtin").find_files({
+									cwd = "~/",
+									prompt_title = false,
+									preview_title = false,
+									result_title = false,
+								})
+							end, { desc = "Global search"})
+							return true
+						end,
+					})
+				end
+			},
+
+			{ "<leader>fg", function ()
+				local working_dir = get_wd()
+				require("telescope.builtin").live_grep({
+					cwd =  working_dir,
+					additional_args = function(opts)
+						return {"--hidden"}
+					end,
+					filename_first = false,
+					prompt_title = false,
+					preview_title = false,
+					result_title = false,
+				})
+			end, desc = "Live_grep" },
 		},
 		config = function()
 			require("telescope.pickers.layout_strategies").horizontal_merged = function(
@@ -94,6 +149,11 @@ return {
 							["q"] = require("telescope.actions").close,
 						},
 					},
+				},
+				pickers = {
+					find_files = {
+						hidden = true
+					}
 				},
 				extensions = {
 					fzf = {

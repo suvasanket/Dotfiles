@@ -2,10 +2,8 @@ return {
 	--LuaSnip
 	{
 		"L3MON4D3/LuaSnip",
-		event = "InsertEnter",
 		config = function()
 			local ls = require("luasnip") --{{{
-
 			require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
 			require("luasnip").config.setup({ store_selection_keys = "<A-p>" })
 

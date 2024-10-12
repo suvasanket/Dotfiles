@@ -27,10 +27,6 @@ post_act("*/ftplugin/*.lua", function()
 	vim.cmd("silent source")
 end)
 
-post_act("*/core/*.lua", function()
-	vim.cmd("silent source")
-end)
-
 -- tmux hot reload
 post_act("tmux.conf", function()
 	vim.cmd("silent !tmux source /Users/suvasanketrout/.config/tmux/tmux.conf")
@@ -51,7 +47,7 @@ end)
 -- lualine hotreload
 post_act("statusline.lua", function()
 	vim.fn.timer_start(2000, function()
-		vim.cmd("silent Lazy reload lualine.nvim")
+		vim.cmd("silent Lazy reload mini.statusline")
 	end)
 end)
 

@@ -25,6 +25,7 @@ autocmd("VimEnter", {
 		hi("NormalFloat", { link = "Normal" })
 		hi("FloatBorder", { bg = NONE })
 
+		-- telescope
 		hi("TelescopeBorder", {  fg = "#272829", bg = "#222222" })
 		hi("TelescopeNormal", {  bg = "#222222" })
 		hi("TelescopePromptBorder", { link = "TelescopeBorder" })
@@ -49,6 +50,7 @@ autocmd("VimEnter", {
 		hi("WinSeparator", { link = "FloatBorder" })
 		hi("WhichKeyNormal", { link = "CursorLine" })
 		hi("Normal", { fg = "#B4B4B8" })
+		hi("MiniStatuslineModeNormal", { link = "MiniStatuslineFilename" })
 	end,
 })
 

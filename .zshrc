@@ -1,10 +1,10 @@
 ## exports ##
 export MANPAGER="gum pager"
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
---color=fg:#939393,fg+:#d0d0d0,bg:#181818,bg+:#262626
+--color=fg:#939393,fg+:#d0d0d0,bg:#222222,bg+:#222222
 --color=hl:#60c7bb,hl+:#5effec,info:#8a8a8a,marker:#ffffff
 --color=prompt:#d7005f,spinner:#c392f4,pointer:#af5fff,header:#525252
---color=gutter:#181818,border:#343333,separator:#565656,scrollbar:#191919
+--color=gutter:#222222,border:#343333,separator:#565656,scrollbar:#191919
 --color=label:#aeaeae,query:#d9d9d9
 --border="bold" --border-label="" --preview-window="border-bold" --prompt=" "
 --marker="+" --pointer=" " --separator="" --scrollbar=""
@@ -126,3 +126,5 @@ export NVM_DIR="$HOME/.config/nvm"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+export PATH=$PATH:/Users/suvasanketrout/.spicetify

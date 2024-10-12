@@ -1,4 +1,4 @@
---{{{ Start 
+--{{{ Start
 -- vim: foldmethod=marker
 -- vim: foldlevel=0
 local ls = require("luasnip") --{{{
@@ -72,6 +72,8 @@ local function cs(trigger, nodes, opts) --{{{
 end --}}}
 --}}}
 
+-- * snippets start * --
+
 --function
 cs("def", fmt(
 [[
@@ -87,6 +89,5 @@ end
 
   }))
 
--- End }}}
-
+-- * snippets end * --
 return snippets, autosnippets

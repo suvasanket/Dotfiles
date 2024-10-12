@@ -1,5 +1,4 @@
---{{{
----@diagnostic disable: unused-local
+--{{{ Start
 -- vim: foldmethod=marker
 -- vim: foldlevel=0
 local ls = require("luasnip") --{{{
@@ -73,9 +72,9 @@ local function cs(trigger, nodes, opts) --{{{
 end --}}}
 ---}}}
 
---Start--
+-- * snippets start * --
 
--- [CMD] multiline vim.cmd
+-- multiline vim.cmd
 cs("CMD", {
 	t({ "vim.cmd[[", "  " }),
 	i(1, ""),
@@ -171,6 +170,5 @@ cs(
 	)
 )
 
--- End Refactoring --
-
+-- * snippets end * --
 return snippets, autosnippets

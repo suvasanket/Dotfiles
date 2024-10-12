@@ -9,6 +9,15 @@ return {
 			})
 		end,
 	},
+	{
+		"Wansmer/treesj",
+		keys = { { "<leader>j", "<cmd>TSJToggle<cr>", desc = "Split/Join" } },
+		opts = {
+			use_default_keymaps = false,
+			max_join_length = 220,
+			notify = false,
+		},
+	},
 
 	{
 		"romainl/vim-cool",
@@ -18,5 +27,9 @@ return {
 	{
 		"tpope/vim-sleuth",
 		event = "BufRead",
+	},
+	{
+		"kazhala/close-buffers.nvim",
+		cmd = "BDelete",
 	},
 }

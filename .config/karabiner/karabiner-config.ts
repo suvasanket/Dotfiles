@@ -28,14 +28,18 @@ writeToProfile(
         sd_layer(),
         media_layer(),
         system_layer(),
+
         rule_duoModifiers(),
-        command_esc(),
+        general_map(),
         opt_window(),
         unix_mapping(),
+
         app_finder(),
+        app_alfred(),
         app_kitty(),
         app_chromium(),
         app_orion(),
+        app_arc(),
     ],
     {
         "basic.simultaneous_threshold_milliseconds": 40,
@@ -50,9 +54,10 @@ function unix_mapping() {
     ]);
 }
 
-function command_esc() {
-    return rule("command tap to escape").manipulators([
+function general_map() {
+    return rule("some general mappings").manipulators([
         map("left_command").to("left_command").toIfAlone("escape"),
+        map("right_control").to("escape")
     ]);
 }
 
@@ -67,6 +72,14 @@ function opt_window() {
 function app_finder() {
     return rule("finder", ifApp("^com.apple.finder")).manipulators([
         map("q", "⌘").to("w", "⌘⌥"),
+    ]);
+}
+
+function app_alfred() {
+    return rule("alfred", ifApp("^com.runningwithcrayons.Alfred")).manipulators([
+        map("j", "⌃").to("down_arrow"),
+        map("k", "⌃").to("up_arrow"),
+        map("c", "⌃").to("escape"),
     ]);
 }
 
@@ -89,8 +102,8 @@ function app_chromium() {
         ...switcher(),
         ...tapModifiers({
             '›⌘': toKey('i', '⌘⌥'),
-            'l⌃': toKey('a', '⌘⇧'),
-        })
+        }),
+        //map('f', '⌃').to('t', '⌘')
     ]);
 }
 function app_orion() {
@@ -98,6 +111,16 @@ function app_orion() {
         ...tabNavi(),
         ...historyNavi(),
         ...switcher(),
+    ]);
+}
+function app_arc() {
+    return rule("arc", ifApp("^company.thebrowser.Browser")).manipulators([
+        ...tabNavi(),
+        ...historyNavi(),
+        ...switcher(),
+        ...tapModifiers({
+            '›⌘': toKey('j', '⌘⌥'),
+        })
     ]);
 }
 function media_layer() {

@@ -70,7 +70,7 @@ cmd-shift-w = 'close'
 alt-f = 'exec-and-forget open /System/Library/CoreServices/Finder.app'
 alt-o = 'exec-and-forget open /Applications/Obsidian.app'
 alt-i = 'exec-and-forget open /Applications/kitty.app'
-alt-a = 'exec-and-forget open /Applications/Chromium.app'
+alt-a = 'exec-and-forget open /Applications/Arc.app'
 alt-t = 'exec-and-forget open /Applications/TickTick.app'
 alt-v = 'exec-and-forget open /Applications/IINA.app'
 ### APP ql ###
@@ -93,7 +93,7 @@ if.app-id = 'org.chromium.Chromium'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = 'com.brave.Browser'
+if.app-id = 'company.thebrowser.Browser'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
@@ -102,21 +102,17 @@ run = ['move-node-to-workspace 2']
 
 # 3
 [[on-window-detected]]
-if.app-id = 'org.videolan.vlc'
-run = ['layout floating','move-node-to-workspace 3']
-
-[[on-window-detected]]
-if.app-id = 'com.kv.Aural'
-run = ['layout floating','move-node-to-workspace 3']
+if.app-id = 'com.apple.mail'
+run = ['move-node-to-workspace 3']
 
 # 4
 [[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = ['move-node-to-workspace 4']
+if.app-id = 'org.videolan.vlc'
+run = ['layout floating','move-node-to-workspace 4']
 
 [[on-window-detected]]
-if.app-id = 'com.apple.mail'
-run = ['move-node-to-workspace 4']
+if.app-id = 'com.kv.Aural'
+run = ['layout floating','move-node-to-workspace 4']
 
 # 5
 [[on-window-detected]]

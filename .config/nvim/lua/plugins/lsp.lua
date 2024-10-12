@@ -1,5 +1,5 @@
 return {
-	--lsp-config
+	-- lsp-config --
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
@@ -68,6 +68,52 @@ return {
 			require("lspconfig.ui.windows").default_options.border = "single"
 		end,
 	},
-	-- --lsptimeout
-	-- { "hinell/lsp-timeout.nvim", event = "LspAttach" },
+
+	-- null-ls --
+	{
+		"nvimtools/none-ls.nvim",
+		dependencies = {
+			{ "jay-babu/mason-null-ls.nvim" },
+		},
+		event = { "LspAttach", "BufReadPost" },
+		config = function()
+			require("mason-null-ls").setup({
+				ensure_installed = {},
+				automatic_installation = false,
+				handlers = {},
+			})
+			require("null-ls").setup({
+				sources = {},
+			})
+		end,
+	},
+
+	-- trouble
+	{
+		"folke/trouble.nvim",
+		cmd = "Trouble",
+		keys = {
+			{ "<leader>cd", "<cmd>Trouble diagnostics toggle<cr>", desc = "diagnostics" },
+			{ "<leader>cR", "<cmd>Trouble lsp_references toggle<cr>", desc = "references" },
+			-- { "<leader>cR", "<cmd>cr>", desc = "outline" },
+		},
+		opts = {
+			pinned = true,
+			focus = true,
+			keys = {},
+		},
+	},
+
+	-- fidget --
+	{
+		"j-hui/fidget.nvim",
+		event = "LspAttach",
+		opts = {
+			notification = {
+				window = {
+					winblend = 0,
+				},
+			},
+		},
+	}
 }

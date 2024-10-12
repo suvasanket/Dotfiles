@@ -11,21 +11,20 @@ return {
 	{ "onsails/lspkind.nvim", event = { "InsertEnter", "CmdlineEnter" } },
 	--nvim-cmp
 	{
-		"hrsh7th/nvim-cmp",
+		-- "hrsh7th/nvim-cmp",
+		"iguanacucumber/magazine.nvim",
+		name = "nvim-cmp",
+
 		event = { "InsertEnter", "CmdlineEnter" },
-		dependencies = {},
 		config = function()
 			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-			-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			-- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 			cmp.setup({
 				sources = {
 					{ name = "path" },
-					{ name = "luasnip", keyword_length = 3 },
-					{ name = "nvim_lsp", keyword_length = 4 },
+					{ name = "luasnip" },
+					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
-					{ name = "buffer", keyword_length = 4 },
+					{ name = "buffer" },
 				},
 
 				formatting = {
@@ -58,7 +57,7 @@ return {
 					}
 				},
 				completion = {
-					-- keyword_length = 4,
+					keyword_length = 1,
 					completeopt = "menu,noselect",
 				},
 				snippet = {

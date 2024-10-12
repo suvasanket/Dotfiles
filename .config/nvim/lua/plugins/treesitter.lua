@@ -28,6 +28,15 @@ return {
 					select = {
 						enable = true,
 						lookahead = true,
+						keymaps = {
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["ac"] = "@class.outer",
+							["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+							["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+							["aa"] = "@parameter.outer",
+							["ia"] = "@parameter.inner",
+						},
 					},
 					swap = {
 						enable = true,
@@ -40,47 +49,23 @@ return {
 					},
 					move = {
 						enable = true,
-						set_jumps = true, -- whether to set jumps in the jumplist
+						set_jumps = true,
 						goto_next = {
 							["]m"] = { query = "@function.*", desc = "next function" },
-							-- ["[c"] = "@class.outer",
 							["]z"] = { query = "@fold", query_group = "folds", desc = "next fold" },
 						},
 						goto_previous = {
 							["[m"] = { query = "@function.*", desc = "prev function" },
-							-- ["[c"] = "@class.outer",
 							["[z"] = { query = "@fold", query_group = "folds", desc = "prev fold" },
 						},
 					},
 				},
 				markid = { enable = true },
-				-- endwise = { enable = true },
 			})
 		end,
 		dependencies = {
-			--textobjects
 			{ "nvim-treesitter/nvim-treesitter-textobjects" },
-			--multicolor
 			{ "David-Kunz/markid" },
-			--endwise
-			-- { "RRethy/nvim-treesitter-endwise" },
-			--ts-context
-			{
-				"nvim-treesitter/nvim-treesitter-context",
-				cmd = "TSContextToggle",
-				opts = {
-					enable = true,
-					max_lines = 0,
-					min_window_height = 1,
-					line_numbers = true,
-					multiline_threshold = 20,
-					trim_scope = "outer",
-					mode = "topline",
-					separator = nil,
-					zindex = 20,
-					on_attach = nil,
-				},
-			},
 		},
 	},
 }

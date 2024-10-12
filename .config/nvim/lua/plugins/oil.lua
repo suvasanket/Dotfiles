@@ -17,15 +17,9 @@ return {
 			keymaps = {
 				["h"] = "actions.parent",
 				["l"] = "actions.select",
-				["<C-v>"] = "actions.select_vsplit",
-				["<C-s>"] = "actions.select_split",
-				["<C-t>"] = {
-					"actions.select",
-					opts = {
-						close = true,
-						tab = true,
-					},
-				},
+				["<C-v>"] = { "actions.select", opts = { vertical = true, close = true }, desc = "Open the entry in a vertical split" },
+				["<C-s>"] = { "actions.select", opts = { horizontal = true, close = true }, desc = "Open the entry in a horizontal split" },
+				["<C-t>"] = { "actions.select", opts = { tab = true, close = true }, desc = "Open the entry in new tab" },
 				["<leader>p"] = "actions.preview",
 				["<C-h>"] = false,
 				["<C-l>"] = false,
