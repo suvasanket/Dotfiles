@@ -52,9 +52,9 @@ post_act("statusline.lua", function()
 end)
 
 post_act("karabiner-config.ts", function ()
-	vim.cmd("silent !tsc karabiner-config.ts && node karabiner-config.js")
+	vim.cmd("silent !./build.sh")
 end)
 
 post_act("kitty.conf", function ()
-	vim.api.nvim_feedkeys("<C-S-F5>", "n", false)
+	vim.cmd[[silent !tmux source-file ~/.tmux.conf ; tmux display-message "Reloaded ~/.tmux.conf\!"]]
 end)

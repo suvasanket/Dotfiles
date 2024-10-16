@@ -57,7 +57,7 @@ function unix_mapping() {
 function general_map() {
     return rule("some general mappings").manipulators([
         map("left_command").to("left_command").toIfAlone("escape"),
-        map("right_control").to("escape")
+        map("right_control").to("escape"),
     ]);
 }
 

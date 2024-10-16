@@ -1,10 +1,10 @@
 ## exports ##
 export MANPAGER="gum pager"
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
---color=fg:#939393,fg+:#d0d0d0,bg:#222222,bg+:#222222
+--color=fg:#939393,fg+:#d0d0d0,bg:#181818,bg+:#181818
 --color=hl:#60c7bb,hl+:#5effec,info:#8a8a8a,marker:#ffffff
 --color=prompt:#d7005f,spinner:#c392f4,pointer:#af5fff,header:#525252
---color=gutter:#222222,border:#343333,separator:#565656,scrollbar:#191919
+--color=gutter:#181818,border:#343333,separator:#565656,scrollbar:#191919
 --color=label:#aeaeae,query:#d9d9d9
 --border="bold" --border-label="" --preview-window="border-bold" --prompt=" "
 --marker="+" --pointer=" " --separator="" --scrollbar=""
@@ -68,7 +68,7 @@ zinit cdreplay -q
 # Keybindings
 bindkey -e
 bindkey '^r' 'gum filter < $HISTFILE --height 20'
-bindkey '^a' autosuggest-accept
+bindkey '^l' autosuggest-accept
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
@@ -99,6 +99,7 @@ if [[ $TMUX ]]; then
 fi
 alias ls="exa --icons --color-scale -x"
 alias s="exec zsh"
+alias :q="exit"
 alias gsed="sed"
 alias ff="tmux new-window 'fd --type f --hidden |fzf|xargs nvim'"
 alias f='/Users/suvasanketrout/.config/tmux/find_file.sh'

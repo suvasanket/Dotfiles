@@ -29,7 +29,7 @@ return {
 		{ family = "FiraCode Nerd Font Mono" },
 	}),
 	font_size = 17.0,
-	line_height = 1.15,
+	line_height = 1.2,
 	use_cap_height_to_scale_fallback_fonts = true,
 
 	-- Window and tab settings

@@ -1,82 +1,165 @@
-add_newline = true
+[aws]
+symbol = "  "
 
-# format="""
-# $character
-# $custom
-# """
-# right_format = """$all"""
-
-[character]
-error_symbol = '[](red)'
-success_symbol = '[](#B4B4B8)'
-vimcmd_symbol = '[](#C8E4B2)'
-vimcmd_replace_one_symbol = '[](#DFCCFB)'
-vimcmd_replace_symbol = '[󰬲](#DFCCFB)'
-vimcmd_visual_symbol = '[󰗘](#ff5189)'
-
-[directory]
-style="#BFCCB5"
-
-[battery]
-full_symbol = ' 🔋 '
-charging_symbol = ' ⚡️ '
-discharging_symbol = '󱟞 '
-
-[[battery.display]]
-threshold = 30
-style = '#C70039'
-discharging_symbol = '󱃍 '
-
-
-[git_branch]
-format = "[$branch]($style)"
-style = "bright-black"
-
-[git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
-style = "cyan"
-conflicted = "​"
-untracked = "​"
-modified = "​"
-staged = "​"
-renamed = "​"
-deleted = "​"
-stashed = "≡"
-
-[git_state]
-format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "bright-black"
-
-[cmd_duration]
-format = "[$duration]($style) "
-style = "yellow"
-
-[package]
-format = '[󰏖 $version](#9EB384) '
-
-[sudo]
-style = 'bold green'
-symbol = '󰇄  '
-disabled = false
-
-[lua]
-format = '[ $version]($style) '
-style = "#A8A196"
+[buf]
+symbol = " "
 
 [c]
-format = '[ $version]($style) '
-style = "#A8A196"
+symbol = " "
+
+[conda]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " 󰌾"
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
 
 [java]
-format = '[ $version]($style) '
-style = "#A8A196"
+symbol = " "
+
+[julia]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[ocaml]
+symbol = " "
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+
+[package]
+symbol = "󰏗 "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
 
 [python]
-format = "[ $version]($style) "
-style = "#A8A196"
+symbol = " "
+
+[rlang]
+symbol = "󰟔 "
 
 [ruby]
-format = "[ $version]($style) "
-style = "red"
-detect_variables = ['RBENV_VERSION']
-# disabled = true
+disabled = true
+symbol = " "
+
+[rust]
+symbol = "󱘗 "
+
+[scala]
+symbol = " "
+
+[swift]
+symbol = " "
+
+[zig]
+symbol = " "

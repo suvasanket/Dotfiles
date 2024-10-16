@@ -5,3 +5,4 @@ dev/apache-maven-3.9.4
 */.DS_Store
 .config/nvim/lazy-lock.json
 .config/nvm/
+.config/karabiner/.DS_Store

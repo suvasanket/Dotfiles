@@ -1,5 +1,6 @@
 return {
 	"mrjones2014/smart-splits.nvim",
+	enabled = false,
 	keys = {
 		{ "<C-S-h>", function() require("smart-splits").resize_left() end },
 		{ "<C-S-j>", function() require("smart-splits").resize_down() end },

@@ -71,7 +71,7 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					["<C-u>"] = cmp.mapping.scroll_docs(-4),
 					["<C-d>"] = cmp.mapping.scroll_docs(4),
-					["<C-a>"] = function()
+					["<C-j>"] = function()
 						if cmp.visible() then
 							cmp.confirm({ select = true })
 						else
@@ -113,6 +113,28 @@ return {
 					{ name = "vim-dadbod-completion" },
 				}
 			})
+
+			-- add braces
+			cmp.event:on(
+			'confirm_done',
+			function(event)
+				-- Get the completed item
+				local entry = event.entry
+				local item = entry:get_completion_item()
+
+				-- Check if the item is a function
+				if item.kind == cmp.lsp.CompletionItemKind.Function then
+					-- Get the label of the completed item
+					local label = item.label
+
+					-- Check if the label ends with parentheses
+					if not label:match('%(%)$') then
+						-- If not, insert parentheses
+						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-g>U<Right>()<left>', true, false, true), 'n', false)
+					end
+				end
+			end
+			)
 		end,
 	},
 }
