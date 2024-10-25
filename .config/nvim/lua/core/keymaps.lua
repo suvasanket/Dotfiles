@@ -13,8 +13,9 @@ bufmap("qf", "n", "<C-q>", cmd("Clearqflist"))
 map("n", "zx", cmd("bd!"))
 map("n", "<leader>l", cmd("Lazy"))
 map({ "n", "i" }, "<F1>", cmd("silent w!"))
-map("n", "<leader>tt", cmd("split|resize 15|term"), { desc = "terminal" })
-map("i", "<C-d>", "<esc>:t.<cr>li", { desc = "duplicate line" })
+map("i", "<C-j>", "<esc>:t.<cr>li", { desc = "duplicate line" })
+map({ "i", "x" }, "<C-c>", "<esc>")
+map("n", "<leader>tt", cmd("tabnew|term"), { desc = "terminal" })
 
 -- insert mode
 map("i", "<S-CR>", "<esc>O")
@@ -125,11 +126,6 @@ map("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual sele
 -- Search and Replace
 map("n", "c.", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
 map("n", "c>", [[:s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
-
--- make it better
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
-map({ "i", "x" }, "<C-c>", "<esc>")
 
 -- line move in normal and visual
 map("n", "J", ":m .+1<CR>==")

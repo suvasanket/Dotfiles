@@ -3,42 +3,38 @@ import {
     ifApp,
     layer,
     map,
+    mapDoubleTap,
     rule,
-    ToEvent,
+    to$,
+    toApp,
     toKey,
-    toPointingButton,
-    toSleepSystem,
-    withMapper,
     withModifier,
     writeToProfile,
 } from "karabiner.ts";
 
 import {
-    duoModifiers,
     historyNavi,
     switcher,
     tabNavi,
     tapModifiers,
-    toClearNotifications,
+    unix_mapping,
 } from "./utils";
 
 writeToProfile(
     "Default profile",
     [
         sd_layer(),
-        media_layer(),
-        system_layer(),
+        fn_layer(),
+        quick_stuff(),
 
-        rule_duoModifiers(),
         general_map(),
-        opt_window(),
-        unix_mapping(),
+        launchapp_layer(),
 
         app_finder(),
-        app_alfred(),
+        app_superprod(),
         app_kitty(),
         app_chromium(),
-        app_orion(),
+        app_firefox(),
         app_arc(),
     ],
     {
@@ -47,25 +43,15 @@ writeToProfile(
         "duo_layer.notification": false,
     }
 );
-function unix_mapping() {
-    return rule("kitty", ifApp("^net.kovidgoyal.kitty").unless()).manipulators([
-        map("u", "control").to("delete_or_backspace", "command"),
-        map("w", "control").to("delete_or_backspace", "option")
-    ]);
-}
 
 function general_map() {
     return rule("some general mappings").manipulators([
         map("left_command").to("left_command").toIfAlone("escape"),
+        map("'").to("left⌥").toIfAlone("'"),
         map("right_control").to("escape"),
-    ]);
-}
 
-function opt_window() {
-    return rule("option to window").manipulators([
-        ...tapModifiers({
-            '‹⌥': toKey('w', '⌥⇧'),
-        }),
+        mapDoubleTap('↑').to('↖︎'),
+        mapDoubleTap('↓').to('end'),
     ]);
 }
 
@@ -75,18 +61,15 @@ function app_finder() {
     ]);
 }
 
-function app_alfred() {
-    return rule("alfred", ifApp("^com.runningwithcrayons.Alfred")).manipulators([
-        map("j", "⌃").to("down_arrow"),
-        map("k", "⌃").to("up_arrow"),
-        map("c", "⌃").to("escape"),
+function app_superprod() {
+    return rule("superprod", ifApp("^com.super-productivity.app")).manipulators([
+        map("w", "⌘").to("f1", "⌘⌥"),
     ]);
 }
 
 function app_kitty() {
     return rule("kitty", ifApp("^net.kovidgoyal.kitty")).manipulators([
         ...tabNavi(),
-        ...historyNavi(),
         ...switcher(),
         ...tapModifiers({
             'l⇧': toKey('p', '⌃'),
@@ -98,7 +81,6 @@ function app_kitty() {
 function app_chromium() {
     return rule("brave", ifApp("^org.chromium.Chromium")).manipulators([
         ...tabNavi(),
-        ...historyNavi(),
         ...switcher(),
         ...tapModifiers({
             '›⌘': toKey('i', '⌘⌥'),
@@ -106,24 +88,29 @@ function app_chromium() {
         //map('f', '⌃').to('t', '⌘')
     ]);
 }
-function app_orion() {
-    return rule("orion", ifApp("^com.kagi.kagimacOS")).manipulators([
+function app_firefox() {
+    return rule("firefox", ifApp("^org.mozilla.firefox")).manipulators([
+        ...unix_mapping(),
         ...tabNavi(),
         ...historyNavi(),
         ...switcher(),
+        ...tapModifiers({
+            '›⌘': toKey('i', '⌘⌥'),
+        }),
+        map('h', '⌘⇧').to('home', '⌥')
     ]);
 }
 function app_arc() {
     return rule("arc", ifApp("^company.thebrowser.Browser")).manipulators([
+        ...unix_mapping(),
         ...tabNavi(),
-        ...historyNavi(),
         ...switcher(),
         ...tapModifiers({
             '›⌘': toKey('j', '⌘⌥'),
         })
     ]);
 }
-function media_layer() {
+function fn_layer() {
     let layer = duoLayer("f", "a");
     return layer.manipulators([
         withModifier("??")({
@@ -132,14 +119,13 @@ function media_layer() {
             j: toKey("volume_down"),
             k: toKey("volume_up"),
             l: toKey("vk_consumer_next"),
-            o: toKey("display_brightness_increment"),
-            i: toKey("display_brightness_decrement"),
+            "'": toKey("display_brightness_increment"),
+            ";": toKey("display_brightness_decrement"),
         }),
     ]);
 }
 function sd_layer() {
-    let layer = duoLayer("d", "s");
-    //.toIfActivated(toPlaySound('Tink'))
+    let layer = duoLayer("d", "s").threshold(100)
     return layer.manipulators([
         withModifier("??")({
             h: toKey("←"),
@@ -147,9 +133,8 @@ function sd_layer() {
             k: toKey("↑"),
             l: toKey("→"),
 
-            c: toKey("‹⌥"),
+            spacebar: toKey("‹⌥"),
             f: toKey("‹⌘"),
-            spacebar: toKey("tab", "‹⌘"),
 
             y: toKey(4, "⇧"),
             u: toKey(5, "⇧"),
@@ -162,112 +147,31 @@ function sd_layer() {
             m: toKey(3, "⇧"),
 
             "'": toKey("⌫"),
-            "\\": toKey("⌦"),
+            ";": toKey("⌦"),
+            r: toKey("z", "<⌘"),
         }),
     ]);
 }
 
-function symbol_layer() {
-    let toSymbol = {
-        "!": toKey(1, "⇧"),
-        "@": toKey(2, "⇧"),
-        "#": toKey(3, "⇧"),
-        $: toKey(4, "⇧"),
-        "%": toKey(5, "⇧"),
-        "^": toKey(6, "⇧"),
-        "&": toKey(7, "⇧"),
-        "*": toKey(8, "⇧"),
-        "(": toKey(9, "⇧"),
-        ")": toKey(0, "⇧"),
-
-        "[": toKey("["),
-        "]": toKey("]"),
-        "{": toKey("[", "⇧"),
-        "}": toKey("]", "⇧"),
-
-        "-": toKey("-"),
-        "=": toKey("="),
-        _: toKey("-", "⇧"),
-        "+": toKey("=", "⇧"),
-
-        ";": toKey(";"),
-        "/": toKey("/"),
-        ":": toKey(";", "⇧"),
-
-        "<": toKey(",", "⇧"),
-        ">": toKey(".", "⇧"),
-    };
-
-    let layer = duoLayer("s", "d");
-    return layer.manipulators([
-        withMapper({
-            //h: '{',
-            //l: '}',
-            //g: '[',
-            //';': ']',
-            //j: '(',
-            //k: ')',
-
-            y: "$",
-            u: "%",
-            i: "^",
-            o: "&",
-            p: "*",
-
-            b: "!",
-            n: "@",
-            m: "#",
-        } as const)((k, v) => map(k).to(toSymbol[v])),
-
-        { "'": toKey("⌫") },
-    ]);
-}
-
-function rule_duoModifiers() {
-    return rule("duo-modifiers").manipulators(
-        duoModifiers({
-            "⌃": ["fd", "jk"], // ⌃ second as Vim uses it
-            "⌥": ["fs", "jl"], // ⌥ last as used the least
-            //"⌘": ["fd", "jk"], // ⌘ first as used the most
-
-            //'⇧': ['ds', 'kl'],
-
-            "⌃⇧": ["gs", "hk"],
-            "⌥⇧": ["gs", "hl"],
-            //"⌘⇧": ["gd", "hk"],
-
-            "⌘⌥": ["vc", "nm"],
-            "⌘⌃": ["vx", "n,"],
-            "⌥⌃": ["cx", "m,"],
-
-            "⌘⌥⌃": ["vz", "n."],
-        })
-    );
-}
-function system_layer() {
-    return layer('`', 'system').manipulators({
-        //1: toMouseCursorPosition({ x: '25%', y: '50%', screen: 0 }),
-        //2: toMouseCursorPosition({ x: '50%', y: '50%', screen: 0 }),
-        //3: toMouseCursorPosition({ x: '75%', y: '50%', screen: 0 }),
-        //4: toMouseCursorPosition({ x: '99%', y: 20, screen: 0 }),
-        //5: toMouseCursorPosition({ x: '50%', y: '50%', screen: 1 }),
-        1: toKey(1, 'left⌥'),
-        2: toKey(2, 'left⌥'),
-        3: toKey(3, 'left⌥'),
-        4: toKey(4, 'left⌥'),
-        5: toKey(5, 'left⌥'),
-
-        '⏎': toPointingButton('button1'),
-
-        n: toClearNotifications,
-
-        '␣': toSleepSystem(),
-
-        h: toKey('⇥', '⌘⇧'),
-        l: toKey('⇥', '⌘'),
+function quick_stuff() {
+    return layer('`', 'quick').manipulators({
+        '␣': toKey("f1", "⌘⌥"),
+        '⏎': toKey("f1", "⌘"),
+        j: toKey("f3", "⌘⌥⌃⇧"),
+        k: toKey("f2", "⌘⌥⌃⇧"),
+        l: toKey("f1", "⌘⌥⌃⇧"),
+        h: toKey("f4", "⌘⌥⌃⇧"),
     })
 }
-function toIfActivated(arg0: ToEvent) {
-    throw new Error("Function not implemented.");
-}
+function launchapp_layer() {
+    return layer('spacebar').manipulators({
+        n: toApp('Obsidian'),
+        a: toApp('Arc'),
+        m: toApp('Activity Monitor'),
+        f: to$('open /System/Library/CoreServices/Finder.app'),
+        1: to$('open /Applications/kitty.app'),
+        2: toApp('Orion'),
 
+        ',': toApp('System Settings'),
+    })
+}

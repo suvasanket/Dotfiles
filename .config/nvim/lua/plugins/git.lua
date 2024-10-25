@@ -33,15 +33,6 @@ return {
 			signcolumn = true,
 		},
 	},
-	-- The one n only --
-	{
-		"tpope/vim-fugitive",
-		cmd = { "Git", "G" },
-		keys = {
-			{"<leader>gg", "<cmd>G<cr>", desc = "Great"}
-		}
-	},
-
 	{
 		"NeogitOrg/neogit",
 		dependencies = {
@@ -49,6 +40,7 @@ return {
 			"sindrets/diffview.nvim",
 			"nvim-telescope/telescope.nvim",
 		},
-		config = true
-	}
+		cmd = { "Neogit", "NeogitCommit" },
+		config = true,
+	},
 }

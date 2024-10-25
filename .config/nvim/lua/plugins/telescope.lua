@@ -1,7 +1,5 @@
 require("core.helper")
 
-local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
 local function get_wd()
 	local workspace = vim.lsp.buf.list_workspace_folders()
 	local wd = ""
@@ -41,7 +39,7 @@ return {
 			{ "<C-S-\\>", cmd_tele("builtin") },
 			{ "<leader>sh", cmd_tele("help_tags"), desc = "help_tags" },
 			{ "zc", cmd_tele("buffers"), desc = "buffers" },
-			{ "<leader>cs", cmd_tele("lsp_document_symbols"), desc = "Symbols" },
+			{ "<leader>cf", cmd_tele("lsp_document_symbols"), desc = "Symbols" },
 			{ "<leader>/", cmd_tele("current_buffer_fuzzy_find"), desc = "current_buffer_fuzzy_find" },
 			{ "<leader>s", cmd_tele("lsp_workspace_symbols"), desc = "Workspace_symbols" },
 			{ "<leader>ff", cmd_tele("fd cwd=$HOME find_command=fd,-t=f,-H prompt_prefix=\\ ~/\\ "), desc = "find_files" },
@@ -50,6 +48,8 @@ return {
 
 			-- smart find
 			{ "<C-f>", function()
+				local actions = require("telescope.actions")
+				local action_state = require("telescope.actions.state")
 					local function open_find()
 						local working_dir = get_wd()
 						vim.cmd("cd " .. working_dir)

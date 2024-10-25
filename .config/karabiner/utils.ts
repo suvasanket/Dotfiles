@@ -10,14 +10,13 @@ import {
   SideModifierAlias,
   to$,
   ToEvent,
-  toRemoveNotificationMessage,
 } from 'karabiner.ts'
 
 /** Back/Forward history in most apps. */
 export function historyNavi() {
   return [
-    map('h', '⌥⌃').to('`', '⌘'), //
-    map('l', '⌥⌃').to('`', '⌘⇧'),
+    map('`', '⌘').to('[', '⌘'), //
+    map('`', '⌘⇧').to(']', '⌘'),
   ]
 }
 
@@ -34,6 +33,12 @@ export function switcher() {
   return [
     map('h', '⌘⌥⌃').to('⇥', '⌃⇧'), //
     map('l', '⌘⌥⌃').to('⇥', '⌃'),
+  ]
+}
+export function unix_mapping() {
+  return [
+    map("u", "control").to("delete_or_backspace", "command"),
+    map("w", "control").to("delete_or_backspace", "option")
   ]
 }
 
