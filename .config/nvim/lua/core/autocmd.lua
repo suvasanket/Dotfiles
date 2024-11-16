@@ -24,7 +24,7 @@ autocmd("FileType", {
 -- auto remove hidden buffers
 autocmd("BufHidden", {
 	callback = function()
-		vim.fn.timer_start(10000, function()
+		vim.fn.timer_start(1800000, function()
 			vim.cmd("silent! BDelete hidden")
 		end)
 	end,

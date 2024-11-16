@@ -13,8 +13,9 @@ bufmap("qf", "n", "<C-q>", cmd("Clearqflist"))
 map("n", "zx", cmd("bd!"))
 map("n", "<leader>l", cmd("Lazy"))
 map({ "n", "i" }, "<F1>", cmd("silent w!"))
-map("i", "<C-j>", "<esc>:t.<cr>li", { desc = "duplicate line" })
+map("i", "<C-j>", "<esc>:t.<cr>a", { desc = "duplicate line" })
 map({ "i", "x" }, "<C-c>", "<esc>")
+map("n", "<C-space>", cmd('b #'))
 map("n", "<leader>tt", cmd("tabnew|term"), { desc = "terminal" })
 
 -- insert mode
@@ -59,7 +60,6 @@ map("n", "\\cq", cmd("CmpDisable"))
 map("n", "<leader>_", cmd("split"))
 map("n", "<leader>|", cmd("vsplit"))
 map("t", "<C-[>", "<C-\\><C-n>")
-map("n", "<C-t>", cmd("tabnew"))
 map("n", "<leader>bf", "Ggqgg<c-o>", { desc = "buffer format" })
 map("n", "<C-\\>", cmd("q"))
 map("n", "<C-1>", "1gt", { desc = "tab 1" })
@@ -116,10 +116,6 @@ map("n", "a", function()
 	end
 end, { expr = true })
 
--- keep visual selection when (de)indenting
-map("v", "<", "<gv", {})
-map("v", ">", ">gv", {})
-
 -- Search inside visually highlighted text.
 map("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
 
@@ -132,8 +128,14 @@ map("n", "J", ":m .+1<CR>==")
 map("n", "K", ":m .-2<CR>==")
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
+map("x", "H", "<gv")
+map("x", "L", ">gv")
 map("n", "H", "<<")
 map("n", "L", ">>")
+
+-- keep visual selection when (de)indenting
+map("v", "<", "<gv", {})
+map("v", ">", ">gv", {})
 
 -- unimapaired
 map("n", "]<space>", cmd("call append(line('.'), '')"))

@@ -5,18 +5,17 @@ import {
     map,
     mapDoubleTap,
     rule,
-    to$,
-    toApp,
+    toHyper,
     toKey,
     withModifier,
     writeToProfile,
 } from "karabiner.ts";
 
 import {
-    historyNavi,
     switcher,
     tabNavi,
     tapModifiers,
+    toClearNotifications,
     unix_mapping,
 } from "./utils";
 
@@ -26,16 +25,13 @@ writeToProfile(
         sd_layer(),
         fn_layer(),
         quick_stuff(),
+        some(),
 
         general_map(),
-        launchapp_layer(),
 
         app_finder(),
-        app_superprod(),
         app_kitty(),
-        app_chromium(),
-        app_firefox(),
-        app_arc(),
+        app_browser()
     ],
     {
         "basic.simultaneous_threshold_milliseconds": 40,
@@ -46,9 +42,13 @@ writeToProfile(
 
 function general_map() {
     return rule("some general mappings").manipulators([
+        ...unix_mapping(),
+
         map("left_command").to("left_command").toIfAlone("escape"),
         map("'").to("left⌥").toIfAlone("'"),
         map("right_control").to("escape"),
+        map("j", "option").to("tab", "command"),
+        map("k", "option").to("tab", "⌘⇧"),
 
         mapDoubleTap('↑').to('↖︎'),
         mapDoubleTap('↓').to('end'),
@@ -61,52 +61,20 @@ function app_finder() {
     ]);
 }
 
-function app_superprod() {
-    return rule("superprod", ifApp("^com.super-productivity.app")).manipulators([
-        map("w", "⌘").to("f1", "⌘⌥"),
-    ]);
-}
-
 function app_kitty() {
     return rule("kitty", ifApp("^net.kovidgoyal.kitty")).manipulators([
         ...tabNavi(),
         ...switcher(),
-        ...tapModifiers({
-            'l⇧': toKey('p', '⌃'),
-            'r⇧': toKey('n', '⌃'),
-        })
     ]);
 }
 
-function app_chromium() {
-    return rule("brave", ifApp("^org.chromium.Chromium")).manipulators([
+function app_browser() {
+    const browsers = ['Chromium', 'Arc', '^org.mozilla.com.zen.browser', 'Orion', 'Safari'];
+    return rule("Browser", ifApp(browsers)).manipulators([
         ...tabNavi(),
         ...switcher(),
         ...tapModifiers({
             '›⌘': toKey('i', '⌘⌥'),
-        }),
-        //map('f', '⌃').to('t', '⌘')
-    ]);
-}
-function app_firefox() {
-    return rule("firefox", ifApp("^org.mozilla.firefox")).manipulators([
-        ...unix_mapping(),
-        ...tabNavi(),
-        ...historyNavi(),
-        ...switcher(),
-        ...tapModifiers({
-            '›⌘': toKey('i', '⌘⌥'),
-        }),
-        map('h', '⌘⇧').to('home', '⌥')
-    ]);
-}
-function app_arc() {
-    return rule("arc", ifApp("^company.thebrowser.Browser")).manipulators([
-        ...unix_mapping(),
-        ...tabNavi(),
-        ...switcher(),
-        ...tapModifiers({
-            '›⌘': toKey('j', '⌘⌥'),
         })
     ]);
 }
@@ -125,7 +93,7 @@ function fn_layer() {
     ]);
 }
 function sd_layer() {
-    let layer = duoLayer("d", "s").threshold(100)
+    let layer = duoLayer("d", "s").threshold(60)
     return layer.manipulators([
         withModifier("??")({
             h: toKey("←"),
@@ -154,24 +122,46 @@ function sd_layer() {
 }
 
 function quick_stuff() {
-    return layer('`', 'quick').manipulators({
-        '␣': toKey("f1", "⌘⌥"),
-        '⏎': toKey("f1", "⌘"),
-        j: toKey("f3", "⌘⌥⌃⇧"),
-        k: toKey("f2", "⌘⌥⌃⇧"),
-        l: toKey("f1", "⌘⌥⌃⇧"),
-        h: toKey("f4", "⌘⌥⌃⇧"),
-    })
-}
-function launchapp_layer() {
-    return layer('spacebar').manipulators({
-        n: toApp('Obsidian'),
-        a: toApp('Arc'),
-        m: toApp('Activity Monitor'),
-        f: to$('open /System/Library/CoreServices/Finder.app'),
-        1: to$('open /Applications/kitty.app'),
-        2: toApp('Orion'),
+    const aeros = '/opt/homebrew/bin/aerospace'
+    const ne = `${aeros} list-workspaces --monitor focused --empty no`
+    return rule("quick").manipulators([
+        map("'").to(toHyper()).toIfAlone("'"),
+        withModifier("Hyper")([
+            //map('␣').to$('/bin/sh /Users/suvasanketrout/.local/scripts/openSuperProd.sh'),
+            map('␣').to(",", "⌘⌥⌃"),
+            map('n').to("f1", "⌘"),
 
-        ',': toApp('System Settings'),
-    })
+            map('d').toApp('Obsidian'),
+            map('m').toApp('Activity Monitor'),
+            map('f').to$('open /System/Library/CoreServices/Finder.app'),
+            map('a').to('1', '⌥'),
+            map('s').to('2', '⌥'),
+            map('g').toApp('ChatGPT'),
+
+            map('h').to$(`${ne} | ${aeros} workspace prev`),
+            map('l').to$(`${ne} | ${aeros} workspace next`),
+        ]),
+    ])
+}
+
+function some() {
+    let l = layer("`", "some");
+    return l.manipulators([
+        withModifier("??")({
+            h: toKey('[', '⌥'),
+            l: toKey(']', '⌥'),
+            '⏎': toKey('f', '⌥⇧'),
+            s: toKey('s', '⌥⇧'),
+            spacebar: toKey('left_shift'),
+            x: toKey('⏎','⌘⌃'),
+
+            1: toKey('1', '⌥'),
+            2: toKey('2', '⌥'),
+            3: toKey('3', '⌥'),
+            4: toKey('4', '⌥'),
+            5: toKey('5', '⌥'),
+
+            n: toClearNotifications,
+        }),
+    ]);
 }

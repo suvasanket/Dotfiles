@@ -73,6 +73,7 @@ end --}}}
 ---}}}
 
 -- * snippets start * --
+------------------------
 
 -- multiline vim.cmd
 cs("CMD", {
@@ -170,5 +171,6 @@ cs(
 	)
 )
 
+----------------------
 -- * snippets end * --
 return snippets, autosnippets

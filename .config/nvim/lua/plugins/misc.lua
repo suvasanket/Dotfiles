@@ -32,4 +32,9 @@ return {
 		"kazhala/close-buffers.nvim",
 		cmd = "BDelete",
 	},
+	{
+		"chentoast/marks.nvim",
+		event = "VeryLazy",
+		opts = {},
+	}
 }

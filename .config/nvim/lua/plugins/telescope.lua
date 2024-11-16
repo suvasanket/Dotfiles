@@ -39,9 +39,8 @@ return {
 			{ "<C-S-\\>", cmd_tele("builtin") },
 			{ "<leader>sh", cmd_tele("help_tags"), desc = "help_tags" },
 			{ "zc", cmd_tele("buffers"), desc = "buffers" },
-			{ "<leader>cf", cmd_tele("lsp_document_symbols"), desc = "Symbols" },
 			{ "<leader>/", cmd_tele("current_buffer_fuzzy_find"), desc = "current_buffer_fuzzy_find" },
-			{ "<leader>s", cmd_tele("lsp_workspace_symbols"), desc = "Workspace_symbols" },
+			{ "<C-Cr>", cmd_tele("lsp_dynamic_workspace_symbols"), desc = "Workspace_symbols" },
 			{ "<leader>ff", cmd_tele("fd cwd=$HOME find_command=fd,-t=f,-H prompt_prefix=\\ ~/\\ "), desc = "find_files" },
 			{ "<leader>fc", cmd_tele("fd cwd=~/dotfiles/ find_command=fd,-t=f,-H"), desc = "config" },
 			{ "<leader>fd", cmd_tele("fd cwd=$HOME find_command=fd,-t=d,-H disable_devicons=true previewer=false"), desc = "find dir" },
@@ -59,6 +58,7 @@ return {
 							prompt_title = false,
 							preview_title = false,
 							result_title = false,
+							disable_devicons = true,
 							attach_mappings = function(_, map)
 								map({"i", "n"}, "<C-c>", function(_prompt_bufnr)
 									actions.close(_prompt_bufnr)
@@ -70,6 +70,7 @@ return {
 										preview_title = false,
 										result_title = false,
 										default_text = entry,
+										disable_devicons = true,
 										attach_mappings = function(_, sap)
 											sap({"i", "n"}, "<C-f>", function()
 												open_find()
@@ -86,6 +87,7 @@ return {
 										preview_title = false,
 										result_title = false,
 										default_text = entry,
+										disable_devicons = true,
 										attach_mappings = function(_, sap)
 											sap({"i", "n"}, "<C-f>", function()
 												open_find()
@@ -138,15 +140,13 @@ return {
 			require("telescope").setup({
 				defaults = {
 					winblend = 5,
-					prompt_title = false,
-					results_title = false,
-					preview_title = false,
 					borderchars = {
 						prompt = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
 						results = { " ", "▐", "▄", "▌", "▌", "▐", "▟", "▙" },
 						preview = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
 					},
 					previewer = false,
+					results_title = false,
 					layout_strategy = "horizontal_merged",
 					layout_config = {
 						height = 0.6,
@@ -177,6 +177,17 @@ return {
 				pickers = {
 					find_files = {
 						hidden = true
+					},
+					lsp_references = {
+						theme = "ivy",
+						prompt_prefix = "󱪙  ",
+						initial_mode = "normal",
+						borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+						layout_config = {
+							height = 0.4,
+							width = 0.3,
+							preview_width = 0.7,
+						},
 					}
 				},
 				extensions = {

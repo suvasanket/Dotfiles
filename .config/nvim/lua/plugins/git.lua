@@ -35,12 +35,21 @@ return {
 	},
 	{
 		"NeogitOrg/neogit",
+		keys = {
+			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Git" },
+		},
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"sindrets/diffview.nvim",
 			"nvim-telescope/telescope.nvim",
 		},
 		cmd = { "Neogit", "NeogitCommit" },
-		config = true,
+		opts = {
+			signs = {
+				hunk = { "", "" },
+				item = { "", "" },
+				section = { "", "" },
+			},
+		},
 	},
 }

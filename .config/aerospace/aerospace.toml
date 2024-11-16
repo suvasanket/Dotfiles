@@ -13,6 +13,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 0
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
+automatically-unhide-macos-hidden-apps = true
 
 gaps.inner.horizontal = 5
 gaps.inner.vertical = 5
@@ -25,10 +26,10 @@ gaps.outer.right = 5
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
-# alt-h = 'focus left'
-# alt-j = 'focus down'
-# alt-k = 'focus up'
-# alt-l = 'focus right'
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
 
 alt-shift-h = 'move left'
 alt-shift-j = 'move down'
@@ -38,14 +39,20 @@ alt-shift-l = 'move right'
 alt-s = 'resize smart -50'
 alt-b = 'resize smart +50'
 
+alt-shift-f = 'layout floating tiling'
+alt-shift-s = 'layout accordion horizontal vertical'
+
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
 
-alt-l = 'workspace next'
-alt-h = 'workspace prev'
+alt-rightSquareBracket = 'workspace next'
+alt-leftSquareBracket = 'workspace prev'
+
+alt-shift-rightSquareBracket = ['move-node-to-workspace next', 'workspace next']
+alt-shift-leftSquareBracket = [ 'move-node-to-workspace prev', 'workspace prev' ]
 
 alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
 alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
@@ -56,6 +63,7 @@ alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
 alt-shift-w = ['mode service','exec-and-forget sketchybar -m --set modal icon="󰭠"']
 ctrl-cmd-f = 'macos-native-fullscreen'
 cmd-m = 'macos-native-minimize'
+cmd-h = []
 
 ## APP SPACES
 # 1
@@ -78,6 +86,10 @@ run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.com.zen.browser'
+run = ['move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'org.chromium.Chromium'
 run = ['move-node-to-workspace 2']
 
 # 3

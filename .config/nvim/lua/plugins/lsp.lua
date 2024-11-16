@@ -88,22 +88,6 @@ return {
 		end,
 	},
 
-	-- trouble
-	{
-		"folke/trouble.nvim",
-		cmd = "Trouble",
-		keys = {
-			{ "<leader>cd", "<cmd>Trouble diagnostics toggle<cr>", desc = "diagnostics" },
-			{ "<leader>cR", "<cmd>Trouble lsp_references toggle<cr>", desc = "references" },
-			-- { "<leader>cR", "<cmd>cr>", desc = "outline" },
-		},
-		opts = {
-			pinned = true,
-			focus = true,
-			keys = {},
-		},
-	},
-
 	-- fidget --
 	{
 		"j-hui/fidget.nvim",
