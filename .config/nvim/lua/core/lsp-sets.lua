@@ -4,6 +4,7 @@ autocmd("LspAttach", {
 		map("n", "gi", vim.lsp.buf.implementation, opts)
 		map("n", "gd", vim.lsp.buf.definition, opts)
 		map("n", "gr", cmd_tele("lsp_references"), opts)
+		map("n", "gR", vim.lsp.buf.references, opts)
 		map("n", "gtd", vim.lsp.buf.type_definition, opts)
 		map("n", "gD", vim.lsp.buf.declaration, opts)
 		map("n", "gk", vim.lsp.buf.hover, opts)

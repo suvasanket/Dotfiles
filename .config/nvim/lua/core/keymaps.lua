@@ -15,7 +15,7 @@ map("n", "<leader>l", cmd("Lazy"))
 map({ "n", "i" }, "<F1>", cmd("silent w!"))
 map("i", "<C-j>", "<esc>:t.<cr>a", { desc = "duplicate line" })
 map({ "i", "x" }, "<C-c>", "<esc>")
-map("n", "<C-space>", cmd('b #'))
+map("n", "<C-space>", cmd("b #"))
 map("n", "<leader>tt", cmd("tabnew|term"), { desc = "terminal" })
 
 -- insert mode
@@ -32,7 +32,7 @@ map({ "n", "x" }, "gp", function()
 	if not vim.api.nvim_get_current_line():match("^%s*$") and mode == "n" then
 		return 'o<esc>"+p`[v`]='
 	else
-		return '"+p`[v`]='
+		return '"_c<esc>"+p`[v`]='
 	end
 end, { expr = true, desc = "clip paste" })
 map({ "n", "x" }, "gP", function()
@@ -49,7 +49,7 @@ map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
 map("x", "<D-p>", [["_dP]], { desc = "blackhole paste" })
 
 --master
-map("n", "\\s", cmd("LuaSnipOpen"))
+-- map("n", "\\s", cmd("LuaSnipOpen"))
 map("n", "\\f", cmd("Ftplugin"))
 map("n", "\\lq", cmd("LspStop"))
 map("n", "\\ls", cmd("LspStart"))
@@ -62,11 +62,6 @@ map("n", "<leader>|", cmd("vsplit"))
 map("t", "<C-[>", "<C-\\><C-n>")
 map("n", "<leader>bf", "Ggqgg<c-o>", { desc = "buffer format" })
 map("n", "<C-\\>", cmd("q"))
-map("n", "<C-1>", "1gt", { desc = "tab 1" })
-map("n", "<C-2>", "2gt", { desc = "tab 2" })
-map("n", "<C-3>", "3gt", { desc = "tab 3" })
-map("n", "<C-4>", "4gt", { desc = "tab 4" })
-map("n", "<C-5>", "5gt", { desc = "tab 5" })
 
 map("n", "zn", cmd("bnext"))
 map("n", "zp", cmd("bprevious"))
@@ -74,8 +69,25 @@ map("n", "<C-p>", cmd("tabp"))
 map("n", "<C-n>", cmd("tabn"))
 
 --git
-bufmap("fugitive", "n", "gm", "<cmd>GremoteUrl<cr>")
-bufmap("fugitive", "n", "x", "<cmd>GitDeleteCached<cr>")
+bufmap("fugitive", "n", "gm", function()
+	local user_input = vim.fn.input("remote url: ")
+	if user_input ~= "" then
+		shell_cmd({ "git", "remote", "add", "origin", user_input }, function()
+			print("remote added")
+		end, function()
+			ans = vim.fn.confirm("DO you really want to update remote url ?", "&Yes\n&No")
+			if ans == 1 then
+				vim.cmd("Git remote set-url origin " .. user_input)
+				print("git remote set to " .. user_input)
+			end
+		end)
+	end
+end)
+bufmap("fugitive", "n", "K", function()
+	local line = vim.fn.getline(".")
+	local pattern = line:match("^%S*%s(.+)$")
+	vim.cmd("G rm --cached -r " .. pattern)
+end)
 bufmap("fugitive", "n", "gc", cmd_tele("git_commits"))
 map("n", "<leader>gc", "<cmd>Gcommit<cr>", { desc = "smart commit" })
 

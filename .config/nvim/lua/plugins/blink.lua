@@ -9,14 +9,14 @@ return {
 				"chrisgrieser/nvim-scissors",
 				keys = {
 					{
-						"<leader>cse",
+						"\\se",
 						function()
 							require("scissors").editSnippet()
 						end,
 						desc = "create Snippet",
 					},
 					{
-						"<leader>csa",
+						"\\sc",
 						function()
 							require("scissors").addNewSnippet()
 						end,
@@ -69,42 +69,5 @@ return {
 				},
 			},
 		},
-	},
-
-	-- wilder for cmdline
-	{
-		"gelguy/wilder.nvim",
-		event = { "CmdlineEnter" },
-		config = function()
-			local wilder = require("wilder")
-			wilder.setup({
-				modes = { ":", "/", "?" },
-				next_key = "<tab>",
-				previous_key = "<s-tab>",
-			})
-
-			wilder.set_option("pipeline", {
-				wilder.branch(
-					wilder.cmdline_pipeline(),
-					wilder.cmdline_pipeline({
-						fuzzy = 1,
-						set_pcre2_pattern = 1,
-					}),
-					wilder.search_pipeline(),
-					wilder.python_search_pipeline({
-						pattern = "fuzzy",
-					})
-				),
-			})
-
-			wilder.set_option(
-				"renderer",
-				wilder.popupmenu_renderer({
-					highlighter = wilder.basic_highlighter(),
-					left = { " ", wilder.popupmenu_devicons() },
-					right = { " ", wilder.popupmenu_scrollbar() },
-				})
-			)
-		end,
 	},
 }

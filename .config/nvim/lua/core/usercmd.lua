@@ -105,33 +105,15 @@ vim.cmd([[
 	cnoreabbrev clearqflist Clearqflist
 ]])
 
-create_command("MakeC", function()
-	vim.cmd("Trouble close")
-	vim.cmd("w")
-	vim.cmd("Make%")
-end, {})
-
 --history delete
 create_command("CmdlineHistoryDel", function()
 	vim.fn.histdel(":")
 end, {})
 
 -- git --
-
--- add remote
-create_command("GremoteUrl", function()
-	local user_input = vim.fn.input("remote url: ")
-	if user_input ~= "" then
-		shell_cmd({ "git", "remote", "add", "origin", user_input }, function()
-			print("remote added")
-		end, function()
-			ans = vim.fn.confirm("DO you really want to update remote url ?", "&Yes\n&No")
-			if ans == 1 then
-				vim.cmd("Git remote set-url origin " .. user_input)
-				print("git remote set to " .. user_input)
-			end
-		end)
-	end
+--Glog
+create_command("Glog", function ()
+	vim.cmd[[G log --graph --decorate --oneline --abbrev-commit]]
 end, {})
 
 -- smart commit push
@@ -157,13 +139,6 @@ create_command("Gcommit", function()
 			end
 		end
 	end
-end, {})
-
--- delete file from git not system
-create_command("GitDeleteCached", function()
-	local line = vim.fn.getline(".")
-	local pattern = line:match("^%S*%s(.+)$")
-	vim.cmd("G rm --cached -r " .. pattern)
 end, {})
 
 -- GBrowse without plugin

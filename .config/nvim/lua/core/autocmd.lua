@@ -8,6 +8,7 @@ autocmd("FileType", {
 		"man",
 		"lspinfo",
 		"fugitive",
+		"git",
 		"qf",
 		"noice",
 		"vim",

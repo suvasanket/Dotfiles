@@ -39,9 +39,10 @@ o.wrap = false
 o.list = false
 o.expandtab = true
 
---search
+--search and commandline
 o.ignorecase = true
 o.smartcase = true
+o.wildmenu = true
 
 --backsapce
 o.backspace = "indent,eol,start"

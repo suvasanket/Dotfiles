@@ -20,7 +20,8 @@ return {
 				end
 				return "󰅠 " .. table.concat(c, ",") .. " "
 			end
-			require("mini.statusline").setup({
+			MiniStatusline.setup({
+				use_icons = true,
 				content = {
 					active = function()
 						local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 40 })

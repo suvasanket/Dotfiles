@@ -33,23 +33,33 @@ return {
 			signcolumn = true,
 		},
 	},
+	-- The one n only --
 	{
-		"NeogitOrg/neogit",
+		"tpope/vim-fugitive",
+		cmd = { "Git", "G" },
 		keys = {
-			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Git" },
-		},
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"sindrets/diffview.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
-		cmd = { "Neogit", "NeogitCommit" },
-		opts = {
-			signs = {
-				hunk = { "", "" },
-				item = { "", "" },
-				section = { "", "" },
-			},
+			{ "<leader>gg", "<cmd>G<cr>", desc = "Goat" },
+			{ "<leader>g<space>", ":G " },
 		},
 	},
+	-- {
+	-- 	"NeogitOrg/neogit",
+	-- 	keys = {
+	-- 		{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Git" },
+	-- 	},
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"sindrets/diffview.nvim",
+	-- 		"nvim-telescope/telescope.nvim",
+	-- 	},
+	-- 	cmd = { "Neogit", "NeogitCommit" },
+	-- 	opts = {
+	-- 		disable_hint = true,
+	-- 		signs = {
+	-- 			hunk = { "", "" },
+	-- 			item = { "", "" },
+	-- 			section = { "", "" },
+	-- 		},
+	-- 	},
+	-- },
 }
