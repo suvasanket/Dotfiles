@@ -112,8 +112,10 @@ end, {})
 
 -- git --
 --Glog
-create_command("Glog", function ()
-	vim.cmd[[G log --graph --decorate --oneline --abbrev-commit]]
+create_command("Glog", function()
+	vim.cmd([[tabnew | term git lg1]])
+	vim.cmd("set ft=fugitive")
+	-- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "n", false)
 end, {})
 
 -- smart commit push
@@ -129,7 +131,7 @@ create_command("Gcommit", function()
 		local remote = vim.api.nvim_exec("G remote -v", true)
 		if remote ~= "" then
 			local loc = remote:match("https://[^/]+/([%w-]+/[%w-]+)%.?git?%s+%(%w+%)")
-			ans = vim.fn.confirm("push to \"" .. loc .. "\"", "&Yes\n&No")
+			local ans = vim.fn.confirm('push to "' .. loc .. '"', "&Yes\n&No")
 			if ans == 1 then
 				shell_cmd({ "git", "push" }, function()
 					print("pushed to " .. loc)
@@ -142,24 +144,21 @@ create_command("Gcommit", function()
 end, {})
 
 -- GBrowse without plugin
-create_command("Gbrowse", function ()
+create_command("Gbrowse", function()
 	local g_remote = vim.api.nvim_exec("G remote -v", true)
 	local url = g_remote:match("https://[^%s]+%.git%s+%(push%)"):gsub("%.git%s+%(push%)", "")
 	local branch_name = vim.api.nvim_exec("!git branch -v", true):match("%* (%S+)")
 	local g_root = vim.api.nvim_exec("!git rev-parse --show-toplevel", true)
 	local git_root = g_root:match("([/][^\r\n]+)"):gsub("\r", "")
 
-	local file_path = vim.fn.expand('%:p')
+	local file_path = vim.fn.expand("%:p")
 	local relative_path = file_path:sub(#git_root + 2)
 
 	local repo_url = url .. "/blob/" .. branch_name .. "/" .. relative_path
 
-	shell_cmd({"open", repo_url},
-	function ()
-		print("opening " .. vim.fn.expand('%:p:t'))
-	end,
-	function ()
+	shell_cmd({ "open", repo_url }, function()
+		print("opening " .. vim.fn.expand("%:p:t"))
+	end, function()
 		print("failed to open")
-	end
-	)
+	end)
 end, {})

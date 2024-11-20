@@ -1,5 +1,5 @@
 ## exports ##
- export MANPAGER="gum pager"
+export MANPAGER="gum pager --border none --show-line-numbers=false"
  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
  --color=fg:#939393,fg+:#d0d0d0,bg:#181818,bg+:#181818
  --color=hl:#60c7bb,hl+:#5effec,info:#8a8a8a,marker:#ffffff

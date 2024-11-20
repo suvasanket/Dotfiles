@@ -6,10 +6,19 @@ return {
 		event = { "BufRead", "BufNewFile" },
 		config = function()
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "lua", "javascript", "java", "html", "css", "vim", "c" },
+				ensure_installed = { "lua", "vim" },
 				sync_install = true,
 				auto_install = true,
 				ignore_install = {},
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						init_selection = "<C-k>",
+						node_incremental = "<C-k>",
+						node_decremental = "<C-j>",
+						scope_incremental = "<cr>",
+					},
+				},
 				highlight = {
 					enable = true,
 					---@diagnostic disable-next-line: unused-local
@@ -23,48 +32,10 @@ return {
 
 					additional_vim_regex_highlighting = true,
 				},
-				--text-object
-				textobjects = {
-					select = {
-						enable = true,
-						lookahead = true,
-						keymaps = {
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["ac"] = "@class.outer",
-							["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-							["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-							["aa"] = "@parameter.outer",
-							["ia"] = "@parameter.inner",
-						},
-					},
-					swap = {
-						enable = true,
-						swap_next = {
-							["<leader><leader>a"] = { query = "@parameter.inner", desc = "swap parameter next" },
-						},
-						swap_previous = {
-							["<leader><leader>A"] = { query = "@parameter.inner", desc = "swap parameter next" },
-						},
-					},
-					move = {
-						enable = true,
-						set_jumps = true,
-						goto_next = {
-							["]m"] = { query = "@function.*", desc = "next function" },
-							["]z"] = { query = "@fold", query_group = "folds", desc = "next fold" },
-						},
-						goto_previous = {
-							["[m"] = { query = "@function.*", desc = "prev function" },
-							["[z"] = { query = "@fold", query_group = "folds", desc = "prev fold" },
-						},
-					},
-				},
 				markid = { enable = true },
 			})
 		end,
 		dependencies = {
-			{ "nvim-treesitter/nvim-treesitter-textobjects" },
 			{ "David-Kunz/markid" },
 		},
 	},

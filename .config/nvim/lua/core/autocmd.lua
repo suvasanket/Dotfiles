@@ -22,6 +22,13 @@ autocmd("FileType", {
 	end,
 })
 
+-- termclose
+autocmd("TermClose", {
+	callback = function()
+		vim.cmd("close")
+	end
+})
+
 -- auto remove hidden buffers
 autocmd("BufHidden", {
 	callback = function()
