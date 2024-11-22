@@ -10,6 +10,7 @@ bufmap("compilation", "n", "u", "gg")
 bufmap("qf", "n", "<C-q>", cmd("Clearqflist"))
 
 -- general
+map("n", "<C-q>", cmd("copen"))
 map("n", "zx", cmd("bd!"))
 map("n", "<leader>l", cmd("Lazy"))
 map({ "n", "i" }, "<F1>", cmd("silent w!"))
@@ -35,7 +36,7 @@ map({ "n", "x" }, "gp", function()
 		return '"_c<esc>"+p`[v`]='
 	end
 end, { expr = true, desc = "clip paste" })
-map({ "n", "x" }, "gP", function()
+map("n", "gP", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
 		return '"+p`[v`]='
 	else
@@ -65,8 +66,8 @@ map("n", "<C-\\>", cmd("q"))
 
 map("n", "zn", cmd("bnext"))
 map("n", "zp", cmd("bprevious"))
-map("n", "<C-p>", cmd("tabp"))
-map("n", "<C-n>", cmd("tabn"))
+map("n", "<C-h>", cmd("tabp"))
+map("n", "<C-l>", cmd("tabn"))
 
 --git
 bufmap("fugitive", "n", "gm", function()
@@ -136,14 +137,14 @@ map("n", "c.", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "
 map("n", "c>", [[:s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
 
 -- line move in normal and visual
-map("n", "J", ":m .+1<CR>==")
-map("n", "K", ":m .-2<CR>==")
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
-map("x", "H", "<gv")
-map("x", "L", ">gv")
-map("n", "H", "<<")
-map("n", "L", ">>")
+-- map("n", "J", ":m .+1<CR>==")
+-- map("n", "K", ":m .-2<CR>==")
+-- map("v", "J", ":m '>+1<CR>gv=gv")
+-- map("v", "K", ":m '<-2<CR>gv=gv")
+-- map("x", "H", "<gv")
+-- map("x", "L", ">gv")
+-- map("n", "H", "<<")
+-- map("n", "L", ">>")
 
 -- keep visual selection when (de)indenting
 map("v", "<", "<gv", {})

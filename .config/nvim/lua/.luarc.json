@@ -2,5 +2,8 @@
     "diagnostics.globals": [
         "vim",
         "highlights"
+    ],
+    "diagnostics.disable": [
+        "need-check-nil"
     ]
 }

@@ -31,5 +31,8 @@ return {
 	{
 		"kazhala/close-buffers.nvim",
 		cmd = "BDelete",
+		keys = {
+			{ "zh", "<cmd>BDelete hidden<cr>", desc = "delete hidden" },
+		},
 	},
 }

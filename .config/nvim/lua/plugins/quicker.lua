@@ -1,8 +1,6 @@
 return {
 	"stevearc/quicker.nvim",
-	keys = {
-		{ "<C-q>", "<cmd>copen<cr>" },
-	},
+	event = "FileType qf",
 	opts = {
 		keys = {
 			{ "<C-q>", "<cmd>Clearqflist<cr>", desc = "clear quickfix list" },

@@ -1,7 +1,7 @@
 return {
 	"kevinhwang91/nvim-ufo",
 	dependencies = "kevinhwang91/promise-async",
-	event = "BufReadPost",
+	keys = { "za" },
 	config = function()
 		require("ufo").setup({
 			close_fold_kinds_for_ft = {
