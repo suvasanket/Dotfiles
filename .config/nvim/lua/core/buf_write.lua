@@ -1,14 +1,14 @@
 -- vim: foldmethod=marker
 -- vim: foldlevel=0
 --{{{
-augroup("hotreload", { clear = true })
+Augroup("hotreload", { clear = true })
 local file_actions = {}
 
 local function post_act(filename, action)
 	file_actions[filename] = action
 	local patterns = vim.tbl_keys(file_actions)
 
-	autocmd("BufWritePost", {
+	Autocmd("BufWritePost", {
 		group = "hotreload",
 		pattern = patterns,
 		callback = function()

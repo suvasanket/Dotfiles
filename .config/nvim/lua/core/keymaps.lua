@@ -1,34 +1,35 @@
 require("core.helper")
 
 -- ** buffer only map (buffer of a specified ft) ** --
-bufmap("compilation", "n", "n", cmd("NextError"))
-bufmap("compilation", "n", "p", cmd("PrevError"))
-bufmap("compilation", "n", "r", cmd("Recompile"))
-bufmap("compilation", "n", "<C-r>", cmd("Recompile"))
-bufmap("compilation", "n", "u", "gg")
+BufMap("compilation", "n", "n", CMD("NextError"))
+BufMap("compilation", "n", "p", CMD("PrevError"))
+BufMap("compilation", "n", "r", CMD("Recompile"))
+BufMap("compilation", "n", "<C-r>", CMD("Recompile"))
+BufMap("compilation", "n", "u", "gg")
 
-bufmap("qf", "n", "<C-q>", cmd("Clearqflist"))
+BufMap("qf", "n", "<C-q>", CMD("Clearqflist"))
 
 -- general
-map("n", "<C-q>", cmd("copen"))
-map("n", "zx", cmd("bd!"))
-map("n", "<leader>l", cmd("Lazy"))
-map({ "n", "i" }, "<F1>", cmd("silent w!"))
-map("i", "<C-j>", "<esc>:t.<cr>a", { desc = "duplicate line" })
-map({ "i", "x" }, "<C-c>", "<esc>")
-map("n", "<C-space>", cmd("b #"))
-map("n", "<leader>tt", cmd("tabnew|term"), { desc = "terminal" })
+Map("n", "<C-q>", CMD("copen"))
+Map("n", "zx", CMD("bd!"))
+Map("n", "<leader>l", CMD("Lazy"))
+Map({ "n", "i" }, "<F1>", CMD("silent w!"))
+Map("i", "<C-j>", "<esc>:t.<cr>a", { desc = "duplicate line" })
+Map({ "i", "x" }, "<C-c>", "<esc>")
+Map("n", "<C-space>", CMD("b #"))
+Map("n", "<leader>tt", CMD("tabnew | term"), { desc = "terminal" })
+Map("n", "<leader>a", ":Term", { desc = "terminal", silent = false })
 
 -- insert mode
-map("i", "<S-CR>", "<esc>O")
-map("i", "<C-k>", "<esc>lC")
+Map("i", "<S-CR>", "<esc>O")
+Map("i", "<C-k>", "<esc>lC")
 
 -- system mappings
-map({ "i", "c" }, "<C-e>", "<end>")
-map({ "i", "c" }, "<C-a>", "<home>")
+Map({ "i", "c" }, "<C-e>", "<end>")
+Map({ "i", "c" }, "<C-a>", "<home>")
 
 -- copy paste
-map({ "n", "x" }, "gp", function()
+Map({ "n", "x" }, "gp", function()
 	local mode = vim.api.nvim_get_mode()["mode"]
 	if not vim.api.nvim_get_current_line():match("^%s*$") and mode == "n" then
 		return 'o<esc>"+p`[v`]='
@@ -36,44 +37,44 @@ map({ "n", "x" }, "gp", function()
 		return '"_c<esc>"+p`[v`]='
 	end
 end, { expr = true, desc = "clip paste" })
-map("n", "gP", function()
+Map("n", "gP", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
 		return '"+p`[v`]='
 	else
 		return '<esc>O<esc>"+p`[v`]='
 	end
 end, { expr = true, desc = "clip paste prev" })
-map({ "n", "x" }, "]p", ":pu<cr>")
-map({ "n", "x" }, "p", "p`[v`]=")
-map({ "n", "x" }, "P", "P`[v`]=")
-map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
-map("x", "<D-p>", [["_dP]], { desc = "blackhole paste" })
+Map({ "n", "x" }, "]p", ":pu<cr>")
+Map({ "n", "x" }, "p", "p`[v`]=")
+Map({ "n", "x" }, "P", "P`[v`]=")
+Map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
+Map("x", "<D-p>", [["_dP]], { desc = "blackhole paste" })
 
 --master
 -- map("n", "\\s", cmd("LuaSnipOpen"))
-map("n", "\\f", cmd("Ftplugin"))
-map("n", "\\lq", cmd("LspStop"))
-map("n", "\\ls", cmd("LspStart"))
-map("n", "\\cs", cmd("CmpEnable"))
-map("n", "\\cq", cmd("CmpDisable"))
+Map("n", "\\f", CMD("Ftplugin"))
+Map("n", "\\lq", CMD("LspStop"))
+Map("n", "\\ls", CMD("LspStart"))
+Map("n", "\\cs", CMD("CmpEnable"))
+Map("n", "\\cq", CMD("CmpDisable"))
 
 --buffer & tabs
-map("n", "<leader>_", cmd("split"))
-map("n", "<leader>|", cmd("vsplit"))
-map("t", "<C-[>", "<C-\\><C-n>")
-map("n", "<leader>bf", "Ggqgg<c-o>", { desc = "buffer format" })
-map("n", "<C-\\>", cmd("q"))
+Map("n", "<leader>_", CMD("split"))
+Map("n", "<leader>|", CMD("vsplit"))
+Map("t", "<C-[>", "<C-\\><C-n>")
+Map("n", "<leader>bf", "Ggqgg", { desc = "buffer format" })
+Map("n", "<C-\\>", CMD("q"))
 
-map("n", "zn", cmd("bnext"))
-map("n", "zp", cmd("bprevious"))
-map("n", "<C-h>", cmd("tabp"))
-map("n", "<C-l>", cmd("tabn"))
+Map("n", "zn", CMD("bnext"))
+Map("n", "zp", CMD("bprevious"))
+Map("n", "<C-h>", CMD("tabp"))
+Map("n", "<C-l>", CMD("tabn"))
 
 --git
-bufmap("fugitive", "n", "gm", function()
+BufMap("fugitive", "n", "gm", function()
 	local user_input = vim.fn.input("remote url: ")
 	if user_input ~= "" then
-		shell_cmd({ "git", "remote", "add", "origin", user_input }, function()
+		ShellCmd({ "git", "remote", "add", "origin", user_input }, function()
 			print("remote added")
 		end, function()
 			local ans = vim.fn.confirm("DO you really want to update remote url ?", "&Yes\n&No")
@@ -84,16 +85,16 @@ bufmap("fugitive", "n", "gm", function()
 		end)
 	end
 end)
-bufmap("fugitive", "n", "K", function()
+BufMap("fugitive", "n", "K", function()
 	local line = vim.fn.getline(".")
 	local pattern = line:match("^%S*%s(.+)$")
 	vim.cmd("G rm --cached -r " .. pattern)
 end)
-bufmap("fugitive", "n", "gc", cmd_tele("git_commits"))
-map("n", "<leader>gc", "<cmd>Gcommit<cr>", { desc = "smart commit" })
+BufMap("fugitive", "n", "gc", Telescope("git_commits"))
+Map("n", "<leader>gc", "<cmd>Gcommit<cr>", { desc = "smart commit" })
 
 --smart-delete
-map("n", "dd", function()
+Map("n", "dd", function()
 	local line_data = vim.api.nvim_win_get_cursor(0)
 	local current_line = vim.api.nvim_buf_get_lines(0, line_data[1] - 1, line_data[1], false)
 	if current_line[1] == "" then
@@ -103,7 +104,7 @@ map("n", "dd", function()
 	end
 end, { expr = true })
 
-map("n", "cc", function()
+Map("n", "cc", function()
 	local line_data = vim.api.nvim_win_get_cursor(0)
 	local current_line = vim.api.nvim_buf_get_lines(0, line_data[1] - 1, line_data[1], false)
 	if current_line[1] == "" then
@@ -114,14 +115,14 @@ map("n", "cc", function()
 end, { expr = true })
 
 --smart-ai
-map("n", "i", function()
+Map("n", "i", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
 		return "cc"
 	else
 		return "i"
 	end
 end, { expr = true })
-map("n", "a", function()
+Map("n", "a", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
 		return "cc"
 	else
@@ -130,28 +131,18 @@ map("n", "a", function()
 end, { expr = true })
 
 -- Search inside visually highlighted text.
-map("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
+Map("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
 
 -- Search and Replace
-map("n", "c.", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
-map("n", "c>", [[:s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
-
--- line move in normal and visual
--- map("n", "J", ":m .+1<CR>==")
--- map("n", "K", ":m .-2<CR>==")
--- map("v", "J", ":m '>+1<CR>gv=gv")
--- map("v", "K", ":m '<-2<CR>gv=gv")
--- map("x", "H", "<gv")
--- map("x", "L", ">gv")
--- map("n", "H", "<<")
--- map("n", "L", ">>")
+Map("n", "c.", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
+Map("n", "c>", [[:s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
 
 -- keep visual selection when (de)indenting
-map("v", "<", "<gv", {})
-map("v", ">", ">gv", {})
+Map("v", "<", "<gv", {})
+Map("v", ">", ">gv", {})
 
 -- unimapaired
-map("n", "]<space>", cmd("call append(line('.'), '')"))
-map("n", "[<space>", cmd("call append(line('.')-1, '')"))
-map("n", "]q", cmd("cnext"))
-map("n", "[q", cmd("cprev"))
+Map("n", "]<space>", CMD("call append(line('.'), '')"))
+Map("n", "[<space>", CMD("call append(line('.')-1, '')"))
+Map("n", "]q", CMD("cnext"))
+Map("n", "[q", CMD("cprev"))

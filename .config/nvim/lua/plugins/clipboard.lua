@@ -5,7 +5,7 @@ return {
 	keys = {
 		{
 			"<leader>p",
-			cmd_tele("neoclip initial_mode=normal theme=ivy layout_config={height=15} border=false prompt_prefix="),
+			Telescope("neoclip initial_mode=normal theme=ivy layout_config={height=15} border=false prompt_prefix="),
 			desc = "clipboard",
 			mode = { "n", "x" }
 		},

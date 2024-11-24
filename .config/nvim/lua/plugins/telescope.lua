@@ -1,23 +1,5 @@
 require("core.helper")
 
-local function get_wd()
-	local workspace = vim.lsp.buf.list_workspace_folders()
-	local wd = ""
-	local v = vim
-
-	if workspace[1] ~= nil then
-		wd = workspace[1]
-	else
-		local git_root = v.fn.systemlist("git rev-parse --show-toplevel")
-		if v.v.shell_error == 0 then
-			wd = git_root[1]
-		else
-			wd = v.fn.getcwd()
-		end
-	end
-	return wd
-end
-
 return {
 	--Telescope
 	{
@@ -36,22 +18,22 @@ return {
 			},
 		},
 		keys = {
-			{ "<C-S-\\>", cmd_tele("builtin") },
-			{ "<leader>sh", cmd_tele("help_tags"), desc = "help_tags" },
-			{ "zc", cmd_tele("buffers"), desc = "buffers" },
-			{ "<leader>/", cmd_tele("current_buffer_fuzzy_find"), desc = "current_buffer_fuzzy_find" },
-			{ "<C-Cr>", cmd_tele("lsp_dynamic_workspace_symbols"), desc = "Workspace_symbols" },
-			{ "<leader>ff", cmd_tele("fd cwd=$HOME find_command=fd,-t=f,-H prompt_prefix=\\ ~/\\ "), desc = "find_files" },
-			{ "<leader>fc", cmd_tele("fd cwd=~/dotfiles/ find_command=fd,-t=f,-H"), desc = "config" },
-			{ "<leader>fd", cmd_tele("fd cwd=$HOME find_command=fd,-t=d,-H disable_devicons=true previewer=false"), desc = "find dir" },
-			{ "<leader>gb", cmd_tele("git_branches") },
+			{ "<C-S-\\>", Telescope("builtin") },
+			{ "<leader>sh", Telescope("help_tags"), desc = "help_tags" },
+			{ "zc", Telescope("buffers"), desc = "buffers" },
+			{ "<leader>/", Telescope("current_buffer_fuzzy_find"), desc = "current_buffer_fuzzy_find" },
+			{ "<C-Cr>", Telescope("lsp_dynamic_workspace_symbols"), desc = "Workspace_symbols" },
+			{ "<leader>ff", Telescope("fd cwd=$HOME find_command=fd,-t=f,-H prompt_prefix=\\ ~/\\ "), desc = "find_files" },
+			{ "<leader>fc", Telescope("fd cwd=~/dotfiles/ find_command=fd,-t=f,-H"), desc = "config" },
+			{ "<leader>fd", Telescope("fd cwd=$HOME find_command=fd,-t=d,-H disable_devicons=true previewer=false"), desc = "find dir" },
+			{ "<leader>gb", Telescope("git_branches") },
 
 			-- smart find
 			{ "<C-f>", function()
 				local actions = require("telescope.actions")
 				local action_state = require("telescope.actions.state")
 					local function open_find()
-						local working_dir = get_wd()
+						local working_dir = GetProjectRoot()
 						vim.cmd("cd " .. working_dir)
 						require("telescope").extensions.smart_open.smart_open({
 							cwd_only = true,
@@ -106,7 +88,7 @@ return {
 			},
 
 			{ "<leader>fg", function ()
-				local working_dir = get_wd()
+				local working_dir = GetProjectRoot()
 				print("searching in:" .. working_dir)
 				require("telescope.builtin").live_grep({
 					cwd =  working_dir,

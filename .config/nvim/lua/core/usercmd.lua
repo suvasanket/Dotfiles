@@ -23,46 +23,6 @@ end
 create_command("CmpEnable", "lua require('cmp').setup.buffer { enabled = true }", {})
 create_command("CmpDisable", "lua require('cmp').setup.buffer { enabled = false }", {})
 
-----scripts----
---[[
-	1.in scripts name of the script
-	2.make a function to be execute if selected the script name
-	3.call the script within a if statement
-	*term() for execute in term
-	*sh() for execute in sh in backend
-]]
-
-scripts = { "javac", "cdebug" }
-local function javac()
-	local cwd = ex("%:p:h")
-	local file = ex("%:t")
-	local filewe = ex("%:t:r")
-	local shit = "cd " .. cwd .. " && javac " .. file .. " && java " .. filewe .. " && rm " .. filewe .. ".class"
-	term(shit)
-end
-
-local function clang()
-	local file = ex("%:t")
-	local filewe = ex("%:t:r")
-	sh("clang --debug " .. file .. " -o " .. filewe)
-end
-
---run
-create_command("Runy", function()
-	vim.ui.select(scripts, {
-		prompt = "Scripts",
-	}, function(choice)
-		----scripts call----
-		if choice == "javac" then
-			javac()
-		elseif choice == "cdebug" then
-			clang()
-		else
-			vim.cmd("echo'done'")
-		end
-	end)
-end, {})
-
 --luasnip
 create_command("LuaSnipOpen", function()
 	require("luasnip.loaders").edit_snippet_files({
@@ -122,7 +82,7 @@ end, {})
 create_command("Gcommit", function()
 	local message = vim.fn.input("commit message: ")
 	if message ~= "" then
-		shell_cmd({ "git", "commit", "-am", message }, function()
+		ShellCmd({ "git", "commit", "-am", message }, function()
 			print("commited")
 		end, function()
 			print("error while commit")
@@ -133,10 +93,11 @@ create_command("Gcommit", function()
 			local loc = remote:match("https://[^/]+/([%w-]+/[%w-]+)%.?git?%s+%(%w+%)")
 			local ans = vim.fn.confirm('push to "' .. loc .. '"', "&Yes\n&No")
 			if ans == 1 then
-				shell_cmd({ "git", "push" }, function()
+				print("pushing to remote...")
+				ShellCmd({ "git", "push" }, function()
 					print("pushed to " .. loc)
 				end, function()
-					print("error during push")
+					print("Error pushing")
 				end)
 			end
 		end
@@ -156,9 +117,57 @@ create_command("Gbrowse", function()
 
 	local repo_url = url .. "/blob/" .. branch_name .. "/" .. relative_path
 
-	shell_cmd({ "open", repo_url }, function()
+	ShellCmd({ "open", repo_url }, function()
 		print("opening " .. vim.fn.expand("%:p:t"))
 	end, function()
 		print("failed to open")
 	end)
 end, {})
+
+--
+local cachedCmd = nil
+create_command("Term", function(args)
+	local projectRoot = GetProjectRoot()
+	local function run_cached_or_new_term(cmd)
+		vim.cmd("cd " .. projectRoot .. " | term " .. (cmd or ""))
+	end
+
+	if not args.bang then
+		vim.cmd("tabnew")
+		if args.args and #args.args > 0 then
+			cachedCmd = args.args
+			run_cached_or_new_term(cachedCmd)
+			vim.cmd("tabp")
+		else
+			if cachedCmd then
+				print("Running cached command: " .. cachedCmd)
+				run_cached_or_new_term(cachedCmd)
+				vim.cmd("tabp")
+			else
+				vim.cmd("startinsert")
+				run_cached_or_new_term()
+			end
+		end
+	else
+		vim.cmd("vsplit | vertical resize 70")
+		if args.args and #args.args >= 2 then
+			cachedCmd = args.args
+			if #args.args == 2 then
+				vim.cmd("startinsert")
+				run_cached_or_new_term(cachedCmd)
+			else
+				local ans = vim.fn.confirm("Compile?", "&Yes\n&No")
+				if ans == 1 then
+					vim.cmd("close")
+					vim.cmd("cd " .. projectRoot .. " | Compile " .. cachedCmd)
+					vim.cmd("wincmd L | vertical resize 70")
+				else
+					vim.cmd("startinsert")
+					run_cached_or_new_term(cachedCmd)
+				end
+			end
+		else
+			run_cached_or_new_term(cachedCmd)
+		end
+	end
+end, { nargs = "*", bang = true })

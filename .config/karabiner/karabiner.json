@@ -896,7 +896,11 @@
                 },
                 "to": [
                   {
-                    "shell_command": "/opt/homebrew/bin/aerospace list-workspaces --monitor focused --empty no | /opt/homebrew/bin/aerospace workspace prev"
+                    "key_code": "open_bracket",
+                    "modifiers": [
+                      "command",
+                      "shift"
+                    ]
                   }
                 ]
               },
@@ -915,7 +919,11 @@
                 },
                 "to": [
                   {
-                    "shell_command": "/opt/homebrew/bin/aerospace list-workspaces --monitor focused --empty no | /opt/homebrew/bin/aerospace workspace next"
+                    "key_code": "close_bracket",
+                    "modifiers": [
+                      "command",
+                      "shift"
+                    ]
                   }
                 ]
               }
@@ -1563,64 +1571,6 @@
                   "modifiers": {
                     "mandatory": [
                       "command",
-                      "option"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "open_bracket",
-                    "modifiers": [
-                      "command",
-                      "shift"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^net.kovidgoyal.kitty"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "l",
-                  "modifiers": {
-                    "mandatory": [
-                      "command",
-                      "option"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "close_bracket",
-                    "modifiers": [
-                      "command",
-                      "shift"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^net.kovidgoyal.kitty"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "h",
-                  "modifiers": {
-                    "mandatory": [
-                      "command",
                       "option",
                       "control"
                     ]
@@ -1678,72 +1628,6 @@
           {
             "description": "Browser",
             "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "h",
-                  "modifiers": {
-                    "mandatory": [
-                      "command",
-                      "option"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "open_bracket",
-                    "modifiers": [
-                      "command",
-                      "shift"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "Chromium",
-                      "Arc",
-                      "^org.mozilla.com.zen.browser",
-                      "Orion",
-                      "Safari"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "l",
-                  "modifiers": {
-                    "mandatory": [
-                      "command",
-                      "option"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "close_bracket",
-                    "modifiers": [
-                      "command",
-                      "shift"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "Chromium",
-                      "Arc",
-                      "^org.mozilla.com.zen.browser",
-                      "Orion",
-                      "Safari"
-                    ]
-                  }
-                ]
-              },
               {
                 "type": "basic",
                 "from": {

@@ -20,13 +20,6 @@ export function historyNavi() {
   ]
 }
 
-/** Pre/Next tab in most apps. */
-export function tabNavi() {
-  return [
-    map('h', '⌘⌥').to('[', '⌘⇧'), //
-    map('l', '⌘⌥').to(']', '⌘⇧'),
-  ]
-}
 
 /** Pre/Next switcher in most apps. */
 export function switcher() {

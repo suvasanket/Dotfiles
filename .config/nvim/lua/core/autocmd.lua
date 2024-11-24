@@ -2,7 +2,7 @@ require("core.hilight")
 require("core.buf_write")
 
 -- Use 'q' to quit from common plugins
-autocmd("FileType", {
+Autocmd("FileType", {
 	pattern = {
 		"help",
 		"man",
@@ -17,8 +17,8 @@ autocmd("FileType", {
 		vim.cmd("setlocal listchars= nonumber norelativenumber")
 		vim.opt_local.wrap = false
 		vim.bo[event.buf].buflisted = false
-		map("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
-		map("n", "<esc>", "<cmd>noh<cr>", { buffer = event.buf, silent = true })
+		Map("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+		Map("n", "<esc>", "<cmd>noh<cr>", { buffer = event.buf, silent = true })
 	end,
 })
 
@@ -30,7 +30,7 @@ autocmd("FileType", {
 -- })
 
 -- auto remove hidden buffers
-autocmd("BufHidden", {
+Autocmd("BufHidden", {
 	callback = function()
 		vim.fn.timer_start(600000, function()
 			vim.cmd("silent! BDelete hidden")
@@ -39,7 +39,7 @@ autocmd("BufHidden", {
 })
 
 -- Persistent Cursor
-autocmd("BufReadPost", {
+Autocmd("BufReadPost", {
 	callback = function()
 		local mark = vim.api.nvim_buf_get_mark(0, '"')
 		local lcount = vim.api.nvim_buf_line_count(0)
@@ -50,7 +50,7 @@ autocmd("BufReadPost", {
 })
 
 --no auto comment
-autocmd("FileType", {
+Autocmd("FileType", {
 	pattern = "*",
 	callback = function()
 		vim.cmd("setlocal formatoptions-=c formatoptions-=r formatoptions-=o")
@@ -58,17 +58,16 @@ autocmd("FileType", {
 })
 
 --terminal win
-autocmd("TermOpen", {
+Autocmd("TermOpen", {
 	pattern = "*",
 	callback = function()
-		vim.cmd("setlocal nonumber norelativenumber")
-		vim.cmd.startinsert()
+		vim.cmd("setlocal ma nonumber norelativenumber")
 	end,
 })
 
 --luasnip auto insert templete
-augroup("SnippetAutoInsert", { clear = true })
-autocmd("BufNewFile", {
+Augroup("SnippetAutoInsert", { clear = true })
+Autocmd("BufNewFile", {
 	group = "SnippetAutoInsert",
 	pattern = "*/snippets/*.lua",
 	callback = function()

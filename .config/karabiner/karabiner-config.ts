@@ -13,7 +13,6 @@ import {
 
 import {
     switcher,
-    tabNavi,
     tapModifiers,
     toClearNotifications,
     unix_mapping,
@@ -24,7 +23,7 @@ writeToProfile(
     [
         sd_layer(),
         fn_layer(),
-        quick_stuff(),
+        hyper(),
         some(),
 
         general_map(),
@@ -63,7 +62,6 @@ function app_finder() {
 
 function app_kitty() {
     return rule("kitty", ifApp("^net.kovidgoyal.kitty")).manipulators([
-        ...tabNavi(),
         ...switcher(),
     ]);
 }
@@ -71,7 +69,6 @@ function app_kitty() {
 function app_browser() {
     const browsers = ['Chromium', 'Arc', '^org.mozilla.com.zen.browser', 'Orion', 'Safari'];
     return rule("Browser", ifApp(browsers)).manipulators([
-        ...tabNavi(),
         ...switcher(),
         ...tapModifiers({
             '›⌘': toKey('i', '⌘⌥'),
@@ -121,7 +118,7 @@ function sd_layer() {
     ]);
 }
 
-function quick_stuff() {
+function hyper() {
     const aeros = '/opt/homebrew/bin/aerospace'
     const ne = `${aeros} list-workspaces --monitor focused --empty no`
     return rule("quick").manipulators([
@@ -138,8 +135,10 @@ function quick_stuff() {
             map('s').to('2', '⌥'),
             map('g').toApp('ChatGPT'),
 
-            map('h').to$(`${ne} | ${aeros} workspace prev`),
-            map('l').to$(`${ne} | ${aeros} workspace next`),
+            //map('h').to$(`${ne} | ${aeros} workspace prev`),
+            //map('l').to$(`${ne} | ${aeros} workspace next`),
+            map('h').to('[', '⌘⇧'),
+            map('l').to(']', '⌘⇧'),
         ]),
     ])
 }
@@ -153,7 +152,7 @@ function some() {
             '⏎': toKey('f', '⌥⇧'),
             s: toKey('s', '⌥⇧'),
             spacebar: toKey('left_shift'),
-            x: toKey('⏎','⌘⌃'),
+            x: toKey('⏎', '⌘⌃'),
 
             1: toKey('1', '⌥'),
             2: toKey('2', '⌥'),

@@ -6,7 +6,7 @@ local hi = function(name, val, id)
 	vim.api.nvim_set_hl(defaultid, name, val)
 end
 
-autocmd("VimEnter", {
+Autocmd("VimEnter", {
 	pattern = "*",
 	callback = function()
 		hi("Folded", { fg = "#7D7C7C" })
@@ -55,8 +55,8 @@ autocmd("VimEnter", {
 })
 
 --highlight yank
-augroup("yank", { clear = true })
-autocmd("TextYankPost", {
+Augroup("yank", { clear = true })
+Autocmd("TextYankPost", {
 	pattern = "*",
 	callback = function()
 		vim.highlight.on_yank({ higroup = "hlyank", timeout = 100 })

@@ -10,7 +10,7 @@ exec-on-workspace-change = [
 start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
-accordion-padding = 0
+accordion-padding = 30
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 automatically-unhide-macos-hidden-apps = true
@@ -86,10 +86,13 @@ run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.com.zen.browser'
+if.window-title-regex-substring = '^(?!multithread-download)'
+check-further-callbacks = true
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = 'org.chromium.Chromium'
+if.app-id = 'com.brave.Browser'
+if.window-title-regex-substring = '(.*Brave)$'
 run = ['move-node-to-workspace 2']
 
 # 3
@@ -112,7 +115,7 @@ run = ['layout floating','move-node-to-workspace 4']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = ['move-node-to-workspace 4']
+run = ['layout floating', 'move-node-to-workspace 4']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Music'
