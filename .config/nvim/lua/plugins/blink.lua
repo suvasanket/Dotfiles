@@ -3,7 +3,6 @@ return {
 	{
 		"saghen/blink.cmp",
 		event = { "InsertEnter" },
-		version = "v0.*",
 		dependencies = {
 			{
 				"chrisgrieser/nvim-scissors",
@@ -43,30 +42,23 @@ return {
 				["<C-b>"] = { "snippet_backward", "fallback" },
 			},
 
-			highlight = {
+			appearance = {
 				use_nvim_cmp_as_default = true,
+				nerd_font_variant = "mono",
 			},
 
-			nerd_font_variant = "normal",
-			trigger = {
-				signature_help = { enabled = true },
+			signature = {
+				enabled = true,
 			},
-
-			accept = {
-				create_undo_point = true,
-				auto_brackets = {
-					enabled = true,
-					default_brackets = { "(", ")" },
+			completion = {
+				accept = {
+					create_undo_point = true,
+					auto_brackets = { enabled = true },
 				},
 			},
 
 			sources = {
-				providers = {
-					path = { name = "Path", module = "blink.cmp.sources.path", score_offset = 3 },
-					snippets = { name = "Snippets", module = "blink.cmp.sources.snippets" },
-					lsp = { name = "LSP", module = "blink.cmp.sources.lsp" },
-					buffer = { name = "Buffer", module = "blink.cmp.sources.buffer", fallback_for = { "LSP" } },
-				},
+				default = { "lsp", "path", "luasnip", "snippets", "buffer" },
 			},
 		},
 	},

@@ -86,8 +86,7 @@ run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.com.zen.browser'
-if.window-title-regex-substring = '^(?!multithread-download)'
-check-further-callbacks = true
+if.window-title-regex-substring = '^(?!.*Extension:).+$'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]

@@ -930,7 +930,7 @@
             ]
           },
           {
-            "description": "Layer - some",
+            "description": "Layer - System",
             "manipulators": [
               {
                 "type": "basic",
@@ -940,7 +940,7 @@
                 "to": [
                   {
                     "set_variable": {
-                      "name": "some",
+                      "name": "System",
                       "value": 1
                     }
                   }
@@ -948,7 +948,7 @@
                 "conditions": [
                   {
                     "type": "variable_unless",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ],
@@ -960,7 +960,7 @@
                 "to_after_key_up": [
                   {
                     "set_variable": {
-                      "name": "some",
+                      "name": "System",
                       "value": 0
                     }
                   }
@@ -987,7 +987,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1013,7 +1013,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1039,7 +1039,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1065,7 +1065,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1091,7 +1091,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1117,7 +1117,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1143,7 +1143,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1170,7 +1170,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1197,7 +1197,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1220,7 +1220,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1247,7 +1247,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
                     "value": 1
                   }
                 ]
@@ -1270,7 +1270,32 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "some",
+                    "name": "System",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "backslash",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "software_function": {
+                      "iokit_power_management_sleep_system": {}
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "System",
                     "value": 1
                   }
                 ]

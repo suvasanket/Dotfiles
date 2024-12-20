@@ -50,7 +50,7 @@ return {
 							icon = "",
 							signs = { ERROR = "E", WARN = "W", INFO = "I", HINT = "*" },
 						})
-						local pathname = vim.bo.buftype == "terminal" and "%t"
+						local pathname = vim.bo.buftype == "terminal" and "terminal" --"%t"
 							or "%#MiniStatuslineFilename#"
 								.. vim.fn.expand("%:~")
 								.. (vim.bo.modified and " [+]" or "")

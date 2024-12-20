@@ -2,11 +2,10 @@ return {
 	"kylechui/nvim-surround",
 	version = "*",
 	keys = {
-		{ "ys" },
+		{ "ys", mode = { "n", "x" } },
 		{ "yss" },
 		{ "ds" },
 		{ "cs" },
-		{ "s", mode = "x" },
 	},
 	opts = {
 		keymaps = {

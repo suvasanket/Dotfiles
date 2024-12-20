@@ -18,6 +18,7 @@ return {
 				dynamicRegistration = false,
 				lineFoldingOnly = true,
 			}
+			capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
 			--lsp on_attach
 			local on_attach = function(client, bufnr)
@@ -27,7 +28,7 @@ return {
 				end
 			end
 
-			--lsp default_config
+			-- lsp default_config
 			lsp.util.default_config = vim.tbl_extend("force", lsp.util.default_config, {
 				capabilities = capabilities,
 				on_attach = on_attach,

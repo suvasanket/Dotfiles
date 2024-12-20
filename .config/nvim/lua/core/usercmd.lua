@@ -23,7 +23,7 @@ end
 create_command("CmpEnable", "lua require('cmp').setup.buffer { enabled = true }", {})
 create_command("CmpDisable", "lua require('cmp').setup.buffer { enabled = false }", {})
 
---luasnip
+-- luasnip {{{
 create_command("LuaSnipOpen", function()
 	require("luasnip.loaders").edit_snippet_files({
 		extend = function(ft, paths)
@@ -36,8 +36,9 @@ create_command("LuaSnipOpen", function()
 		end,
 	})
 end, {})
+--}}}
 
---ftplugin
+-- ftplugin {{{
 local function openftplugin()
 	local filepath = vim.fn.stdpath("config") .. "/ftplugin/" .. vim.bo.filetype .. ".lua"
 	if not vim.fn.filereadable(filepath) then
@@ -46,6 +47,7 @@ local function openftplugin()
 	end
 	vim.cmd("vsplit " .. filepath)
 end
+-- }}}
 
 -- Register the user command
 create_command("Ftplugin", openftplugin, {})
@@ -61,24 +63,20 @@ create_command("Echoqflist", function()
 	print(result)
 end, {})
 
-vim.cmd([[
-	cnoreabbrev clearqflist Clearqflist
-]])
-
 --history delete
 create_command("CmdlineHistoryDel", function()
 	vim.fn.histdel(":")
 end, {})
 
--- git --
---Glog
+-- Glog
 create_command("Glog", function()
-	vim.cmd([[tabnew | term git lg1]])
+	vim.cmd("tabnew")
+	vim.cmd("startinsert")
+	vim.cmd([[term git lg1]])
 	vim.cmd("set ft=fugitive")
-	-- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "n", false)
 end, {})
 
--- smart commit push
+-- smart commit push {{{
 create_command("Gcommit", function()
 	local message = vim.fn.input("commit message: ")
 	if message ~= "" then
@@ -88,14 +86,13 @@ create_command("Gcommit", function()
 			print("error while commit")
 		end)
 
-		local remote = vim.api.nvim_exec("G remote -v", true)
+		local remote = vim.api.nvim_exec("G config --get remote.origin.url", true)
 		if remote ~= "" then
-			local loc = remote:match("https://[^/]+/([%w-]+/[%w-]+)%.?git?%s+%(%w+%)")
-			local ans = vim.fn.confirm('push to "' .. loc .. '"', "&Yes\n&No")
+			local ans = vim.fn.confirm('push to "' .. remote .. '"', "&Yes\n&No")
 			if ans == 1 then
 				print("pushing to remote...")
 				ShellCmd({ "git", "push" }, function()
-					print("pushed to " .. loc)
+					print("pushed to " .. remote)
 				end, function()
 					print("Error pushing")
 				end)
@@ -103,28 +100,28 @@ create_command("Gcommit", function()
 		end
 	end
 end, {})
+--}}}
 
--- GBrowse without plugin
+-- GBrowse without plugin {{{
 create_command("Gbrowse", function()
-	local g_remote = vim.api.nvim_exec("G remote -v", true)
-	local url = g_remote:match("https://[^%s]+%.git%s+%(push%)"):gsub("%.git%s+%(push%)", "")
+	local g_remote = vim.api.nvim_exec("G config --get remote.origin.url", true)
+	local url = g_remote:gsub("%.git$", "")
 	local branch_name = vim.api.nvim_exec("!git branch -v", true):match("%* (%S+)")
 	local g_root = vim.api.nvim_exec("!git rev-parse --show-toplevel", true)
 	local git_root = g_root:match("([/][^\r\n]+)"):gsub("\r", "")
-
 	local file_path = vim.fn.expand("%:p")
 	local relative_path = file_path:sub(#git_root + 2)
 
 	local repo_url = url .. "/blob/" .. branch_name .. "/" .. relative_path
-
 	ShellCmd({ "open", repo_url }, function()
 		print("opening " .. vim.fn.expand("%:p:t"))
 	end, function()
 		print("failed to open")
 	end)
 end, {})
+-- }}}
 
---
+-- Term {{{
 local cachedCmd = nil
 create_command("Term", function(args)
 	local projectRoot = GetProjectRoot()
@@ -171,3 +168,4 @@ create_command("Term", function(args)
 		end
 	end
 end, { nargs = "*", bang = true })
+---}}}

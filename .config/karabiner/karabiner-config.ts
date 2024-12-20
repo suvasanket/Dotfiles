@@ -7,6 +7,7 @@ import {
     rule,
     toHyper,
     toKey,
+    toSleepSystem,
     withModifier,
     writeToProfile,
 } from "karabiner.ts";
@@ -24,7 +25,7 @@ writeToProfile(
         sd_layer(),
         fn_layer(),
         hyper(),
-        some(),
+        system_layer(),
 
         general_map(),
 
@@ -143,8 +144,8 @@ function hyper() {
     ])
 }
 
-function some() {
-    let l = layer("`", "some");
+function system_layer() {
+    let l = layer("`", "System");
     return l.manipulators([
         withModifier("??")({
             h: toKey('[', '⌥'),
@@ -161,6 +162,7 @@ function some() {
             5: toKey('5', '⌥'),
 
             n: toClearNotifications,
+            '\\': toSleepSystem(),
         }),
     ]);
 }
