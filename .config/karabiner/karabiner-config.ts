@@ -8,6 +8,7 @@ import {
     toHyper,
     toKey,
     toSleepSystem,
+    toSuperHyper,
     withModifier,
     writeToProfile,
 } from "karabiner.ts";
@@ -49,6 +50,8 @@ function general_map() {
         map("right_control").to("escape"),
         map("j", "option").to("tab", "command"),
         map("k", "option").to("tab", "⌘⇧"),
+        map('h', '⌘').to('[', '⌘⇧'),
+        map('l', '⌘').to(']', '⌘⇧'),
 
         mapDoubleTap('↑').to('↖︎'),
         mapDoubleTap('↓').to('end'),
@@ -70,6 +73,7 @@ function app_kitty() {
 function app_browser() {
     const browsers = ['Chromium', 'Arc', '^org.mozilla.com.zen.browser', 'Orion', 'Safari'];
     return rule("Browser", ifApp(browsers)).manipulators([
+        map("spacebar", "⌃").to('tab', '⌃'),
         ...switcher(),
         ...tapModifiers({
             '›⌘': toKey('i', '⌘⌥'),
@@ -125,21 +129,21 @@ function hyper() {
     return rule("quick").manipulators([
         map("'").to(toHyper()).toIfAlone("'"),
         withModifier("Hyper")([
-            //map('␣').to$('/bin/sh /Users/suvasanketrout/.local/scripts/openSuperProd.sh'),
-            map('␣').to(",", "⌘⌥⌃"),
-            map('n').to("f1", "⌘"),
+            //map('n').to$('/bin/sh /Users/suvasanketrout/.local/scripts/openSuperProd.sh'),
+            map('n').to(",", "⌘⌥⌃"),
+            map('spacebar').to(toSuperHyper()),
 
-            map('d').toApp('Obsidian'),
             map('m').toApp('Activity Monitor'),
             map('f').to$('open /System/Library/CoreServices/Finder.app'),
-            map('a').to('1', '⌥'),
-            map('s').to('2', '⌥'),
-            map('g').toApp('ChatGPT'),
+            map('a').toApp('ghostty'),
+            map('s').toApp('zen browser'),
+            map('d').toApp('ChatGPT'),
+            map('g').toApp('obsidian'),
 
-            //map('h').to$(`${ne} | ${aeros} workspace prev`),
-            //map('l').to$(`${ne} | ${aeros} workspace next`),
-            map('h').to('[', '⌘⇧'),
-            map('l').to(']', '⌘⇧'),
+            map('h').to$(`${ne} | ${aeros} workspace prev`),
+            map('l').to$(`${ne} | ${aeros} workspace next`),
+            //map('h').to('[', '⌘⇧'),
+            //map('l').to(']', '⌘⇧'),
         ]),
     ])
 }

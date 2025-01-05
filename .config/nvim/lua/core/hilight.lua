@@ -32,6 +32,14 @@ Autocmd("VimEnter", {
 		hi("TelescopeResultsBorder", { link = "TelescopeBorder" })
 		hi("TelescopePreviewBorder", { link = "TelescopeBorder" })
 
+		hi("FzfLuaBorder", {  fg = "#272829", bg = "#222222" })
+		hi("FzfLuaNormal", {  bg = "#222222" })
+		-- hi("FzfLuaPromptBorder", { link = "FzfLuaBorder" })
+		-- hi("FzfLuaResultsBorder", { link = "FzfLuaBorder" })
+		-- hi("FzfLuaPreviewBorder", { link = "FzfLuaBorder" })
+
+		hi("MiniPickPrompt", {  link = "Normal" })
+
 		hi("CmpItemAbbrMatchFuzzyDefault", { fg = "#F2613F" })
 		hi("PmenuSel", { bg = "#282C34", fg = "NONE" })
 		hi("Pmenu", { fg = "#C5CDD9", bg = "#22252A" })
@@ -59,7 +67,7 @@ Augroup("yank", { clear = true })
 Autocmd("TextYankPost", {
 	pattern = "*",
 	callback = function()
-		vim.highlight.on_yank({ higroup = "hlyank", timeout = 100 })
+		vim.highlight.on_yank({ higroup = "hlyank", timeout = 70 })
 	end,
 	group = "yank",
 })

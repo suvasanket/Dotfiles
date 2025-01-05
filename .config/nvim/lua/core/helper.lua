@@ -62,3 +62,10 @@ function GetProjectRoot()
 	end
 	return wd
 end
+
+function Notify(content, level, title)
+	require("fidget").notify(title .. ":", level, {
+		group = title,
+		annote = content .. "",
+	})
+end

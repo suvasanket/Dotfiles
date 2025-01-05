@@ -1,10 +1,10 @@
 ## exports ##
 export MANPAGER="gum pager --border none --show-line-numbers=false"
  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
- --color=fg:#939393,fg+:#d0d0d0,bg:#181818,bg+:#181818
+ --color=fg:#939393,fg+:#d0d0d0,bg:#222222,bg+:#222222
  --color=hl:#60c7bb,hl+:#5effec,info:#8a8a8a,marker:#ffffff
  --color=prompt:#d7005f,spinner:#c392f4,pointer:#af5fff,header:#525252
- --color=gutter:#181818,border:#343333,separator:#565656,scrollbar:#191919
+ --color=gutter:#222222,border:#343333,separator:#565656,scrollbar:#191919
  --color=label:#aeaeae,query:#d9d9d9
  --border="bold" --border-label="" --preview-window="border-bold" --prompt=" "
  --marker="+" --pointer=" " --separator="" --scrollbar=""
@@ -27,6 +27,7 @@ export MANPAGER="gum pager --border none --show-line-numbers=false"
 
  export PATH=$PATH:~/.gem/ruby/3.3.0/bin
 
+ export PATH="$HOME/.cargo/bin:$PATH"
  ## kitty ##
  # if test -n "$KITTY_INSTALLATION_DIR"; then
  #     export KITTY_SHELL_INTEGRATION="enabled"
@@ -66,7 +67,7 @@ export MANPAGER="gum pager --border none --show-line-numbers=false"
  zinit cdreplay -q
 
  # Keybindings
- bindkey -e
+ bindkey -v
  bindkey '^r' 'gum filter < $HISTFILE --height 20'
  bindkey '^l' autosuggest-accept
  bindkey '^p' history-search-backward

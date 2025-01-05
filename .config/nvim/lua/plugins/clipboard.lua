@@ -4,7 +4,7 @@ return {
 	event = { "BufRead" },
 	keys = {
 		{
-			"<leader>p",
+			"<C-p>",
 			Telescope("neoclip initial_mode=normal theme=ivy layout_config={height=15} border=false prompt_prefix="),
 			desc = "clipboard",
 			mode = { "n", "x" }

@@ -27,8 +27,7 @@ return {
 	-- The one n only --
 	{
 		"tpope/vim-fugitive",
-		lazy = false,
-		cmd = { "Git", "G" },
+		cmd = { "Git", "G", "Gr", "Gw" },
 		keys = {
 			{ "<leader>gg", "<cmd>G<cr>", desc = "Goat" },
 			{ "<leader>g<space>", ":G " },

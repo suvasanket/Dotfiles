@@ -4,7 +4,6 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			"stevearc/dressing.nvim",
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 		},
@@ -18,7 +17,7 @@ return {
 				dynamicRegistration = false,
 				lineFoldingOnly = true,
 			}
-			capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+			capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 			--lsp on_attach
 			local on_attach = function(client, bufnr)
@@ -92,6 +91,7 @@ return {
 	-- fidget --
 	{
 		"j-hui/fidget.nvim",
+		lazy = true,
 		event = "LspAttach",
 		opts = {
 			notification = {
@@ -100,5 +100,5 @@ return {
 				},
 			},
 		},
-	}
+	},
 }

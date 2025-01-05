@@ -72,8 +72,8 @@ if.app-id = 'net.kovidgoyal.kitty'
 run = ['move-node-to-workspace 1']
 
 [[on-window-detected]]
-if.app-id = 'com.raphaelamorim.rio'
-run = ['move-node-to-workspace 1']
+if.app-id = 'com.mitchellh.ghostty'
+run = "move-node-to-workspace 1"
 
 # 2
 [[on-window-detected]]

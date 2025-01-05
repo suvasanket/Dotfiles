@@ -5,6 +5,7 @@ return {
 	{
 		'nvim-telescope/telescope.nvim',
 		cmd = "Telescope",
+		enabled = false,
 		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-tree/nvim-web-devicons" },
@@ -23,9 +24,9 @@ return {
 			{ "zc", Telescope("buffers"), desc = "buffers" },
 			{ "<leader>/", Telescope("current_buffer_fuzzy_find"), desc = "current_buffer_fuzzy_find" },
 			{ "<C-Cr>", Telescope("lsp_dynamic_workspace_symbols"), desc = "Workspace_symbols" },
-			{ "<leader>ff", Telescope("fd cwd=$HOME find_command=fd,-t=f,-H prompt_prefix=\\ ~/\\ "), desc = "find_files" },
-			{ "<leader>fc", Telescope("fd cwd=~/dotfiles/ find_command=fd,-t=f,-H"), desc = "config" },
-			{ "<leader>fd", Telescope("fd cwd=$HOME find_command=fd,-t=d,-H disable_devicons=true previewer=false"), desc = "find dir" },
+			{ "<leader>pf", Telescope("fd cwd=$HOME find_command=fd,-t=f,-H prompt_prefix=\\ ~/\\ "), desc = "find_files" },
+			{ "<leader>pc", Telescope("fd cwd=~/dotfiles/ find_command=fd,-t=f,-H"), desc = "config" },
+			{ "<leader>pd", Telescope("fd cwd=$HOME find_command=fd,-t=d,-H disable_devicons=true previewer=false"), desc = "find dir" },
 			{ "<leader>gb", Telescope("git_branches") },
 
 			-- smart find
@@ -87,7 +88,7 @@ return {
 				end
 			},
 
-			{ "<leader>fg", function ()
+			{ "<leader>pg", function ()
 				local working_dir = GetProjectRoot()
 				print("searching in:" .. working_dir)
 				require("telescope.builtin").live_grep({

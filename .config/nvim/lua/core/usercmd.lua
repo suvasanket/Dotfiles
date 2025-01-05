@@ -56,6 +56,7 @@ create_command("Ftplugin", openftplugin, {})
 create_command("Clearqflist", function()
 	vim.fn.setqflist({})
 	vim.cmd("cclose")
+	Notify("quickfix list emptied")
 end, {})
 
 create_command("Echoqflist", function()
@@ -81,20 +82,20 @@ create_command("Gcommit", function()
 	local message = vim.fn.input("commit message: ")
 	if message ~= "" then
 		ShellCmd({ "git", "commit", "-am", message }, function()
-			print("commited")
+			Notify("commited", "INFO", "Git")
 		end, function()
-			print("error while commit")
+			Notify("error while commit", "ERROR", "Git")
 		end)
 
 		local remote = vim.api.nvim_exec("G config --get remote.origin.url", true)
 		if remote ~= "" then
 			local ans = vim.fn.confirm('push to "' .. remote .. '"', "&Yes\n&No")
 			if ans == 1 then
-				print("pushing to remote...")
+				Notify("pushing to remote...")
 				ShellCmd({ "git", "push" }, function()
-					print("pushed to " .. remote)
+					Notify("pushed to " .. remote)
 				end, function()
-					print("Error pushing")
+					Notify("Error pushing", "ERROR")
 				end)
 			end
 		end
@@ -114,9 +115,9 @@ create_command("Gbrowse", function()
 
 	local repo_url = url .. "/blob/" .. branch_name .. "/" .. relative_path
 	ShellCmd({ "open", repo_url }, function()
-		print("opening " .. vim.fn.expand("%:p:t"))
+		Notify("opening " .. vim.fn.expand("%:p:t"), nil, "Git")
 	end, function()
-		print("failed to open")
+		Notify("failed to open", "ERROR", "Git")
 	end)
 end, {})
 -- }}}
@@ -135,9 +136,10 @@ create_command("Term", function(args)
 			cachedCmd = args.args
 			run_cached_or_new_term(cachedCmd)
 			vim.cmd("tabp")
+			Notify("Execution Started", "ERROR", "Term")
 		else
 			if cachedCmd then
-				print("Running cached command: " .. cachedCmd)
+				Notify("Rerunning cached command", nil, "Term")
 				run_cached_or_new_term(cachedCmd)
 				vim.cmd("tabp")
 			else

@@ -19,6 +19,11 @@ Map({ "i", "x" }, "<C-c>", "<esc>")
 Map("n", "<C-space>", CMD("b #"))
 Map("n", "<leader>tt", CMD("tabnew | term"), { desc = "terminal" })
 Map("n", "<leader>a", ":Term", { desc = "terminal", silent = false })
+Map("n", "<C-x>", "@:", { desc = "rerun last cmd" })
+Map("n", "zt", function ()
+	vim.cmd[[tabo]]
+	Notify("other tabs cleared", nil, "Window")
+end, { desc = "tab only" })
 
 -- insert mode
 Map("i", "<S-CR>", "<esc>O")
