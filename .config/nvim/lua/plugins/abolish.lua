@@ -13,6 +13,8 @@ return {
 			"enw new",
 			"lenght length",
 			"St{ri,ir}{gn,ng} St{ri}{ng}",
+			"fu{cn} fu{nc}",
+			"{lau} lua"
 		}
 		for _, cmd in ipairs(abolish) do
 			vim.cmd("Abolish " .. cmd)

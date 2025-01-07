@@ -47,10 +47,10 @@ local function openftplugin()
 	end
 	vim.cmd("vsplit " .. filepath)
 end
--- }}}
 
 -- Register the user command
 create_command("Ftplugin", openftplugin, {})
+-- }}}
 
 --qflist
 create_command("Clearqflist", function()
@@ -136,10 +136,10 @@ create_command("Term", function(args)
 			cachedCmd = args.args
 			run_cached_or_new_term(cachedCmd)
 			vim.cmd("tabp")
-			Notify("Execution Started", "ERROR", "Term")
+			Notify("Execution Started", nil, "Terminal")
 		else
 			if cachedCmd then
-				Notify("Rerunning cached command", nil, "Term")
+				Notify("Rerunning cached command", nil, "Terminal")
 				run_cached_or_new_term(cachedCmd)
 				vim.cmd("tabp")
 			else

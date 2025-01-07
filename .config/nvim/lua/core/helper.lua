@@ -42,7 +42,11 @@ function BufMap(ft, mode, map, cmd)
 end
 
 function Telescope(cmd)
-	return table.concat({ "<cmd>Telescope ", cmd, " prompt_title=false preview_title=false result_title=false<cr>" })
+	return table.concat({
+		"<cmd>Telescope ",
+		cmd,
+		" prompt_title=false preview_title=false result_title=false<cr>",
+	})
 end
 
 function GetProjectRoot()
@@ -64,8 +68,17 @@ function GetProjectRoot()
 end
 
 function Notify(content, level, title)
-	require("fidget").notify(title .. ":", level, {
+	require("fidget").notify(content, level, {
 		group = title,
-		annote = content .. "",
+		annote = title,
+	})
+end
+
+Augroup("hotreload", { clear = true })
+function BufWritePostFunc(pattern, func)
+	Autocmd("BufWritePost", {
+		group = "hotreload",
+		pattern = pattern,
+		callback = func,
 	})
 end

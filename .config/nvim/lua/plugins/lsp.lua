@@ -95,6 +95,7 @@ return {
 		event = "LspAttach",
 		opts = {
 			notification = {
+				-- override_vim_notify = true,  -- Automatically override vim.notify() with Fidget
 				window = {
 					winblend = 0,
 				},

@@ -20,10 +20,14 @@ Map("n", "<C-space>", CMD("b #"))
 Map("n", "<leader>tt", CMD("tabnew | term"), { desc = "terminal" })
 Map("n", "<leader>a", ":Term", { desc = "terminal", silent = false })
 Map("n", "<C-x>", "@:", { desc = "rerun last cmd" })
-Map("n", "zt", function ()
-	vim.cmd[[tabo]]
-	Notify("other tabs cleared", nil, "Window")
-end, { desc = "tab only" })
+Map("n", "zt", CMD("tabo"), { desc = "tab only" })
+
+--abolish
+Map("n", "<leader>e", function ()
+	vim.cmd[[vsplit]]
+	local file = vim.fn.stdpath("config") .. "/lua/plugins/abolish.lua"
+	vim.cmd("e " .. file)
+end)
 
 -- insert mode
 Map("i", "<S-CR>", "<esc>O")
@@ -69,11 +73,15 @@ Map("n", "<leader>|", CMD("vsplit"))
 Map("t", "<C-[>", "<C-\\><C-n>")
 Map("n", "<leader>bf", "Ggqgg", { desc = "buffer format" })
 Map("n", "<C-\\>", CMD("q"))
+Map("n", "<C-h>", "<C-w>h")
+Map("n", "<C-j>", "<C-w>j")
+Map("n", "<C-k>", "<C-w>k")
+Map("n", "<C-l>", "<C-w>l")
 
-Map("n", "zn", CMD("bnext"))
-Map("n", "zp", CMD("bprevious"))
-Map("n", "<C-h>", CMD("tabp"))
-Map("n", "<C-l>", CMD("tabn"))
+Map("n", "[b", CMD("bnext"))
+Map("n", "]b", CMD("bprevious"))
+Map("n", "zp", CMD("tabp"))
+Map("n", "zn", CMD("tabn"))
 
 --git
 BufMap("fugitive", "n", "gm", function()
@@ -95,7 +103,9 @@ BufMap("fugitive", "n", "K", function()
 	local pattern = line:match("^%S*%s(.+)$")
 	vim.cmd("G rm --cached -r " .. pattern)
 end)
-BufMap("fugitive", "n", "gc", Telescope("git_commits"))
+BufMap("fugitive", "n", "gc", function()
+	require("mini.extra").pickers.git_commits()
+end)
 Map("n", "<leader>gc", "<cmd>Gcommit<cr>", { desc = "smart commit" })
 
 --smart-delete

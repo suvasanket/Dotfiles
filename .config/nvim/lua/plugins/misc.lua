@@ -32,7 +32,19 @@ return {
 		"kazhala/close-buffers.nvim",
 		cmd = "BDelete",
 		keys = {
-			{ "zh", "<cmd>BDelete hidden<cr>", desc = "delete hidden" },
+			{ "zh", function ()
+				vim.cmd[[BDelete hidden]]
+				Notify("Hidden buffer removed")
+			end, desc = "delete hidden" },
 		},
+	},
+
+	-- yank hist
+	{
+		"royanirudd/clipboard-history.nvim",
+		keys = {
+			{ "<C-p>", "<cmd>ClipboardHistory<cr>", mode = { "n", "x" } },
+		},
+		config = true,
 	},
 }

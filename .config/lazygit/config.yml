@@ -39,7 +39,7 @@ gui:
     mouseEvents: true
     skipDiscardChangeWarning: false
     skipStashWarning: false
-    showFileTree: true # for rendering changes files in a tree format
+    showFileTree: false # for rendering changes files in a tree format
     showListFooter: true # for seeing the '5 of 20' message in list panels
     showRandomTip: true
     showBranchCommitHash: false # show commit hashes alongside branch names
@@ -51,7 +51,7 @@ gui:
     commandLogSize: 8
     splitDiff: 'auto' # one of 'auto' | 'always'
     skipRewordInEditorWarning: false # for skipping the confirmation before launching the reword editor
-    border: 'rounded' # one of 'single' | 'double' | 'rounded' | 'hidden'
+    border: 'single' # one of 'single' | 'double' | 'rounded' | 'hidden'
     animateExplosion: true # shows an explosion animation when nuking the working tree
     spinner:
         frames:
@@ -117,7 +117,7 @@ promptToReturnFromSubprocess: false # display confirmation when subprocess termi
 keybinding:
     universal:
         quit: '<C-q>'
-        return: '<esc>' # return to previous menu, will quit if there's nowhere to return
+        return: '<C-c>' # return to previous menu, will quit if there's nowhere to return
         quitWithoutChangingDirectory: 'Q'
         togglePanel: '<tab>' # goto the next panel
         prevItem: '<up>' # go one line up

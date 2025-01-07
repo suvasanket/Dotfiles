@@ -1,5 +1,4 @@
 local o = vim.opt
-local cmd = vim.cmd
 
 --appearance
 vim.cmd.colorscheme("fleet")
@@ -78,7 +77,7 @@ o.hidden = true
 --tabline
 o.showtabline = 1
 
-o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+o.sessionoptions = "buffers,curdir,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Fix common typos
 vim.cmd([[
