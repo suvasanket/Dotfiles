@@ -85,7 +85,7 @@ if.app-id = 'company.thebrowser.Browser'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = 'org.mozilla.com.zen.browser'
+if.app-id = 'app.zen-browser.zen'
 if.window-title-regex-substring = '^(?!.*Extension:).+$'
 run = ['move-node-to-workspace 2']
 

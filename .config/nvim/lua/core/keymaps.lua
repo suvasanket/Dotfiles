@@ -4,27 +4,27 @@ require("core.helper")
 BufMap("compilation", "n", "n", CMD("NextError"))
 BufMap("compilation", "n", "p", CMD("PrevError"))
 BufMap("compilation", "n", "r", CMD("Recompile"))
-BufMap("compilation", "n", "<C-r>", CMD("Recompile"))
-BufMap("compilation", "n", "u", "gg")
+BufMap("compilation", "n", "d", CMD("CompileDebugError"))
+BufMap("compilation", "n", "]d", CMD("CompileNextError"))
+BufMap("compilation", "n", "[d", CMD("CompilePrevError"))
+BufMap("compilation", "n", "]f", CMD("CompileNextFile"))
+BufMap("compilation", "n", "[f", CMD("CompilePrevFile"))
 
 BufMap("qf", "n", "<C-q>", CMD("Clearqflist"))
 
 -- general
 Map("n", "<C-q>", CMD("copen"))
-Map("n", "zx", CMD("bd!"))
 Map("n", "<leader>l", CMD("Lazy"))
 Map({ "n", "i" }, "<F1>", CMD("silent w!"))
 Map("i", "<C-j>", "<esc>:t.<cr>a", { desc = "duplicate line" })
 Map({ "i", "x" }, "<C-c>", "<esc>")
 Map("n", "<C-space>", CMD("b #"))
-Map("n", "<leader>tt", CMD("tabnew | term"), { desc = "terminal" })
-Map("n", "<leader>a", ":Term", { desc = "terminal", silent = false })
 Map("n", "<C-x>", "@:", { desc = "rerun last cmd" })
 Map("n", "zt", CMD("tabo"), { desc = "tab only" })
 
 --abolish
-Map("n", "<leader>e", function ()
-	vim.cmd[[vsplit]]
+Map("n", "<leader>e", function()
+	vim.cmd([[vsplit]])
 	local file = vim.fn.stdpath("config") .. "/lua/plugins/abolish.lua"
 	vim.cmd("e " .. file)
 end)
@@ -59,13 +59,58 @@ Map({ "n", "x" }, "P", "P`[v`]=")
 Map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
 Map("x", "<D-p>", [["_dP]], { desc = "blackhole paste" })
 
+-- Term
+Map("n", "<leader>tt", CMD("tabnew | term"), { desc = "terminal" })
+
+TerminalCommandType = nil
+Map("n", "<leader>at", function()
+	local some = vim.fn.input("Term! ")
+	vim.cmd("Term! " .. some)
+	TerminalCommandType = "Term!"
+end, { desc = "terminal", silent = false })
+
+Map("n", "<leader>av", function()
+	local current_file = vim.fn.expand("%")
+	local ft = vim.bo.filetype
+	local compiler_name = vim.fn.getcompletion(ft, "compiler")
+	if compiler_name[1] then
+		vim.api.nvim_feedkeys(":Term " .. compiler_name[1] .. " " .. current_file, "n", false)
+	else
+		vim.api.nvim_feedkeys(":Term " .. ft .. " " .. current_file, "n", false)
+	end
+	TerminalCommandType = "Term"
+end, { desc = "terminal" })
+
+Map("n", "<leader>aa", function()
+	if TerminalCommandType then
+		vim.cmd(TerminalCommandType)
+	end
+end)
+
+Map("n", "<leader>sc", function()
+	vim.ui.select({ "lang", "utils" }, {
+		prompt = "Select cht.sh type",
+	}, function(choice)
+		if choice == "lang" then
+			vim.fn.system("tmux neww -n 'cht.sh' zsh -c '. ~/.local/scripts/cht_sh.sh lang'")
+		else
+			vim.fn.system("tmux neww -n 'cht.sh' zsh -c '. ~/.local/scripts/cht_sh.sh util'")
+		end
+	end)
+end)
+Map("n", "<leader>cs", function()
+	local ft = vim.bo.filetype
+	-- print("tmux neww -n 'cht.sh' zsh -c '. ~/.local/scripts/cht_sh.sh lang " .. ft .. "'")
+	vim.fn.system("tmux neww -n 'cht.sh' zsh -c '. ~/.local/scripts/cht_sh.sh lang " .. ft .. "'")
+end)
+
 --master
--- map("n", "\\s", cmd("LuaSnipOpen"))
 Map("n", "\\f", CMD("Ftplugin"))
 Map("n", "\\lq", CMD("LspStop"))
 Map("n", "\\ls", CMD("LspStart"))
 Map("n", "\\cs", CMD("CmpEnable"))
 Map("n", "\\cq", CMD("CmpDisable"))
+-- map("n", "\\s", cmd("LuaSnipOpen"))
 
 --buffer & tabs
 Map("n", "<leader>_", CMD("split"))

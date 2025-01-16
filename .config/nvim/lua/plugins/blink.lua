@@ -46,12 +46,6 @@ return {
 			signature = {
 				enabled = true,
 			},
-			completion = {
-				accept = {
-					create_undo_point = true,
-					auto_brackets = { enabled = true },
-				},
-			},
 
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },

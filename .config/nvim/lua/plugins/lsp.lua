@@ -92,10 +92,10 @@ return {
 	{
 		"j-hui/fidget.nvim",
 		lazy = true,
-		event = "LspAttach",
+		event = { "LspAttach", "BufReadPost" },
 		opts = {
 			notification = {
-				-- override_vim_notify = true,  -- Automatically override vim.notify() with Fidget
+				override_vim_notify = false,  -- Automatically override vim.notify() with Fidget
 				window = {
 					winblend = 0,
 				},

@@ -129,14 +129,11 @@ function hyper() {
     return rule("quick").manipulators([
         map("'").to(toHyper()).toIfAlone("'"),
         withModifier("Hyper")([
-            //map('n').to$('/bin/sh /Users/suvasanketrout/.local/scripts/openSuperProd.sh'),
-            map('n').to(",", "⌘⌥⌃"),
-            map('spacebar').to(toSuperHyper()),
-
             map('m').toApp('Activity Monitor'),
             map('f').to$('open /System/Library/CoreServices/Finder.app'),
             map('a').toApp('ghostty'),
-            map('s').toApp('zen browser'),
+            //map('s').toApp('zen browser'),
+            map('s').to("2", "⌥"),
             map('d').toApp('ChatGPT'),
             map('g').toApp('obsidian'),
 

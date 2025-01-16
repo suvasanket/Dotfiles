@@ -11,7 +11,8 @@ BufWritePostFunc({ "*/ftplugin/*.lua", "*/lua/*.lua" }, function()
 		notify("Abolised")
 	else
 		vim.cmd("silent source")
-		notify("Sourced")
+		-- notify("Sourced")
+		vim.notify("Sourced")
 	end
 end)
 

@@ -107,5 +107,4 @@ cnoreabbrev clearqflist Clearqflist
 cnoreabbrev T Term
 cnoreabbrev T! Term!
 cnoreabbrev T1 Term!
-cnoreabbrev C Compile
 ]])

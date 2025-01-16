@@ -4,8 +4,8 @@ initial-command = /bin/zsh -l -c "if /opt/homebrew/bin/tmux has-session 2>/dev/n
 freetype-load-flags            = no-hinting
 freetype-load-flags            = no-force-autohint
 
+font-family                    = Iosevka Fixed Extended
 font-family                    = JetBrainsMono Nerd Font Mono
-font-family                    = Iosevka Fixed
 
 font-feature                   = calt
 font-feature                   = dlig
@@ -18,9 +18,9 @@ font-size                      = 14
 theme = dark:builtin tango dark,light:
 background = 181818
 foreground = ffffff
-adjust-cell-height = 20%
-window-padding-x = 20
-window-padding-y = 5
+adjust-cell-height = 30%
+window-padding-x = 12
+window-padding-y = 11
 window-padding-balance = true
 adjust-cursor-thickness        = 3
 adjust-underline-position      = 3
@@ -63,3 +63,7 @@ keybind = super+two=text:\x01\x32
 keybind = super+three=text:\x01\x33
 keybind = super+four=text:\x01\x34
 keybind = super+five=text:\x01\x35
+
+macos-option-as-alt = left
+keybind = alt+left=unbind
+keybind = alt+right=unbind

@@ -1,7 +1,8 @@
 {
     "diagnostics.globals": [
         "vim",
-        "highlights"
+        "highlights",
+        "Snack"
     ],
     "diagnostics.disable": [
         "need-check-nil"

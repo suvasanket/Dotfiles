@@ -1,7 +1,7 @@
 require("core.helper")
 return {
 	"stevearc/oil.nvim",
-	event = "VeryLazy",
+	lazy = false,
 	dependencies = {
 		{ "nvim-tree/nvim-web-devicons" },
 	},
@@ -17,9 +17,21 @@ return {
 			keymaps = {
 				["h"] = "actions.parent",
 				["l"] = "actions.select",
-				["<C-v>"] = { "actions.select", opts = { vertical = true, close = true }, desc = "Open the entry in a vertical split" },
-				["<C-s>"] = { "actions.select", opts = { horizontal = true, close = true }, desc = "Open the entry in a horizontal split" },
-				["<C-t>"] = { "actions.select", opts = { tab = true, close = true }, desc = "Open the entry in new tab" },
+				["<C-v>"] = {
+					"actions.select",
+					opts = { vertical = true, close = true },
+					desc = "Open the entry in a vertical split",
+				},
+				["<C-s>"] = {
+					"actions.select",
+					opts = { horizontal = true, close = true },
+					desc = "Open the entry in a horizontal split",
+				},
+				["<C-t>"] = {
+					"actions.select",
+					opts = { tab = true, close = true },
+					desc = "Open the entry in new tab",
+				},
 				["<C-p>"] = "actions.preview",
 				["q"] = "actions.close",
 				["<leader>xx"] = "actions.refresh",
@@ -59,10 +71,10 @@ return {
 					end
 				end,
 				["<leader>tt"] = "actions.open_terminal",
-				['yp'] = {
-					desc = 'Copy filepath to system clipboard',
-					callback = function ()
-						require('oil.actions').copy_entry_path.callback()
+				["yp"] = {
+					desc = "Copy filepath to system clipboard",
+					callback = function()
+						require("oil.actions").copy_entry_path.callback()
 						vim.fn.setreg("+", vim.fn.getreg(vim.v.register))
 					end,
 				},

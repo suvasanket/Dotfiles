@@ -718,55 +718,6 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "n",
-                  "modifiers": {
-                    "mandatory": [
-                      "command",
-                      "option",
-                      "control",
-                      "shift"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "comma",
-                    "modifiers": [
-                      "command",
-                      "option",
-                      "control"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "spacebar",
-                  "modifiers": {
-                    "mandatory": [
-                      "command",
-                      "option",
-                      "control",
-                      "shift"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "fn",
-                    "modifiers": [
-                      "command",
-                      "option",
-                      "control",
-                      "shift"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
                   "key_code": "m",
                   "modifiers": {
                     "mandatory": [
@@ -836,7 +787,10 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -a \"zen browser\".app"
+                    "key_code": "2",
+                    "modifiers": [
+                      "option"
+                    ]
                   }
                 ]
               },

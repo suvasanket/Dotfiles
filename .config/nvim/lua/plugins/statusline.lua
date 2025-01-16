@@ -1,7 +1,7 @@
 return {
 	{
 		"echasnovski/mini.statusline",
-		version = "*",
+		event = { "VeryLazy", "BufEnter" },
 		config = function()
 			local MiniStatusline = require("mini.statusline")
 			-- lsp
@@ -10,7 +10,7 @@ return {
 
 				local clients = vim.lsp.buf_get_clients(bufnr)
 				if next(clients) == nil then
-					return ""
+					return "⨯ no server"
 				end
 
 				local c = {}
@@ -19,7 +19,7 @@ return {
 						table.insert(c, client.name)
 					end
 				end
-				return "󰅠 " .. table.concat(c, ",") .. " "
+				return "✔︎ " .. table.concat(c, ",")
 			end
 			-- branch
 			local cached_branch = nil
@@ -52,20 +52,41 @@ return {
 						})
 						local pathname = vim.bo.buftype == "terminal" and "terminal" --"%t"
 							or "%#MiniStatuslineFilename#"
-								.. vim.fn.expand("%:~")
+								.. vim.fn.expand("%")
 								.. (vim.bo.modified and " [+]" or "")
+
+						local filename = vim.bo.filetype == "oil" and vim.fn.expand("%"):sub(7)
+							or vim.fn.expand("%:p"):sub(#GetProjectRoot() + 2)
+								.. (vim.bo.modified and "[+]" or "")
+
+						local filetype = function()
+							local ft = vim.bo.filetype
+							if ft then
+								return "(" .. ft .. ")"
+							else
+								return ""
+							end
+						end
+						local git_branch = function()
+							local branch = get_git_branch()
+							if branch then
+								return "(" .. branch .. ")"
+							else
+								return ""
+							end
+						end
 
 						return MiniStatusline.combine_groups({
 							{ hl = mode_hl, strings = { "[" .. mode:sub(1, 3):upper() .. "]" } },
-							{ hl = body, strings = { get_git_branch() } },
 
 							"%<", -- Mark general truncate point
-							"%=", -- End left alignment
-							{ hl = body, strings = { pathname } },
+							-- "%=", -- End left alignment
+							{ hl = body, strings = { filename } },
+							{ hl = body, strings = { git_branch() } },
 							"%=", -- End left alignment
 
 							{ hl = body, strings = { diagnostics } },
-							{ hl = body, strings = { lsp() } },
+							{ hl = body, strings = { lsp() .. " " .. filetype() } },
 							{ hl = body, strings = { "[%-2l:%-2v]" } },
 						})
 					end,

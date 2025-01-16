@@ -51,20 +51,11 @@ end
 
 function GetProjectRoot()
 	local workspace = vim.lsp.buf.list_workspace_folders()
-	local wd = ""
-	local v = vim
-
-	if workspace[1] ~= nil then
-		wd = workspace[1]
+	if workspace[1] then
+		return workspace[1]
 	else
-		local git_root = v.fn.systemlist("git rev-parse --show-toplevel")
-		if v.v.shell_error == 0 then
-			wd = git_root[1]
-		else
-			wd = v.fn.getcwd()
-		end
+		return vim.fs.root(0, '.git') or vim.fn.getcwd()
 	end
-	return wd
 end
 
 function Notify(content, level, title)

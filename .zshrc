@@ -98,10 +98,9 @@ export MANPAGER="gum pager --border none --show-line-numbers=false"
  if [[ $TMUX ]]; then
      alias clear='clear && tmux clear-history'
  fi
+ alias cs=". ~/.local/scripts/cht_sh.sh"
  alias ls="eza --icons --color-scale -x"
- alias s="exec zsh"
  alias :q="exit"
- alias gsed="sed"
  alias ff="tmux new-window 'fd --type f --hidden |fzf|xargs nvim'"
  alias f='/Users/suvasanketrout/.config/tmux/find_file.sh'
  alias gd="rm -rfI .git"
@@ -111,7 +110,7 @@ export MANPAGER="gum pager --border none --show-line-numbers=false"
  alias ta="tmux a || tmux new -s 'Home'"
  alias v="nvim"
  alias vo="nvim ."
- alias vf="nvim -c 'Telescope smart_open'"
+ alias vf="nvim -c 'Pick frecency'"
  alias vl="nvim -c'SessionManager load_last_session'"
  cdl() { cd "$@" && ls; }
  gemuninstall() { gem list --no-version | grep'$@' | xargs gem uninstall}

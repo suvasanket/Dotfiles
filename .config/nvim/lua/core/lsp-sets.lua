@@ -21,7 +21,7 @@ Autocmd("LspAttach", {
 })
 -- diagnostic config --
 vim.diagnostic.config({
-	signs = false,
+	signs = true,
 	virtual_text = true,
 	update_in_insert = false,
 	underline = true,

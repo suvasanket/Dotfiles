@@ -5,5 +5,8 @@ return {
 		keys = {
 			{ "<C-q>", "<cmd>Clearqflist<cr>", desc = "clear quickfix list" },
 		},
+		opts = {
+			number = true,
+		},
 	},
 }

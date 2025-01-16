@@ -127,46 +127,30 @@ local cachedCmd = nil
 create_command("Term", function(args)
 	local projectRoot = GetProjectRoot()
 	local function run_cached_or_new_term(cmd)
-		vim.cmd("cd " .. projectRoot .. " | term " .. (cmd or ""))
+		if cmd then
+			local some = "cd " .. projectRoot .. " && " .. cmd
+			vim.fn.system("tmux neww -n 'Term!' -d " .. "'" .. some .. "'")
+			vim.notify("Executing " .. cmd .. "...")
+		end
 	end
 
-	if not args.bang then
-		vim.cmd("tabnew")
+	if args.bang then
 		if args.args and #args.args > 0 then
 			cachedCmd = args.args
 			run_cached_or_new_term(cachedCmd)
-			vim.cmd("tabp")
-			Notify("Execution Started", nil, "Terminal")
-		else
-			if cachedCmd then
-				Notify("Rerunning cached command", nil, "Terminal")
-				run_cached_or_new_term(cachedCmd)
-				vim.cmd("tabp")
-			else
-				vim.cmd("startinsert")
-				run_cached_or_new_term()
-			end
-		end
-	else
-		vim.cmd("vsplit | vertical resize 70")
-		if args.args and #args.args >= 2 then
-			cachedCmd = args.args
-			if #args.args == 2 then
-				vim.cmd("startinsert")
-				run_cached_or_new_term(cachedCmd)
-			else
-				local ans = vim.fn.confirm("Compile?", "&Yes\n&No")
-				if ans == 1 then
-					vim.cmd("close")
-					vim.cmd("cd " .. projectRoot .. " | Compile " .. cachedCmd)
-					vim.cmd("wincmd L | vertical resize 70")
-				else
-					vim.cmd("startinsert")
-					run_cached_or_new_term(cachedCmd)
-				end
-			end
 		else
 			run_cached_or_new_term(cachedCmd)
+		end
+	else
+		if args.args and #args.args >= 2 then
+			cachedCmd = args.args
+		end
+		if cachedCmd then
+			vim.cmd("vsplit | vertical resize 70")
+			vim.cmd("wincmd L | vertical resize 70")
+			vim.cmd("startinsert")
+			vim.cmd("term " .. cachedCmd)
+			vim.notify("Executing " .. cachedCmd .. "...")
 		end
 	end
 end, { nargs = "*", bang = true })
