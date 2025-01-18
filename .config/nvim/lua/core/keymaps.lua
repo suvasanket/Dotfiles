@@ -1,14 +1,15 @@
 require("core.helper")
 
 -- ** buffer only map (buffer of a specified ft) ** --
-BufMap("compilation", "n", "n", CMD("NextError"))
-BufMap("compilation", "n", "p", CMD("PrevError"))
 BufMap("compilation", "n", "r", CMD("Recompile"))
-BufMap("compilation", "n", "d", CMD("CompileDebugError"))
-BufMap("compilation", "n", "]d", CMD("CompileNextError"))
-BufMap("compilation", "n", "[d", CMD("CompilePrevError"))
+BufMap("compilation", "n", "<C-d>", CMD("CompileDebugError"))
+BufMap("compilation", "n", "<C-q>", CMD("close | QuickfixErrors"))
+BufMap("compilation", "n", "]e", CMD("CompileNextError"))
+BufMap("compilation", "n", "[e", CMD("CompilePrevError"))
 BufMap("compilation", "n", "]f", CMD("CompileNextFile"))
 BufMap("compilation", "n", "[f", CMD("CompilePrevFile"))
+Map("n", "]e", CMD("NextError"))
+Map("n", "[e", CMD("PrevError"))
 
 BufMap("qf", "n", "<C-q>", CMD("Clearqflist"))
 
@@ -23,11 +24,7 @@ Map("n", "<C-x>", "@:", { desc = "rerun last cmd" })
 Map("n", "zt", CMD("tabo"), { desc = "tab only" })
 
 --abolish
-Map("n", "<leader>e", function()
-	vim.cmd([[vsplit]])
-	local file = vim.fn.stdpath("config") .. "/lua/plugins/abolish.lua"
-	vim.cmd("e " .. file)
-end)
+Map("n", "<leader>e", ":AddAbolish ", { desc = "add abolish", silent = false })
 
 -- insert mode
 Map("i", "<S-CR>", "<esc>O")
@@ -60,7 +57,7 @@ Map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
 Map("x", "<D-p>", [["_dP]], { desc = "blackhole paste" })
 
 -- Term
-Map("n", "<leader>tt", CMD("tabnew | term"), { desc = "terminal" })
+Map("n", "<leader>tt", CMD("tab term"), { desc = "terminal" })
 
 TerminalCommandType = nil
 Map("n", "<leader>at", function()

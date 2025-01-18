@@ -26,34 +26,6 @@ vim.diagnostic.config({
 	update_in_insert = false,
 	underline = true,
 	severity_sort = true,
-	float = {
-		border = "rounded",
-		severity_sort = true,
-		header = {},
-		suffix = function(diag)
-			local message
-			if diag.code then
-				message = ("%s (%s)"):format(diag.source, diag.code)
-			else
-				message = diag.source
-			end
-			return " " .. message, "DiagnosticFloatingSuffix"
-		end,
-		prefix = function(diagnostic)
-			if diagnostic.severity == vim.diagnostic.severity.ERROR then
-				return "" -- Nerd font icon for error
-			elseif diagnostic.severity == vim.diagnostic.severity.WARN then
-				return "" -- Nerd font icon for warning
-			elseif diagnostic.severity == vim.diagnostic.severity.INFO then
-				return "" -- Nerd font icon for info
-			else
-				return "" -- Nerd font icon for hint
-			end
-		end,
-		format = function(diag)
-			return diag.message
-		end,
-	},
 })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {

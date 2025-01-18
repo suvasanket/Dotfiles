@@ -132,16 +132,19 @@ function hyper() {
             map('m').toApp('Activity Monitor'),
             map('f').to$('open /System/Library/CoreServices/Finder.app'),
             map('a').toApp('ghostty'),
-            //map('s').toApp('zen browser'),
             map('s').to("2", "⌥"),
             map('d').toApp('ChatGPT'),
             map('g').toApp('obsidian'),
 
             map('h').to$(`${ne} | ${aeros} workspace prev`),
             map('l').to$(`${ne} | ${aeros} workspace next`),
-            //map('h').to('[', '⌘⇧'),
-            //map('l').to(']', '⌘⇧'),
         ]),
+        withModifier("left⌥")([
+            map('a').toApp('ghostty'),
+            map('s').toApp('zen browser'),
+            map('d').toApp('ChatGPT'),
+            map('g').toApp('obsidian'),
+        ])
     ])
 }
 

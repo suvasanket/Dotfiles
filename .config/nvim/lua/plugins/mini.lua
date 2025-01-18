@@ -75,4 +75,28 @@ return {
 			require("mini.visits").setup()
 		end,
 	},
+
+    -- surround
+    {
+        'echasnovski/mini.surround',
+        config = function ()
+            require("mini.surround").setup({
+                mappings = {
+                    replace = 'sc',
+                },
+            })
+        end
+    },
+
+    -- trailspace
+	{
+		"echasnovski/mini.trailspace",
+		event = "BufRead",
+		keys = { { "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>", desc = "trim whitespaces" } },
+		config = function()
+			require("mini.trailspace").setup({
+				only_in_normal_buffers = true,
+			})
+		end,
+	},
 }

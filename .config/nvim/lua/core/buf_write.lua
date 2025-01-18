@@ -4,16 +4,8 @@ end
 
 -- lua source
 BufWritePostFunc({ "*/ftplugin/*.lua", "*/lua/*.lua" }, function()
-	if vim.fn.expand("%") == "abolish.lua" then
-		vim.fn.timer_start(2000, function()
-			vim.cmd("silent Lazy reload vim-abolish")
-		end)
-		notify("Abolised")
-	else
-		vim.cmd("silent source")
-		-- notify("Sourced")
-		vim.notify("Sourced")
-	end
+	vim.cmd("silent source")
+	vim.notify(vim.fn.expand("%") .. " sourced")
 end)
 
 -- tmux hot reload

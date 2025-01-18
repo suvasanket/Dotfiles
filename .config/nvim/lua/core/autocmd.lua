@@ -1,4 +1,4 @@
-require("core.hilight")
+require("core.highlight")
 require("core.buf_write")
 
 -- Use 'q' to quit from common plugins

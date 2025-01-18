@@ -3,7 +3,13 @@
 --{{{
 ---@diagnostic disable: need-check-nil
 ---@diagnostic disable: lowercase-global
-local create_command = vim.api.nvim_create_user_command
+local create_command = function(name, action, opts)
+	if opts then
+		vim.api.nvim_create_user_command(name, action, opts)
+	else
+		vim.api.nvim_create_user_command(name, action, {})
+	end
+end
 local ex = vim.fn.expand
 pwd = vim.fn.expand("%:p:h")
 file = vim.fn.expand("%:t")
@@ -20,8 +26,8 @@ local function sh(cmd)
 end
 --}}}
 --misc
-create_command("CmpEnable", "lua require('cmp').setup.buffer { enabled = true }", {})
-create_command("CmpDisable", "lua require('cmp').setup.buffer { enabled = false }", {})
+create_command("CmpEnable", "lua require('cmp').setup.buffer { enabled = true }")
+create_command("CmpDisable", "lua require('cmp').setup.buffer { enabled = false }")
 
 -- luasnip {{{
 create_command("LuaSnipOpen", function()
@@ -35,7 +41,7 @@ create_command("LuaSnipOpen", function()
 			return {}
 		end,
 	})
-end, {})
+end)
 --}}}
 
 -- ftplugin {{{
@@ -49,7 +55,7 @@ local function openftplugin()
 end
 
 -- Register the user command
-create_command("Ftplugin", openftplugin, {})
+create_command("Ftplugin", openftplugin)
 -- }}}
 
 --qflist
@@ -57,17 +63,17 @@ create_command("Clearqflist", function()
 	vim.fn.setqflist({})
 	vim.cmd("cclose")
 	Notify("quickfix list emptied")
-end, {})
+end)
 
 create_command("Echoqflist", function()
 	local result = vim.api.nvim_exec("echo len(getqflist())", true)
 	print(result)
-end, {})
+end)
 
 --history delete
 create_command("CmdlineHistoryDel", function()
 	vim.fn.histdel(":")
-end, {})
+end)
 
 -- Glog
 create_command("Glog", function()
@@ -75,7 +81,7 @@ create_command("Glog", function()
 	vim.cmd("startinsert")
 	vim.cmd([[term git lg1]])
 	vim.cmd("set ft=fugitive")
-end, {})
+end)
 
 -- smart commit push {{{
 create_command("Gcommit", function()
@@ -100,7 +106,7 @@ create_command("Gcommit", function()
 			end
 		end
 	end
-end, {})
+end)
 --}}}
 
 -- GBrowse without plugin {{{
@@ -119,7 +125,7 @@ create_command("Gbrowse", function()
 	end, function()
 		Notify("failed to open", "ERROR", "Git")
 	end)
-end, {})
+end)
 -- }}}
 
 -- Term {{{
@@ -129,7 +135,12 @@ create_command("Term", function(args)
 	local function run_cached_or_new_term(cmd)
 		if cmd then
 			local some = "cd " .. projectRoot .. " && " .. cmd
-			vim.fn.system("tmux neww -n 'Term!' -d " .. "'" .. some .. "'")
+			local inside_tmux = os.getenv("TMUX") ~= nil
+			if inside_tmux then
+				vim.fn.system("tmux neww -n 'Term!' -d " .. "'" .. some .. "'")
+			else
+				vim.cmd("tab term " .. some)
+			end
 			vim.notify("Executing " .. cmd .. "...")
 		end
 	end
@@ -146,12 +157,26 @@ create_command("Term", function(args)
 			cachedCmd = args.args
 		end
 		if cachedCmd then
-			vim.cmd("vsplit | vertical resize 70")
-			vim.cmd("wincmd L | vertical resize 70")
-			vim.cmd("startinsert")
-			vim.cmd("term " .. cachedCmd)
+			vim.cmd("vert term " .. cachedCmd)
 			vim.notify("Executing " .. cachedCmd .. "...")
 		end
 	end
 end, { nargs = "*", bang = true })
 ---}}}
+
+-- abolish
+create_command("AddAbolish", function(opts)
+	local args = vim.split(opts.args, " ", { plain = true, trimempty = true })
+	if opts.bang then
+		vim.cmd("vsplit " .. vim.fn.stdpath("config") .. "/abolish.txt")
+        return
+	end
+	if #args ~= 2 then
+		vim.notify("Exactly two arguments are required: <pattern> and <replacement>", vim.log.levels.ERROR)
+		return
+	end
+	require("abolish").add_mapping(args[1], args[2])
+end, {
+	bang = true,
+	desc = "Add a new abolish mapping",
+})

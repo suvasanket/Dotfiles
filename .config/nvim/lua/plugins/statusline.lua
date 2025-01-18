@@ -57,7 +57,7 @@ return {
 
 						local filename = vim.bo.filetype == "oil" and vim.fn.expand("%"):sub(7)
 							or vim.fn.expand("%:p"):sub(#GetProjectRoot() + 2)
-								.. (vim.bo.modified and "[+]" or "")
+								.. (vim.bo.modified and " [+]" or "")
 
 						local filetype = function()
 							local ft = vim.bo.filetype

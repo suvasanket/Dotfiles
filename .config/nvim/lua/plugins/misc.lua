@@ -1,15 +1,5 @@
 return {
 	{
-		"echasnovski/mini.trailspace",
-		event = "BufRead",
-		keys = { { "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>", desc = "trim whitespaces" } },
-		config = function()
-			require("mini.trailspace").setup({
-				only_in_normal_buffers = true,
-			})
-		end,
-	},
-	{
 		"Wansmer/treesj",
 		keys = { { "<leader>j", "<cmd>TSJToggle<cr>", desc = "Split/Join" } },
 		opts = {
@@ -19,15 +9,8 @@ return {
 		},
 	},
 
-	{
-		"romainl/vim-cool",
-		event = { "BufReadPost" },
-	},
-
-	{
-		"tpope/vim-sleuth",
-		event = "BufRead",
-	},
+	{ "romainl/vim-cool", event = { "BufReadPost" } },
+    -- { "tpope/vim-sleuth", event = "BufRead" },
 	{
 		"kazhala/close-buffers.nvim",
 		cmd = "BDelete",
@@ -46,14 +29,12 @@ return {
 	-- yank hist
 	{
 		"ptdewey/yankbank-nvim",
+		event = "TextYankPost",
 		keys = {
 			{ "<C-p>", "<cmd>YankBank<cr>", mode = { "n", "x" } },
 			{ "d",     mode = { "n", "x" } },
-			{ "y",     mode = { "n", "x" } },
-			{ "c",     mode = { "n", "x" } },
 			{ "D",     mode = { "n", "x" } },
-			{ "d",     mode = { "n", "x" } },
-			{ "Y",     mode = { "n", "x" } },
+			{ "c",     mode = { "n", "x" } },
 		},
 		config = function()
 			require("yankbank").setup({
