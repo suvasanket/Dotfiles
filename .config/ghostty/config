@@ -1,26 +1,22 @@
 initial-command = /bin/zsh -l -c "if /opt/homebrew/bin/tmux has-session 2>/dev/null; then /opt/homebrew/bin/tmux attach; else /opt/homebrew/bin/tmux new -s lab; fi"
 
 # Font
-freetype-load-flags            = no-hinting
-freetype-load-flags            = no-force-autohint
-
-font-family                    = Iosevka Fixed Extended
-font-family                    = JetBrainsMono Nerd Font Mono
-
-font-feature                   = calt
-font-feature                   = dlig
-font-feature                   = ss05
-
-font-thicken                   = true
-font-size                      = 14
+# font-family = "Iosevka Fixed Extended"
+font-family = "Monaspace Neon Var"
+font-family = "JetBrainsMono Nerd Font Mono"
+font-family-italic = "Monaspace Radon Var"
+font-style = "Medium"
+font-style-bold = "ExtraBold"
+font-thicken = true
+font-size = 17
 
 # Look and Feel
+background = #111111
+foreground = #FFFFFF
 theme = dark:builtin tango dark,light:
-background = 181818
-foreground = ffffff
-adjust-cell-height = 30%
+adjust-cell-height = 40%
 window-padding-x = 12
-window-padding-y = 11
+window-padding-y = 10
 window-padding-balance = true
 adjust-cursor-thickness        = 3
 adjust-underline-position      = 3

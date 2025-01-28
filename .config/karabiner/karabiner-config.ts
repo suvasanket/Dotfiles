@@ -1,19 +1,21 @@
 import {
     duoLayer,
+    hyperLayer,
     ifApp,
     layer,
     map,
     mapDoubleTap,
     rule,
+    to$,
     toHyper,
     toKey,
     toSleepSystem,
-    toSuperHyper,
     withModifier,
     writeToProfile,
 } from "karabiner.ts";
 
 import {
+    duoModifiers,
     switcher,
     tapModifiers,
     toClearNotifications,
@@ -23,16 +25,17 @@ import {
 writeToProfile(
     "Default profile",
     [
-        sd_layer(),
-        fn_layer(),
+        //sd_layer(),
+        //rule_duoModifiers(),
         hyper(),
         system_layer(),
 
         general_map(),
+        raycast(),
 
         app_finder(),
         app_kitty(),
-        app_browser()
+        app_browser(),
     ],
     {
         "basic.simultaneous_threshold_milliseconds": 40,
@@ -80,20 +83,15 @@ function app_browser() {
         })
     ]);
 }
-function fn_layer() {
-    let layer = duoLayer("f", "a");
-    return layer.manipulators([
-        withModifier("??")({
-            spacebar: toKey('play_or_pause'),
-            h: toKey("vk_consumer_previous"),
-            j: toKey("volume_down"),
-            k: toKey("volume_up"),
-            l: toKey("vk_consumer_next"),
-            "'": toKey("display_brightness_increment"),
-            ";": toKey("display_brightness_decrement"),
+
+function rule_duoModifiers() {
+    return rule('duo-modifiers').manipulators(
+        duoModifiers({
+            'Meh': ['zx', ',.']
         }),
-    ]);
+    )
 }
+
 function sd_layer() {
     let layer = duoLayer("d", "s").threshold(60)
     return layer.manipulators([
@@ -128,6 +126,7 @@ function hyper() {
     const ne = `${aeros} list-workspaces --monitor focused --empty no`
     return rule("quick").manipulators([
         map("'").to(toHyper()).toIfAlone("'"),
+
         withModifier("Hyper")([
             map('m').toApp('Activity Monitor'),
             map('f').to$('open /System/Library/CoreServices/Finder.app'),
@@ -135,10 +134,17 @@ function hyper() {
             map('s').to("2", "⌥"),
             map('d').toApp('ChatGPT'),
             map('g').toApp('obsidian'),
+            map('4').to('4', '⌥'),
+            map('5').to('5', '⌥'),
 
-            map('h').to$(`${ne} | ${aeros} workspace prev`),
-            map('l').to$(`${ne} | ${aeros} workspace next`),
+            //map('h').to$(`${ne} | ${aeros} workspace prev`),
+            //map('l').to$(`${ne} | ${aeros} workspace next`),
+            map('h').to("left_arrow"),
+            map('l').to("right_arrow"),
+            map('k').to("up_arrow"),
+            map('j').to("down_arrow"),
         ]),
+
         withModifier("left⌥")([
             map('a').toApp('ghostty'),
             map('s').toApp('zen browser'),
@@ -148,25 +154,46 @@ function hyper() {
     ])
 }
 
+function raycast() {
+    return hyperLayer('r')
+        .description('HyperLayer: r')
+        .leaderMode()
+        .notification()
+        .manipulators([
+            map("o").to$("open -g raycast://extensions/EvanZhouDev/raycast-gemini/askAboutScreen?arguments=%7B%22query%22%3A%22%22%7D"),
+            map("p").to$("open -g raycast://extensions/EvanZhouDev/raycast-gemini/askAI?arguments=%7B%22query%22%3A%22%22%7D"),
+            map("a").to$("open -g raycast://extensions/joshmedeski/sesh/cmd-connect"),
+            map("t").to$("open -g raycast://extensions/doist/todoist/search"),
+            map("d").to$("open -g raycast://extensions/lardissone/raindrop-io/search"),
+            map("q").to$("open -g raycast://extensions/rolandleth/kill-process/index"),
+            map("j").to$("open -g raycast://extensions/thomas/downloads-manager/manage-downloads"),
+            map("f").to$("open -g raycast://extensions/raycast/raycast-focus/toggle-focus-session"),
+            map("c").to$("open -g raycast://extensions/raycast/clipboard-history/clipboard-history"),
+        ])
+}
+
 function system_layer() {
-    let l = layer("`", "System");
-    return l.manipulators([
-        withModifier("??")({
-            h: toKey('[', '⌥'),
-            l: toKey(']', '⌥'),
-            '⏎': toKey('f', '⌥⇧'),
-            s: toKey('s', '⌥⇧'),
-            spacebar: toKey('left_shift'),
-            x: toKey('⏎', '⌘⌃'),
+    return duoLayer("z", "x").manipulators([
+        withModifier("??")([
+            map(';').to('f', '⌥⇧'),
+            map('return_or_enter').to('s', '⌥⇧'),
+            map('l').to(']', '⌥'),
+            map('h').to('[', '⌥'),
+            map('j').to('tab', '⌘⇧'),
+            map('k').to('tab', '⌘'),
+            map('spacebar').to('left_shift'),
 
-            1: toKey('1', '⌥'),
-            2: toKey('2', '⌥'),
-            3: toKey('3', '⌥'),
-            4: toKey('4', '⌥'),
-            5: toKey('5', '⌥'),
+            map("delete_or_backspace").to(toClearNotifications),
+            map("\\").toSleepSystem(),
 
-            n: toClearNotifications,
-            '\\': toSleepSystem(),
-        }),
+            map("]").to("volume_up"),
+            map("[").to("volume_down"),
+            map("p").to("mute"),
+            map("o").to("vk_consumer_next"),
+            map("i").to('play_or_pause'),
+            map("u").to("vk_consumer_previous"),
+            map("=").to("display_brightness_increment"),
+            map("-").to("display_brightness_decrement"),
+        ]),
     ]);
 }

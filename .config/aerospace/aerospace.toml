@@ -11,7 +11,7 @@ start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 30
-default-root-container-layout = 'tiles'
+default-root-container-layout = 'accordion'
 default-root-container-orientation = 'auto'
 automatically-unhide-macos-hidden-apps = true
 
@@ -36,8 +36,8 @@ alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
-alt-s = 'resize smart -50'
-alt-b = 'resize smart +50'
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
 
 alt-shift-f = 'layout floating tiling'
 alt-shift-s = 'layout accordion horizontal vertical'

@@ -15,11 +15,6 @@ pwd = vim.fn.expand("%:p:h")
 file = vim.fn.expand("%:t")
 filewe = vim.fn.expand("%:t:r")
 
-local function term(cmd)
-	local ter = table.concat({ "split | resize 15 | term ", cmd })
-	vim.cmd(ter)
-end
-
 local function sh(cmd)
 	local zhs = table.concat({ "!", cmd })
 	vim.cmd(zhs)
@@ -85,8 +80,8 @@ end)
 
 -- smart commit push {{{
 create_command("Gcommit", function()
-	local message = vim.fn.input("commit message: ")
-	if message ~= "" then
+	local message = UserInput("commit message: ")
+	if message then
 		ShellCmd({ "git", "commit", "-am", message }, function()
 			Notify("commited", "INFO", "Git")
 		end, function()
@@ -157,7 +152,8 @@ create_command("Term", function(args)
 			cachedCmd = args.args
 		end
 		if cachedCmd then
-			vim.cmd("vert term " .. cachedCmd)
+			vim.cmd("hor term " .. cachedCmd)
+            vim.bo.ft="zsh"
 			vim.notify("Executing " .. cachedCmd .. "...")
 		end
 	end
@@ -175,8 +171,9 @@ create_command("AddAbolish", function(opts)
 		vim.notify("Exactly two arguments are required: <pattern> and <replacement>", vim.log.levels.ERROR)
 		return
 	end
-	require("abolish").add_mapping(args[1], args[2])
+	require("core.abolish").add_mapping(args[1], args[2])
 end, {
 	bang = true,
+    nargs = "*",
 	desc = "Add a new abolish mapping",
 })

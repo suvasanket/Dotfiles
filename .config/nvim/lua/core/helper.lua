@@ -54,7 +54,7 @@ function GetProjectRoot()
 	if workspace[1] then
 		return workspace[1]
 	else
-		return vim.fs.root(0, '.git') or vim.fn.getcwd()
+		return vim.fs.root(0, ".git") or vim.fn.getcwd()
 	end
 end
 
@@ -72,4 +72,11 @@ function BufWritePostFunc(pattern, func)
 		pattern = pattern,
 		callback = func,
 	})
+end
+
+function UserInput(msg)
+	local ok, input = pcall(vim.fn.input, msg)
+	if ok then
+		return input
+	end
 end

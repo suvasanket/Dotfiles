@@ -17,11 +17,9 @@ BufMap("qf", "n", "<C-q>", CMD("Clearqflist"))
 Map("n", "<C-q>", CMD("copen"))
 Map("n", "<leader>l", CMD("Lazy"))
 Map({ "n", "i" }, "<F1>", CMD("silent w!"))
-Map("i", "<C-j>", "<esc>:t.<cr>a", { desc = "duplicate line" })
 Map({ "i", "x" }, "<C-c>", "<esc>")
 Map("n", "<C-space>", CMD("b #"))
 Map("n", "<C-x>", "@:", { desc = "rerun last cmd" })
-Map("n", "zt", CMD("tabo"), { desc = "tab only" })
 
 --abolish
 Map("n", "<leader>e", ":AddAbolish ", { desc = "add abolish", silent = false })
@@ -29,6 +27,7 @@ Map("n", "<leader>e", ":AddAbolish ", { desc = "add abolish", silent = false })
 -- insert mode
 Map("i", "<S-CR>", "<esc>O")
 Map("i", "<C-k>", "<esc>lC")
+Map("i", "<C-j>", "<esc>:t.<cr>a", { desc = "duplicate line" })
 
 -- system mappings
 Map({ "i", "c" }, "<C-e>", "<end>")
@@ -61,25 +60,28 @@ Map("n", "<leader>tt", CMD("tab term"), { desc = "terminal" })
 
 TerminalCommandType = nil
 Map("n", "<leader>at", function()
-	local some = vim.fn.input("Term! ")
-	vim.cmd("Term! " .. some)
-	TerminalCommandType = "Term!"
+	local some = UserInput("Term! ")
+	if some then
+		vim.cmd("Term! " .. some)
+		TerminalCommandType = "Term!"
+	end
 end, { desc = "terminal", silent = false })
 
 Map("n", "<leader>av", function()
 	local current_file = vim.fn.expand("%")
 	local ft = vim.bo.filetype
 	local compiler_name = vim.fn.getcompletion(ft, "compiler")
-	if compiler_name[1] then
-		vim.api.nvim_feedkeys(":Term " .. compiler_name[1] .. " " .. current_file, "n", false)
-	else
-		vim.api.nvim_feedkeys(":Term " .. ft .. " " .. current_file, "n", false)
-	end
 	TerminalCommandType = "Term"
-end, { desc = "terminal" })
+	if compiler_name[1] then
+		return ":Term " .. compiler_name[1] .. " " .. current_file
+	else
+		return ":Term " .. ft .. " " .. current_file
+	end
+end, { desc = "terminal", expr = true, silent = false })
 
 Map("n", "<leader>aa", function()
 	if TerminalCommandType then
+		vim.cmd([[w!]])
 		vim.cmd(TerminalCommandType)
 	end
 end)
@@ -96,9 +98,18 @@ Map("n", "<leader>sc", function()
 	end)
 end)
 Map("n", "<leader>cs", function()
-	local ft = vim.bo.filetype
-	-- print("tmux neww -n 'cht.sh' zsh -c '. ~/.local/scripts/cht_sh.sh lang " .. ft .. "'")
-	vim.fn.system("tmux neww -n 'cht.sh' zsh -c '. ~/.local/scripts/cht_sh.sh lang " .. ft .. "'")
+	local input = UserInput("query:")
+	local inside_tmux = os.getenv("TMUX") ~= nil
+	if input then
+		local spin = "gum spin --spinner jump --title 'searching " .. vim.bo.filetype .. " " .. input .. "... ' -- "
+		local cht_sh = spin .. "curl cht.sh/" .. vim.bo.filetype
+		cht_sh = cht_sh .. "/" .. input:gsub(" ", "+") .. " | gum pager --border none"
+		if inside_tmux then
+			vim.fn.system("tmux neww -n 'cht.sh' zsh -c \"" .. cht_sh .. '"')
+		else
+			vim.cmd("tab term " .. cht_sh)
+		end
+	end
 end)
 
 --master
@@ -122,13 +133,33 @@ Map("n", "<C-l>", "<C-w>l")
 
 Map("n", "[b", CMD("bnext"))
 Map("n", "]b", CMD("bprevious"))
-Map("n", "zp", CMD("tabp"))
-Map("n", "zn", CMD("tabn"))
+Map("n", "zh", CMD("tabp"))
+Map("n", "zp", CMD("tabmove -1"))
+Map("n", "zl", CMD("tabn"))
+Map("n", "zn", CMD("tabmove +1"))
+Map("n", "z]", "mAZZ<C-w>v'A:delmark A<cr>")
+Map("n", "z[", "mAZZ:tabp<cr><C-w>v'A:delmark A<cr>")
+Map("n", "zo", CMD("tabo"), { desc = "tab only" })
+
+-- window
+Map("n", "<C-w>m", "<C-w>|<C-w>_")
+Map("n", "<C-w>+", "<cmd>resize +10<cr>")
+Map("n", "<C-w>-", "<cmd>resize -10<cr>")
+Map("n", "<C-w>>", "<cmd>vert resize +10<cr>")
+Map("n", "<C-w><", "<cmd>vert resize -10<cr>")
 
 --git
+Map("n", "<leader>gg", function()
+	local ok = pcall(vim.cmd, "Git")
+	if not ok then
+		vim.notify("No git repo found", vim.log.levels.ERROR)
+		return ":silent Git init | Git"
+	end
+end, { expr = true })
+
 BufMap("fugitive", "n", "gm", function()
-	local user_input = vim.fn.input("remote url: ")
-	if user_input ~= "" then
+	local user_input = UserInput("remote url: ")
+	if user_input then
 		ShellCmd({ "git", "remote", "add", "origin", user_input }, function()
 			print("remote added")
 		end, function()
@@ -203,3 +234,35 @@ Map("n", "]<space>", CMD("call append(line('.'), '')"))
 Map("n", "[<space>", CMD("call append(line('.')-1, '')"))
 Map("n", "]q", CMD("cnext"))
 Map("n", "[q", CMD("cprev"))
+
+-- Pairs
+local function GoinsidePair(left, right, except)
+	local function getPrevchar()
+		local line = vim.api.nvim_get_current_line()
+		local cursor_col = vim.fn.col(".") - 1
+		return cursor_col > 0 and line:sub(cursor_col, cursor_col) or nil
+	end
+	Map("i", right, function()
+		if getPrevchar() == left then
+			return right .. "<left>"
+		else
+			return right
+		end
+	end, { expr = true, silent = false })
+	if except then
+		for i = 1, #except do
+			Map("i", except[i], function()
+				if getPrevchar() == left then
+					return "<right>" .. except[i]
+				else
+					return except[i]
+				end
+			end, { expr = true })
+		end
+	end
+end
+GoinsidePair("(", ")", { "<space>", ":" })
+GoinsidePair('"', '"')
+GoinsidePair("'", "'")
+GoinsidePair("{", "}")
+GoinsidePair("[", "]")

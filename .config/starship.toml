@@ -3,6 +3,10 @@ success_symbol = '[>](bold #b4b4b3)' # The 'success_symbol' segment is being set
 error_symbol = '[>](bold red)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 vimcmd_symbol = '[^](bold green)'
 
+[directory]
+style = 'bold #FFFFFF'
+read_only = " 󰌾"
+
 [aws]
 symbol = "  "
 
@@ -20,9 +24,6 @@ symbol = " "
 
 [dart]
 symbol = " "
-
-[directory]
-read_only = " 󰌾"
 
 [docker_context]
 symbol = " "

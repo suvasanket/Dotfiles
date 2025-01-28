@@ -65,8 +65,8 @@ o.smartindent = false
 o.showmode = false
 
 --status line
--- o.laststatus = 0
--- o.ruler = false
+o.laststatus = 3
+o.ruler = false
 
 --conceal
 o.conceallevel = 2
