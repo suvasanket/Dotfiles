@@ -10,7 +10,7 @@ Autocmd("FileType", {
 		"fugitive",
 		"git",
 		"qf",
-        "zsh",
+        "sh",
 		"vim",
 	},
 	callback = function(event)

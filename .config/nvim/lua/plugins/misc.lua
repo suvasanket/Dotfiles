@@ -16,10 +16,10 @@ return {
 		cmd = "BDelete",
 		keys = {
 			{
-				"z0",
+				"z'",
 				function()
 					vim.cmd([[BDelete hidden]])
-					Notify("Hidden buffer removed")
+					Notify("Hidden buffer removed", nil, "cleanup")
 				end,
 				desc = "delete hidden",
 			},
@@ -52,21 +52,6 @@ return {
 		keys = { { "u" }, { "<C-r>" }, { "p" }, { "P" } },
 		opts = {
 			duration = 500,
-		},
-	},
-
-	-- fidget --
-	{
-		"j-hui/fidget.nvim",
-		lazy = true,
-		event = { "LspAttach", "BufReadPost" },
-		opts = {
-			notification = {
-				override_vim_notify = false, -- Automatically override vim.notify() with Fidget
-				window = {
-					winblend = 0,
-				},
-			},
 		},
 	},
 }

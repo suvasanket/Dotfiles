@@ -28,6 +28,7 @@ Map("n", "<leader>e", ":AddAbolish ", { desc = "add abolish", silent = false })
 Map("i", "<S-CR>", "<esc>O")
 Map("i", "<C-k>", "<esc>lC")
 Map("i", "<C-j>", "<esc>:t.<cr>a", { desc = "duplicate line" })
+Map("i", "<C-l>", "<right>")
 
 -- system mappings
 Map({ "i", "c" }, "<C-e>", "<end>")
@@ -69,15 +70,21 @@ end, { desc = "terminal", silent = false })
 
 Map("n", "<leader>av", function()
 	local current_file = vim.fn.expand("%")
-	local ft = vim.bo.filetype
-	local compiler_name = vim.fn.getcompletion(ft, "compiler")
-	TerminalCommandType = "Term"
-	if compiler_name[1] then
-		return ":Term " .. compiler_name[1] .. " " .. current_file
-	else
-		return ":Term " .. ft .. " " .. current_file
+	local perCMD = require("core.perCMD")
+
+	local CMD = perCMD.getprojectCMD(current_file:gsub("%.", "_"))
+	if not CMD then
+		CMD = perCMD.getcompilerCMD(current_file, vim.bo.filetype)
 	end
-end, { desc = "terminal", expr = true, silent = false })
+
+	local input = UserInput(":Term ", CMD)
+	if input then
+		perCMD.setprojectCMD(current_file:gsub("%.", "_"), input)
+        perCMD.setcompilerCMD(vim.bo.filetype, input:gsub(vim.fn.expand("%:r"), "{filename}"))
+		vim.cmd("Term " .. input)
+	end
+	TerminalCommandType = "Term"
+end, { desc = "terminal", silent = false })
 
 Map("n", "<leader>aa", function()
 	if TerminalCommandType then
@@ -101,7 +108,11 @@ Map("n", "<leader>cs", function()
 	local input = UserInput("query:")
 	local inside_tmux = os.getenv("TMUX") ~= nil
 	if input then
-		local spin = "gum spin --spinner jump --title 'searching " .. vim.bo.filetype .. " " .. input .. "... ' -- "
+		local spin = "gum spin --spinner moon --title '\n  Searching "
+			.. vim.bo.filetype
+			.. " "
+			.. input
+			.. "... ' -- "
 		local cht_sh = spin .. "curl cht.sh/" .. vim.bo.filetype
 		cht_sh = cht_sh .. "/" .. input:gsub(" ", "+") .. " | gum pager --border none"
 		if inside_tmux then
@@ -234,16 +245,23 @@ Map("n", "]<space>", CMD("call append(line('.'), '')"))
 Map("n", "[<space>", CMD("call append(line('.')-1, '')"))
 Map("n", "]q", CMD("cnext"))
 Map("n", "[q", CMD("cprev"))
+Map("n", "[s", CMD("earlier 1f"))
+Map("n", "]s", CMD("later 1f"))
 
 -- Pairs
-local function GoinsidePair(left, right, except)
-	local function getPrevchar()
-		local line = vim.api.nvim_get_current_line()
-		local cursor_col = vim.fn.col(".") - 1
-		return cursor_col > 0 and line:sub(cursor_col, cursor_col) or nil
+local function getChar(pos)
+	local line = vim.api.nvim_get_current_line()
+	local cursor_col = vim.fn.col(".")
+	if pos == "next" then
+		cursor_col = cursor_col + 1
+	elseif pos == "prev" then
+		cursor_col = cursor_col - 1
 	end
+	return cursor_col > 0 and cursor_col <= #line and line:sub(cursor_col, cursor_col) or nil
+end
+local function GoinsidePair(left, right, except)
 	Map("i", right, function()
-		if getPrevchar() == left then
+		if getChar("prev") == left then
 			return right .. "<left>"
 		else
 			return right
@@ -252,7 +270,7 @@ local function GoinsidePair(left, right, except)
 	if except then
 		for i = 1, #except do
 			Map("i", except[i], function()
-				if getPrevchar() == left then
+				if getChar("prev") == left then
 					return "<right>" .. except[i]
 				else
 					return except[i]
@@ -266,3 +284,25 @@ GoinsidePair('"', '"')
 GoinsidePair("'", "'")
 GoinsidePair("{", "}")
 GoinsidePair("[", "]")
+
+local function delPair(left, right)
+	Map("i", "<C-h>", function()
+		local leftchar = getChar("prev") -- Get the character to the left of the cursor
+		local rightchar = getChar() -- Get the character at the cursor position
+		if left == leftchar and right == rightchar then
+			return "<right><bs><bs>" -- Move right, then delete both characters
+		else
+			return "<bs>" -- Default backspace behavior
+		end
+	end, { expr = true })
+end
+
+delPair("(", ")")
+Map("i", "<CR>", function()
+	local left = getChar("prev")
+	if left == "{" or left == "[" then
+		return "<CR><ESC>O"
+	else
+		return "<CR>"
+	end
+end, { expr = true })

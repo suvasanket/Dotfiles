@@ -129,6 +129,7 @@ function hyper() {
 
         withModifier("Hyper")([
             map('m').toApp('Activity Monitor'),
+            //map('m').to$('. ~/.local/scripts/openBTOP.sh'),
             map('f').to$('open /System/Library/CoreServices/Finder.app'),
             map('a').toApp('ghostty'),
             map('s').to("2", "⌥"),

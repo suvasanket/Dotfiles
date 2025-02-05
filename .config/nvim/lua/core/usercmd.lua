@@ -1,6 +1,6 @@
 -- vim: foldmethod=marker
 -- vim: foldlevel=0
---{{{
+-- configs {{{
 ---@diagnostic disable: need-check-nil
 ---@diagnostic disable: lowercase-global
 local create_command = function(name, action, opts)
@@ -10,6 +10,7 @@ local create_command = function(name, action, opts)
 		vim.api.nvim_create_user_command(name, action, {})
 	end
 end
+---@diagnostic disable-next-line: unused-local
 local ex = vim.fn.expand
 pwd = vim.fn.expand("%:p:h")
 file = vim.fn.expand("%:t")
@@ -153,7 +154,7 @@ create_command("Term", function(args)
 		end
 		if cachedCmd then
 			vim.cmd("hor term " .. cachedCmd)
-            vim.bo.ft="zsh"
+            vim.bo.ft="sh"
 			vim.notify("Executing " .. cachedCmd .. "...")
 		end
 	end

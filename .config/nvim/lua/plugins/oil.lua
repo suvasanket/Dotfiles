@@ -10,6 +10,14 @@ return {
 	},
 	config = function()
 		local oil = require("oil")
+		local function GetCurrentEntryPath()
+			local cwd = oil.get_current_dir()
+			local line = vim.fn.getline(".")
+			local pattern = line:match("[%S]+%s+[%S]+%s+(.*)")
+			if cwd and pattern then
+				return cwd .. pattern
+			end
+		end
 		oil.setup({
 			default_file_explorer = true,
 			delete_to_trash = true,
@@ -34,7 +42,7 @@ return {
 				},
 				["<C-p>"] = "actions.preview",
 				["q"] = "actions.close",
-				["<leader>xx"] = "actions.refresh",
+				["gr"] = "actions.refresh",
 				["<C-d>"] = "actions.preview_scroll_down",
 				["<C-u>"] = "actions.preview_scroll_up",
 
@@ -57,19 +65,41 @@ return {
 				["U"] = function()
 					oil.discard_all_changes()
 				end,
-				["."] = function()
-					local cwd = oil.get_current_dir()
-					local line = vim.fn.getline(".")
-					local pattern = line:match("[%S]+%s+[%S]+%s+(.*)")
-					if cwd and pattern then
-						local full_path = cwd .. pattern
-						vim.api.nvim_feedkeys(": " .. full_path, "n", false)
-						vim.schedule(function()
-							vim.api.nvim_input("<Home>")
-							require("oil.actions").refresh.callback()
-						end)
-					end
+				["g."] = function()
+					vim.api.nvim_feedkeys(": " .. GetCurrentEntryPath(), "n", false)
+					vim.schedule(function()
+						vim.api.nvim_input("<Home>")
+						require("oil.actions").refresh.callback()
+					end)
 				end,
+				["go"] = {
+					callback = function()
+						ShellCmd({ "open", GetCurrentEntryPath() }, function()
+                            vim.defer_fn(function()
+                                require("oil.actions").refresh.callback()
+                            end, 700)
+						end, function()
+							vim.notify("error opening entry", vim.log.levels.ERROR)
+						end)
+					end,
+					nowait = false,
+				},
+				["<C-g>"] = {
+					callback = function()
+						local cmd = UserInput("Command:")
+						if cmd then
+							ShellCmd(cmd .. " " .. GetCurrentEntryPath(), function()
+								vim.notify("Execution completed", vim.log.levels.INFO)
+                                vim.defer_fn(function()
+                                    require("oil.actions").refresh.callback()
+                                end, 700)
+							end, function()
+								vim.notify("Error executing command on current entry", vim.log.levels.ERROR)
+							end)
+						end
+					end,
+					nowait = false,
+				},
 				["<leader>tt"] = "actions.open_terminal",
 				["yp"] = {
 					desc = "Copy filepath to system clipboard",

@@ -7,7 +7,7 @@ for sid in $(aerospace list-workspaces --all); do
         icon="$sid" \
         icon.padding_left=7 \
         icon.padding_right=7 \
-        icon.color=0x9e7f7f7f \
+        icon.color=$APASTEL \
         icon.font="JetBrainsMono Nerd Font:Bold:15.5" \
         label.drawing=false \
         click_script="aerospace workspace $sid" \

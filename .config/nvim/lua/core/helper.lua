@@ -51,18 +51,21 @@ end
 
 function GetProjectRoot()
 	local workspace = vim.lsp.buf.list_workspace_folders()
-	if workspace[1] then
-		return workspace[1]
-	else
-		return vim.fs.root(0, ".git") or vim.fn.getcwd()
+    local firstworkspace = workspace[1]
+	if firstworkspace then
+        if firstworkspace == vim.fn.expand("~"):gsub("/$", "") then
+            return vim.fn.getcwd()
+        end
+		return firstworkspace
 	end
+    return vim.fs.root(0, ".git") or vim.fn.getcwd()
 end
 
 function Notify(content, level, title)
-	require("fidget").notify(content, level, {
-		group = title,
-		annote = title,
-	})
+	if not title then
+		title = "Notification"
+	end
+	vim.notify(content, level, { title = title })
 end
 
 Augroup("hotreload", { clear = true })
@@ -74,9 +77,18 @@ function BufWritePostFunc(pattern, func)
 	})
 end
 
-function UserInput(msg)
-	local ok, input = pcall(vim.fn.input, msg)
+function UserInput(msg, def)
+	local ok, input = pcall(vim.fn.input, msg, def or "")
 	if ok then
 		return input
 	end
+end
+function TableContainsValue(tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
 end

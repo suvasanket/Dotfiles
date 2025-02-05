@@ -11,12 +11,12 @@ return {
 				auto_install = true,
 				ignore_install = {},
 				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<C-k>",
-						node_incremental = "<C-k>",
-						node_decremental = "<C-j>",
-						scope_incremental = "<cr>",
+                    enable = true,
+                    keymaps = {
+                        init_selection = "<cr>",
+                        node_incremental = "]a",
+                        node_decremental = "[a",
+						scope_incremental = "+",
 					},
 				},
 				highlight = {
@@ -32,11 +32,11 @@ return {
 
 					additional_vim_regex_highlighting = true,
 				},
-				markid = { enable = true },
+				-- markid = { enable = true },
 			})
 		end,
-		dependencies = {
-			{ "David-Kunz/markid" },
-		},
+		-- dependencies = {
+		-- 	{ "David-Kunz/markid", event = "BufReadPost" },
+		-- },
 	},
 }

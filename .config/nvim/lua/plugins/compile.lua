@@ -8,14 +8,20 @@ return {
 			{
 				"<leader>ac",
 				function()
-					local current_file = vim.fn.expand("%")
-					local ft = vim.bo.filetype
-					local compiler_name = vim.fn.getcompletion(ft, "compiler")
-					if compiler_name[1] then
-						vim.api.nvim_feedkeys(":Compile " .. compiler_name[1] .. " " .. current_file, "n", false)
-					else
-						vim.api.nvim_feedkeys(":Compile " .. ft .. " " .. current_file, "n", false)
-					end
+                    local current_file = vim.fn.expand("%")
+                    local perCMD = require("core.perCMD")
+
+                    local CMD = perCMD.getprojectCMD(current_file:gsub("%.", "_"))
+                    if not CMD then
+                        CMD = perCMD.getcompilerCMD(current_file, vim.bo.filetype)
+                    end
+
+                    local input = UserInput(":Term ", CMD)
+                    if input then
+                        perCMD.setprojectCMD(current_file:gsub("%.", "_"), input)
+                        perCMD.setcompilerCMD(vim.bo.filetype, input:gsub(vim.fn.expand("%:r"), "{filename}"))
+                        vim.cmd("Compile " .. input)
+                    end
 					TerminalCommandType = "Recompile"
 				end,
 			},

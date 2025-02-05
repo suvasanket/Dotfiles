@@ -15,32 +15,12 @@ end
 Autocmd("VimEnter", {
 	pattern = "*",
 	callback = function()
-		hi("Folded", { fg = "#7D7C7C" })
-		hi("Search", { link = "IncSearch" })
+        hi("hlyank", { bg = "#FF9B50" })
 
-		hi("TreesitterContext", { link = "CursorLine" })
+        hi("SnacksNotifierBorderInfo", { link = "@string" })
+        hi("SnacksNotifierTitleInfo", { link = "@string" })
 
-		hi("hlyank", { bg = "#FF9B50" })
-		hi("NormalFloat", { link = "Normal" })
-		hi("FloatBorder", { bg = "NONE" })
-
-
-		hi("PmenuSel", { bg = "#282C34", fg = "NONE", bold = true })
-		hi("Pmenu", { bg = "#222222" })
-
-		--fleet
-        hi("Normal", { fg = "#CCCCCC" })
-        hi("Comment", { fg = "#909090", italic = true })
-        hi("SignColumn", { bg = "NONE" })
-		hi("TabLineSel", { bg = "NONE", bold = true })
-		hi("TabLine", { bg = "#202020" })
-		hi("@string", { fg = "#80AF81" })
-		hi("Visual", { bg = "#202020" })
-		hi("WinSeparator", { link = "FloatBorder" })
-		hi("WhichKeyNormal", { link = "CursorLine" })
-		hi("StatusLineNC", { bg = "#202020", fg = "#BBBBBB" })
-		hi("MiniStatuslineModeNormal", { bold = true })
-        hi("MiniPickPrompt", { link = "Normal" })
+        hi("MiniStatuslineModeNormal", { bold = true })
 
 		batchHl("DiagnosticError", { bg = "NONE", fg = "#eb5f61" })
 		batchHl("DiagnosticWarn", { bg = "NONE", fg = "#ee7f25" })

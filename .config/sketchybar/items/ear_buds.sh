@@ -1,13 +1,14 @@
 #!/bin/bash
 
+source "$CONFIG_DIR/icons.sh"
 ear_bud=(
   # padding_right=-10
-  icon.font="CaskaydiaCove Nerd Font:SemiBold:15.0"
+  icon.font="CaskaydiaCove Nerd Font:SemiBold:17.0"
   script="$PLUGIN_DIR/ear_bud.sh"
   update_freq=200
-  # y_offset=-6
-  icon="󱡏"
+  icon="$TWS"
   icon.color=$APASTEL
+  y_offset=0
   click_script="blueutil --connect \"suva's earbud\""
 )
 

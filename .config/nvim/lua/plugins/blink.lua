@@ -30,14 +30,14 @@ return {
 		opts = {
 			keymap = {
 				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-				["<C-l>"] = { "select_and_accept" },
+				["<C-y>"] = { "select_and_accept" },
 				["<C-e>"] = { "hide" },
 
 				["<C-p>"] = { "select_prev" },
 				["<C-n>"] = { "select_next" },
 
 				["<S-Up>"] = { "scroll_documentation_up", "fallback" },
-				["<S-Down>"] = { "scroll_documentation_down", "fallback" },
+				["<S-D'wn>"] = { "scroll_documentation_down", "fallback" },
 
 				["<C-f>"] = { "snippet_forward", "fallback" },
 				["<C-b>"] = { "snippet_backward", "fallback" },
@@ -49,6 +49,7 @@ return {
 
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
+                cmdline = {},
 			},
 		},
 	},

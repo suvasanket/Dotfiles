@@ -33,6 +33,9 @@ zinit light Aloxaf/fzf-tab
 zinit ice wait lucid
 zinit light olets/zsh-abbr
 
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+
 # Add in snippets (omz style)
 zinit ice wait lucid
 zinit snippet OMZP::command-not-found

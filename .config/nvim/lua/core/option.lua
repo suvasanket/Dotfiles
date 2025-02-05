@@ -26,9 +26,9 @@ o.autochdir = true
 --line and cursor
 o.relativenumber = true
 o.number = true
-o.cursorline = false
--- o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
-o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
+o.cursorline = true
+o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
+-- o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
 
 --tab indent
 o.tabstop = 4
@@ -79,6 +79,9 @@ o.showtabline = 1
 
 o.sessionoptions = "buffers,curdir,help,tabpages,winsize,winpos,terminal,localoptions"
 
+-- lsp
+vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+
 -- Fix common typos
 vim.cmd([[
 cnoreabbrev W! w!
@@ -107,4 +110,5 @@ cnoreabbrev clearqflist Clearqflist
 cnoreabbrev T Term
 cnoreabbrev T! Term!
 cnoreabbrev T1 Term!
+cnoreabbrev man Man
 ]])

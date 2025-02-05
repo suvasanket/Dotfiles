@@ -8,10 +8,10 @@ update() {
 
   if [ "$IP" ]; then
     COL=$PASTEL
-    ICON=󱕔
+    ICON=$WIFI_CONNECTED
   else
     COL=$APASTEL
-    ICON=󱕔
+    ICON=$WIFI_DISCONNECTED
   fi
 
   # ICON="$([ -n "$IP" ] && echo "$WIFI_CONNECTED" || echo "$WIFI_DISCONNECTED")"

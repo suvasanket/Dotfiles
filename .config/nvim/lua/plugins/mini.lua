@@ -76,19 +76,20 @@ return {
 		end,
 	},
 
-    -- surround
-    {
-        'echasnovski/mini.surround',
-        config = function ()
-            require("mini.surround").setup({
-                mappings = {
-                    replace = 'sc',
-                },
-            })
-        end
-    },
+	-- surround
+	{
+		"echasnovski/mini.surround",
+		config = function()
+			require("mini.surround").setup({
+				mappings = {
+                    delete = "ds",
+					replace = "cs",
+				},
+			})
+		end,
+	},
 
-    -- trailspace
+	-- trailspace
 	{
 		"echasnovski/mini.trailspace",
 		event = "BufRead",

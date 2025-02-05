@@ -35,6 +35,7 @@ return {
 			-- * manual * --
 
 			lsp.solargraph.setup({})
+			lsp.clangd.setup({})
 
 			-- * manual * --
 
@@ -71,20 +72,21 @@ return {
 
 	-- null-ls --
 	{
-		"nvimtools/none-ls.nvim",
-		dependencies = {
-			{ "jay-babu/mason-null-ls.nvim" },
+		"stevearc/conform.nvim",
+		keys = {
+			{ "<C-s>", "<cmd>lua require('conform').format()<cr>" },
 		},
-		event = { "LspAttach", "BufReadPost" },
-		config = function()
-			require("mason-null-ls").setup({
-				ensure_installed = {},
-				automatic_installation = false,
-				handlers = {},
-			})
-			require("null-ls").setup({
-				sources = {},
-			})
-		end,
+		opts = {
+			formatters_by_ft = {
+				lua = { "stylua" },
+				javascript = { "prettier" },
+				typescript = { "prettier" },
+				sh = { "shfmt" },
+                bash = { "shfmt" },
+			},
+            default_format_opts = {
+                lsp_format = "fallback",
+            },
+		},
 	},
 }

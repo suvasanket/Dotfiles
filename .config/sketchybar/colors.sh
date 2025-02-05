@@ -3,7 +3,7 @@
 ### Sonokai
 export BLACK=0xff181819
 export WHITE=0xffb5b5b5
-export PASTEL=0xffabd290
+export PASTEL=0xffffffff
 export APASTEL=0x9e7f7f7f
 # export WHITE=0xff383838
 export RED=0xfffc5d7c
