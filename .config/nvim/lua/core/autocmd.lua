@@ -1,16 +1,14 @@
-require("core.highlight")
-require("core.buf_write")
+Import("core.buf_write")
 
 -- Use 'q' to quit from common plugins
 Autocmd("FileType", {
 	pattern = {
 		"help",
-		"man",
 		"lspinfo",
 		"fugitive",
 		"git",
 		"qf",
-        "sh",
+		"term",
 		"vim",
 	},
 	callback = function(event)
@@ -21,13 +19,6 @@ Autocmd("FileType", {
 		Map("n", "<esc>", "<cmd>noh<cr>", { buffer = event.buf, silent = true })
 	end,
 })
-
--- termclose
--- autocmd("TermClose", {
--- 	callback = function()
--- 		vim.cmd("close")
--- 	end
--- })
 
 -- auto remove hidden buffers
 Autocmd("BufHidden", {
@@ -86,7 +77,7 @@ Autocmd("BufNewFile", {
 })
 
 -- autocreate unavailable directory
-Autocmd( "BufWritePre" , {
+Autocmd("BufWritePre", {
 	callback = function(event)
 		if event.match:match("^%w%w+://") then
 			return
@@ -95,3 +86,21 @@ Autocmd( "BufWritePre" , {
 		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
 	end,
 })
+
+--highlight yank
+Augroup("yank", { clear = true })
+Autocmd("TextYankPost", {
+    pattern = "*",
+    callback = function()
+        vim.highlight.on_yank({ higroup = "CurSearch", timeout = 70 })
+    end,
+    group = "yank",
+})
+
+-- highligh override
+-- Autocmd("VimEnter", {
+-- 	pattern = "*",
+-- 	callback = function()
+--         vim.api.nvim_set_hl({ bg = "#FF9B50" }, "hlyank", {0})
+-- 	end,
+-- })

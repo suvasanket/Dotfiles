@@ -38,6 +38,9 @@ export PATH=$PATH:~/.gem/ruby/3.3.0/bin
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# python
+export PATH="$(brew --prefix)/opt/python@3.13/libexec/bin:$PATH"
+
 # nvm
 NVM_BIN_PATH="$HOME/dotfiles/.config/nvm/versions/node/v22.2.0/bin"
 export PATH="$NVM_BIN_PATH:$PATH"

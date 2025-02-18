@@ -4,11 +4,11 @@ return {
 	lazy = false,
 	keys = {
 		{ "zx", "<cmd>lua Snacks.bufdelete()<cr>", desc = "bdel" },
-		{ "zc", "<cmd>lua Snacks.picker('buffers')<cr>", desc = "hl" },
+		{ "zc", "<cmd>lua Snacks.picker('buffers', {layout = {preset='ivy', preview='main'}})<cr>", desc = "hl" },
 		{
 			"<C-S-\\>",
 			function()
-				Snacks.picker({ layout = { preset = "vscode", preview = false } })
+				Snacks.picker({ layout = { preset = "select", preview = false } })
 			end,
 			desc = "picker",
 		},
@@ -28,7 +28,10 @@ return {
 				Snacks.picker.smart({
 					cwd = root,
 					title = vim.fs.basename(root) .. "/",
-					layout = { preset = "ivy" },
+					layout = {
+						preset = "ivy",
+						preview = false,
+					},
 					supports_live = true,
 				})
 			end,
@@ -44,7 +47,9 @@ return {
 			"<leader>cd",
 			function()
 				Snacks.picker.diagnostics({
-                    on_show = function() vim.cmd.stopinsert() end,
+					on_show = function()
+						vim.cmd.stopinsert()
+					end,
 					layout = { preset = "ivy", preview = "main" },
 				})
 			end,
@@ -55,15 +60,17 @@ return {
 		quickfile = { enabled = true },
 		statuscolumn = { enabled = true },
 		words = { enabled = true },
-		notifier = { style = "compact" },
+		image = { enabled = true },
 		picker = {
 			prompt = "> ",
 			sources = {
 				grep = { layout = { preset = "ivy", preview = "main" } },
 				lsp_references = {
-                    on_show = function() vim.cmd.stopinsert() end,
-                    layout = { preset = "ivy_split" },
-                },
+					on_show = function()
+						vim.cmd.stopinsert()
+					end,
+					layout = { preset = "ivy_split" },
+				},
 				undo = {
 					on_show = function()
 						vim.cmd.stopinsert()
@@ -77,6 +84,8 @@ return {
 						["<C-u>"] = { "<c-u>", mode = { "i" }, expr = true },
 						["<C-t>"] = { "edit_tab", mode = { "i" } },
 						["<C-CR>"] = { "select_all", mode = { "i" } },
+						["<C-space>"] = { "toggle_preview", mode = { "i" } },
+                        ["<Esc>"] = { "close", mode = { "n", "i" } },
 					},
 				},
 			},

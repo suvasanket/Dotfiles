@@ -4,24 +4,21 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		event = { "BufRead", "BufNewFile" },
+        dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "lua", "vim" },
-				sync_install = true,
-				auto_install = true,
-				ignore_install = {},
 				incremental_selection = {
                     enable = true,
                     keymaps = {
-                        init_selection = "<cr>",
-                        node_incremental = "]a",
-                        node_decremental = "[a",
+                        init_selection = "s",
+                        node_incremental = "s",
+                        node_decremental = "S",
 						scope_incremental = "+",
 					},
 				},
 				highlight = {
 					enable = true,
-					---@diagnostic disable-next-line: unused-local
 					disable = function(lang, buf)
 						local max_filesize = 100 * 1024 -- 100 KB
 						local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
@@ -32,11 +29,18 @@ return {
 
 					additional_vim_regex_highlighting = true,
 				},
-				-- markid = { enable = true },
+                textobjects = {
+                    swap = {
+                        enable = true,
+                        swap_next = {
+                            ["<leader><leader>a"] = "@parameter.inner",
+                        },
+                        swap_previous = {
+                            ["<leader><leader>A"] = "@parameter.inner",
+                        },
+                    },
+                }
 			})
 		end,
-		-- dependencies = {
-		-- 	{ "David-Kunz/markid", event = "BufReadPost" },
-		-- },
 	},
 }

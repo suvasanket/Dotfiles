@@ -42,22 +42,22 @@ keybind = ctrl+enter=text:\x1b[13;5u
 keybind = super+shift+i=inspector:toggle
 
 # /opt/homebrew/bin/tmux map
-keybind = super+t=text:\x01\x74
-keybind = super+w=text:\x01\x71
-keybind = ctrl+super+s=text:\x01\x67
+keybind = super+t=text:\x1d\x74
+keybind = super+w=text:\x1d\x71
+keybind = ctrl+super+s=text:\x1d\x67
 keybind = super+s=text:\x1b\x4f\x50
-keybind = super+k=text:\x01\x4b
-keybind = shift+ctrl+x=text:\x01\x63
-keybind = shift+super+q=text:\x01\x57
-keybind = shift+super+k=text:\x01\x1b[23~
+keybind = super+k=text:\x1d\x4b
+keybind = shift+ctrl+x=text:\x1d\x63
+keybind = shift+super+q=text:\x1d\x57
+keybind = shift+super+k=text:\x1d\x1b[23~
 
-keybind = shift+super+left_bracket=text:\x01\x5b
-keybind = shift+super+right_bracket=text:\x01\x5d
-keybind = super+one=text:\x01\x31
-keybind = super+two=text:\x01\x32
-keybind = super+three=text:\x01\x33
-keybind = super+four=text:\x01\x34
-keybind = super+five=text:\x01\x35
+keybind = shift+super+left_bracket=text:\x1d\x5b
+keybind = shift+super+right_bracket=text:\x1d\x5d
+keybind = super+one=text:\x1d\x31
+keybind = super+two=text:\x1d\x32
+keybind = super+three=text:\x1d\x33
+keybind = super+four=text:\x1d\x34
+keybind = super+five=text:\x1d\x35
 
 macos-option-as-alt = left
 keybind = alt+left=unbind

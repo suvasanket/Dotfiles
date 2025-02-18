@@ -1,7 +1,9 @@
 local o = vim.opt
 
 --appearance
-vim.cmd.colorscheme("fleet")
+if not pcall(vim.cmd.colorscheme, "fleet") then
+	vim.cmd.colorscheme("default")
+end
 o.termguicolors = true
 o.signcolumn = "auto"
 o.hlsearch = true
@@ -26,9 +28,8 @@ o.autochdir = true
 --line and cursor
 o.relativenumber = true
 o.number = true
-o.cursorline = true
-o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
--- o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
+-- o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
+o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
 
 --tab indent
 o.tabstop = 4

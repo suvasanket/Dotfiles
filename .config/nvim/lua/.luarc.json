@@ -6,6 +6,7 @@
         "Snacks"
     ],
     "diagnostics.disable": [
-        "need-check-nil"
+        "need-check-nil",
+        "unused-local"
     ]
 }

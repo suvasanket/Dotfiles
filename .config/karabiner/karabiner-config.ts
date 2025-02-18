@@ -2,20 +2,17 @@ import {
     duoLayer,
     hyperLayer,
     ifApp,
-    layer,
     map,
     mapDoubleTap,
     rule,
-    to$,
     toHyper,
     toKey,
-    toSleepSystem,
     withModifier,
     writeToProfile,
 } from "karabiner.ts";
 
 import {
-    duoModifiers,
+    historyNavi,
     switcher,
     tapModifiers,
     toClearNotifications,
@@ -25,13 +22,12 @@ import {
 writeToProfile(
     "Default profile",
     [
-        //sd_layer(),
-        //rule_duoModifiers(),
+        easy_edit(),
         hyper(),
         system_layer(),
 
         general_map(),
-        raycast(),
+        alfred_layer(),
 
         app_finder(),
         app_kitty(),
@@ -74,56 +70,47 @@ function app_kitty() {
 }
 
 function app_browser() {
-    const browsers = ['Chromium', 'Arc', '^org.mozilla.com.zen.browser', 'Orion', 'Safari'];
+    const browsers = [
+        'Chromium',
+        '^company.thebrowser.Browser',
+        '^org.mozilla.com.zen.browser',
+        'Orion',
+        'Safari',
+    ];
     return rule("Browser", ifApp(browsers)).manipulators([
-        map("spacebar", "⌃").to('tab', '⌃'),
         ...switcher(),
+        ...historyNavi(),
         ...tapModifiers({
             '›⌘': toKey('i', '⌘⌥'),
         })
     ]);
 }
 
-function rule_duoModifiers() {
-    return rule('duo-modifiers').manipulators(
-        duoModifiers({
-            'Meh': ['zx', ',.']
-        }),
-    )
-}
-
-function sd_layer() {
-    let layer = duoLayer("d", "s").threshold(60)
+function easy_edit() {
+    let layer = duoLayer("f", "d").threshold(50)
     return layer.manipulators([
-        withModifier("??")({
-            h: toKey("←"),
-            j: toKey("↓"),
-            k: toKey("↑"),
-            l: toKey("→"),
+        withModifier("??")([
+            map("h").to("←"),
+            map("j").to("↓"),
+            map("k").to("↑"),
+            map("l").to("→"),
 
-            spacebar: toKey("‹⌥"),
-            f: toKey("‹⌘"),
+            map("s").to("‹⌘"),
+            map("spacebar").to("‹⌥"),
+            map("'").to("‹⇧"),
 
-            y: toKey(4, "⇧"),
-            u: toKey(5, "⇧"),
-            i: toKey(6, "⇧"),
-            o: toKey(7, "⇧"),
-            p: toKey(8, "⇧"),
-
-            b: toKey(1, "⇧"),
-            n: toKey(2, "⇧"),
-            m: toKey(3, "⇧"),
-
-            "'": toKey("⌫"),
-            ";": toKey("⌦"),
-            r: toKey("z", "<⌘"),
-        }),
+            map(",").to("delete_or_backspace"),
+            map(".").to("⌦"),
+            map("b").to("z", "<⌘"),
+            map("n").to("x", "<⌘"),
+            map("m").to("v", "<⌘"),
+        ])
     ]);
 }
 
 function hyper() {
-    const aeros = '/opt/homebrew/bin/aerospace'
-    const ne = `${aeros} list-workspaces --monitor focused --empty no`
+    //const aeros = '/opt/homebrew/bin/aerospace'
+    //const ne = `${aeros} list-workspaces --monitor focused --empty no`
     return rule("quick").manipulators([
         map("'").to(toHyper()).toIfAlone("'"),
 
@@ -158,7 +145,7 @@ function hyper() {
 function raycast() {
     return hyperLayer('r')
         .description('HyperLayer: r')
-        .leaderMode()
+        .leaderMode({ escape: ['escape'] })
         .notification()
         .manipulators([
             map("o").to$("open -g raycast://extensions/EvanZhouDev/raycast-gemini/askAboutScreen?arguments=%7B%22query%22%3A%22%22%7D"),
@@ -172,12 +159,25 @@ function raycast() {
             map("c").to$("open -g raycast://extensions/raycast/clipboard-history/clipboard-history"),
         ])
 }
+function alfred_layer(){
+    return hyperLayer("spacebar")
+    .description('HyperSpace')
+    .leaderMode({ escape: ['escape', 'spacebar'] })
+    .notification()
+    .manipulators([
+        map("t").to("f1", "⌘⌥"),
+        map("q").to("f2", "⌘⌥"),
+        map("r").to("f3", "⌘⌥"),
+        map("e").to("f4", "⌘⌥"),
+        map("s").to("f12", "⌘⌥"),
+    ])
+}
 
 function system_layer() {
     return duoLayer("z", "x").manipulators([
         withModifier("??")([
-            map(';').to('f', '⌥⇧'),
-            map('return_or_enter').to('s', '⌥⇧'),
+            map('return_or_enter').to('f', '⌥⇧'),
+            map('\'').to('s', '⌥⇧'),
             map('l').to(']', '⌥'),
             map('h').to('[', '⌥'),
             map('j').to('tab', '⌘⇧'),
@@ -197,4 +197,7 @@ function system_layer() {
             map("-").to("display_brightness_decrement"),
         ]),
     ]);
+}
+function to(arg0: string, arg1: string): import("karabiner.ts").ToEvent | import("karabiner.ts").ToEvent[] | undefined {
+    throw new Error("Function not implemented.");
 }

@@ -1,3 +1,10 @@
+local function relative_path(fullpath, shortpath)
+	if fullpath:find(shortpath) then
+		return fullpath:gsub(shortpath, ""):sub(2)
+	end
+	return fullpath
+end
+
 return {
 	{
 		"echasnovski/mini.statusline",
@@ -19,7 +26,7 @@ return {
 						table.insert(c, client.name)
 					end
 				end
-				return "✔︎ " .. table.concat(c, ",")
+				return " " .. table.concat(c, ",")
 			end
 			-- branch
 			local cached_branch = nil
@@ -56,7 +63,7 @@ return {
 								.. (vim.bo.modified and " [+]" or "")
 
 						local filename = vim.bo.filetype == "oil" and vim.fn.expand("%"):sub(7)
-							or vim.fn.expand("%:p"):sub(#GetProjectRoot() + 2)
+							or relative_path(vim.fn.expand("%:p"), GetProjectRoot())
 								.. (vim.bo.modified and " [+]" or "")
 
 						local filetype = function()
@@ -76,8 +83,16 @@ return {
 							end
 						end
 
+						local location = MiniStatusline.section_location({ trunc_width = 75 })
+						local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+						local first = mode
+						if search ~= "" then
+							first = search
+						else
+							first = mode:sub(1, 3):upper()
+						end
 						return MiniStatusline.combine_groups({
-							{ hl = mode_hl, strings = { "[" .. mode:sub(1, 3):upper() .. "]" } },
+							{ hl = mode_hl, strings = { "[" .. first .. "]" } },
 
 							"%<", -- Mark general truncate point
 							-- "%=", -- End left alignment
@@ -87,7 +102,7 @@ return {
 
 							{ hl = body, strings = { diagnostics } },
 							{ hl = body, strings = { lsp() .. " " .. filetype() } },
-							{ hl = body, strings = { "[%-2l:%-2v]" } },
+							{ hl = body, strings = { "[%3l:%L|%-2v]" } },
 						})
 					end,
 				},

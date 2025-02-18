@@ -5,68 +5,43 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
 		},
-		config = function()
-			-- lsp config --
-			local lsp = require("lspconfig")
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
+		opts = {
+			servers = {
+				lua_ls = {},
+                ts_ls = {},
+			},
+		},
+		config = function(_, opts)
+			local lspconfig = require("lspconfig")
 
-			capabilities.textDocument.completion.completionItem.snippetSupport = true
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
-			capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+            local On_attach = function(client, bufnr)
+                --inlay hint
+                if client.server_capabilities.inlayHintProvider then
+                    vim.lsp.inlay_hint.enable(false)
+                end
+            end
 
-			--lsp on_attach
-			local on_attach = function(client, bufnr)
-				--inlay hint
-				if client.server_capabilities.inlayHintProvider then
-					vim.lsp.inlay_hint.enable(false)
-				end
+			for server, config in pairs(opts.servers) do
+				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+                config.on_attach = On_attach
+				lspconfig[server].setup(config)
 			end
 
-			-- lsp default_config
-			lsp.util.default_config = vim.tbl_extend("force", lsp.util.default_config, {
-				capabilities = capabilities,
-				on_attach = on_attach,
-			})
-			-- * manual * --
+			require("lspconfig.ui.windows").default_options.border = "single"
+		end,
+	},
 
-			lsp.solargraph.setup({})
-			lsp.clangd.setup({})
-
-			-- * manual * --
-
-			-- mason --
+	-- mason --
+	{
+		"williamboman/mason.nvim",
+		lazy = true,
+		config = function()
 			require("mason").setup({
 				ui = {
 					border = "single",
 				},
 			})
-
-			require("mason-lspconfig").setup()
-			-- server setup --
-			require("mason-lspconfig").setup_handlers({
-				function(server_name) -- default handler (optional)
-					require("lspconfig")[server_name].setup({})
-				end,
-
-				["lua_ls"] = function()
-					local lspconfig = require("lspconfig")
-					lspconfig.lua_ls.setup({
-						settings = {
-							Lua = {
-								diagnostics = {
-									globals = { "vim" },
-								},
-							},
-						},
-					})
-				end,
-			})
-			require("lspconfig.ui.windows").default_options.border = "single"
 		end,
 	},
 
@@ -82,11 +57,11 @@ return {
 				javascript = { "prettier" },
 				typescript = { "prettier" },
 				sh = { "shfmt" },
-                bash = { "shfmt" },
+				bash = { "shfmt" },
 			},
-            default_format_opts = {
-                lsp_format = "fallback",
-            },
+			default_format_opts = {
+				lsp_format = "fallback",
+			},
 		},
 	},
 }

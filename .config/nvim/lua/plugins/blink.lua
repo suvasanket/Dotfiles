@@ -1,5 +1,4 @@
 return {
-	-- cmp alternative
 	{
 		"saghen/blink.cmp",
 		event = { "InsertEnter" },
@@ -9,14 +8,14 @@ return {
 				"chrisgrieser/nvim-scissors",
 				keys = {
 					{
-						"\\se",
+						"<C-space>se",
 						function()
 							require("scissors").editSnippet()
 						end,
 						desc = "create Snippet",
 					},
 					{
-						"\\sc",
+						"<C-space>sc",
 						function()
 							require("scissors").addNewSnippet()
 						end,
@@ -29,28 +28,23 @@ return {
 		},
 		opts = {
 			keymap = {
-				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-				["<C-y>"] = { "select_and_accept" },
-				["<C-e>"] = { "hide" },
+				preset = "none",
+				["<C-space>"] = { "show", "hide" },
+				["<C-l>"] = { "select_and_accept" },
+				["<C-CR>"] = { "show_documentation", "hide_documentation" },
 
 				["<C-p>"] = { "select_prev" },
 				["<C-n>"] = { "select_next" },
 
 				["<S-Up>"] = { "scroll_documentation_up", "fallback" },
-				["<S-D'wn>"] = { "scroll_documentation_down", "fallback" },
+				["<S-Down>"] = { "scroll_documentation_down", "fallback" },
 
 				["<C-f>"] = { "snippet_forward", "fallback" },
 				["<C-b>"] = { "snippet_backward", "fallback" },
+				["<C-e>"] = {},
 			},
 
-			signature = {
-				enabled = true,
-			},
-
-			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
-                cmdline = {},
-			},
+			signature = { enabled = true },
 		},
 	},
 }

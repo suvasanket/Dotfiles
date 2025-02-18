@@ -31,6 +31,12 @@ function ShellCmd(cmd, on_success, on_error)
 		end,
 	})
 end
+function ShellOutput(cmd)
+	local handle = io.popen(cmd)
+	local out = handle:read("*a") or ""
+	handle:close()
+    return out:gsub("%s+", "")
+end
 
 function BufMap(ft, mode, map, cmd)
 	Autocmd("FileType", {
@@ -49,21 +55,28 @@ function Telescope(cmd)
 	})
 end
 
-function GetProjectRoot()
-	local workspace = vim.lsp.buf.list_workspace_folders()
-    local firstworkspace = workspace[1]
-	if firstworkspace then
-        if firstworkspace == vim.fn.expand("~"):gsub("/$", "") then
-            return vim.fn.getcwd()
+function GetProjectRoot(markers, path_or_bufnr)
+    local cwd = vim.fn.getcwd()
+    local patterns = { ".git", "Makefile", "package.json", "Cargo.toml", "go.mod", "pom.xml", "build.gradle" }
+
+    if markers then
+        return vim.fs.root(path_or_bufnr or 0, markers) or cwd
+    end
+
+    local workspace = vim.lsp.buf.list_workspace_folders()
+    workspace = workspace[#workspace]
+    if workspace then
+        if workspace == vim.fn.expand("~"):gsub("/$", "") then
+            return cwd
         end
-		return firstworkspace
-	end
-    return vim.fs.root(0, ".git") or vim.fn.getcwd()
+        return workspace
+    end
+    return vim.fs.root(path_or_bufnr or 0, patterns) or cwd
 end
 
 function Notify(content, level, title)
 	if not title then
-		title = "Notification"
+		title = "Notice"
 	end
 	vim.notify(content, level, { title = title })
 end
@@ -83,12 +96,13 @@ function UserInput(msg, def)
 		return input
 	end
 end
-function TableContainsValue(tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
 
-    return false
+function TableContainsValue(tab, val)
+	for index, value in ipairs(tab) do
+		if value == val then
+			return true
+		end
+	end
+
+	return false
 end

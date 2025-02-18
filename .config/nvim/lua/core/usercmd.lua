@@ -27,7 +27,7 @@ create_command("CmpDisable", "lua require('cmp').setup.buffer { enabled = false 
 
 -- luasnip {{{
 create_command("LuaSnipOpen", function()
-	require("luasnip.loaders").edit_snippet_files({
+	Import("luasnip.loaders").edit_snippet_files({
 		extend = function(ft, paths)
 			if #paths == 0 then
 				return {
@@ -124,57 +124,20 @@ create_command("Gbrowse", function()
 end)
 -- }}}
 
--- Term {{{
-local cachedCmd = nil
-create_command("Term", function(args)
-	local projectRoot = GetProjectRoot()
-	local function run_cached_or_new_term(cmd)
-		if cmd then
-			local some = "cd " .. projectRoot .. " && " .. cmd
-			local inside_tmux = os.getenv("TMUX") ~= nil
-			if inside_tmux then
-				vim.fn.system("tmux neww -n 'Term!' -d " .. "'" .. some .. "'")
-			else
-				vim.cmd("tab term " .. some)
-			end
-			vim.notify("Executing " .. cmd .. "...")
-		end
-	end
-
-	if args.bang then
-		if args.args and #args.args > 0 then
-			cachedCmd = args.args
-			run_cached_or_new_term(cachedCmd)
-		else
-			run_cached_or_new_term(cachedCmd)
-		end
-	else
-		if args.args and #args.args >= 2 then
-			cachedCmd = args.args
-		end
-		if cachedCmd then
-			vim.cmd("hor term " .. cachedCmd)
-            vim.bo.ft="sh"
-			vim.notify("Executing " .. cachedCmd .. "...")
-		end
-	end
-end, { nargs = "*", bang = true })
----}}}
-
 -- abolish
 create_command("AddAbolish", function(opts)
 	local args = vim.split(opts.args, " ", { plain = true, trimempty = true })
 	if opts.bang then
 		vim.cmd("vsplit " .. vim.fn.stdpath("config") .. "/abolish.txt")
-        return
+		return
 	end
 	if #args ~= 2 then
 		vim.notify("Exactly two arguments are required: <pattern> and <replacement>", vim.log.levels.ERROR)
 		return
 	end
-	require("core.abolish").add_mapping(args[1], args[2])
+	Import("core.abolish").add_mapping(args[1], args[2])
 end, {
 	bang = true,
-    nargs = "*",
+	nargs = "*",
 	desc = "Add a new abolish mapping",
 })

@@ -1,7 +1,8 @@
 return {
 	"kevinhwang91/nvim-ufo",
 	dependencies = "kevinhwang91/promise-async",
-	keys = { "z" },
+    event = "Filetype",
+	keys = { "za" },
 	config = function()
 		require("ufo").setup({
 			close_fold_kinds_for_ft = {

@@ -1,16 +1,23 @@
 return {
-	-- mini ai
+	--mini ai
 	{
 		"echasnovski/mini.ai",
 		keys = {
 			{ "a", mode = { "x", "o" } },
 			{ "i", mode = { "x", "o" } },
 		},
+		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 		opts = function()
 			local ai = require("mini.ai")
 			return {
 				n_lines = 500,
 				custom_textobjects = {
+					o = ai.gen_spec.treesitter({ -- code block
+						a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+						i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+					}),
+					f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+					c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
 					t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
 					d = { "%f[%d]%d+" }, -- digits
 					e = { -- Word with case
@@ -58,32 +65,20 @@ return {
 		end,
 	},
 
-	-- extra
-	{
-		"echasnovski/mini.extra",
-		lazy = true,
-		config = function()
-			require("mini.extra").setup()
-		end,
-	},
-
-	-- visit
-	{
-		"echasnovski/mini.visits",
-		lazy = true,
-		config = function()
-			require("mini.visits").setup()
-		end,
-	},
-
 	-- surround
 	{
 		"echasnovski/mini.surround",
+		keys = { "ys", "ds", "cs" },
 		config = function()
 			require("mini.surround").setup({
 				mappings = {
-                    delete = "ds",
+					add = "ys",
+					delete = "ds",
 					replace = "cs",
+					find = "",
+					find_left = "",
+					highlight = "ysh",
+					update_n_lines = "",
 				},
 			})
 		end,
@@ -92,7 +87,7 @@ return {
 	-- trailspace
 	{
 		"echasnovski/mini.trailspace",
-		event = "BufRead",
+		event = "InsertEnter",
 		keys = { { "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>", desc = "trim whitespaces" } },
 		config = function()
 			require("mini.trailspace").setup({

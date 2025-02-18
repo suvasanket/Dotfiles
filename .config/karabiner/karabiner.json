@@ -11,6 +11,342 @@
       "complex_modifications": {
         "rules": [
           {
+            "description": "DuoLayer f d",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "simultaneous": [
+                    {
+                      "key_code": "f"
+                    },
+                    {
+                      "key_code": "d"
+                    }
+                  ],
+                  "simultaneous_options": {
+                    "to_after_key_up": [
+                      {
+                        "set_variable": {
+                          "name": "duo-layer-f-d",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  },
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "parameters": {
+                  "basic.simultaneous_threshold_milliseconds": 50
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "duo-layer-f-d",
+                      "value": 1
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_unless",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "h",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "down_arrow"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "up_arrow"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_command"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_option"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "comma",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_or_backspace"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "period",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_forward"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "b",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "z",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "n",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "x",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "m",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "v",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "duo-layer-f-d",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "description": "quick",
             "manipulators": [
               {
@@ -389,7 +725,7 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "semicolon",
+                  "key_code": "return_or_enter",
                   "modifiers": {
                     "optional": [
                       "any"
@@ -416,7 +752,7 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "return_or_enter",
+                  "key_code": "quote",
                   "modifiers": {
                     "optional": [
                       "any"
@@ -1094,12 +1430,12 @@
             ]
           },
           {
-            "description": "HyperLayer: r",
+            "description": "HyperSpace",
             "manipulators": [
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "r",
+                  "key_code": "spacebar",
                   "modifiers": {
                     "mandatory": [
                       "command",
@@ -1112,126 +1448,21 @@
                 "to": [
                   {
                     "set_variable": {
-                      "name": "layer-r",
+                      "name": "layer-spacebar",
                       "value": 1
                     }
                   },
                   {
                     "set_notification_message": {
-                      "id": "layer-layer-r",
-                      "text": "HyperLayer: r"
+                      "id": "layer-layer-spacebar",
+                      "text": "HyperSpace"
                     }
                   }
                 ],
                 "conditions": [
                   {
                     "type": "variable_unless",
-                    "name": "layer-r",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "o",
-                  "modifiers": {
-                    "mandatory": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "shell_command": "open -g raycast://extensions/EvanZhouDev/raycast-gemini/askAboutScreen?arguments=%7B%22query%22%3A%22%22%7D"
-                  },
-                  {
-                    "set_variable": {
-                      "name": "layer-r",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "layer-layer-r",
-                      "text": ""
-                    }
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "layer-r",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "p",
-                  "modifiers": {
-                    "mandatory": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "shell_command": "open -g raycast://extensions/EvanZhouDev/raycast-gemini/askAI?arguments=%7B%22query%22%3A%22%22%7D"
-                  },
-                  {
-                    "set_variable": {
-                      "name": "layer-r",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "layer-layer-r",
-                      "text": ""
-                    }
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "layer-r",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "a",
-                  "modifiers": {
-                    "mandatory": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "shell_command": "open -g raycast://extensions/joshmedeski/sesh/cmd-connect"
-                  },
-                  {
-                    "set_variable": {
-                      "name": "layer-r",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "layer-layer-r",
-                      "text": ""
-                    }
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "layer-r",
+                    "name": "layer-spacebar",
                     "value": 1
                   }
                 ]
@@ -1248,52 +1479,21 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -g raycast://extensions/doist/todoist/search"
-                  },
-                  {
-                    "set_variable": {
-                      "name": "layer-r",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "layer-layer-r",
-                      "text": ""
-                    }
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "layer-r",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "d",
-                  "modifiers": {
-                    "mandatory": [
-                      "any"
+                    "key_code": "f1",
+                    "modifiers": [
+                      "command",
+                      "option"
                     ]
-                  }
-                },
-                "to": [
-                  {
-                    "shell_command": "open -g raycast://extensions/lardissone/raindrop-io/search"
                   },
                   {
                     "set_variable": {
-                      "name": "layer-r",
+                      "name": "layer-spacebar",
                       "value": 0
                     }
                   },
                   {
                     "set_notification_message": {
-                      "id": "layer-layer-r",
+                      "id": "layer-layer-spacebar",
                       "text": ""
                     }
                   }
@@ -1301,7 +1501,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "layer-r",
+                    "name": "layer-spacebar",
                     "value": 1
                   }
                 ]
@@ -1318,17 +1518,21 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -g raycast://extensions/rolandleth/kill-process/index"
+                    "key_code": "f2",
+                    "modifiers": [
+                      "command",
+                      "option"
+                    ]
                   },
                   {
                     "set_variable": {
-                      "name": "layer-r",
+                      "name": "layer-spacebar",
                       "value": 0
                     }
                   },
                   {
                     "set_notification_message": {
-                      "id": "layer-layer-r",
+                      "id": "layer-layer-spacebar",
                       "text": ""
                     }
                   }
@@ -1336,7 +1540,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "layer-r",
+                    "name": "layer-spacebar",
                     "value": 1
                   }
                 ]
@@ -1344,7 +1548,7 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "j",
+                  "key_code": "r",
                   "modifiers": {
                     "mandatory": [
                       "any"
@@ -1353,17 +1557,21 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -g raycast://extensions/thomas/downloads-manager/manage-downloads"
+                    "key_code": "f3",
+                    "modifiers": [
+                      "command",
+                      "option"
+                    ]
                   },
                   {
                     "set_variable": {
-                      "name": "layer-r",
+                      "name": "layer-spacebar",
                       "value": 0
                     }
                   },
                   {
                     "set_notification_message": {
-                      "id": "layer-layer-r",
+                      "id": "layer-layer-spacebar",
                       "text": ""
                     }
                   }
@@ -1371,7 +1579,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "layer-r",
+                    "name": "layer-spacebar",
                     "value": 1
                   }
                 ]
@@ -1379,7 +1587,7 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "f",
+                  "key_code": "e",
                   "modifiers": {
                     "mandatory": [
                       "any"
@@ -1388,17 +1596,21 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -g raycast://extensions/raycast/raycast-focus/toggle-focus-session"
+                    "key_code": "f4",
+                    "modifiers": [
+                      "command",
+                      "option"
+                    ]
                   },
                   {
                     "set_variable": {
-                      "name": "layer-r",
+                      "name": "layer-spacebar",
                       "value": 0
                     }
                   },
                   {
                     "set_notification_message": {
-                      "id": "layer-layer-r",
+                      "id": "layer-layer-spacebar",
                       "text": ""
                     }
                   }
@@ -1406,7 +1618,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "layer-r",
+                    "name": "layer-spacebar",
                     "value": 1
                   }
                 ]
@@ -1414,7 +1626,7 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "c",
+                  "key_code": "s",
                   "modifiers": {
                     "mandatory": [
                       "any"
@@ -1423,17 +1635,21 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -g raycast://extensions/raycast/clipboard-history/clipboard-history"
+                    "key_code": "f12",
+                    "modifiers": [
+                      "command",
+                      "option"
+                    ]
                   },
                   {
                     "set_variable": {
-                      "name": "layer-r",
+                      "name": "layer-spacebar",
                       "value": 0
                     }
                   },
                   {
                     "set_notification_message": {
-                      "id": "layer-layer-r",
+                      "id": "layer-layer-spacebar",
                       "text": ""
                     }
                   }
@@ -1441,7 +1657,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "layer-r",
+                    "name": "layer-spacebar",
                     "value": 1
                   }
                 ]
@@ -1459,20 +1675,20 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "layer-r",
+                    "name": "layer-spacebar",
                     "value": 1
                   }
                 ],
                 "to": [
                   {
                     "set_variable": {
-                      "name": "layer-r",
+                      "name": "layer-spacebar",
                       "value": 0
                     }
                   },
                   {
                     "set_notification_message": {
-                      "id": "layer-layer-r",
+                      "id": "layer-layer-spacebar",
                       "text": ""
                     }
                   }
@@ -1481,7 +1697,7 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "caps_lock",
+                  "key_code": "spacebar",
                   "modifiers": {
                     "mandatory": [
                       "any"
@@ -1491,20 +1707,20 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "layer-r",
+                    "name": "layer-spacebar",
                     "value": 1
                   }
                 ],
                 "to": [
                   {
                     "set_variable": {
-                      "name": "layer-r",
+                      "name": "layer-spacebar",
                       "value": 0
                     }
                   },
                   {
                     "set_notification_message": {
-                      "id": "layer-layer-r",
+                      "id": "layer-layer-spacebar",
                       "text": ""
                     }
                   }
@@ -1615,37 +1831,6 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "spacebar",
-                  "modifiers": {
-                    "mandatory": [
-                      "control"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "tab",
-                    "modifiers": [
-                      "control"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "Chromium",
-                      "Arc",
-                      "^org.mozilla.com.zen.browser",
-                      "Orion",
-                      "Safari"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
                   "key_code": "h",
                   "modifiers": {
                     "mandatory": [
@@ -1669,7 +1854,7 @@
                     "type": "frontmost_application_if",
                     "bundle_identifiers": [
                       "Chromium",
-                      "Arc",
+                      "^company.thebrowser.Browser",
                       "^org.mozilla.com.zen.browser",
                       "Orion",
                       "Safari"
@@ -1702,7 +1887,70 @@
                     "type": "frontmost_application_if",
                     "bundle_identifiers": [
                       "Chromium",
-                      "Arc",
+                      "^company.thebrowser.Browser",
+                      "^org.mozilla.com.zen.browser",
+                      "Orion",
+                      "Safari"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "grave_accent_and_tilde",
+                  "modifiers": {
+                    "mandatory": [
+                      "command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket",
+                    "modifiers": [
+                      "command"
+                    ]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "Chromium",
+                      "^company.thebrowser.Browser",
+                      "^org.mozilla.com.zen.browser",
+                      "Orion",
+                      "Safari"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "grave_accent_and_tilde",
+                  "modifiers": {
+                    "mandatory": [
+                      "command",
+                      "shift"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "close_bracket",
+                    "modifiers": [
+                      "command"
+                    ]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "Chromium",
+                      "^company.thebrowser.Browser",
                       "^org.mozilla.com.zen.browser",
                       "Orion",
                       "Safari"
@@ -1734,7 +1982,7 @@
                     "type": "frontmost_application_if",
                     "bundle_identifiers": [
                       "Chromium",
-                      "Arc",
+                      "^company.thebrowser.Browser",
                       "^org.mozilla.com.zen.browser",
                       "Orion",
                       "Safari"

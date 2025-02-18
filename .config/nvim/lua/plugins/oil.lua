@@ -48,6 +48,7 @@ return {
 
 				["gt"] = "actions.toggle_trash",
 				["gh"] = "<cmd>edit $HOME<CR>",
+                ["gp"] = "<cmd>edit ~/codes/projects/<CR>",
 				["gl"] = "<cmd>edit $HOME/Downloads/<CR>",
 
 				["<C-c>"] = false,
