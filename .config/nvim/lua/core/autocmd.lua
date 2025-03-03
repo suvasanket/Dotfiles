@@ -90,11 +90,11 @@ Autocmd("BufWritePre", {
 --highlight yank
 Augroup("yank", { clear = true })
 Autocmd("TextYankPost", {
-    pattern = "*",
-    callback = function()
-        vim.highlight.on_yank({ higroup = "CurSearch", timeout = 70 })
-    end,
-    group = "yank",
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "CurSearch", timeout = 70 })
+	end,
+	group = "yank",
 })
 
 -- highligh override

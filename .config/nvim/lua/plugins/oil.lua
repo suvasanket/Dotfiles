@@ -85,23 +85,6 @@ return {
 					end,
 					nowait = false,
 				},
-				["<C-g>"] = {
-					callback = function()
-						local cmd = UserInput("Command:")
-						if cmd then
-							ShellCmd(cmd .. " " .. GetCurrentEntryPath(), function()
-								vim.notify("Execution completed", vim.log.levels.INFO)
-                                vim.defer_fn(function()
-                                    require("oil.actions").refresh.callback()
-                                end, 700)
-							end, function()
-								vim.notify("Error executing command on current entry", vim.log.levels.ERROR)
-							end)
-						end
-					end,
-					nowait = false,
-				},
-				["<leader>tt"] = "actions.open_terminal",
 				["yp"] = {
 					desc = "Copy filepath to system clipboard",
 					callback = function()

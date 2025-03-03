@@ -1,8 +1,6 @@
-local function relative_path(fullpath, shortpath)
-	if fullpath:find(shortpath) then
-		return fullpath:gsub(shortpath, ""):sub(2)
-	end
-	return fullpath
+local function relative_path(full_path, short_path)
+	local rel_path = full_path:match("^" .. vim.pesc(short_path) .. "(.*)$")
+	return rel_path and rel_path:gsub("^/", "") or full_path
 end
 
 return {
@@ -103,6 +101,17 @@ return {
 							{ hl = body, strings = { diagnostics } },
 							{ hl = body, strings = { lsp() .. " " .. filetype() } },
 							{ hl = body, strings = { "[%3l:%L|%-2v]" } },
+						})
+					end,
+					inactive = function()
+						local filename = vim.fn.expand("%") .. (vim.bo.modified and " [+]" or "")
+						local body = "MiniStatuslineFilename"
+
+						return MiniStatusline.combine_groups({
+							{ hl = body, strings = { "[" .. vim.bo.ft .. "]" } },
+							"%<", -- Mark general truncate point
+							{ hl = body, strings = { filename } },
+							"%=", -- End left alignment
 						})
 					end,
 				},

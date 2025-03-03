@@ -1,15 +1,6 @@
 return {
-	{
-		"Wansmer/treesj",
-		keys = { { "<leader>j", "<cmd>TSJToggle<cr>", desc = "Split/Join" } },
-		opts = {
-			use_default_keymaps = false,
-			max_join_length = 220,
-			notify = false,
-		},
-	},
-
 	{ "romainl/vim-cool", keys = { "/", "n", "N", "?", "*" } },
+
 	{
 		"kazhala/close-buffers.nvim",
 		cmd = "BDelete",
@@ -30,7 +21,7 @@ return {
 		"ptdewey/yankbank-nvim",
 		event = "TextYankPost",
 		keys = {
-			{ "<C-p>", "<cmd>YankBank<cr>", mode = { "n", "x" } },
+			{ "<leader>p", "<cmd>YankBank<cr>", mode = { "n", "x" } },
 			{ "d", mode = { "n", "x" } },
 			{ "D", mode = { "n", "x" } },
 			{ "c", mode = { "n", "x" } },
@@ -45,27 +36,44 @@ return {
 		end,
 	},
 
-	-- hl undo
-	{
-		"tzachar/highlight-undo.nvim",
-		keys = { { "u" }, { "<C-r>" }, { "p" }, { "P" } },
-		opts = {
-			duration = 500,
-		},
-	},
-
 	-- fidget
 	{
 		"j-hui/fidget.nvim",
 		lazy = true,
-		event = { "LspAttach", "VeryLazy" },
+		event = { "LspAttach" },
 		opts = {
 			notification = {
-				override_vim_notify = true, -- Automatically override vim.notify() with Fidget
+				override_vim_notify = false, -- Automatically override vim.notify() with Fidget
 				-- window = {
 				-- 	winblend = 0,
 				-- },
 			},
 		},
+	},
+
+	-- buf
+	{
+		"ton/vim-bufsurf",
+		event = { "BufWinEnter" },
+		keys = {
+			{ "<C-e>", "<cmd>BufSurfListAll<cr>" },
+			{ "<C-q>", "<cmd>BufSurfClear<cr>" },
+			{ "zh", "<cmd>BufSurfBack<cr>" },
+			{ "zl", "<cmd>BufSurfForward<cr>" },
+		},
+	},
+
+	-- some
+	{
+		"rcarriga/nvim-notify",
+		lazy = true,
+		event = { "BufReadPost" },
+		config = function()
+			require("notify").setup({
+				render = "wrapped-compact",
+				background_colour = "#000000",
+			})
+			vim.notify = require("notify")
+		end,
 	},
 }

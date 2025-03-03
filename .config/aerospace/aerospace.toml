@@ -18,7 +18,7 @@ automatically-unhide-macos-hidden-apps = true
 gaps.inner.horizontal = 5
 gaps.inner.vertical = 5
 gaps.outer.left = 5
-gaps.outer.bottom = 50
+gaps.outer.bottom = 45
 gaps.outer.top = 5
 gaps.outer.right = 5
 
@@ -86,7 +86,7 @@ run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
-if.window-title-regex-substring = '^(?!.*Extension:).+$'
+if.window-title-regex-substring = '^(?!.*Extension:)(?!.*Picture-in-Picture).+$'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
@@ -119,6 +119,10 @@ run = ['layout floating', 'move-node-to-workspace 4']
 [[on-window-detected]]
 if.app-id = 'com.apple.Music'
 run = ['move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.kv.Aural'
+run = ['layout floating', 'move-node-to-workspace 4']
 
 # 5
 [[on-window-detected]]

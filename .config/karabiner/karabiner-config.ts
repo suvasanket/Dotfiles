@@ -28,6 +28,7 @@ writeToProfile(
 
         general_map(),
         alfred_layer(),
+        //raycast(),
 
         app_finder(),
         app_kitty(),

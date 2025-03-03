@@ -35,7 +35,7 @@ function ShellOutput(cmd)
 	local handle = io.popen(cmd)
 	local out = handle:read("*a") or ""
 	handle:close()
-    return out:gsub("%s+", "")
+	return out:gsub("%s+", "")
 end
 
 function BufMap(ft, mode, map, cmd)
@@ -56,22 +56,25 @@ function Telescope(cmd)
 end
 
 function GetProjectRoot(markers, path_or_bufnr)
-    local cwd = vim.fn.getcwd()
-    local patterns = { ".git", "Makefile", "package.json", "Cargo.toml", "go.mod", "pom.xml", "build.gradle" }
+	local cwd = vim.fn.getcwd()
+	local patterns = { ".git", "Makefile", "package.json", "Cargo.toml", "go.mod", "pom.xml", "build.gradle" }
 
-    if markers then
-        return vim.fs.root(path_or_bufnr or 0, markers) or cwd
-    end
+	if markers then
+		return vim.fs.root(path_or_bufnr or 0, markers) or cwd
+	end
 
-    local workspace = vim.lsp.buf.list_workspace_folders()
-    workspace = workspace[#workspace]
-    if workspace then
-        if workspace == vim.fn.expand("~"):gsub("/$", "") then
-            return cwd
-        end
-        return workspace
-    end
-    return vim.fs.root(path_or_bufnr or 0, patterns) or cwd
+	local root = vim.fs.root(path_or_bufnr or 0, patterns)
+
+	if root then
+		return root
+	else
+		local workspace = vim.lsp.buf.list_workspace_folders()
+		workspace = workspace[#workspace]
+		if workspace == vim.fn.expand("~"):gsub("/$", "") then
+			return cwd
+		end
+		return workspace or cwd
+	end
 end
 
 function Notify(content, level, title)

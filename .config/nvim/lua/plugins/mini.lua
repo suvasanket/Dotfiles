@@ -39,32 +39,6 @@ return {
 		end,
 	},
 
-	-- move
-	{
-		"echasnovski/mini.move",
-		keys = {
-			{ "<S-h>", mode = { "n", "x" } },
-			{ "<S-j>", mode = { "n", "x" } },
-			{ "<S-k>", mode = { "n", "x" } },
-			{ "<S-l>", mode = { "n", "x" } },
-		},
-		config = function()
-			require("mini.move").setup({
-				mappings = {
-					left = "<S-h>",
-					right = "<S-l>",
-					down = "<S-j>",
-					up = "<S-k>",
-
-					line_left = "<S-h>",
-					line_right = "<S-l>",
-					line_down = "<S-j>",
-					line_up = "<S-k>",
-				},
-			})
-		end,
-	},
-
 	-- surround
 	{
 		"echasnovski/mini.surround",

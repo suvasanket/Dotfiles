@@ -1,15 +1,17 @@
 return {
 	"suvasanket/oz.nvim",
-	keys = { "<leader>a<cr>", "<leader>ac", "<leader>av", "<leader>at" },
-	cmd = "Term",
-    dir = "~/codes/projects/oz-nvim",
-	dependencies = {
-		"ej-shafran/compile-mode.nvim", -- optional
-        "stevearc/oil.nvim", -- optional
-	},
+	dir = "~/codes/projects/oz-nvim",
+
 	opts = {
-        mappings = {
-            Term = "<leader>a<cr>"
-        }
-    },
+		mappings = {
+			Term = "<leader><cr>",
+		},
+
+		oil = {
+			cur_entry_splitter = ":", -- this char will be used to define the pre and post of the entry
+		},
+		async_make = {
+			override_make = false, -- override the default make cmd
+		},
+	},
 }

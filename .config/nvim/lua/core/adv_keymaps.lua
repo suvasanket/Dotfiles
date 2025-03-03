@@ -14,7 +14,11 @@ Map("n", "<leader>cs", function()
 	local input = UserInput("query:")
 	local inside_tmux = os.getenv("TMUX") ~= nil
 	if input then
-		local spin = "gum spin --spinner moon --title '\nsearching ft:" .. vim.bo.filetype .. " q:" .. input .. " .. ' -- "
+		local spin = "gum spin --spinner moon --title '\nsearching ft:"
+			.. vim.bo.filetype
+			.. " q:"
+			.. input
+			.. " .. ' -- "
 		local cht_sh = spin .. "curl cht.sh/" .. vim.bo.filetype
 		cht_sh = cht_sh .. "/" .. input:gsub(" ", "+") .. " | gum pager --border none"
 		if inside_tmux then
@@ -52,7 +56,7 @@ GoinsidePair("(", ")", function(leftchar, rightchar)
 	Map("i", "<C-h>", function()
 		if getChar("prev") == leftchar and getChar() == rightchar then
 			return "<right><bs><bs>"
-        else
+		else
 			return "<bs>"
 		end
 	end, { expr = true })

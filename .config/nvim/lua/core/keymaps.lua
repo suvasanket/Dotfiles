@@ -11,6 +11,20 @@ Map("n", "]e", CMD("NextError"))
 Map("n", "[e", CMD("PrevError"))
 
 BufMap("qf", "n", "<C-q>", CMD("Clearqflist"))
+BufMap("qf", "n", "c.", [[:cdo s/\<<C-r><C-w>\>//g<Left><Left>]])
+BufMap("qf", "n", "c>", [[:cfdo %s/\<<C-r><C-w>\>//g<Left><Left>]])
+BufMap("qf", "n", "dd", function()
+	local pos = vim.api.nvim_win_get_cursor(0)
+	local qf_list = vim.fn.getqflist()
+	local line_num = vim.fn.line(".")
+	table.remove(qf_list, line_num)
+	vim.fn.setqflist(qf_list, "r")
+	vim.cmd("copen")
+	local ok = pcall(vim.api.nvim_win_set_cursor, 0, pos)
+	if not ok then
+		vim.cmd("norm G")
+	end
+end)
 
 -- general
 Map("n", "<leader>qf", CMD("copen"))
@@ -19,7 +33,13 @@ Map("n", "<leader>l", CMD("Lazy"))
 Map({ "n", "i" }, "<F1>", CMD("silent w!"))
 Map({ "i", "x" }, "<C-c>", "<esc>")
 Map("n", "<C-;>", "@:", { desc = "rerun last cmd" })
-Map("n", "<C-j>", CMD("t."), { desc = "duplicate line" })
+Map("n", "<leader>j", CMD("t."), { desc = "duplicate line" })
+Map("n", "<leader>n", function()
+	vim.cmd("t.")
+	local pos = vim.api.nvim_win_get_cursor(0)
+	vim.cmd("normal kgcc")
+	pcall(vim.api.nvim_win_set_cursor, 0, pos)
+end)
 
 -- insert mode
 Map("i", "<S-CR>", "<esc>O")
@@ -30,7 +50,6 @@ Map({ "i", "v" }, "<M-right>", "<C-o>w")
 
 -- term
 Map("t", "<C-[>", "<C-\\><C-n>")
-Map("t", "<C-w>", "<C-\\><C-n><C-w>")
 Map("t", "<C-S-\\>", "clear\n")
 
 -- system mappings
@@ -69,10 +88,10 @@ Map("n", "<C-space>ae", ":AddAbolish!<cr>", { desc = "edit abolish", silent = fa
 --buffer & tabs
 Map("n", "[b", CMD("bnext"))
 Map("n", "]b", CMD("bprevious"))
-Map("n", "zh", CMD("tabp"))
-Map("n", "zp", CMD("tabmove -1"))
-Map("n", "zl", CMD("tabn"))
-Map("n", "zn", CMD("tabmove +1"))
+Map("n", "zp", CMD("tabp"))
+Map("n", "zn", CMD("tabn"))
+Map("n", "zP", CMD("tabmove -1"))
+Map("n", "zN", CMD("tabmove +1"))
 Map("n", "z]", "mAZZ<C-w>v'A:delmark A<cr>")
 Map("n", "z[", "mAZZ:tabp<cr><C-w>v'A:delmark A<cr>")
 Map("n", "zo", CMD("tabo"), { desc = "tab only" })
@@ -81,8 +100,8 @@ Map("n", "zo", CMD("tabo"), { desc = "tab only" })
 Map("n", "<C-w>m", "<C-w>|<C-w>_")
 Map("n", "<C-w>+", "<cmd>resize +10<cr>")
 Map("n", "<C-w>-", "<cmd>resize -10<cr>")
-Map("n", "<C-w>>", "<cmd>vert resize +10<cr>")
-Map("n", "<C-w><", "<cmd>vert resize -10<cr>")
+Map("n", "<C-w>>", "<cmd>vert resize +7<cr>")
+Map("n", "<C-w><", "<cmd>vert resize -7<cr>")
 
 --git
 Map("n", "<leader>gg", function()
@@ -112,9 +131,6 @@ BufMap("fugitive", "n", "K", function()
 	local pattern = line:match("^%S*%s(.+)$")
 	vim.cmd("G rm --cached -r " .. pattern)
 end)
-BufMap("fugitive", "n", "gc", function()
-	Import("mini.extra").pickers.git_commits()
-end)
 Map("n", "<leader>gc", "<cmd>Gcommit<cr>", { desc = "smart commit" })
 
 -- Search inside visually highlighted text.
@@ -127,6 +143,10 @@ Map("n", "c>", [[:s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "s
 -- keep visual selection when (de)indenting
 Map("v", "<", "<gv", {})
 Map("v", ">", ">gv", {})
+
+-- move line
+Map("n", "<C-p>", ":m-2<cr>==")
+Map("n", "<C-n>", ":m+1<cr>==")
 
 -- unimapaired
 Map("n", "]<space>", CMD("call append(line('.'), '')"))

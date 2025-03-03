@@ -7,7 +7,7 @@ MEM=$(memory_pressure | grep "System-wide memory free percentage:" | awk '{ prin
 
 if [ "$MEM" -gt 50 ]; then
     COLOR=$YELLOW
-elif [ "$MEM" -gt 75 ]; then
+elif [ "$MEM" -gt 60 ]; then
     COLOR=$RED
 else
     COLOR=$WHITE

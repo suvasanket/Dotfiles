@@ -66,7 +66,7 @@ o.smartindent = false
 o.showmode = false
 
 --status line
-o.laststatus = 3
+o.laststatus = 2
 o.ruler = false
 
 --conceal
