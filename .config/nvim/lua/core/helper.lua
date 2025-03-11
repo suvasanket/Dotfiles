@@ -56,11 +56,10 @@ function Telescope(cmd)
 end
 
 function GetProjectRoot(markers, path_or_bufnr)
-	local cwd = vim.fn.getcwd()
 	local patterns = { ".git", "Makefile", "package.json", "Cargo.toml", "go.mod", "pom.xml", "build.gradle" }
 
 	if markers then
-		return vim.fs.root(path_or_bufnr or 0, markers) or cwd
+		return vim.fs.root(path_or_bufnr or 0, markers) or nil
 	end
 
 	local root = vim.fs.root(path_or_bufnr or 0, patterns)
@@ -71,9 +70,9 @@ function GetProjectRoot(markers, path_or_bufnr)
 		local workspace = vim.lsp.buf.list_workspace_folders()
 		workspace = workspace[#workspace]
 		if workspace == vim.fn.expand("~"):gsub("/$", "") then
-			return cwd
+			return nil
 		end
-		return workspace or cwd
+		return workspace or nil
 	end
 end
 

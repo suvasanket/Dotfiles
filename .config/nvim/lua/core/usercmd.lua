@@ -84,9 +84,9 @@ create_command("Gcommit", function()
 	local message = UserInput("commit message: ")
 	if message then
 		ShellCmd({ "git", "commit", "-am", message }, function()
-			Notify("commited", "INFO", "Git")
+			Notify("commited", vim.log.levels.INFO, "Git")
 		end, function()
-			Notify("error while commit", "ERROR", "Git")
+			Notify("error while commit", vim.log.levels.ERROR, "Git")
 		end)
 
 		local remote = vim.api.nvim_exec("G config --get remote.origin.url", true)
@@ -97,7 +97,7 @@ create_command("Gcommit", function()
 				ShellCmd({ "git", "push" }, function()
 					Notify("pushed to " .. remote)
 				end, function()
-					Notify("Error pushing", "ERROR")
+					Notify("Error pushing", vim.log.levels.ERROR)
 				end)
 			end
 		end
@@ -117,9 +117,9 @@ create_command("Gbrowse", function()
 
 	local repo_url = url .. "/blob/" .. branch_name .. "/" .. relative_path
 	ShellCmd({ "open", repo_url }, function()
-		Notify("opening " .. vim.fn.expand("%:p:t"), nil, "Git")
+		Notify("opening " .. vim.fn.expand("%:p:t"), vim.log.levels.INFO, "Git")
 	end, function()
-		Notify("failed to open", "ERROR", "Git")
+		Notify("failed to open", vim.log.levels.ERROR, "Git")
 	end)
 end)
 -- }}}

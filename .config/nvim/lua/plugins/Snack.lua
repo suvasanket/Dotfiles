@@ -24,8 +24,9 @@ return {
 		{
 			"<C-f>",
 			function()
-				local root = GetProjectRoot()
+				local root = GetProjectRoot() or vim.fn.getcwd()
 				Snacks.picker.smart({
+                    hidden = true,
 					cwd = root,
 					title = vim.fs.basename(root) .. "/",
 					layout = {
@@ -39,7 +40,7 @@ return {
 		{
 			"<C-'>",
 			function()
-				Snacks.picker.grep({ cwd = GetProjectRoot() })
+				Snacks.picker.grep({ cwd = GetProjectRoot() or vim.fn.getcwd() })
 			end,
 		},
 		{ "gr", "<cmd>lua Snacks.picker('lsp_references')<cr>" },
@@ -58,7 +59,7 @@ return {
 	opts = {
 		bigfile = { enabled = true },
 		quickfile = { enabled = true },
-		statuscolumn = { enabled = true },
+		-- statuscolumn = { enabled = true },
 		words = { enabled = true },
 		image = { enabled = true },
 		picker = {
@@ -87,6 +88,7 @@ return {
 						["<C-space>"] = { "toggle_preview", mode = { "i" } },
 						["<Esc>"] = { "close", mode = { "n", "i" } },
 						["<C-a>"] = { "<Home>", mode = { "i" }, expr = true, desc = "go home" },
+                        ["<C-.>"] = { "toggle_hidden", mode = { "i", "n" } },
 					},
 				},
 			},

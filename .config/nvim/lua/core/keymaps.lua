@@ -1,18 +1,9 @@
 Import("core.helper")
 
--- ** buffer only map (buffer of a specified ft) ** --
-BufMap("compilation", "n", "r", CMD("Recompile"))
-BufMap("compilation", "n", "<C-d>", CMD("CompileDebugError"))
-BufMap("compilation", "n", "]e", CMD("CompileNextError"))
-BufMap("compilation", "n", "[e", CMD("CompilePrevError"))
-BufMap("compilation", "n", "]f", CMD("CompileNextFile"))
-BufMap("compilation", "n", "[f", CMD("CompilePrevFile"))
-Map("n", "]e", CMD("NextError"))
-Map("n", "[e", CMD("PrevError"))
-
 BufMap("qf", "n", "<C-q>", CMD("Clearqflist"))
 BufMap("qf", "n", "c.", [[:cdo s/\<<C-r><C-w>\>//g<Left><Left>]])
 BufMap("qf", "n", "c>", [[:cfdo %s/\<<C-r><C-w>\>//g<Left><Left>]])
+BufMap("qf", "n", "<C-v>", "<cr><C-w>v<C-w>h<C-o><C-w>l")
 BufMap("qf", "n", "dd", function()
 	local pos = vim.api.nvim_win_get_cursor(0)
 	local qf_list = vim.fn.getqflist()
@@ -25,6 +16,7 @@ BufMap("qf", "n", "dd", function()
 		vim.cmd("norm G")
 	end
 end)
+BufMap("qf", "n", "<C-g>", ":cdo ")
 
 -- general
 Map("n", "<leader>qf", CMD("copen"))
@@ -32,7 +24,6 @@ Map("n", "<leader>qc", CMD("Clearqflist"))
 Map("n", "<leader>l", CMD("Lazy"))
 Map({ "n", "i" }, "<F1>", CMD("silent w!"))
 Map({ "i", "x" }, "<C-c>", "<esc>")
-Map("n", "<C-;>", "@:", { desc = "rerun last cmd" })
 Map("n", "<leader>j", CMD("t."), { desc = "duplicate line" })
 Map("n", "<leader>n", function()
 	vim.cmd("t.")
@@ -40,6 +31,7 @@ Map("n", "<leader>n", function()
 	vim.cmd("normal kgcc")
 	pcall(vim.api.nvim_win_set_cursor, 0, pos)
 end)
+Map("n", "<C-t>", ":e#<cr>")
 
 -- insert mode
 Map("i", "<S-CR>", "<esc>O")
@@ -97,6 +89,11 @@ Map("n", "z[", "mAZZ:tabp<cr><C-w>v'A:delmark A<cr>")
 Map("n", "zo", CMD("tabo"), { desc = "tab only" })
 
 -- window
+Map("n", "<C-w><C-o>", function()
+	local view = vim.fn.winsaveview()
+	vim.cmd("only")
+	vim.fn.winrestview(view)
+end)
 Map("n", "<C-w>m", "<C-w>|<C-w>_")
 Map("n", "<C-w>+", "<cmd>resize +10<cr>")
 Map("n", "<C-w>-", "<cmd>resize -10<cr>")
@@ -147,6 +144,8 @@ Map("v", ">", ">gv", {})
 -- move line
 Map("n", "<C-p>", ":m-2<cr>==")
 Map("n", "<C-n>", ":m+1<cr>==")
+Map("x", "<C-p>", ":m '<-2<CR>gv=gv")
+Map("x", "<C-n>", ":m '>+1<CR>gv=gv")
 
 -- unimapaired
 Map("n", "]<space>", CMD("call append(line('.'), '')"))
@@ -157,3 +156,6 @@ Map("n", "[s", CMD("earlier 1f"))
 Map("n", "]s", CMD("later 1f"))
 Map("n", "[t", CMD("tabp"))
 Map("n", "]t", CMD("tabn"))
+
+-- grep
+Map("n", "gJ", ":Grep <C-r><C-w><cr>")

@@ -1,72 +1,221 @@
+local function relative_path(full_path, short_path)
+	if not full_path or not short_path then
+		return "[No Name]"
+	end
+	local rel_path = full_path:match("^" .. vim.pesc(short_path) .. "(.*)$")
+	return rel_path and rel_path:gsub("^/", "") or full_path
+end
+
 return {
-	--mini ai
-	{
-		"echasnovski/mini.ai",
-		keys = {
-			{ "a", mode = { "x", "o" } },
-			{ "i", mode = { "x", "o" } },
-		},
-		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
-		opts = function()
-			local ai = require("mini.ai")
-			return {
-				n_lines = 500,
-				custom_textobjects = {
-					o = ai.gen_spec.treesitter({ -- code block
-						a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-						i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-					}),
-					f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
-					c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
-					t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
-					d = { "%f[%d]%d+" }, -- digits
-					e = { -- Word with case
-						{
-							"%u[%l%d]+%f[^%l%d]",
-							"%f[%S][%l%d]+%f[^%l%d]",
-							"%f[%P][%l%d]+%f[^%l%d]",
-							"^[%l%d]+%f[^%l%d]",
-						},
-						"^().*()$",
+	"echasnovski/mini.nvim",
+	event = "BufEnter",
+	config = function()
+		-- icons --
+		require("mini.icons").setup()
+
+		-- split join
+		require("mini.splitjoin").setup()
+
+		-- notify --
+		local notify = require("mini.notify")
+		notify.setup()
+		local mini_notify = notify.make_notify()
+		vim.notify = function(msg, level, opts)
+			opts = opts or {}
+			if opts.title ~= nil then
+				msg = string.format("[%s]: %s", opts.title, msg)
+			end
+			mini_notify(msg, level)
+		end
+
+		-- ai --
+		local ai = require("mini.ai")
+		ai.setup({
+			n_lines = 500,
+			custom_textobjects = {
+				o = ai.gen_spec.treesitter({ -- code block
+					a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+					i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+				}),
+				f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+				c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
+				t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+				d = { "%f[%d]%d+" }, -- digits
+				e = { -- Word with case
+					{
+						"%u[%l%d]+%f[^%l%d]",
+						"%f[%S][%l%d]+%f[^%l%d]",
+						"%f[%P][%l%d]+%f[^%l%d]",
+						"^[%l%d]+%f[^%l%d]",
 					},
-					u = ai.gen_spec.function_call(), -- u for "Usage"
-					U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+					"^().*()$",
 				},
-			}
-		end,
-		config = function(_, opts)
-			require("mini.ai").setup(opts)
-		end,
-	},
+				u = ai.gen_spec.function_call(), -- u for "Usage"
+				U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+			},
+		})
 
-	-- surround
-	{
-		"echasnovski/mini.surround",
-		keys = { "ys", "ds", "cs" },
-		config = function()
-			require("mini.surround").setup({
-				mappings = {
-					add = "ys",
-					delete = "ds",
-					replace = "cs",
-					find = "",
-					find_left = "",
-					highlight = "ysh",
-					update_n_lines = "",
-				},
-			})
-		end,
-	},
+		-- diff --
+		require("mini.diff").setup({
+			view = {
+				-- style = vim.go.number and "sign" or "number",
+				style = "sign",
+				signs = { add = "│", change = "│", delete = "│" },
+				priority = 199,
+			},
+			mappings = {
+				apply = "gh",
+				reset = "g0",
+				textobject = "gh",
+				goto_first = "[H",
+				goto_prev = "[h",
+				goto_next = "]h",
+				goto_last = "]H",
+			},
+		})
+		Map("n", "<leader>gd", ":lua MiniDiff.toggle_overlay()<cr>")
 
-	-- trailspace
-	{
-		"echasnovski/mini.trailspace",
-		event = "InsertEnter",
-		keys = { { "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>", desc = "trim whitespaces" } },
-		config = function()
-			require("mini.trailspace").setup({
-				only_in_normal_buffers = true,
-			})
-		end,
-	},
+		-- surround --
+		require("mini.surround").setup({
+			mappings = {
+				add = "ys",
+				delete = "ds",
+				replace = "cs",
+				find = "",
+				find_left = "",
+				highlight = "ysh",
+				update_n_lines = "",
+			},
+		})
+
+		-- hipatterns --
+		local hipatterns = require("mini.hipatterns")
+		require("mini.hipatterns").setup({
+			highlighters = {
+				-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+				fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+				hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+				todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+				note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+
+				-- Highlight hex color strings (`#rrggbb`) using that color
+				hex_color = hipatterns.gen_highlighter.hex_color(),
+			},
+		})
+
+		-- trailspace --
+		require("mini.trailspace").setup({
+			only_in_normal_buffers = true,
+		})
+		Map("n", "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>")
+
+		-- statusline --
+		local MiniStatusline = require("mini.statusline")
+		-- lsp
+		local lsp = function()
+			local bufnr = vim.api.nvim_get_current_buf()
+
+			local clients = vim.lsp.buf_get_clients(bufnr)
+			if next(clients) == nil then
+				return "⨯ no server"
+			end
+
+			local c = {}
+			for _, client in pairs(clients) do
+				if client.name ~= "null-ls" then
+					table.insert(c, client.name)
+				end
+			end
+			return " " .. table.concat(c, ",")
+		end
+		-- branch
+		local cached_branch = nil
+		local function get_git_branch()
+			if cached_branch then
+				return cached_branch
+			end
+			local handle = io.popen("git rev-parse --abbrev-ref HEAD 2>/dev/null")
+			local branch = handle:read("*a") or ""
+			handle:close()
+			branch = branch:gsub("%s+", "")
+			cached_branch = branch ~= "" and branch or nil
+			return cached_branch
+		end
+		vim.api.nvim_create_autocmd("DirChanged", {
+			callback = function()
+				cached_branch = nil
+			end,
+		})
+		MiniStatusline.setup({
+			use_icons = true,
+			content = {
+				active = function()
+					local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 40 })
+					local body = "MiniStatuslineFilename"
+					local diagnostics = MiniStatusline.section_diagnostics({
+						trunc_width = 75,
+						icon = "",
+						signs = { ERROR = "E", WARN = "W", INFO = "I", HINT = "*" },
+					})
+					local pathname = vim.bo.buftype == "terminal" and "terminal" --"%t"
+						or "%#MiniStatuslineFilename#" .. vim.fn.expand("%") .. (vim.bo.modified and " [+]" or "")
+
+					local filename = vim.bo.filetype == "oil" and vim.fn.expand("%"):sub(7)
+						or relative_path(vim.fn.expand("%:p"), GetProjectRoot() or vim.fn.getcwd())
+							.. (vim.bo.modified and " [+]" or "")
+
+					local filetype = function()
+						local ft = vim.bo.filetype
+						if ft then
+							return "(" .. ft .. ")"
+						else
+							return ""
+						end
+					end
+					local git_branch = function()
+						local branch = get_git_branch()
+						if branch then
+							return "(" .. branch .. ")"
+						else
+							return ""
+						end
+					end
+
+					local location = MiniStatusline.section_location({ trunc_width = 75 })
+					local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+					local first = mode
+					if search ~= "" then
+						first = search
+					else
+						first = mode:sub(1, 3):upper()
+					end
+					return MiniStatusline.combine_groups({
+						{ hl = mode_hl, strings = { "[" .. first .. "]" } },
+
+						"%<", -- Mark general truncate point
+						-- "%=", -- End left alignment
+						{ hl = body, strings = { filename } },
+						{ hl = body, strings = { git_branch() } },
+						"%=", -- End left alignment
+
+						{ hl = body, strings = { diagnostics } },
+						{ hl = body, strings = { lsp() .. " " .. filetype() } },
+						{ hl = body, strings = { "[%3l:%L|%-2v]" } },
+					})
+				end,
+				inactive = function()
+					local filename = vim.fn.expand("%") .. (vim.bo.modified and " [+]" or "")
+					local body = "MiniStatuslineFilename"
+
+					return MiniStatusline.combine_groups({
+						{ hl = body, strings = { "[" .. vim.bo.ft .. "]" } },
+						"%<", -- Mark general truncate point
+						{ hl = body, strings = { filename } },
+						"%=", -- End left alignment
+					})
+				end,
+			},
+			set_vim_settings = true, -- Make sure statusline is always shown
+		})
+	end,
 }

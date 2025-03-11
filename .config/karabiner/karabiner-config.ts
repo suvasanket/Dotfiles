@@ -46,7 +46,6 @@ function general_map() {
         ...unix_mapping(),
 
         map("left_command").to("left_command").toIfAlone("escape"),
-        map("'").to("left⌥").toIfAlone("'"),
         map("right_control").to("escape"),
         map("j", "option").to("tab", "command"),
         map("k", "option").to("tab", "⌘⇧"),
@@ -75,6 +74,7 @@ function app_browser() {
         'Chromium',
         '^company.thebrowser.Browser',
         '^org.mozilla.com.zen.browser',
+        '^com.brave.Browser',
         'Orion',
         'Safari',
     ];
@@ -113,7 +113,7 @@ function hyper() {
     //const aeros = '/opt/homebrew/bin/aerospace'
     //const ne = `${aeros} list-workspaces --monitor focused --empty no`
     return rule("quick").manipulators([
-        map("'").to(toHyper()).toIfAlone("'"),
+        map(";").to(toHyper()).toIfAlone(";"),
 
         withModifier("Hyper")([
             map('m').toApp('Activity Monitor'),

@@ -3,6 +3,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
+		-- event = "FileType",
 		dependencies = {
 			"williamboman/mason.nvim",
 		},
@@ -23,7 +24,7 @@ return {
             end
 
 			for server, config in pairs(opts.servers) do
-				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+				-- config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
                 config.on_attach = On_attach
 				lspconfig[server].setup(config)
 			end

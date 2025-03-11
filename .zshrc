@@ -88,7 +88,7 @@ alias gi="git init"
 alias vuc="cd && cd .vim && rm -rf undodir && mkdir undodir && cdh"
 alias "mvn create"="mvn archetype:generate"
 alias ta="tmux a || tmux new -s 'Home'"
-alias vl="nvim -c'SessionManager load_last_session'"
+alias vl='nvim -c "normal \`0"'
 cdl() { cd "$@" && ls; }
 gemuninstall() { gem list --no-version | grep'$@' | xargs gem uninstall}
 

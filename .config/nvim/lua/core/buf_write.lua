@@ -1,11 +1,11 @@
 local notify = function(a)
-    vim.notify(vim.fn.expand("%") .. a, "info", { title = "BufWrite Post" })
+    vim.notify(vim.fn.expand("%") .. a, vim.log.levels.INFO, { title = "BufWrite Post" })
 end
 
 -- lua source
 BufWritePostFunc({ "*/ftplugin/*.lua", "*/lua/*.lua" }, function()
 	vim.cmd("silent source")
-	vim.notify(vim.fn.expand("%") .. " sourced", "info", { title = "BufWrite Post"})
+    vim.notify(vim.fn.expand("%") .. " sourced", vim.log.levels.INFO, { title = "BufWrite Post"})
 end)
 
 -- tmux hot reload
