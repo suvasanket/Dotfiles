@@ -58,6 +58,25 @@ Autocmd("TextYankPost", {
 	group = "yank",
 })
 
+-- cmdwin
+Augroup("CmdwinEvents", { clear = true })
+Autocmd("CmdwinEnter", {
+    group = "CmdwinEvents",
+    pattern = "*",
+    callback = function()
+        vim.o.laststatus = 0
+        vim.o.cmdheight = 0
+    end,
+})
+Autocmd("CmdwinLeave", {
+    group = "CmdwinEvents",
+    pattern = "*",
+    callback = function()
+        vim.o.laststatus = 2
+        vim.o.cmdheight = 1
+    end,
+})
+
 -- highligh override
 -- Autocmd("VimEnter", {
 -- 	pattern = "*",
