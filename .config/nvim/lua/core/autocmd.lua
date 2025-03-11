@@ -4,11 +4,9 @@ Import("core.buf_write")
 Autocmd("FileType", {
 	pattern = {
 		"help",
-		"lspinfo",
 		"fugitive",
 		"git",
 		"qf",
-		"term",
 		"vim",
 	},
 	callback = function(event)
@@ -17,15 +15,6 @@ Autocmd("FileType", {
 		vim.bo[event.buf].buflisted = false
 		Map("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
 		Map("n", "<esc>", "<cmd>noh<cr>", { buffer = event.buf, silent = true })
-	end,
-})
-
--- auto remove hidden buffers
-Autocmd("BufHidden", {
-	callback = function()
-		vim.fn.timer_start(600000, function()
-			vim.cmd("silent! BDelete hidden")
-		end)
 	end,
 })
 
@@ -45,34 +34,6 @@ Autocmd("FileType", {
 	pattern = "*",
 	callback = function()
 		vim.cmd("setlocal formatoptions-=c formatoptions-=r formatoptions-=o")
-	end,
-})
-
---terminal win
-Autocmd("TermOpen", {
-	pattern = "*",
-	callback = function()
-		vim.cmd("setlocal ma nonumber norelativenumber")
-	end,
-})
-
---luasnip auto insert templete
-Augroup("SnippetAutoInsert", { clear = true })
-Autocmd("BufNewFile", {
-	group = "SnippetAutoInsert",
-	pattern = "*/snippets/*.lua",
-	callback = function()
-		local boilerplate_path = "/Users/suvasanketrout/.config/nvim/snippets/boilerplate.lua"
-		local content = vim.fn.readfile(boilerplate_path)
-
-		vim.api.nvim_buf_set_lines(0, 0, -1, false, content)
-
-		local filename = vim.fn.expand("%:t") -- Gets the tail of the filename
-		local ext = vim.fn.fnamemodify(filename, ":r") -- Extracts the extension
-
-		vim.cmd(':%s/"\\*\\.lua"/"\\*.' .. ext .. '"')
-		vim.cmd("w")
-		vim.cmd("e")
 	end,
 })
 

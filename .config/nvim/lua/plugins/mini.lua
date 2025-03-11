@@ -14,7 +14,7 @@ return {
 		require("mini.icons").setup()
 
 		-- split join
-		require("mini.splitjoin").setup()
+		require("mini.splitjoin").setup({ mappings = { toggle = "gK" } })
 
 		-- notify --
 		local notify = require("mini.notify")
@@ -78,12 +78,12 @@ return {
 		-- surround --
 		require("mini.surround").setup({
 			mappings = {
-				add = "ys",
+				add = "sa",
 				delete = "ds",
 				replace = "cs",
 				find = "",
 				find_left = "",
-				highlight = "ysh",
+				highlight = "",
 				update_n_lines = "",
 			},
 		})

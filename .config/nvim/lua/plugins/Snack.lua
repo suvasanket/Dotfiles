@@ -4,6 +4,7 @@ return {
 	lazy = false,
 	keys = {
 		{ "zx", "<cmd>lua Snacks.bufdelete()<cr>", desc = "bdel" },
+		{ "z'", "<cmd>lua Snacks.bufdelete.other()<cr>", desc = "bdel other" },
 		{ "zc", "<cmd>lua Snacks.picker('buffers', {layout = {preset='ivy', preview='main'}})<cr>", desc = "hl" },
 		{
 			"<C-S-\\>",
@@ -26,7 +27,7 @@ return {
 			function()
 				local root = GetProjectRoot() or vim.fn.getcwd()
 				Snacks.picker.smart({
-                    hidden = true,
+					hidden = true,
 					cwd = root,
 					title = vim.fs.basename(root) .. "/",
 					layout = {
@@ -88,7 +89,7 @@ return {
 						["<C-space>"] = { "toggle_preview", mode = { "i" } },
 						["<Esc>"] = { "close", mode = { "n", "i" } },
 						["<C-a>"] = { "<Home>", mode = { "i" }, expr = true, desc = "go home" },
-                        ["<C-.>"] = { "toggle_hidden", mode = { "i", "n" } },
+						["<C-.>"] = { "toggle_hidden", mode = { "i", "n" } },
 					},
 				},
 			},
