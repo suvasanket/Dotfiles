@@ -114,10 +114,11 @@ return {
 		-- lsp
 		local lsp = function()
 			local bufnr = vim.api.nvim_get_current_buf()
+			local icon = require("mini.icons").get("file", vim.fn.expand("%"))
 
 			local clients = vim.lsp.buf_get_clients(bufnr)
 			if next(clients) == nil then
-				return "⨯ no server"
+				return icon .. " no_server"
 			end
 
 			local c = {}
@@ -126,26 +127,16 @@ return {
 					table.insert(c, client.name)
 				end
 			end
-			return " " .. table.concat(c, ",")
+			return icon .. " " .. table.concat(c, ",")
 		end
 		-- branch
-		local cached_branch = nil
 		local function get_git_branch()
-			if cached_branch then
-				return cached_branch
-			end
 			local handle = io.popen("git rev-parse --abbrev-ref HEAD 2>/dev/null")
 			local branch = handle:read("*a") or ""
 			handle:close()
 			branch = branch:gsub("%s+", "")
-			cached_branch = branch ~= "" and branch or nil
-			return cached_branch
+			return branch ~= "" and branch or nil
 		end
-		vim.api.nvim_create_autocmd("DirChanged", {
-			callback = function()
-				cached_branch = nil
-			end,
-		})
 		MiniStatusline.setup({
 			use_icons = true,
 			content = {
@@ -157,16 +148,19 @@ return {
 						icon = "",
 						signs = { ERROR = "E", WARN = "W", INFO = "I", HINT = "*" },
 					})
-					local pathname = vim.bo.buftype == "terminal" and "terminal" --"%t"
-						or "%#MiniStatuslineFilename#" .. vim.fn.expand("%") .. (vim.bo.modified and " [+]" or "")
 
-					local filename = vim.bo.filetype == "oil" and vim.fn.expand("%"):sub(7)
-						or relative_path(vim.fn.expand("%:p"), GetProjectRoot() or vim.fn.getcwd())
-							.. (vim.bo.modified and " [+]" or "")
+					local filename = function()
+						if vim.bo.filetype == "oil" then
+							return vim.fn.expand("%"):sub(7)
+						end
+						local fname = relative_path(vim.fn.expand("%:p"), GetProjectRoot() or vim.fn.getcwd())
+						local mod = vim.bo.modified and "[+]" or ""
+						return fname .. " " .. mod
+					end
 
 					local filetype = function()
 						local ft = vim.bo.filetype
-						if ft then
+						if ft ~= "" then
 							return "(" .. ft .. ")"
 						else
 							return ""
@@ -194,13 +188,12 @@ return {
 
 						"%<", -- Mark general truncate point
 						-- "%=", -- End left alignment
-						{ hl = body, strings = { filename } },
-						{ hl = body, strings = { git_branch() } },
+						{ hl = body, strings = { filename() .. git_branch() } },
 						"%=", -- End left alignment
 
 						{ hl = body, strings = { diagnostics } },
-						{ hl = body, strings = { lsp() .. " " .. filetype() } },
-						{ hl = body, strings = { "[%3l:%L|%-2v]" } },
+						{ hl = body, strings = { lsp() .. " " .. filetype() .. " [%3l:%-2v]" } },
+						-- { hl = body, strings = { "[%3l:%L|%-2v]" } },
 					})
 				end,
 				inactive = function()
@@ -208,10 +201,9 @@ return {
 					local body = "MiniStatuslineFilename"
 
 					return MiniStatusline.combine_groups({
-						{ hl = body, strings = { "[" .. vim.bo.ft .. "]" } },
-						"%<", -- Mark general truncate point
 						{ hl = body, strings = { filename } },
 						"%=", -- End left alignment
+						{ hl = body, strings = { "%3l:%-2v" } },
 					})
 				end,
 			},

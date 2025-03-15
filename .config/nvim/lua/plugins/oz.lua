@@ -11,7 +11,7 @@ return {
 			cur_entry_splitter = ":",
 		},
 		async_make = {
-			override_make = false,
+			override_make = true,
 		},
 	},
 }

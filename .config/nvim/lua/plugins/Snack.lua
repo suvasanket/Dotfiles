@@ -5,7 +5,6 @@ return {
 	keys = {
 		{ "zx", "<cmd>lua Snacks.bufdelete()<cr>", desc = "bdel" },
 		{ "z'", "<cmd>lua Snacks.bufdelete.other()<cr>", desc = "bdel other" },
-		{ "zc", "<cmd>lua Snacks.picker('buffers', {layout = {preset='ivy', preview='main'}})<cr>", desc = "hl" },
 		{
 			"<C-S-\\>",
 			function()
@@ -16,6 +15,7 @@ return {
 		{ "<leader>sh", "<cmd>lua Snacks.picker('help')<cr>", desc = "help" },
 		{ "<leader>sk", "<cmd>lua Snacks.picker('keymaps')<cr>", desc = "keymaps" },
 		{ "<leader>sl", "<cmd>lua Snacks.picker('highlights')<cr>", desc = "hl" },
+		{ "<leader>gl", "<cmd>lua Snacks.lazygit()<cr>", desc = "hl" },
 		{
 			"<leader>fp",
 			function()
@@ -60,8 +60,12 @@ return {
 	opts = {
 		bigfile = { enabled = true },
 		quickfile = { enabled = true },
-		-- statuscolumn = { enabled = true },
-		words = { enabled = true },
+		lazygit = {
+			theme = {
+				activeBorderColor = { fg = "@function", bold = true },
+				inactiveBorderColor = { fg = "Comment" },
+			},
+		},
 		image = { enabled = true },
 		picker = {
 			prompt = "> ",

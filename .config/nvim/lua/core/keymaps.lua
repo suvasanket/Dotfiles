@@ -1,5 +1,6 @@
 Import("core.helper")
 
+-- quick fix mappings
 BufMap("qf", "n", "<C-q>", CMD("Clearqflist"))
 BufMap("qf", "n", "c.", [[:cdo s/\<<C-r><C-w>\>//g<Left><Left>]])
 BufMap("qf", "n", "c>", [[:cfdo %s/\<<C-r><C-w>\>//g<Left><Left>]])
@@ -18,12 +19,18 @@ BufMap("qf", "n", "dd", function()
 end)
 BufMap("qf", "n", "<C-g>", ":cdo ")
 
+-- help
+BufMap("help", "n", "gd", "<cmd>execute 'help ' . expand('<cword>')<cr>")
+BufMap("man", "n", "gd", "<cmd>execute 'Man ' . expand('<cword>')<cr>")
+
 -- general
 Map("n", "<leader>qf", CMD("copen"))
 Map("n", "<leader>qc", CMD("Clearqflist"))
 Map("n", "<leader>l", CMD("Lazy"))
 Map({ "n", "i" }, "<F1>", CMD("silent w!"))
-Map({ "i", "x" }, "<C-c>", "<esc>")
+Map({ "i", "x" }, "<C-c>", function()
+	vim.api.nvim_echo({ { "󰚌", "ErrorMsg" }, { " don't press that.", "Comment" } }, false, {})
+end)
 Map("n", "<leader>j", CMD("t."), { desc = "duplicate line" })
 Map("n", "<leader>n", function()
 	vim.cmd("t.")
@@ -46,7 +53,7 @@ Map("t", "<C-S-\\>", "clear\n")
 
 -- system mappings
 Map({ "i", "c" }, "<C-e>", "<end>")
-Map({ "i", "c" }, "<C-a>", "<home>")
+Map({ "i", "c" }, "<C-a>", "<C-o>^")
 
 -- copy paste
 Map({ "n", "x" }, "gp", function()
@@ -89,11 +96,6 @@ Map("n", "z[", "mAZZ:tabp<cr><C-w>v'A:delmark A<cr>")
 Map("n", "zo", CMD("tabo"), { desc = "tab only" })
 
 -- window
-Map("n", "<C-w><C-o>", function()
-	local view = vim.fn.winsaveview()
-	vim.cmd("only")
-	vim.fn.winrestview(view)
-end)
 Map("n", "<C-w>m", "<C-w>|<C-w>_")
 Map("n", "<C-w>+", "<cmd>resize +10<cr>")
 Map("n", "<C-w>-", "<cmd>resize -10<cr>")

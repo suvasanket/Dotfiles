@@ -47,14 +47,6 @@ function BufMap(ft, mode, map, cmd)
 	})
 end
 
-function Telescope(cmd)
-	return table.concat({
-		"<cmd>Telescope ",
-		cmd,
-		" prompt_title=false preview_title=false result_title=false<cr>",
-	})
-end
-
 function GetProjectRoot(markers, path_or_bufnr)
 	local patterns = { ".git", "Makefile", "package.json", "Cargo.toml", "go.mod", "pom.xml", "build.gradle" }
 

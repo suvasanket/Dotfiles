@@ -7,10 +7,10 @@ function Import(file, func)
 			func()
 		else
 			vim.notify("Error: something went wrong in " .. file, vim.log.levels.ERROR)
-            local ans = vim.fn.confirm("open config?", "&Yes\n&No")
-            if ans == 1 then
-                vim.cmd.e("~/.config/nvim/lua/")
-            end
+			local ans = vim.fn.confirm("open config?", "&Yes\n&No")
+			if ans == 1 then
+				vim.cmd.e("~/.config/nvim/lua/")
+			end
 		end
 	end
 end
