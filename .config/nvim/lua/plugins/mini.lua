@@ -13,21 +13,6 @@ return {
 		-- icons --
 		require("mini.icons").setup()
 
-		-- split join
-		require("mini.splitjoin").setup({ mappings = { toggle = "gK" } })
-
-		-- notify --
-		local notify = require("mini.notify")
-		notify.setup()
-		local mini_notify = notify.make_notify()
-		vim.notify = function(msg, level, opts)
-			opts = opts or {}
-			if opts.title ~= nil then
-				msg = string.format("[%s]: %s", opts.title, msg)
-			end
-			mini_notify(msg, level)
-		end
-
 		-- ai --
 		local ai = require("mini.ai")
 		ai.setup({
@@ -78,7 +63,7 @@ return {
 		-- surround --
 		require("mini.surround").setup({
 			mappings = {
-				add = "sa",
+				add = "ys",
 				delete = "ds",
 				replace = "cs",
 				find = "",
@@ -87,6 +72,9 @@ return {
 				update_n_lines = "",
 			},
 		})
+		vim.keymap.del("x", "ys")
+		vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
+		vim.keymap.set("n", "yss", "ys_", { remap = true })
 
 		-- hipatterns --
 		local hipatterns = require("mini.hipatterns")
@@ -116,7 +104,7 @@ return {
 			local bufnr = vim.api.nvim_get_current_buf()
 			local icon = require("mini.icons").get("file", vim.fn.expand("%"))
 
-			local clients = vim.lsp.buf_get_clients(bufnr)
+			local clients = vim.lsp.get_clients({ bufnr = bufnr })
 			if next(clients) == nil then
 				return icon .. " no_server"
 			end
@@ -151,7 +139,9 @@ return {
 
 					local filename = function()
 						if vim.bo.filetype == "oil" then
-							return vim.fn.expand("%"):sub(7)
+							return vim.fn.expand("%"):sub(7):gsub(os.getenv("HOME"), "~")
+						elseif vim.fn.expand("%"):find("oz.*://.*") then
+							return vim.fn.expand("%")
 						end
 						local fname = relative_path(vim.fn.expand("%:p"), GetProjectRoot() or vim.fn.getcwd())
 						local mod = vim.bo.modified and "[+]" or ""

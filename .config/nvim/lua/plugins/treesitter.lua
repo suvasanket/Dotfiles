@@ -4,16 +4,18 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		event = { "BufRead", "BufNewFile" },
-        dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-context",
+		},
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "lua", "vim" },
 				incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "s",
-                        node_incremental = "s",
-                        node_decremental = "S",
+					enable = true,
+					keymaps = {
+						init_selection = "s",
+						node_incremental = "S",
+						node_decremental = "-",
 						scope_incremental = "+",
 					},
 				},
@@ -29,17 +31,6 @@ return {
 
 					additional_vim_regex_highlighting = true,
 				},
-                textobjects = {
-                    swap = {
-                        enable = true,
-                        swap_next = {
-                            ["<leader><leader>a"] = "@parameter.inner",
-                        },
-                        swap_previous = {
-                            ["<leader><leader>A"] = "@parameter.inner",
-                        },
-                    },
-                }
 			})
 		end,
 	},

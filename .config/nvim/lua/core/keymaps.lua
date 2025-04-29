@@ -28,9 +28,6 @@ Map("n", "<leader>qf", CMD("copen"))
 Map("n", "<leader>qc", CMD("Clearqflist"))
 Map("n", "<leader>l", CMD("Lazy"))
 Map({ "n", "i" }, "<F1>", CMD("silent w!"))
-Map({ "i", "x" }, "<C-c>", function()
-	vim.api.nvim_echo({ { "󰚌", "ErrorMsg" }, { " don't press that.", "Comment" } }, false, {})
-end)
 Map("n", "<leader>j", CMD("t."), { desc = "duplicate line" })
 Map("n", "<leader>n", function()
 	vim.cmd("t.")
@@ -38,7 +35,7 @@ Map("n", "<leader>n", function()
 	vim.cmd("normal kgcc")
 	pcall(vim.api.nvim_win_set_cursor, 0, pos)
 end)
-Map("n", "<C-t>", ":e#<cr>")
+Map("n", "<C-;>", ":<up>", { silent = false })
 
 -- insert mode
 Map("i", "<S-CR>", "<esc>O")
@@ -75,22 +72,17 @@ Map({ "n", "x" }, "]p", ":pu<cr>")
 Map({ "n", "x" }, "p", "p`[v`]=")
 Map({ "n", "x" }, "P", "P`[v`]=")
 Map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
-Map("x", "<D-p>", [["_dP]], { desc = "blackhole paste" })
+Map("x", "<leader>p", [["_dP]], { desc = "blackhole paste" })
 
---master
 Map("n", "<C-space>f", CMD("Ftplugin"))
-Map("n", "<C-space>lq", CMD("LspStop"))
-Map("n", "<C-space>ls", CMD("LspStart"))
-Map("n", "<C-space>aa", ":AddAbolish ", { desc = "add abolish", silent = false })
-Map("n", "<C-space>ae", ":AddAbolish!<cr>", { desc = "edit abolish", silent = false })
 
 --buffer & tabs
 Map("n", "[b", CMD("bnext"))
 Map("n", "]b", CMD("bprevious"))
-Map("n", "zp", CMD("tabp"))
-Map("n", "zn", CMD("tabn"))
-Map("n", "zP", CMD("tabmove -1"))
-Map("n", "zN", CMD("tabmove +1"))
+Map("n", "zh", CMD("tabp"))
+Map("n", "zl", CMD("tabn"))
+Map("n", "zL", CMD("tabmove -1"))
+Map("n", "zH", CMD("tabmove +1"))
 Map("n", "z]", "mAZZ<C-w>v'A:delmark A<cr>")
 Map("n", "z[", "mAZZ:tabp<cr><C-w>v'A:delmark A<cr>")
 Map("n", "zo", CMD("tabo"), { desc = "tab only" })
@@ -102,38 +94,10 @@ Map("n", "<C-w>-", "<cmd>resize -10<cr>")
 Map("n", "<C-w>>", "<cmd>vert resize +7<cr>")
 Map("n", "<C-w><", "<cmd>vert resize -7<cr>")
 
---git
-Map("n", "<leader>gg", function()
-	local ok = pcall(vim.cmd, "G")
-	if not ok then
-		vim.notify("No git repo found", vim.log.levels.ERROR)
-		vim.api.nvim_feedkeys(":silent Git init | Git", "n", false)
-	end
-end, { silent = false })
-
-BufMap("fugitive", "n", "gm", function()
-	local user_input = UserInput("remote url: ")
-	if user_input then
-		ShellCmd({ "git", "remote", "add", "origin", user_input }, function()
-			print("remote added")
-		end, function()
-			local ans = vim.fn.confirm("DO you really want to update remote url ?", "&Yes\n&No")
-			if ans == 1 then
-				vim.cmd("Git remote set-url origin " .. user_input)
-				print("git remote set to " .. user_input)
-			end
-		end)
-	end
-end)
-BufMap("fugitive", "n", "K", function()
-	local line = vim.fn.getline(".")
-	local pattern = line:match("^%S*%s(.+)$")
-	vim.cmd("G rm --cached -r " .. pattern)
-end)
-Map("n", "<leader>gc", "<cmd>Gcommit<cr>", { desc = "smart commit" })
-
--- Search inside visually highlighted text.
-Map("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
+-- git
+Map("n", "<leader>gl", CMD("GitLog"))
+Map("n", "<leader>ga", CMD("Gw"))
+-- Map("n", "<leader>gg", CMD("Git commit"))
 
 -- Search and Replace
 Map("n", "c.", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
@@ -149,15 +113,8 @@ Map("n", "<C-n>", ":m+1<cr>==")
 Map("x", "<C-p>", ":m '<-2<CR>gv=gv")
 Map("x", "<C-n>", ":m '>+1<CR>gv=gv")
 
--- unimapaired
-Map("n", "]<space>", CMD("call append(line('.'), '')"))
-Map("n", "[<space>", CMD("call append(line('.')-1, '')"))
-Map("n", "]q", CMD("cnext"))
-Map("n", "[q", CMD("cprev"))
 Map("n", "[s", CMD("earlier 1f"))
 Map("n", "]s", CMD("later 1f"))
-Map("n", "[t", CMD("tabp"))
-Map("n", "]t", CMD("tabn"))
 
 -- grep
 Map("n", "gJ", ":Grep <C-r><C-w><cr>")

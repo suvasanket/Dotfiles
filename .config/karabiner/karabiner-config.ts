@@ -5,7 +5,6 @@ import {
     map,
     mapDoubleTap,
     rule,
-    toHyper,
     toKey,
     withModifier,
     writeToProfile,
@@ -23,12 +22,11 @@ writeToProfile(
     "Default profile",
     [
         easy_edit(),
-        hyper(),
+        app_switch_layer(),
         system_layer(),
 
         general_map(),
         alfred_layer(),
-        //raycast(),
 
         app_finder(),
         app_kitty(),
@@ -88,58 +86,39 @@ function app_browser() {
 }
 
 function easy_edit() {
-    let layer = duoLayer("f", "d").threshold(50)
+    let layer = duoLayer("s", "d")
     return layer.manipulators([
+        withModifier("control")([
+            map("h").to("⌫"),
+            map("u").to("⌫" ,"‹⌘"),
+            map("w").to("⌫" ,"‹⌥")
+        ]),
         withModifier("??")([
             map("h").to("←"),
             map("j").to("↓"),
             map("k").to("↑"),
             map("l").to("→"),
 
-            map("s").to("‹⌘"),
             map("spacebar").to("‹⌥"),
-            map("'").to("‹⇧"),
-
-            map(",").to("delete_or_backspace"),
-            map(".").to("⌦"),
-            map("b").to("z", "<⌘"),
-            map("n").to("x", "<⌘"),
-            map("m").to("v", "<⌘"),
+            map("d").to("‹⇧"),
         ])
     ]);
 }
 
-function hyper() {
-    //const aeros = '/opt/homebrew/bin/aerospace'
-    //const ne = `${aeros} list-workspaces --monitor focused --empty no`
-    return rule("quick").manipulators([
-        map(";").to(toHyper()).toIfAlone(";"),
-
-        withModifier("Hyper")([
-            map('m').toApp('Activity Monitor'),
-            //map('m').to$('. ~/.local/scripts/openBTOP.sh'),
-            map('f').to$('open /System/Library/CoreServices/Finder.app'),
+function app_switch_layer() {
+    let layer = duoLayer("l", "k")
+    return layer.manipulators([
+        withModifier("??")([
             map('a').toApp('ghostty'),
-            map('s').to("2", "⌥"),
-            map('d').toApp('ChatGPT'),
+            map('s').to('2', '⌥'),
+            // map('s').toApp('Zen'),
+            map('d').toApp('Notes'),
             map('g').toApp('obsidian'),
+            map('w').toApp('Activity Monitor'),
+            map('f').to$('open /System/Library/CoreServices/Finder.app'),
             map('4').to('4', '⌥'),
             map('5').to('5', '⌥'),
-
-            //map('h').to$(`${ne} | ${aeros} workspace prev`),
-            //map('l').to$(`${ne} | ${aeros} workspace next`),
-            map('h').to("left_arrow"),
-            map('l').to("right_arrow"),
-            map('k').to("up_arrow"),
-            map('j').to("down_arrow"),
         ]),
-
-        withModifier("left⌥")([
-            map('a').toApp('ghostty'),
-            map('s').toApp('zen browser'),
-            map('d').toApp('ChatGPT'),
-            map('g').toApp('obsidian'),
-        ])
     ])
 }
 
@@ -160,6 +139,7 @@ function raycast() {
             map("c").to$("open -g raycast://extensions/raycast/clipboard-history/clipboard-history"),
         ])
 }
+
 function alfred_layer(){
     return hyperLayer("spacebar")
     .description('HyperSpace')
@@ -173,6 +153,7 @@ function alfred_layer(){
         map("s").to("f12", "⌘⌥"),
     ])
 }
+
 
 function system_layer() {
     return duoLayer("z", "x").manipulators([
@@ -198,7 +179,4 @@ function system_layer() {
             map("-").to("display_brightness_decrement"),
         ]),
     ]);
-}
-function to(arg0: string, arg1: string): import("karabiner.ts").ToEvent | import("karabiner.ts").ToEvent[] | undefined {
-    throw new Error("Function not implemented.");
 }

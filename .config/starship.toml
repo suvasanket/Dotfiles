@@ -9,8 +9,8 @@ $character\
 add_newline = false
 
 [character]
-success_symbol = '[>](bold #b4b4b3)'
-error_symbol = '[>](bold red)'
+success_symbol = '[❯](bold #b4b4b3)'
+error_symbol = '[❯](bold red)'
 vimcmd_symbol = '[^](bold green)'
 
 [directory]

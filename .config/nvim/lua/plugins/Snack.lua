@@ -15,7 +15,7 @@ return {
 		{ "<leader>sh", "<cmd>lua Snacks.picker('help')<cr>", desc = "help" },
 		{ "<leader>sk", "<cmd>lua Snacks.picker('keymaps')<cr>", desc = "keymaps" },
 		{ "<leader>sl", "<cmd>lua Snacks.picker('highlights')<cr>", desc = "hl" },
-		{ "<leader>gl", "<cmd>lua Snacks.lazygit()<cr>", desc = "hl" },
+		{ "<leader>gL", "<cmd>lua Snacks.lazygit()<cr>", desc = "hl" },
 		{
 			"<leader>fp",
 			function()
