@@ -8,6 +8,10 @@ Autocmd("LspAttach", {
 	end,
 })
 
+vim.diagnostic.config({
+	virtual_text = true,
+})
+
 vim.lsp.config["luals"] = {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },

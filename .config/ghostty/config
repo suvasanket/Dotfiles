@@ -2,8 +2,9 @@ initial-command = /bin/zsh -l -c "if /opt/homebrew/bin/tmux has-session 2>/dev/n
 
 # Font
 font-family = "Monaspace Neon Var"
+# font-family = "JetBrainsMono Nerd Font Mono"
 # font-family = "Iosevka Fixed Extended"
-# font-family-italic = "Monaspace Argon Var"
+font-family-italic = "Monaspace Argon Var"
 font-style = "Medium"
 font-style-italic = "Medium Italic"
 font-style-bold = "ExtraBold"

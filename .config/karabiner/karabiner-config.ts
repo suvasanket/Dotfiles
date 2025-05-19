@@ -47,8 +47,8 @@ function general_map() {
         map("right_control").to("escape"),
         map("j", "option").to("tab", "command"),
         map("k", "option").to("tab", "⌘⇧"),
-        map('h', '⌘').to('[', '⌘⇧'),
-        map('l', '⌘').to(']', '⌘⇧'),
+        // map('h', '⌘').to('[', '⌘⇧'),
+        // map('l', '⌘').to(']', '⌘⇧'),
 
         mapDoubleTap('↑').to('↖︎'),
         mapDoubleTap('↓').to('end'),
@@ -101,6 +101,9 @@ function easy_edit() {
 
             map("spacebar").to("‹⌥"),
             map("d").to("‹⇧"),
+
+            map(",").to("delete_or_backspace"),
+            map(".").to("⌦"),
         ])
     ]);
 }
@@ -158,8 +161,6 @@ function alfred_layer(){
 function system_layer() {
     return duoLayer("z", "x").manipulators([
         withModifier("??")([
-            map('return_or_enter').to('f', '⌥⇧'),
-            map('\'').to('s', '⌥⇧'),
             map('l').to(']', '⌥'),
             map('h').to('[', '⌥'),
             map('j').to('tab', '⌘⇧'),

@@ -50,7 +50,7 @@ Map("t", "<C-S-\\>", "clear\n")
 
 -- system mappings
 Map({ "i", "c" }, "<C-e>", "<end>")
-Map({ "i", "c" }, "<C-a>", "<C-o>^")
+Map({ "i", "c" }, "<C-a>", "<home>")
 
 -- copy paste
 Map({ "n", "x" }, "gp", function()
@@ -77,8 +77,6 @@ Map("x", "<leader>p", [["_dP]], { desc = "blackhole paste" })
 Map("n", "<C-space>f", CMD("Ftplugin"))
 
 --buffer & tabs
-Map("n", "[b", CMD("bnext"))
-Map("n", "]b", CMD("bprevious"))
 Map("n", "zh", CMD("tabp"))
 Map("n", "zl", CMD("tabn"))
 Map("n", "zL", CMD("tabmove -1"))
@@ -89,14 +87,11 @@ Map("n", "zo", CMD("tabo"), { desc = "tab only" })
 
 -- window
 Map("n", "<C-w>m", "<C-w>|<C-w>_")
-Map("n", "<C-w>+", "<cmd>resize +10<cr>")
-Map("n", "<C-w>-", "<cmd>resize -10<cr>")
-Map("n", "<C-w>>", "<cmd>vert resize +7<cr>")
-Map("n", "<C-w><", "<cmd>vert resize -7<cr>")
 
 -- git
 Map("n", "<leader>gl", CMD("GitLog"))
 Map("n", "<leader>ga", CMD("Gw"))
+Map("n", "g\\", CMD("Gcw! safe point!"))
 -- Map("n", "<leader>gg", CMD("Git commit"))
 
 -- Search and Replace
@@ -117,4 +112,12 @@ Map("n", "[s", CMD("earlier 1f"))
 Map("n", "]s", CMD("later 1f"))
 
 -- grep
-Map("n", "gJ", ":Grep <C-r><C-w><cr>")
+Map("n", "gw", ":Grep <C-r><C-w><cr>")
+Map("n", "g<cr>", ":Grep 'FIXME|TODO|WIP'<cr>")
+Map({ "n", "v" }, "<C-'>", function()
+	if vim.fn.mode() == "n" then
+		return ":Grep ''<left>"
+	elseif vim.fn.mode() == "v" then
+		return ":Grep<cr>"
+	end
+end, { expr = true, silent = false })

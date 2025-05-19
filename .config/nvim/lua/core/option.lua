@@ -45,6 +45,8 @@ o.wildmenu = true
 o.wildmode = "full"
 o.wildoptions = "fuzzy"
 
+o.grepprg = "rg --vimgrep -u -S"
+
 --backspace
 o.backspace = "indent,eol,start"
 
@@ -64,5 +66,5 @@ cnoreabbrev T Term
 cnoreabbrev T! Term!
 cnoreabbrev T1 Term!
 cnoreabbrev man Man
-cnoreabbrev <expr> e getcmdline() == 'e' ? 'E' : 'e'
+"cnoreabbrev <expr> e getcmdline() == 'e' ? 'E' : 'e'
 ]])

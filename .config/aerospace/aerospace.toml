@@ -11,7 +11,7 @@ start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 30
-default-root-container-layout = 'accordion'
+default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 automatically-unhide-macos-hidden-apps = true
 
@@ -39,8 +39,12 @@ alt-shift-l = 'move right'
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
-alt-shift-f = 'layout floating tiling'
-alt-shift-s = 'layout accordion horizontal vertical'
+## tiling
+alt-shift-enter = 'layout tiling accordion floating'
+
+# window close
+alt-shift-w = 'close-all-windows-but-current --quit-if-last-window'
+cmd-shift-w = 'close --quit-if-last-window'
 
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
@@ -60,8 +64,8 @@ alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
 alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
 alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
 
-alt-shift-w = ['mode service','exec-and-forget sketchybar -m --set modal icon="󰭠"']
-ctrl-cmd-f = 'macos-native-fullscreen'
+# ctrl-cmd-f = 'macos-native-fullscreen'
+ctrl-cmd-f = ['exec-and-forget ~/.config/aerospace/fullscreen.sh']
 cmd-m = 'macos-native-minimize'
 cmd-h = []
 
@@ -120,24 +124,8 @@ run = ['layout floating', 'move-node-to-workspace 4']
 if.app-id = 'com.apple.Music'
 run = ['move-node-to-workspace 4']
 
-[[on-window-detected]]
-if.app-id = 'com.kv.Aural'
-run = ['layout floating', 'move-node-to-workspace 4']
-
 # 5
 [[on-window-detected]]
 check-further-callbacks = true
 run = ['layout floating']
 ## APP SPACES
-
-
-# 'service' binding mode declaration.
-[mode.service.binding]
-r = ['flatten-workspace-tree', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-f = ['layout floating tiling', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-o = ['close-all-windows-but-current', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-s = ['layout accordion horizontal vertical', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-b = ['layout tiles horizontal vertical', 'mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-alt-shift-w = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-space = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']
-i = ['mode main','exec-and-forget sketchybar -m --set modal icon="" label=""']

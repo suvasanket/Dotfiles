@@ -38,8 +38,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.13/libexec/bin:$PATH"
 
 # nvm
-# NVM_BIN_PATH="$HOME/dotfiles/.config/nvm/versions/node/v22.2.0/bin"
-# export PATH="$NVM_BIN_PATH:$PATH"
+NVM_BIN_PATH="$HOME/dotfiles/.config/nvm/versions/node/v22.2.0/bin"
+export PATH="$NVM_BIN_PATH:$PATH"
 #
 # export NVM_DIR="$HOME/.config/nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm

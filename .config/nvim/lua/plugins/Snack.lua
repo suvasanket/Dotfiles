@@ -39,21 +39,9 @@ return {
 			end,
 		},
 		{
-			"<C-'>",
+			"<leader>'",
 			function()
 				Snacks.picker.grep({ cwd = GetProjectRoot() or vim.fn.getcwd() })
-			end,
-		},
-		{ "gr", "<cmd>lua Snacks.picker('lsp_references')<cr>" },
-		{
-			"<leader>cd",
-			function()
-				Snacks.picker.diagnostics({
-					on_show = function()
-						vim.cmd.stopinsert()
-					end,
-					layout = { preset = "ivy", preview = "main" },
-				})
 			end,
 		},
 	},

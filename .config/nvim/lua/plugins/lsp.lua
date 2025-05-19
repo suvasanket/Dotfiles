@@ -1,34 +1,45 @@
 return {
-    -- mason --
-    {
-        "williamboman/mason.nvim",
-        event = "BufReadPost",
-        config = function()
-            require("mason").setup({
-                ui = {
-                    border = "single",
-                },
-            })
-        end,
-    },
+	-- mason --
+	{
+		"williamboman/mason.nvim",
+		event = "BufReadPost",
+		opts = {},
+	},
 
-    -- null-ls --
-    {
-        "stevearc/conform.nvim",
-        keys = {
-            { "<C-s>", "<cmd>lua require('conform').format()<cr>" },
-        },
-        opts = {
-            formatters_by_ft = {
-                lua = { "stylua" },
-                javascript = { "prettier" },
-                typescript = { "prettier" },
-                sh = { "shfmt" },
-                bash = { "shfmt" },
-            },
-            default_format_opts = {
-                lsp_format = "fallback",
-            },
-        },
-    },
+	-- null-ls --
+	{
+		"stevearc/conform.nvim",
+		keys = {
+			{ "<C-s>", "<cmd>lua require('conform').format()<cr>" },
+		},
+		opts = {
+			formatters_by_ft = {
+				lua = { "stylua" },
+				javascript = { "prettier" },
+				typescript = { "prettier" },
+				sh = { "shfmt" },
+				bash = { "shfmt" },
+			},
+			default_format_opts = {
+				lsp_format = "fallback",
+			},
+		},
+	},
+
+	-- trouble
+	{
+		"folke/trouble.nvim",
+		opts = {
+			focus = true,
+			auto_jump = true,
+		},
+		cmd = "Trouble",
+		keys = {
+			{
+				"<leader>cd",
+				"<cmd>Trouble diagnostics toggle focus=true<cr>",
+			},
+			{ "grr", "<cmd>Trouble lsp_references toggle focus=true<cr>" },
+		},
+	},
 }
