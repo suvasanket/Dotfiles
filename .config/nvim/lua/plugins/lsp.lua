@@ -31,7 +31,6 @@ return {
 		"folke/trouble.nvim",
 		opts = {
 			focus = true,
-			auto_jump = true,
 		},
 		cmd = "Trouble",
 		keys = {

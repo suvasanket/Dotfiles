@@ -24,8 +24,10 @@ export function historyNavi() {
 /** Pre/Next switcher in most apps. */
 export function switcher() {
   return [
-    map('h', '⌘⌥⌃').to('⇥', '⌃⇧'), //
-    map('l', '⌘⌥⌃').to('⇥', '⌃'),
+        // map('h', '⌘⌥⌃').to('⇥', '⌃⇧'),
+        // map('l', '⌘⌥⌃').to('⇥', '⌃'),
+      map('q', '⌘⌃').to('[', '⌘⇧'),
+      map('e', '⌘⌃').to(']', '⌘⇧'),
   ]
 }
 export function unix_mapping() {

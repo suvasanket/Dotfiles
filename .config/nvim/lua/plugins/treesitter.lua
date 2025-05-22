@@ -3,11 +3,10 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-        enabled = false,
 		event = { "BufRead", "BufNewFile" },
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-context",
-		},
+		-- dependencies = {
+		-- 	"nvim-treesitter/nvim-treesitter-context",
+		-- },
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "lua", "vim" },

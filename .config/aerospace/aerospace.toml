@@ -69,6 +69,12 @@ ctrl-cmd-f = ['exec-and-forget ~/.config/aerospace/fullscreen.sh']
 cmd-m = 'macos-native-minimize'
 cmd-h = []
 
+##### open apps #####
+ctrl-1 = ['exec-and-forget open -a ghostty']
+ctrl-2 = ['exec-and-forget ~/.config/aerospace/open_browser.sh']
+ctrl-3 = ['exec-and-forget open -a Gimp']
+ctrl-4 = ['exec-and-forget open /System/Library/CoreServices/Finder.app']
+
 ## APP SPACES
 # 1
 [[on-window-detected]]
@@ -104,7 +110,7 @@ if.app-id = 'com.apple.mail'
 run = ['move-node-to-workspace 3']
 
 [[on-window-detected]]
-if.app-id = 'com.openai.chat'
+if.app-id = 'org.gimp.gimp-3.0'
 run = ['move-node-to-workspace 3']
 
 # 4
