@@ -72,8 +72,9 @@ cmd-h = []
 ##### open apps #####
 ctrl-1 = ['exec-and-forget open -a ghostty']
 ctrl-2 = ['exec-and-forget ~/.config/aerospace/open_browser.sh']
-ctrl-3 = ['exec-and-forget open -a Gimp']
+# ctrl-3 = ['exec-and-forget open -a Gimp']
 ctrl-4 = ['exec-and-forget open /System/Library/CoreServices/Finder.app']
+ctrl-5 = ['exec-and-forget open -a Activity\ Monitor']
 
 ## APP SPACES
 # 1
@@ -82,8 +83,8 @@ if.app-id = 'net.kovidgoyal.kitty'
 run = ['move-node-to-workspace 1']
 
 [[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
-run = "move-node-to-workspace 1"
+if.app-id="com.mitchellh.ghostty"
+run = ['move-node-to-workspace 1']
 
 # 2
 [[on-window-detected]]
@@ -91,7 +92,7 @@ if.app-id = 'com.kagi.kagimacOS'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = 'company.thebrowser.Browser'
+if.app-id = 'org.chromium.Chromium'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]

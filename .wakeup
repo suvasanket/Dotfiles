@@ -1,0 +1,9 @@
+#!/bin/bash
+# Sleepwatcher (Homebrew package) script that runs on wakeup.
+# See also: ~/.sleep, ~/.wakeup, ~/.sleepwatcher.log
+/opt/homebrew/bin/blueutil --power on
+
+sleep .3
+networksetup -setairportpower en0 on
+
+# echo "$(date -Iseconds) -- Wake event detected, bluetooth enabled. Bluetooth status: $(/opt/homebrew/bin/blueutil --power)" >> ~/.sleepwatcher.log

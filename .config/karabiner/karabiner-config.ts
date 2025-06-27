@@ -74,7 +74,6 @@ function app_browser() {
     ];
     return rule("Browser", ifApp(browsers)).manipulators([
         ...switcher(),
-        ...historyNavi(),
         ...tapModifiers({
             '›⌘': toKey('i', '⌘⌥'),
         })

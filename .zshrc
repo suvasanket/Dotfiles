@@ -38,11 +38,8 @@ autoload -Uz compinit && compinit
 zinit cdreplay -q
 
 # Keybindings
-bindkey -v
+bindkey -e
 bindkey '^l' autosuggest-accept
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
-bindkey '^[w' kill-region
 
 # History
 HISTSIZE=2000
@@ -69,6 +66,7 @@ fi
 alias :q="exit"
 alias ta="tmux a || tmux new -s 'Home'"
 alias vl='nvim -c "normal \`0"'
+alias ll="ls -laG"
 cdl() { cd "$@" && ls; }
 
 # Shell integrations

@@ -88,11 +88,12 @@ Map("n", "zo", CMD("tabo"), { desc = "tab only" })
 -- window
 Map("n", "<C-w>m", "<C-w>|<C-w>_")
 
--- git
+-- oz
 Map("n", "<leader>gl", CMD("GitLog"))
 Map("n", "<leader>ga", CMD("Gw"))
 Map("n", "g\\", CMD("Gcw! safe point!"))
 -- Map("n", "<leader>gg", CMD("Git commit"))
+Map("n", "<C-Cr>", CMD("Make"))
 
 -- Search and Replace
 Map("n", "c.", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })

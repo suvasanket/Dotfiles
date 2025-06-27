@@ -26,4 +26,11 @@ return {
 			},
 		},
 	},
+
+	-- quicker
+	{
+		"stevearc/quicker.nvim",
+		ft = "qf",
+		opts = {},
+	},
 }

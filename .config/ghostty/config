@@ -1,4 +1,4 @@
-initial-command = /bin/zsh -l -c "if /opt/homebrew/bin/tmux has-session 2>/dev/null; then /opt/homebrew/bin/tmux attach; else /opt/homebrew/bin/tmux new -s lab; fi"
+initial-command = /bin/zsh /Users/suvasanketrout/.config/ghostty/open_tmux.sh
 
 # Font
 font-family = "Monaspace Neon Var"
@@ -60,6 +60,13 @@ keybind = super+two=text:\x1d\x32
 keybind = super+three=text:\x1d\x33
 keybind = super+four=text:\x1d\x34
 keybind = super+five=text:\x1d\x35
+
+keybind = shift+super+d=text:\x1d\x22
+keybind = super+d=text:\x1d\x25
+keybind = super+left_bracket=text:\x1d\x68
+keybind = super+right_bracket=text:\x1d\x6c
+# keybind = super+j=text:\x1d\x6a
+# keybind = super+k=text:\x1d\x6b
 
 macos-option-as-alt = left
 keybind = alt+left=unbind

@@ -25,11 +25,11 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 '
 
 # ruby
-if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
-    export PATH=/opt/homebrew/opt/ruby/bin:$PATH
-    export PATH=`gem environment gemdir`/bin:$PATH
-fi
-export PATH=$PATH:~/.gem/ruby/3.3.0/bin
+# if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+#     export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+#     export PATH=`gem environment gemdir`/bin:$PATH
+# fi
+# export PATH=$PATH:~/.gem/ruby/3.3.0/bin
 
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"
