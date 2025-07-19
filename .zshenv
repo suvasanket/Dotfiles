@@ -23,6 +23,8 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --marker="+" --pointer=" " --separator="" --scrollbar=""
 --layout="reverse" --info="right"
 '
+export FZF_CTRL_T_COMMAND='command cat <(fre --sorted) <(fd -t d) <(fd -t d . ~)'
+export FZF_CTRL_T_OPTS='--tiebreak=index'
 
 # ruby
 # if [ -d "/opt/homebrew/opt/ruby/bin" ]; then

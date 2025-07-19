@@ -1,17 +1,16 @@
 import {
     duoLayer,
-    hyperLayer,
     ifApp,
     map,
     mapDoubleTap,
     rule,
     toKey,
+    toHyper,
     withModifier,
     writeToProfile,
 } from "karabiner.ts";
 
 import {
-    historyNavi,
     switcher,
     tapModifiers,
     toClearNotifications,
@@ -21,19 +20,21 @@ import {
 writeToProfile(
     "Default profile",
     [
-        easy_edit(),
+        vim_mode(),
         system_layer(),
 
         general_map(),
+        hyper_layer(),
 
         app_finder(),
-        app_kitty(),
         app_browser(),
+        app_ms_todo()
     ],
     {
         "basic.simultaneous_threshold_milliseconds": 40,
         "duo_layer.threshold_milliseconds": 40,
         "duo_layer.notification": false,
+        'basic.to_if_held_down_threshold_milliseconds': 20,
     }
 );
 
@@ -57,9 +58,17 @@ function app_finder() {
     ]);
 }
 
-function app_kitty() {
-    return rule("kitty", ifApp("^net.kovidgoyal.kitty")).manipulators([
-        ...switcher(),
+function app_ms_todo() {
+    return rule("mstodo", ifApp("^com.microsoft.to-do-mac")).manipulators([
+        map("1", "⌃").to("1", "⌘⌥"),
+        map("2", "⌃").to("2", "⌘⌥"),
+        map("3", "⌃").to("3", "⌘⌥"),
+        map("4", "⌃").to("4", "⌘⌥"),
+        map("5", "⌃").to("5", "⌘⌥"),
+        map("6", "⌃").to("6", "⌘⌥"),
+
+        map("n", "⌃").to("↓"),
+        map("p", "⌃").to("↑"),
     ]);
 }
 
@@ -79,8 +88,29 @@ function app_browser() {
         })
     ]);
 }
+function hyper_layer() {
+    return rule("hyper_layer").manipulators([
+        map(";").toIfHeldDown(toHyper()).toIfAlone(";"),
 
-function easy_edit() {
+        withModifier("Hyper")([
+            map('a').toApp('ghostty'),
+            // map('s').to$('/bin/zsh/ /Users/suvasanketrout/.config/aerospace/open_browser.sh'),
+            map('d').toApp('obsidian'),
+            map('f').to$('open /System/Library/CoreServices/Finder.app'),
+            map('m').toApp('Activity Monitor'),
+            map('j').toApp('Microsoft To Do'),
+
+            map('c').to('c', '⌘⌥'),
+            map('l').to('⇥', '⌘'),
+            map('h').to('⇥', '⌘⇧'),
+            // map('spacebar').to('f11', '⌘⌥'),
+            // map('j').to('f12', '⌘⌥'),
+            // map('y').to('f10', '⌘⌥'),
+        ]),
+    ])
+}
+
+function vim_mode() {
     let layer = duoLayer("s", "d")
     return layer.manipulators([
         withModifier("control")([
@@ -94,28 +124,15 @@ function easy_edit() {
             map("k").to("↑"),
             map("l").to("→"),
 
-            map("spacebar").to("‹⌥"),
-            map("d").to("‹⇧"),
+            map("f").to("‹⌥"),
+            map("a").to("‹⌘"),
+            map("spacebar").to("‹⇧"),
 
-            map(",").to("delete_or_backspace"),
-            map(".").to("⌦"),
+            map("n").to("delete_or_backspace"),
+            map("m").to("⌦"),
+            map("'").to("z", "⌘"),
         ])
     ]);
-}
-
-function raycast() {
-    return hyperLayer('r')
-        .description('HyperLayer: r')
-        .leaderMode({ escape: ['escape'] })
-        .notification()
-        .manipulators([
-            map("o").to$("open -g raycast://extensions/EvanZhouDev/raycast-gemini/askAboutScreen?arguments=%7B%22query%22%3A%22%22%7D"),
-            map("a").to$("open -g raycast://extensions/joshmedeski/sesh/cmd-connect"),
-            map("t").to$("open -g raycast://extensions/doist/todoist/search"),
-            map("d").to$("open -g raycast://extensions/lardissone/raindrop-io/search"),
-            map("j").to$("open -g raycast://extensions/thomas/downloads-manager/manage-downloads"),
-            map("f").to$("open -g raycast://extensions/raycast/raycast-focus/toggle-focus-session"),
-        ])
 }
 
 function system_layer() {

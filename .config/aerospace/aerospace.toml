@@ -7,13 +7,16 @@ exec-on-workspace-change = [
     '-c',
     '/Users/suvasanketrout/.config/aerospace/workspace_change.sh'
 ]
+
+on-focus-changed = [
+    'exec-and-forget sketchybar --trigger aerospace_focus_change'
+]
 start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 30
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
-automatically-unhide-macos-hidden-apps = true
 
 gaps.inner.horizontal = 5
 gaps.inner.vertical = 5
@@ -70,11 +73,11 @@ cmd-m = 'macos-native-minimize'
 cmd-h = []
 
 ##### open apps #####
-ctrl-1 = ['exec-and-forget open -a ghostty']
-ctrl-2 = ['exec-and-forget ~/.config/aerospace/open_browser.sh']
+alt-ctrl-cmd-shift-s = ['exec-and-forget ~/.config/aerospace/open_browser.sh']
+# ctrl-cmd-i = ['exec-and-forget open -a ghostty']
 # ctrl-3 = ['exec-and-forget open -a Gimp']
-ctrl-4 = ['exec-and-forget open /System/Library/CoreServices/Finder.app']
-ctrl-5 = ['exec-and-forget open -a Activity\ Monitor']
+# ctrl-cmd-k = ['exec-and-forget open /System/Library/CoreServices/Finder.app']
+# ctrl-5 = ['exec-and-forget open -a Activity\ Monitor']
 
 ## APP SPACES
 # 1
@@ -107,31 +110,44 @@ run = ['move-node-to-workspace 2']
 
 # 3
 [[on-window-detected]]
-if.app-id = 'com.apple.mail'
-run = ['move-node-to-workspace 3']
+if.app-id = 'com.microsoft.to-do-mac'
+run = ['layout floating', 'move-node-to-workspace 3']
 
 [[on-window-detected]]
-if.app-id = 'org.gimp.gimp-3.0'
-run = ['move-node-to-workspace 3']
+if.app-id = 'md.obsidian'
+run = ['layout floating', 'move-node-to-workspace 3']
 
 # 4
 [[on-window-detected]]
-if.app-id = 'org.videolan.vlc'
-run = ['layout floating','move-node-to-workspace 4']
+if.app-id = 'com.apple.mail'
+run = ['move-node-to-workspace 4']
 
 [[on-window-detected]]
-if.app-id = 'com.colliderli.iina'
-run = ['layout floating','move-node-to-workspace 4']
+if.app-id = 'org.gimp.gimp-3.0'
+run = ['move-node-to-workspace 4']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = ['layout floating', 'move-node-to-workspace 4']
 
+# 5
+[[on-window-detected]]
+if.app-id = 'org.videolan.vlc'
+run = ['layout floating','move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.colliderli.iina'
+run = ['layout floating','move-node-to-workspace 5']
+
 [[on-window-detected]]
 if.app-id = 'com.apple.Music'
-run = ['move-node-to-workspace 4']
+run = ['move-node-to-workspace 5']
 
-# 5
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = ['layout floating', 'move-node-to-workspace 5']
+
+## fallback
 [[on-window-detected]]
 check-further-callbacks = true
 run = ['layout floating']

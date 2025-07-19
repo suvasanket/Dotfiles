@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-/opt/homebrew/opt/sketchybar/bin/sketchybar \
+/opt/homebrew/bin/sketchybar \
     --trigger \
-    aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE
+    aerospace_workspace_change PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE
+
 
 # focus finder entering empty space
 EMPTY_WORKSPACE=$(aerospace list-workspaces --monitor focused --empty)

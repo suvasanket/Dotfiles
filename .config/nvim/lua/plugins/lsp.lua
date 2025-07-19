@@ -19,6 +19,7 @@ return {
 				typescript = { "prettier" },
 				sh = { "shfmt" },
 				bash = { "shfmt" },
+				zsh = { "shfmt" },
 			},
 			default_format_opts = {
 				lsp_format = "fallback",

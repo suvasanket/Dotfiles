@@ -8,7 +8,7 @@ ear_bud=(
   update_freq=200
   icon="$TWS"
   icon.color=$APASTEL
-  y_offset=0
+  y_offset=1
   click_script="blueutil --connect \"suva's earbud\""
 )
 

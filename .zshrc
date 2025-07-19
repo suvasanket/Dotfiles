@@ -68,8 +68,15 @@ alias ta="tmux a || tmux new -s 'Home'"
 alias vl='nvim -c "normal \`0"'
 alias ll="ls -laG"
 cdl() { cd "$@" && ls; }
+fre_chpwd() {
+    fre --add "$(pwd)"
+}
+typeset -gaU chpwd_functions
+chpwd_functions+=fre_chpwd
 
 # Shell integrations
 source <(fzf --zsh)
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"
+
+[ -f "/Users/suvasanketrout/.ghcup/env" ] && . "/Users/suvasanketrout/.ghcup/env" # ghcup-env

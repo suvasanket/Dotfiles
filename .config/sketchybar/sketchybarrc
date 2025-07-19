@@ -70,21 +70,22 @@ sketchybar --default "${defaults[@]}"
 # Left
 # source "$ITEM_DIR/apple.sh"
 # source "$ITEM_DIR/yabai.sh"
-source "$ITEM_DIR/front_app.sh"
-source "$ITEM_DIR/media.sh"
+source "$ITEM_DIR/aerospace.sh"
+# source "$ITEM_DIR/front_app.sh"
 
 # Center
 # source "$ITEM_DIR/spotify.sh"
-source "$ITEM_DIR/aerospace.sh"
+# source "$ITEM_DIR/media.sh"
 
 # Right
 source "$ITEM_DIR/dateTime.sh"
+source "$ITEM_DIR/caffeinate.sh"
 source "$ITEM_DIR/ear_buds.sh"
 source "$ITEM_DIR/wifi.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/ram.sh"
 source "$ITEM_DIR/cpu.sh"
-source "$ITEM_DIR/modal.sh"
+# source "$ITEM_DIR/modal.sh"
 # source "$ITEM_DIR/calendar.sh"
 # source "$ITEM_DIR/brew.sh"
 # source "$ITEM_DIR/github.sh"
