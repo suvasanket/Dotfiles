@@ -6,6 +6,5 @@ sketchybar --add item caffeinate right \
     icon.font="JetBrainsMono Nerd Font:Bold:17.0" \
     padding_right=5 \
     padding_left=0 \
-    y_offset=1 \
-    icon= \
+    icon=󰅶 \
     icon.color=$APASTEL

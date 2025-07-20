@@ -19,8 +19,8 @@ export BG1=0xf5212121
 export BG2=0xff414550
 
 export NONE=0x63d1d1d1
-export ACCENT_COLOR=0xc9ffffff
-export BACKGROUND=0xa3606060
+export ACCENT_COLOR=0xabffffff
+export BACKGROUND=0x24ffffff
 
 ### Catppuccin
 # export BLACK=0xff181926

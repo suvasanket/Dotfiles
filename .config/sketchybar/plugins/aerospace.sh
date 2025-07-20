@@ -30,13 +30,25 @@ if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
         y_offset=2 y_offset=0 \
         background.drawing=on
 
-    sketchybar --set "$NAME" \
-        display="$monitor" \
-        drawing=on \
-        label="$icons" \
-        label.color="$ACCENT_COLOR" \
-        icon.color="$ACCENT_COLOR" \
-        background.color="$BACKGROUND"
+    if [ -z "$icons" ]; then
+        sketchybar --set "$NAME" \
+            display="$monitor" \
+            drawing=on \
+            label="$icons" \
+            background.clip=0.0 \
+            label.color="$ACCENT_COLOR" \
+            icon.color="$ACCENT_COLOR" \
+            background.color="$TRANSPARENT"
+    else
+        sketchybar --set "$NAME" \
+            display="$monitor" \
+            drawing=on \
+            background.clip=0.0 \
+            label="$icons" \
+            label.color="$ACCENT_COLOR" \
+            icon.color="$ACCENT_COLOR" \
+            background.color="$BACKGROUND"
+    fi
 else
     if [ -z "$icons" ]; then
         sketchybar --set "$NAME" \
@@ -44,6 +56,7 @@ else
             drawing=on \
             label="$icons" \
             background.drawing=off \
+            background.clip=0.0 \
             icon.color="$NONE" \
             label.color="$NONE" \
             background.color="$TRANSPARENT"
@@ -52,9 +65,9 @@ else
             display="$monitor" \
             drawing=on \
             label="$icons" \
-            background.drawing=off \
-            label.color="$ACCENT_COLOR" \
-            icon.color="$ACCENT_COLOR" \
+            background.clip=0.8 \
+            label.color="$NONE" \
+            icon.color="$NONE" \
             background.color="$TRANSPARENT"
     fi
 fi
