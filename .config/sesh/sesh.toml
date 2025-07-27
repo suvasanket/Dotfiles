@@ -1,22 +1,8 @@
-[default_session]
-startup_command = "nvim ."
-
-[[session]]
-name = "skhd"
-path = "~/dotfiles/.config/skhd"
-startup_command = "v skhdrc"
-
 [[session]]
 name = "Home"
 path = "~/"
-startup_command = "nvim"
 
 [[session]]
-name = "ruby"
-path = "~/codes/ruby"
-startup_command = "nvim -c 'SessionManager load_current_dir_session'"
-
-[[session]]
-name = "Notes"
-path = "~/Documents/Obsidian Vault/Notes"
-startup_command = "nvim -c 'SessionManager load_current_dir_session'"
+name = "Test"
+path = "~/codes/"
+startup_command = "nvim ."

@@ -95,10 +95,11 @@ function hyper_layer() {
         withModifier("Hyper")([
             map('a').toApp('ghostty'),
             // map('s').to$('/bin/zsh/ /Users/suvasanketrout/.config/aerospace/open_browser.sh'),
-            map('d').toApp('obsidian'),
+            map('d').toApp('Obsidian'),
+            map('j').toApp('Reminders'),
+            map('k').toApp('Antinote'),
             map('f').to$('open /System/Library/CoreServices/Finder.app'),
             map('m').toApp('Activity Monitor'),
-            map('j').toApp('Microsoft To Do'),
 
             map('c').to('c', '⌘⌥'),
             map('l').to('⇥', '⌘'),

@@ -1,30 +1,9 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # java
-JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-20.0.2.jdk/Contents/Home"
-PATH="${JAVA_HOME}/bin:${PATH}"
-export PATH
-
-# eza
-export EZA_CONFIG_DIR=$HOME/.config/eza
-
-# gum
-export MANPAGER="gum pager --border none --show-line-numbers=false"
-
-# fzf
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
---style=minimal
---color=fg:#939393,fg+:#d0d0d0,bg:#101010,bg+:#101010
---color=hl:#60c7bb,hl+:#5effec,info:#8a8a8a,marker:#ffffff
---color=prompt:#d7005f,spinner:#c392f4,pointer:#af5fff,header:#525252
---color=gutter:#101010,border:#343333,separator:#565656,scrollbar:#191919
---color=label:#aeaeae,query:#d9d9d9
---border="bold" --border-label="" --preview-window="border-bold" --prompt=" "
---marker="+" --pointer=" " --separator="" --scrollbar=""
---layout="reverse" --info="right"
-'
-export FZF_CTRL_T_COMMAND='command cat <(fre --sorted) <(fd -t d) <(fd -t d . ~)'
-export FZF_CTRL_T_OPTS='--tiebreak=index'
+# JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-20.0.2.jdk/Contents/Home"
+# PATH="${JAVA_HOME}/bin:${PATH}"
+# export PATH
 
 # ruby
 # if [ -d "/opt/homebrew/opt/ruby/bin" ]; then

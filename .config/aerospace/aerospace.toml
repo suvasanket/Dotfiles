@@ -110,11 +110,15 @@ run = ['move-node-to-workspace 2']
 
 # 3
 [[on-window-detected]]
-if.app-id = 'com.microsoft.to-do-mac'
+if.app-id = 'com.apple.reminders'
 run = ['layout floating', 'move-node-to-workspace 3']
 
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
+run = ['layout floating', 'move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = 'com.chabomakers.Antinote'
 run = ['layout floating', 'move-node-to-workspace 3']
 
 # 4

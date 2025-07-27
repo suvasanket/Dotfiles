@@ -1,4 +1,4 @@
-initial-command = /bin/zsh /Users/suvasanketrout/.config/ghostty/open_tmux.sh
+initial-command = /Users/suvasanketrout/.config/ghostty/open_tmux.sh
 
 # Font
 font-family = "Monaspace Neon Var"
