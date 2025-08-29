@@ -1,7 +1,8 @@
 require("core.helper")
+local detail = false
+
 return {
 	"stevearc/oil.nvim",
-	lazy = false,
 	keys = {
 		{ "-", "<cmd>Oil<cr>" },
 	},
@@ -20,35 +21,11 @@ return {
 			delete_to_trash = true,
 			skip_confirm_for_simple_edits = true,
 			keymaps = {
-				["h"] = "actions.parent",
-				["l"] = "actions.select",
-				["<C-v>"] = {
-					"actions.select",
-					opts = { vertical = true, close = true },
-					desc = "Open the entry in a vertical split",
-				},
-				["<C-s>"] = {
-					"actions.select",
-					opts = { horizontal = true, close = true },
-					desc = "Open the entry in a horizontal split",
-				},
-				["<C-t>"] = {
-					"actions.select",
-					opts = { tab = true, close = true },
-					desc = "Open the entry in new tab",
-				},
-				["<C-p>"] = "actions.preview",
-				["q"] = "actions.close",
-				["gr"] = "actions.refresh",
-				["<C-d>"] = "actions.preview_scroll_down",
-				["<C-u>"] = "actions.preview_scroll_up",
-
 				["gt"] = "actions.toggle_trash",
 				["gh"] = "<cmd>edit $HOME<CR>",
                 ["gp"] = "<cmd>edit ~/codes/projects/<CR>",
 				["gl"] = "<cmd>edit $HOME/Downloads/<CR>",
 
-				["<C-c>"] = false,
 				["<tab>"] = {
 					desc = "Toggle file detail view",
 					callback = function()
@@ -63,25 +40,13 @@ return {
 				["U"] = function()
 					oil.discard_all_changes()
 				end,
-				["g."] = function()
+				["!"] = function()
 					vim.api.nvim_feedkeys(": " .. GetCurrentEntryPath(), "n", false)
 					vim.schedule(function()
 						vim.api.nvim_input("<Home>")
 						require("oil.actions").refresh.callback()
 					end)
 				end,
-				["go"] = {
-					callback = function()
-						ShellCmd({ "open", GetCurrentEntryPath() }, function()
-                            vim.defer_fn(function()
-                                require("oil.actions").refresh.callback()
-                            end, 700)
-						end, function()
-							vim.notify("error opening entry", vim.log.levels.ERROR)
-						end)
-					end,
-					nowait = false,
-				},
 				["yp"] = {
 					desc = "Copy filepath to system clipboard",
 					callback = function()

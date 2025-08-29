@@ -5,8 +5,8 @@ fi
 
 # Shell integrations
 source <(fzf --zsh)
-source $(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source $(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+# source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(starship init zsh)"
 
@@ -38,10 +38,14 @@ if [[ $TMUX ]]; then
     alias clear='clear && tmux clear-history'
 fi
 alias :q="exit"
-alias ta="tmux a || tmux new -s 'Home'"
+alias ta="tmux a || tmux new -s 'some'"
 alias vl='nvim -c "normal \`0"'
+alias vim='nvim'
 alias ll="ls -laG"
+
 alias brewbak='brew bundle dump --force --file="~/dotfiles/Brewfile"'
+alias ha="/Users/suvasanketrout/codes/projects/habit_tracker/habit"
+
 cdl() { cd "$@" && ls; }
 fre_chpwd() {
     fre --add "$(pwd)"

@@ -1,9 +1,8 @@
 return {
 	{
 		"suvasanket/oz.nvim",
-		dir = "~/codes/projects/oz-nvim",
+		-- dir = "~/codes/projects/oz-nvim",
 		event = "VeryLazy",
-		lazy = false,
 		keys = {
 			{ "<leader>aq", "<cmd>TermClose<cr>" },
 			{ "<leader>aa", "<cmd>TermToggle<cr>" },
@@ -15,6 +14,13 @@ return {
 			},
 			oz_make = {
 				override_make = true,
+			},
+			integration = {
+				oil = {
+					entry_exec = {
+						use_fullpath = false,
+					},
+				},
 			},
 		},
 	},

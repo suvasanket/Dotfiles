@@ -6,7 +6,7 @@ return {
 		opts = {},
 	},
 
-	-- null-ls --
+	-- formatter --
 	{
 		"stevearc/conform.nvim",
 		keys = {
@@ -24,22 +24,6 @@ return {
 			default_format_opts = {
 				lsp_format = "fallback",
 			},
-		},
-	},
-
-	-- trouble
-	{
-		"folke/trouble.nvim",
-		opts = {
-			focus = true,
-		},
-		cmd = "Trouble",
-		keys = {
-			{
-				"<leader>cd",
-				"<cmd>Trouble diagnostics toggle focus=true<cr>",
-			},
-			{ "grr", "<cmd>Trouble lsp_references toggle focus=true<cr>" },
 		},
 	},
 }

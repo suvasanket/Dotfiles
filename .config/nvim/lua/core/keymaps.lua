@@ -1,24 +1,5 @@
 Import("core.helper")
 
--- quick fix mappings
-BufMap("qf", "n", "<C-q>", CMD("Clearqflist"))
-BufMap("qf", "n", "c.", [[:cdo s/\<<C-r><C-w>\>//g<Left><Left>]])
-BufMap("qf", "n", "c>", [[:cfdo %s/\<<C-r><C-w>\>//g<Left><Left>]])
-BufMap("qf", "n", "<C-v>", "<cr><C-w>v<C-w>h<C-o><C-w>l")
-BufMap("qf", "n", "dd", function()
-	local pos = vim.api.nvim_win_get_cursor(0)
-	local qf_list = vim.fn.getqflist()
-	local line_num = vim.fn.line(".")
-	table.remove(qf_list, line_num)
-	vim.fn.setqflist(qf_list, "r")
-	vim.cmd("copen")
-	local ok = pcall(vim.api.nvim_win_set_cursor, 0, pos)
-	if not ok then
-		vim.cmd("norm G")
-	end
-end)
-BufMap("qf", "n", "<C-g>", ":cdo ")
-
 -- help
 BufMap("help", "n", "gd", "<cmd>execute 'help ' . expand('<cword>')<cr>")
 BufMap("man", "n", "gd", "<cmd>execute 'Man ' . expand('<cword>')<cr>")
@@ -39,10 +20,9 @@ Map("n", "<C-;>", ":<up>", { silent = false })
 
 -- insert mode
 Map("i", "<S-CR>", "<esc>O")
-Map("i", "<C-k>", "<esc>lC")
-Map("i", "<C-l>", "<right>")
 Map({ "i", "v" }, "<M-left>", "<C-o>b")
 Map({ "i", "v" }, "<M-right>", "<C-o>w")
+Map("i", "<C-l>", "<C-x><C-n>")
 
 -- term
 Map("t", "<C-[>", "<C-\\><C-n>")
@@ -77,6 +57,7 @@ Map("x", "<leader>p", [["_dP]], { desc = "blackhole paste" })
 Map("n", "<C-space>f", CMD("Ftplugin"))
 
 --buffer & tabs
+Map("n", "zx", CMD("bd!"))
 Map("n", "zh", CMD("tabp"))
 Map("n", "zl", CMD("tabn"))
 Map("n", "zL", CMD("tabmove -1"))
@@ -92,8 +73,13 @@ Map("n", "<C-w>m", "<C-w>|<C-w>_")
 Map("n", "<leader>gl", CMD("GitLog"))
 Map("n", "<leader>ga", CMD("Gw"))
 Map("n", "g\\", CMD("Gcw! safe point!"))
--- Map("n", "<leader>gg", CMD("Git commit"))
-Map("n", "<C-Cr>", CMD("Make"))
+Map("n", "<C-Cr>", function()
+	local last_cmd = vim.fn.histget("cmd", -1)
+	if not last_cmd:match("Make") then
+		last_cmd = "Make"
+	end
+	vim.cmd(last_cmd)
+end)
 
 -- Search and Replace
 Map("n", "c.", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })

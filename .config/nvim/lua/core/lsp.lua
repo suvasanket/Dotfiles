@@ -2,6 +2,8 @@ Autocmd("LspAttach", {
 	callback = function(args)
 		local opts = { noremap = true, silent = true, buffer = args.buf }
 		Map("n", "gd", vim.lsp.buf.definition, opts)
+		Map({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, opts)
+		Map("n", "<leader>wd", vim.lsp.buf.workspace_diagnostics, opts)
 		Map("n", "<leader>wl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, opts)
@@ -11,6 +13,8 @@ Autocmd("LspAttach", {
 vim.diagnostic.config({
 	virtual_text = true,
 })
+
+----------- ** server specific configs ** -----------
 
 vim.lsp.config["luals"] = {
 	cmd = { "lua-language-server" },
@@ -25,16 +29,3 @@ vim.lsp.config["tsserver"] = {
 }
 
 vim.lsp.enable({ "luals", "tsserver" })
-
--- snippet
-vim.keymap.set({ "i", "s" }, "<C-f>", function()
-	if vim.snippet.active({ direction = 1 }) then
-		vim.cmd([[lua vim.snippet.jump(1)]])
-	end
-end, { silent = true })
-
-vim.keymap.set({ "i", "s" }, "<C-b>", function()
-	if vim.snippet.active({ direction = 1 }) then
-		vim.cmd([[lua vim.snippet.jump(-1)]])
-	end
-end, { silent = true })

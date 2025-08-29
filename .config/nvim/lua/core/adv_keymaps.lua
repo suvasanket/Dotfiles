@@ -1,80 +1,3 @@
---** Term **--
-Map("n", "<leader>sc", function()
-	vim.ui.select({ "lang", "utils" }, {
-		prompt = "Select cht.sh type",
-	}, function(choice)
-		if choice == "lang" then
-			vim.fn.system("tmux neww -n 'cht.sh' zsh -c '. ~/.local/scripts/cht_sh.sh lang'")
-		else
-			vim.fn.system("tmux neww -n 'cht.sh' zsh -c '. ~/.local/scripts/cht_sh.sh util'")
-		end
-	end)
-end)
-Map("n", "<leader>cs", function()
-	local input = UserInput("query:")
-	local inside_tmux = os.getenv("TMUX") ~= nil
-	if input then
-		local spin = "gum spin --spinner moon --title '\nsearching ft:"
-			.. vim.bo.filetype
-			.. " q:"
-			.. input
-			.. " .. ' -- "
-		local cht_sh = spin .. "curl cht.sh/" .. vim.bo.filetype
-		cht_sh = cht_sh .. "/" .. input:gsub(" ", "+") .. " | gum pager --border none"
-		if inside_tmux then
-			vim.fn.system("tmux neww -n 'cht.sh' zsh -c \"" .. cht_sh .. '"')
-		else
-			vim.cmd("tab term " .. cht_sh)
-		end
-	end
-end)
-
---** Pairs **--
-local function getChar(pos)
-	local line = vim.api.nvim_get_current_line()
-	local cursor_col = vim.fn.col(".")
-	if pos == "next" then
-		cursor_col = cursor_col + 1 or cursor_col
-	elseif pos == "prev" then
-		cursor_col = cursor_col - 1
-	end
-	return cursor_col > 0 and cursor_col <= #line and line:sub(cursor_col, cursor_col) or nil
-end
-local function GoinsidePair(left, right, func)
-	Map("i", right, function()
-		if getChar("prev") == left then
-			return right .. "<left>"
-		else
-			return right
-		end
-	end, { expr = true, silent = false })
-	if func then
-		func(left, right)
-	end
-end
-GoinsidePair("(", ")", function(leftchar, rightchar)
-	Map("i", "<C-h>", function()
-		if getChar("prev") == leftchar and getChar() == rightchar then
-			return "<right><bs><bs>"
-		else
-			return "<bs>"
-		end
-	end, { expr = true })
-end)
-GoinsidePair('"', '"')
-GoinsidePair("'", "'")
-GoinsidePair("{", "}")
-GoinsidePair("[", "]")
-
-Map("i", "<CR>", function()
-	local left = getChar("prev")
-	if left == "{" or left == "[" then
-		return "<CR><ESC>O"
-	else
-		return "<CR>"
-	end
-end, { expr = true })
-
 --** Basic Smart things **--
 Map("n", "i", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
@@ -110,3 +33,26 @@ Map("n", "cc", function()
 		return "cc"
 	end
 end, { expr = true })
+
+-- find
+local function open_find_with_wildtrigger()
+	local group = vim.api.nvim_create_augroup("CmdwinEventsTransient", { clear = true })
+    Autocmd("CmdlineChanged", {
+		group = group,
+		callback = function()
+            vim.o.wildmode = "noselect:lastused,full"
+			pcall(vim.fn.wildtrigger)
+		end,
+	})
+    Autocmd("CmdlineLeave", {
+		group = group,
+		once = true,
+		callback = function()
+			pcall(vim.api.nvim_del_augroup_by_name, "CmdwinEventsTransient")
+		end,
+	})
+
+	return ":Find "
+end
+
+vim.keymap.set("n", "<C-f>", open_find_with_wildtrigger, { expr = true, silent = false })

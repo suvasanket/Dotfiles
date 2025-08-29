@@ -1,16 +1,7 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 
-# java
-# JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-20.0.2.jdk/Contents/Home"
-# PATH="${JAVA_HOME}/bin:${PATH}"
-# export PATH
-
-# ruby
-# if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
-#     export PATH=/opt/homebrew/opt/ruby/bin:$PATH
-#     export PATH=`gem environment gemdir`/bin:$PATH
-# fi
-# export PATH=$PATH:~/.gem/ruby/3.3.0/bin
+#some
+export PATH="$HOME/.bin/nvim-macos-arm64/bin:$PATH"
 
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -28,3 +19,6 @@ export PATH="$NVM_BIN_PATH:$PATH"
 #
 # # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 # export PATH="$PATH:$HOME/.rvm/bin"
+
+# MINE
+export HABIT_PATH="$HOME/Documents/logseq/pages/Habits.md"

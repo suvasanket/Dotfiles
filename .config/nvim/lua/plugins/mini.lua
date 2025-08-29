@@ -7,36 +7,55 @@ local function relative_path(full_path, short_path)
 end
 
 return {
-	"echasnovski/mini.nvim",
-	event = "BufEnter",
+	"nvim-mini/mini.nvim",
+	event = "VeryLazy",
 	config = function()
 		-- icons --
 		require("mini.icons").setup()
+
+		-- extra --
+		local extra = require("mini.extra")
+		extra.setup()
+		vim.keymap.set("n", "<leader>cd", extra.pickers.diagnostic)
+		vim.keymap.set("n", "grr", function()
+			extra.pickers.lsp({ scope = "references" })
+		end)
+
+		-- pick --
+		local pick = require("mini.pick")
+		pick.setup({
+			mappings = {
+				delete_char = "<C-h>",
+				refine = "<C-g>",
+				move_start = "<C-k>",
+			},
+		})
+		vim.ui.select = pick.ui_select
+		vim.keymap.set("n", "<leader>f", function()
+			pick.builtin.files({ tool = "git" }, { source = { cwd = GetProjectRoot() } })
+		end)
+		vim.keymap.set("n", "<leader>sh", pick.builtin.help)
+		vim.keymap.set("n", "<leader>'", pick.builtin.grep_live)
+
+		-- notify --
+		local notify = require("mini.notify")
+		notify.setup({ lsp_progress = { enable = false } })
+		local mini_notify = notify.make_notify()
+		vim.notify = function(msg, level, opts)
+			opts = opts or {}
+			if opts.title ~= nil then
+				msg = string.format("[[%s]]: %s", opts.title, msg)
+			end
+			mini_notify(msg, level)
+		end
 
 		-- ai --
 		local ai = require("mini.ai")
 		ai.setup({
 			n_lines = 500,
 			custom_textobjects = {
-				o = ai.gen_spec.treesitter({ -- code block
-					a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-					i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-				}),
-				f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
-				c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
 				t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
-				d = { "%f[%d]%d+" }, -- digits
-				e = { -- Word with case
-					{
-						"%u[%l%d]+%f[^%l%d]",
-						"%f[%S][%l%d]+%f[^%l%d]",
-						"%f[%P][%l%d]+%f[^%l%d]",
-						"^[%l%d]+%f[^%l%d]",
-					},
-					"^().*()$",
-				},
-				u = ai.gen_spec.function_call(), -- u for "Usage"
-				U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+				a = ai.gen_spec.argument(),
 			},
 		})
 
@@ -77,17 +96,14 @@ return {
 		vim.keymap.set("n", "yss", "ys_", { remap = true })
 
 		-- hipatterns --
-		local hipatterns = require("mini.hipatterns")
 		require("mini.hipatterns").setup({
 			highlighters = {
-				-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
 				fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
 				hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
 				todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
 				note = { pattern = "%f[%w]()WIP()%f[%W]", group = "MiniHipatternsNote" },
 
-				-- Highlight hex color strings (`#rrggbb`) using that color
-				hex_color = hipatterns.gen_highlighter.hex_color(),
+				hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
 			},
 		})
 

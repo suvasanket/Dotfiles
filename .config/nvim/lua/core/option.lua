@@ -41,14 +41,13 @@ o.list = false
 o.expandtab = true
 o.ignorecase = true
 o.smartcase = true
+
+-- completion
 o.wildmenu = true
-o.wildmode = "full"
+o.wildmode = "full:lastused,full"
 o.wildoptions = "fuzzy"
 
 o.grepprg = "rg --vimgrep -u -S"
-
---backspace
-o.backspace = "indent,eol,start"
 
 --split
 o.splitright = true

@@ -1,23 +1,8 @@
 return {
-	-- notify
-	{
-		"rcarriga/nvim-notify",
-		lazy = true,
-		event = { "BufReadPost" },
-		config = function()
-			require("notify").setup({
-				render = "wrapped-compact",
-				background_colour = "#000000",
-			})
-			vim.notify = require("notify")
-		end,
-	},
-
 	-- fidget
 	{
 		"j-hui/fidget.nvim",
-		lazy = true,
-		event = { "LspAttach" },
+		event = "LspAttach",
 		opts = {
 			progress = {
 				display = {
@@ -31,6 +16,34 @@ return {
 	{
 		"stevearc/quicker.nvim",
 		ft = "qf",
-		opts = {},
+		opts = {
+			opts = {
+				number = true,
+				wrap = true,
+			},
+		},
+	},
+
+	-- quick snippet capture
+	{
+		"chrisgrieser/nvim-scissors",
+		keys = {
+			{
+				"<leader>se",
+				function()
+					require("scissors").editSnippet()
+				end,
+				desc = "create Snippet",
+			},
+			{
+				"<leader>sa",
+				function()
+					require("scissors").addNewSnippet()
+				end,
+				mode = { "n", "x" },
+				desc = "create Snippet",
+			},
+		},
+		opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets" },
 	},
 }
