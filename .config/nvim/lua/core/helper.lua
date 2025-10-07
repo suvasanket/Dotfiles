@@ -32,13 +32,6 @@ function ShellCmd(cmd, on_success, on_error)
     })
 end
 
-function ShellOutput(cmd)
-    local handle = io.popen(cmd)
-    local out = handle:read("*a") or ""
-    handle:close()
-    return out:gsub("%s+", "")
-end
-
 function BufMap(ft, mode, map, cmd)
     Autocmd("FileType", {
         pattern = { ft },
@@ -72,13 +65,6 @@ function GetProjectRoot(markers, path_or_bufnr)
     end
 end
 
-function Notify(content, level, title)
-    if not title then
-        title = "Notice"
-    end
-    vim.notify(content, level, { title = title })
-end
-
 Augroup("hotreload", { clear = true })
 function BufWritePostFunc(pattern, func)
     Autocmd("BufWritePost", {
@@ -86,21 +72,4 @@ function BufWritePostFunc(pattern, func)
         pattern = pattern,
         callback = func,
     })
-end
-
-function UserInput(msg, def)
-    local ok, input = pcall(vim.fn.input, msg, def or "")
-    if ok then
-        return input
-    end
-end
-
-function TableContainsValue(tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-
-    return false
 end

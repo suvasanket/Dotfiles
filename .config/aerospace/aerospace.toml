@@ -72,12 +72,15 @@ ctrl-cmd-f = 'macos-native-fullscreen'
 # cmd-h = []
 
 ##### open apps #####
-cmd-enter = ['exec-and-forget open -a ghostty']
-cmd-b = ['exec-and-forget ~/.config/aerospace/open_browser.sh']
+ctrl-1 = ['exec-and-forget open -a ghostty']
+ctrl-2 = ['exec-and-forget ~/.config/aerospace/open_browser.sh']
+ctrl-3 = ['exec-and-forget open -a Finder']
+ctrl-4 = ['exec-and-forget open -a Flacbox']
+ctrl-5 = ['exec-and-forget open -a WhatsApp']
 cmd-h = ['exec-and-forget open -a Logseq']
 cmd-quote = ['exec-and-forget open -a Reminders']
 cmd-m = ['exec-and-forget open -a Activity\ Monitor']
-cmd-backslash = ['exec-and-forget open -a Doppler']
+cmd-backslash = ['exec-and-forget open -a Antinote']
 
 ## APP SPACES
 # 1
@@ -110,10 +113,6 @@ run = ['move-node-to-workspace 2']
 
 # 3
 [[on-window-detected]]
-if.app-id = 'com.apple.mail'
-run = ['move-node-to-workspace 3']
-
-[[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = ['layout floating', 'move-node-to-workspace 3']
 
@@ -139,6 +138,14 @@ if.app-id = 'com.apple.ActivityMonitor'
 run = ['layout floating', 'move-node-to-workspace 4']
 
 # 5
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = ['move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = ['move-node-to-workspace 5']
+
 
 ## fallback
 [[on-window-detected]]

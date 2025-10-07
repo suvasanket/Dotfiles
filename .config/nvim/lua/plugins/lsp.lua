@@ -17,6 +17,8 @@ return {
 				lua = { "stylua" },
 				javascript = { "prettier" },
 				typescript = { "prettier" },
+				ejs = { "prettier" },
+				html = { "prettier" },
 				sh = { "shfmt" },
 				bash = { "shfmt" },
 				zsh = { "shfmt" },

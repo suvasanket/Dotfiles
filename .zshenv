@@ -22,3 +22,4 @@ export PATH="$NVM_BIN_PATH:$PATH"
 
 # MINE
 export HABIT_PATH="$HOME/Documents/logseq/pages/Habits.md"
+. "$HOME/.cargo/env"

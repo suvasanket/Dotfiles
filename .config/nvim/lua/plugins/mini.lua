@@ -17,9 +17,6 @@ return {
 		local extra = require("mini.extra")
 		extra.setup()
 		vim.keymap.set("n", "<leader>cd", extra.pickers.diagnostic)
-		vim.keymap.set("n", "grr", function()
-			extra.pickers.lsp({ scope = "references" })
-		end)
 
 		-- pick --
 		local pick = require("mini.pick")
@@ -27,12 +24,12 @@ return {
 			mappings = {
 				delete_char = "<C-h>",
 				refine = "<C-g>",
-				move_start = "<C-k>",
+                scroll_left  = '',
 			},
 		})
 		vim.ui.select = pick.ui_select
 		vim.keymap.set("n", "<leader>f", function()
-			pick.builtin.files({ tool = "git" }, { source = { cwd = GetProjectRoot() } })
+			pick.builtin.files({ tool = "rg" }, { source = { cwd = GetProjectRoot() } })
 		end)
 		vim.keymap.set("n", "<leader>sh", pick.builtin.help)
 		vim.keymap.set("n", "<leader>'", pick.builtin.grep_live)
@@ -77,7 +74,7 @@ return {
 				goto_last = "]H",
 			},
 		})
-		Map("n", "<leader>gd", ":lua MiniDiff.toggle_overlay()<cr>")
+		vim.keymap.set("n", "<leader>gd", "<cmd>lua MiniDiff.toggle_overlay()<cr>")
 
 		-- surround --
 		require("mini.surround").setup({
@@ -111,7 +108,7 @@ return {
 		require("mini.trailspace").setup({
 			only_in_normal_buffers = true,
 		})
-		Map("n", "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>")
+		vim.keymap.set("n", "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>")
 
 		-- statusline --
 		local MiniStatusline = require("mini.statusline")
