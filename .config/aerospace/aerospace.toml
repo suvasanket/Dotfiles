@@ -72,7 +72,7 @@ ctrl-cmd-f = 'macos-native-fullscreen'
 # cmd-h = []
 
 ##### open apps #####
-ctrl-1 = ['exec-and-forget open -a ghostty']
+ctrl-1 = ['exec-and-forget ~/.config/aerospace/open_ghostty.sh']
 ctrl-2 = ['exec-and-forget ~/.config/aerospace/open_browser.sh']
 ctrl-3 = ['exec-and-forget open -a Finder']
 ctrl-4 = ['exec-and-forget open -a Flacbox']
@@ -80,7 +80,6 @@ ctrl-5 = ['exec-and-forget open -a WhatsApp']
 cmd-h = ['exec-and-forget open -a Logseq']
 cmd-quote = ['exec-and-forget open -a Reminders']
 cmd-m = ['exec-and-forget open -a Activity\ Monitor']
-cmd-backslash = ['exec-and-forget open -a Antinote']
 
 ## APP SPACES
 # 1
@@ -90,11 +89,15 @@ run = ['move-node-to-workspace 1']
 
 [[on-window-detected]]
 if.app-id="com.mitchellh.ghostty"
-run = ['move-node-to-workspace 1']
+run = ['layout floating', 'move-node-to-workspace 1']
 
 # 2
 [[on-window-detected]]
 if.app-id = 'com.kagi.kagimacOS'
+run = ['move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'net.imput.helium'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
@@ -130,7 +133,7 @@ if.app-id = 'com.colliderli.iina'
 run = ['layout floating','move-node-to-workspace 4']
 
 [[on-window-detected]]
-if.app-id = 'co.brushedtype.doppler-macos'
+if.app-id = 'com.leshko.flap.mac'
 run = ['layout floating', 'move-node-to-workspace 4']
 
 [[on-window-detected]]

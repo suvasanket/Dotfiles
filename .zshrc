@@ -18,7 +18,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # Case-insensitive completio
 
 # Keybindings
 bindkey -e
-bindkey '^l' autosuggest-accept
 
 # History
 HISTSIZE=2000

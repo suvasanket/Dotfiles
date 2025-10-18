@@ -8,7 +8,9 @@ return {
 		{
 			"<C-f>",
 			function()
-				local fp = vim.bo.ft == "oil" and require("oil").get_current_dir() or GetProjectRoot()
+				local fp = vim.bo.ft == "oil" and require("oil").get_current_dir()
+					or GetProjectRoot()
+					or vim.fn.getcwd()
 				require("fff").find_files_in_dir(fp)
 			end,
 			desc = "FFFind files",

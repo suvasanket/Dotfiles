@@ -55,7 +55,7 @@ function app_finder() {
 function app_browser() {
     const browsers = [
         'Chromium',
-        '^company.thebrowser.Browser',
+        '^net.imput.helium',
         '^org.mozilla.com.zen.browser',
         '^com.brave.Browser',
         'Orion',

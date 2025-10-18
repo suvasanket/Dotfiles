@@ -15,16 +15,9 @@
 /.nvm/
 .git/
 .local/
-.vscode/
 media/
 node_modules/
 .dev
 .DS_Store/
-*.pdf
-*.zip
-*.wav
 *.class
 *.jar
-*.jpg
-*.jpeg
-*.png
