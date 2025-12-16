@@ -38,7 +38,6 @@ function general_map() {
         ...unix_mapping(),
 
         map("left_command").to("left_command").toIfAlone("escape"),
-        // map("left_option").toHyper(),
         map("right_control").to("escape"),
 
         mapDoubleTap('↑').to('↖︎'),
@@ -56,16 +55,20 @@ function app_browser() {
     const browsers = [
         'Chromium',
         '^net.imput.helium',
-        '^org.mozilla.com.zen.browser',
+        '^app.zen-browser.zen',
         '^com.brave.Browser',
-        'Orion',
+        '^com.vivaldi.Vivaldi',
+        '^com.kagi.kagimacOS',
         'Safari',
     ];
     return rule("Browser", ifApp(browsers)).manipulators([
         ...switcher(),
         ...tapModifiers({
             '›⌘': toKey('i', '⌘⌥'),
-        })
+            '‹⌃': toKey('s', '⌘⌃'),
+        }),
+        map("n", "⌃").to("down_arrow"),
+        map("p", "⌃").to("up_arrow"),
     ]);
 }
 function hyper_layer() {
@@ -101,8 +104,7 @@ function vim_mode() {
             map("l").to("→"),
 
             map("f").to("‹⌥"),
-            map("a").to("‹⌘"),
-            map("spacebar").to("‹⇧"),
+            map("spacebar").to("‹⌘"),
 
             map("n").to("delete_or_backspace"),
             map("m").to("⌦"),

@@ -146,32 +146,20 @@ Map("n", "cc", function()
 	end
 end, { expr = true })
 
--- find
-local function open_find_with_wildtrigger()
-	local group = vim.api.nvim_create_augroup("CmdwinEventsTransient", { clear = true })
-	local d_wildmode = vim.o.wildmode
-	Autocmd("CmdlineChanged", {
-		group = group,
-		callback = function()
-			vim.o.wildmode = "noselect:lastused,full"
-			pcall(vim.fn.wildtrigger)
-			vim.keymap.set("c", "<C-u>", "<C-u>Find ")
-			vim.keymap.set("c", "<C-a>", "<home><right><right><right><right><right>")
-		end,
-	})
-	Autocmd("CmdlineLeave", {
-		group = group,
-		once = true,
-		callback = function()
-			vim.o.wildmode = d_wildmode
-			pcall(vim.api.nvim_del_augroup_by_name, "CmdwinEventsTransient")
-			vim.keymap.del("c", "<C-u>")
-			vim.keymap.set("c", "<C-a>", "<home>")
-			vim.api.nvim_echo({ { "" } }, false, {})
-		end,
-	})
+BufMap("oil", "n", "=", function()
+	if vim.fn.executable("zoxide") == 0 then
+		vim.notify("zoxide not found in PATH", vim.log.levels.ERROR)
+		return
+	end
 
-	return ":Find "
-end
+	local command_output = vim.fn.system("zoxide query -l")
+	local paths = vim.split(command_output, "\n", { trimempty = true })
 
--- vim.keymap.set("n", "<C-f>", open_find_with_wildtrigger, { expr = true, silent = false })
+	vim.ui.select(paths, {
+		prompt = "zoxide entry",
+	}, function(choice)
+		if choice then
+			vim.cmd("edit " .. choice)
+		end
+	end)
+end)

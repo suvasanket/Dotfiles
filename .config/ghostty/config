@@ -1,25 +1,26 @@
 # initial-command = /Users/suvasanketrout/.config/ghostty/open_tmux.sh
 # Font
-font-family = "Monaspace Neon Var"
-font-family-italic = "Monaspace Argon Var"
+font-family = "Ioskeley Mono"
 font-style = "Medium"
-font-style-italic = "Medium Italic"
 font-style-bold = "ExtraBold"
+font-style-italic = "Medium Italic"
+# font-family-italic = "Monaspace Argon Var"
 font-thicken = true
 font-size = 17
 
 # Look and Feel
 background = #111111
 foreground = #FFFFFF
-theme = Sonokai
-adjust-cell-height = 35%
-window-padding-x = 12
+theme = Dracula
+adjust-cell-height = 15%
+window-padding-x = 15
 window-padding-y = 10
 shell-integration = zsh
-mouse-hide-while-typing        = true
-bold-is-bright                 = true
-link-url                       = true
-window-vsync                   = true
+mouse-hide-while-typing = true
+bold-is-bright = true
+link-url = true
+window-vsync = true
+window-save-state = always
 # macos-titlebar-style = hidden
 
 # Other
@@ -29,6 +30,8 @@ keybind = alt+backspace=text:\x17
 keybind = shift+enter=text:\x1b[13;2u
 keybind = ctrl+enter=text:\x1b[13;5u
 keybind = super+shift+i=inspector:toggle
+keybind = super+enter=toggle_quick_terminal
+
 #
 # # /opt/homebrew/bin/tmux map
 # keybind = super+t=text:\x1d\x74

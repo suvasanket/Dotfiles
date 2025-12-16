@@ -546,7 +546,7 @@ function icon_map() {
     "Notability")
         icon_result=":notability:"
         ;;
-    "Notes" | "备忘录" | "メモ" | "Notizen")
+    "Notes" | "iA Writer" | "备忘录" | "メモ" | "Notizen")
         icon_result=":notes:"
         ;;
     "Notion")

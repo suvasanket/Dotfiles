@@ -22,9 +22,8 @@ return {
 			delete_to_trash = true,
 			skip_confirm_for_simple_edits = true,
 			keymaps = {
-				["gt"] = "actions.toggle_trash",
 				["gh"] = "<cmd>edit $HOME<CR>",
-                ["gp"] = "<cmd>edit ~/codes/projects/<CR>",
+                ["gj"] = "<cmd>edit ~/Developer/<CR>",
 				["gl"] = "<cmd>edit $HOME/Downloads/<CR>",
 
 				["<tab>"] = {

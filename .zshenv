@@ -1,7 +1,7 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 
-#some
-export PATH="$HOME/.bin/nvim-macos-arm64/bin:$PATH"
+#nvim
+export PATH="$HOME/.dev/.bin/nvim-macos-arm64/bin:$PATH"
 
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"

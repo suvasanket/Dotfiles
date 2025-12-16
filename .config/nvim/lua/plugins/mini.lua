@@ -13,6 +13,9 @@ return {
 		-- icons --
 		require("mini.icons").setup()
 
+        -- cmdline cmp --
+        require('mini.cmdline').setup()
+
 		-- extra --
 		local extra = require("mini.extra")
 		extra.setup()

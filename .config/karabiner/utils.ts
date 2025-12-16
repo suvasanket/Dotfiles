@@ -27,7 +27,7 @@ export function switcher() {
         // map('h', '⌘⌥⌃').to('⇥', '⌃⇧'),
         // map('l', '⌘⌥⌃').to('⇥', '⌃'),
       map('q', '⌃').to('[', '⌘⇧'),
-      map('e', '⌃').to(']', '⌘⇧'),
+      map('r', '⌃').to(']', '⌘⇧'),
   ]
 }
 export function unix_mapping() {

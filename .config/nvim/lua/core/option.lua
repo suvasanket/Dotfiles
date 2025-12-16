@@ -42,11 +42,6 @@ o.expandtab = true
 o.ignorecase = true
 o.smartcase = true
 
--- completion
-o.wildmenu = true
-o.wildmode = "full:lastused,full"
-o.wildoptions = "fuzzy"
-
 o.grepprg = "rg --vimgrep -u -S"
 
 --split

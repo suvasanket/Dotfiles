@@ -6,7 +6,6 @@
 /.zsh_sessions/
 /.m2/
 /.fzf/
-/.tmux/
 /.npm/
 /.vim/
 /.Trash/
@@ -21,3 +20,4 @@ node_modules/
 .DS_Store/
 *.class
 *.jar
+*.plist

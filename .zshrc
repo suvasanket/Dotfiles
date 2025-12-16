@@ -39,7 +39,7 @@ fi
 alias :q="exit"
 alias ta="tmux a || tmux new -s 'some'"
 alias vl='nvim -c "normal \`0"'
-alias vim='nvim'
+alias vi='nvim'
 alias ll="ls -laG"
 
 alias brewbak='brew bundle dump --force --file="~/dotfiles/Brewfile"'

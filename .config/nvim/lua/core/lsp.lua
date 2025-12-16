@@ -1,9 +1,7 @@
 Autocmd("LspAttach", {
 	callback = function(args)
 		local opts = { noremap = true, silent = true, buffer = args.buf }
-		Map("n", "gd", vim.lsp.buf.definition, opts)
 		Map({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, opts)
-		Map("n", "<leader>wd", vim.lsp.buf.workspace_diagnostics, opts)
 		Map("n", "<leader>wl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, opts)
