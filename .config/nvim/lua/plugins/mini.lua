@@ -1,9 +1,12 @@
-local function relative_path(full_path, short_path)
-	if not full_path or not short_path then
-		return "[No Name]"
+local function find_file()
+	local cwd = vim.fn.getcwd()
+	if cwd == vim.fn.getenv("HOME") then
+		require("mini.extra").pickers.oldfiles()
+	else
+		local path = vim.bo.ft == "oil" and require("oil").get_current_dir() or GetProjectRoot() or vim.fn.getcwd()
+
+		require("mini.pick").builtin.files({}, { source = { cwd = path } })
 	end
-	local rel_path = full_path:match("^" .. vim.pesc(short_path) .. "(.*)$")
-	return rel_path and rel_path:gsub("^/", "") or full_path
 end
 
 return {
@@ -13,8 +16,8 @@ return {
 		-- icons --
 		require("mini.icons").setup()
 
-        -- cmdline cmp --
-        require('mini.cmdline').setup()
+		-- cmdline cmp --
+		require("mini.cmdline").setup({ autocomplete = { enable = false } })
 
 		-- extra --
 		local extra = require("mini.extra")
@@ -27,13 +30,11 @@ return {
 			mappings = {
 				delete_char = "<C-h>",
 				refine = "<C-g>",
-                scroll_left  = '',
+				scroll_left = "",
 			},
 		})
 		vim.ui.select = pick.ui_select
-		vim.keymap.set("n", "<leader>f", function()
-			pick.builtin.files({ tool = "rg" }, { source = { cwd = GetProjectRoot() } })
-		end)
+		vim.keymap.set("n", "<leader>f", find_file)
 		vim.keymap.set("n", "<leader>sh", pick.builtin.help)
 		vim.keymap.set("n", "<leader>'", pick.builtin.grep_live)
 
@@ -114,106 +115,6 @@ return {
 		vim.keymap.set("n", "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>")
 
 		-- statusline --
-		local MiniStatusline = require("mini.statusline")
-		-- lsp
-		local lsp = function()
-			local bufnr = vim.api.nvim_get_current_buf()
-			local icon = require("mini.icons").get("file", vim.fn.expand("%"))
-
-			local clients = vim.lsp.get_clients({ bufnr = bufnr })
-			if next(clients) == nil then
-				return icon .. " no_server"
-			end
-
-			local c = {}
-			for _, client in pairs(clients) do
-				if client.name ~= "null-ls" then
-					table.insert(c, client.name)
-				end
-			end
-			return icon .. " " .. table.concat(c, ",")
-		end
-		-- branch
-		local function get_git_branch()
-			local handle = io.popen("git rev-parse --abbrev-ref HEAD 2>/dev/null")
-			local branch = handle:read("*a") or ""
-			handle:close()
-			branch = branch:gsub("%s+", "")
-			return branch ~= "" and branch or nil
-		end
-		MiniStatusline.setup({
-			use_icons = true,
-			content = {
-				active = function()
-					local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 40 })
-					local body = "MiniStatuslineFilename"
-					local diagnostics = MiniStatusline.section_diagnostics({
-						trunc_width = 75,
-						icon = "",
-						signs = { ERROR = "E", WARN = "W", INFO = "I", HINT = "*" },
-					})
-
-					local filename = function()
-						if vim.bo.filetype == "oil" then
-							return vim.fn.expand("%"):sub(7):gsub(os.getenv("HOME"), "~")
-						elseif vim.fn.expand("%"):find("oz.*://.*") then
-							return vim.fn.expand("%")
-						end
-						local fname = relative_path(vim.fn.expand("%:p"), GetProjectRoot() or vim.fn.getcwd())
-						local mod = vim.bo.modified and "[+]" or ""
-						return fname .. " " .. mod
-					end
-
-					local filetype = function()
-						local ft = vim.bo.filetype
-						if ft ~= "" then
-							return "(" .. ft .. ")"
-						else
-							return ""
-						end
-					end
-					local git_branch = function()
-						local branch = get_git_branch()
-						if branch then
-							return "(" .. branch .. ")"
-						else
-							return ""
-						end
-					end
-
-					local location = MiniStatusline.section_location({ trunc_width = 75 })
-					local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
-					local first = mode
-					if search ~= "" then
-						first = search
-					else
-						first = mode:sub(1, 3):upper()
-					end
-					return MiniStatusline.combine_groups({
-						{ hl = mode_hl, strings = { "[" .. first .. "]" } },
-
-						"%<", -- Mark general truncate point
-						-- "%=", -- End left alignment
-						{ hl = body, strings = { filename() .. git_branch() } },
-						"%=", -- End left alignment
-
-						{ hl = body, strings = { diagnostics } },
-						{ hl = body, strings = { lsp() .. " " .. filetype() .. " [%3l:%-2v]" } },
-						-- { hl = body, strings = { "[%3l:%L|%-2v]" } },
-					})
-				end,
-				inactive = function()
-					local filename = vim.fn.expand("%") .. (vim.bo.modified and " [+]" or "")
-					local body = "MiniStatuslineFilename"
-
-					return MiniStatusline.combine_groups({
-						{ hl = body, strings = { filename } },
-						"%=", -- End left alignment
-						{ hl = body, strings = { "%3l:%-2v" } },
-					})
-				end,
-			},
-			set_vim_settings = true, -- Make sure statusline is always shown
-		})
+		require("mini.statusline").setup()
 	end,
 }

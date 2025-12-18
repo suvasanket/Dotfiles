@@ -18,6 +18,7 @@ Map("n", "<leader>n", function()
 end)
 Map("n", "<C-;>", ":<up>", { silent = false })
 Map("n", "<leader>;", "gg=G``")
+Map("n", "<C-f>", ":Find ", { silent = false })
 
 -- insert mode
 Map("i", "<S-CR>", "<esc>O")

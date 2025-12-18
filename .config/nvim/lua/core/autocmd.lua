@@ -76,11 +76,3 @@ Autocmd("CmdwinLeave", {
         vim.o.cmdheight = 1
     end,
 })
-
--- highligh override
--- Autocmd("VimEnter", {
--- 	pattern = "*",
--- 	callback = function()
---         vim.api.nvim_set_hl({ bg = "#FF9B50" }, "hlyank", {0})
--- 	end,
--- })

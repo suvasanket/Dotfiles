@@ -61,5 +61,6 @@ cnoreabbrev T! Term!
 cnoreabbrev T1 Term!
 cnoreabbrev man Man
 cnoreabbrev W w
-"cnoreabbrev <expr> e getcmdline() == 'e' ? 'E' : 'e'
+cnoreabbrev FIN Fin
+cnoreabbrev FIn Fin
 ]])
