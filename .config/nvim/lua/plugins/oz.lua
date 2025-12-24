@@ -1,7 +1,7 @@
 return {
 	{
 		"suvasanket/oz.nvim",
-		-- dir = "~/codes/projects/oz-nvim",
+		dir = "~/Developer/oz-nvim",
 		event = "VeryLazy",
 		keys = {
 			{ "<leader>aq", "<cmd>TermClose<cr>" },
@@ -14,6 +14,9 @@ return {
 			},
 			oz_make = {
 				override_make = true,
+			},
+			oz_git = {
+				win_type = "hor",
 			},
 			integration = {
 				oil = {

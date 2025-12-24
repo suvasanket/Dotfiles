@@ -1,12 +1,11 @@
-local function find_file()
-	local cwd = vim.fn.getcwd()
-	if cwd == vim.fn.getenv("HOME") then
-		require("mini.extra").pickers.oldfiles()
-	else
-		local path = vim.bo.ft == "oil" and require("oil").get_current_dir() or GetProjectRoot() or vim.fn.getcwd()
-
-		require("mini.pick").builtin.files({}, { source = { cwd = path } })
+local function find_file(pick)
+	local path = vim.bo.ft == "oil" and require("oil").get_current_dir() or GetProjectRoot() or vim.fn.getcwd()
+	local command = { "fd", "--type=f", "--no-follow", "--color=never", "--hidden" }
+	local show_with_icons = function(buf_id, items, query)
+		return pick.default_show(buf_id, items, query, { show_icons = true })
 	end
+	local source = { name = "find file", show = show_with_icons, cwd = path }
+	return pick.builtin.cli({ command = command }, { source = source })
 end
 
 return {
@@ -16,7 +15,7 @@ return {
 		-- icons --
 		require("mini.icons").setup()
 
-		-- cmdline cmp --
+		-- cmdline --
 		require("mini.cmdline").setup({ autocomplete = { enable = false } })
 
 		-- extra --
@@ -29,12 +28,15 @@ return {
 		pick.setup({
 			mappings = {
 				delete_char = "<C-h>",
-				refine = "<C-g>",
-				scroll_left = "",
+				refine = "<C-enter>",
+				mark_all = "<S-TAB>",
 			},
 		})
 		vim.ui.select = pick.ui_select
-		vim.keymap.set("n", "<leader>f", find_file)
+		vim.keymap.set("n", "<C-f>", function()
+			find_file(pick)
+		end)
+		vim.keymap.set("n", "<C-g>", ":Pick oldfiles<cr>")
 		vim.keymap.set("n", "<leader>sh", pick.builtin.help)
 		vim.keymap.set("n", "<leader>'", pick.builtin.grep_live)
 
@@ -53,7 +55,6 @@ return {
 		-- ai --
 		local ai = require("mini.ai")
 		ai.setup({
-			n_lines = 500,
 			custom_textobjects = {
 				t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
 				a = ai.gen_spec.argument(),
@@ -61,23 +62,7 @@ return {
 		})
 
 		-- diff --
-		require("mini.diff").setup({
-			view = {
-				-- style = vim.go.number and "sign" or "number",
-				style = "sign",
-				signs = { add = "│", change = "│", delete = "│" },
-				priority = 199,
-			},
-			mappings = {
-				apply = "gh",
-				reset = "g0",
-				textobject = "gh",
-				goto_first = "[H",
-				goto_prev = "[h",
-				goto_next = "]h",
-				goto_last = "]H",
-			},
-		})
+		require("mini.diff").setup({ view = { style = "sign" } })
 		vim.keymap.set("n", "<leader>gd", "<cmd>lua MiniDiff.toggle_overlay()<cr>")
 
 		-- surround --
@@ -116,5 +101,8 @@ return {
 
 		-- statusline --
 		require("mini.statusline").setup()
+
+		-- splitjoin --
+		require("mini.splitjoin").setup({ mappings = { toggle = "<C-j>" } })
 	end,
 }

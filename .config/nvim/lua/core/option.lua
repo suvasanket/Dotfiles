@@ -52,15 +52,3 @@ o.autoindent = true
 o.showmode = false
 o.ruler = false
 o.conceallevel = 2
-
--- Fix common typos
-vim.cmd([[
-cnoreabbrev GW Gw
-cnoreabbrev T Term
-cnoreabbrev T! Term!
-cnoreabbrev T1 Term!
-cnoreabbrev man Man
-cnoreabbrev W w
-cnoreabbrev FIN Fin
-cnoreabbrev FIn Fin
-]])

@@ -34,6 +34,14 @@ writeToProfile(
 );
 
 function general_map() {
+    const numberRules = [];
+    for (let i = 0; i < 10; i++) {
+        const key = `${i}` as "0";
+
+        numberRules.push(map(key, "⌘").to(key, "⌃"));
+        numberRules.push(map(key, "⌃").to(key, "⌘"));
+    }
+
     return rule("some general mappings").manipulators([
         ...unix_mapping(),
 
@@ -42,6 +50,8 @@ function general_map() {
 
         mapDoubleTap('↑').to('↖︎'),
         mapDoubleTap('↓').to('end'),
+
+        ...numberRules,
     ]);
 }
 
@@ -65,28 +75,11 @@ function app_browser() {
         ...switcher(),
         ...tapModifiers({
             '›⌘': toKey('i', '⌘⌥'),
-            '‹⌃': toKey('s', '⌘⌃'),
+            // '‹⌃': toKey('s', '⌘⌃'),
         }),
         map("n", "⌃").to("down_arrow"),
         map("p", "⌃").to("up_arrow"),
     ]);
-}
-function hyper_layer() {
-    return rule("hyper_layer").manipulators([
-        withModifier("Hyper")([
-            map('a').toApp('ghostty'),
-            // map('s').to$('/bin/sh ~/.config/aerospace/open_browser.sh'),
-            map('d').toApp('Reminders'),
-            map('n').toApp('Logseq'),
-            map('f').to$('open /System/Library/CoreServices/Finder.app'),
-            map('m').toApp('Activity Monitor'),
-
-            map('p').to('c', '⌘⌥'),
-
-            map('l').to(']', '⌘⇧'),
-            map('h').to('[', '⌘⇧'),
-        ]),
-    ])
 }
 
 function vim_mode() {
