@@ -64,12 +64,3 @@ function GetProjectRoot(markers, path_or_bufnr)
         return workspace or nil
     end
 end
-
-Augroup("hotreload", { clear = true })
-function BufWritePostFunc(pattern, func)
-    Autocmd("BufWritePost", {
-        group = "hotreload",
-        pattern = pattern,
-        callback = func,
-    })
-end

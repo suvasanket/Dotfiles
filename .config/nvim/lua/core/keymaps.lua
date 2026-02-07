@@ -18,6 +18,9 @@ Map("n", "<leader>n", function()
 end)
 Map("n", "<C-;>", ":<up>", { silent = false })
 Map("n", "<leader>;", "gg=G``")
+vim.keymap.set("c", "<C-l>", function()
+	pcall(vim.fn.wildtrigger)
+end)
 
 -- insert mode
 Map("i", "<S-CR>", "<esc>O")
@@ -32,7 +35,6 @@ Map("t", "<C-S-\\>", "clear\n")
 -- system mappings
 Map({ "i", "c" }, "<C-e>", "<end>")
 Map({ "i", "c" }, "<C-a>", "<home>")
-Map("c", "<C-j>", "<C-f>a")
 
 -- copy paste
 Map({ "n", "x" }, "gp", function()
@@ -55,8 +57,6 @@ Map({ "n", "x" }, "p", "p`[v`]=")
 Map({ "n", "x" }, "P", "P`[v`]=")
 Map({ "n", "x" }, "gy", '"+y', { desc = "clipboard yank" })
 Map("x", "<leader>p", [["_dP]], { desc = "blackhole paste" })
-
-Map("n", "<C-space>f", CMD("Ftplugin"))
 
 --buffer & tabs
 Map("n", "zx", CMD("bd!"))
@@ -165,20 +165,23 @@ BufMap("oil", "n", "=", function()
 	end)
 end)
 
-Map('n', 'zo', function()
-    local visible_bufs = {}
-    for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
-        for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tab)) do
-            local buf = vim.api.nvim_win_get_buf(win)
-            visible_bufs[buf] = true
-        end
-    end
+Map("n", "zo", function()
+	local visible_bufs = {}
+	for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+		for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tab)) do
+			local buf = vim.api.nvim_win_get_buf(win)
+			visible_bufs[buf] = true
+		end
+	end
 
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if not visible_bufs[buf] then
-            pcall(vim.api.nvim_buf_delete, buf, { force = false })
-        end
-    end
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if not visible_bufs[buf] then
+			pcall(vim.api.nvim_buf_delete, buf, { force = false })
+		end
+	end
 
-    vim.notify("Closed hidden buffers")
+	vim.notify("Closed hidden buffers")
 end)
+
+-- find file --
+vim.keymap.set("n", "<C-f>", ":Find ")

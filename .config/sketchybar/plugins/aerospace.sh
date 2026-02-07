@@ -65,7 +65,7 @@ else
             display="$monitor" \
             drawing=on \
             label="$icons" \
-            background.clip=0.8 \
+            background.clip=0.3 \
             label.color="$NONE" \
             icon.color="$NONE" \
             background.color="$TRANSPARENT"

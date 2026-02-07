@@ -1,6 +1,6 @@
 return {
 	"suvasanket/buf_mark.nvim",
-	-- dir = "~/codes/projects/buf_mark-nvim",
+    -- dir = "~/Developer/buf_mark-nvim/",
 	keys = { "'", "m" },
 	cmd = { "Find" },
 	config = function()

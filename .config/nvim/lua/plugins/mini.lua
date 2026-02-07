@@ -1,13 +1,3 @@
-local function find_file(pick)
-	local path = vim.bo.ft == "oil" and require("oil").get_current_dir() or GetProjectRoot() or vim.fn.getcwd()
-	local command = { "fd", "--type=f", "--no-follow", "--color=never", "--hidden" }
-	local show_with_icons = function(buf_id, items, query)
-		return pick.default_show(buf_id, items, query, { show_icons = true })
-	end
-	local source = { name = "find file", show = show_with_icons, cwd = path }
-	return pick.builtin.cli({ command = command }, { source = source })
-end
-
 return {
 	"nvim-mini/mini.nvim",
 	event = "VeryLazy",
@@ -33,9 +23,6 @@ return {
 			},
 		})
 		vim.ui.select = pick.ui_select
-		vim.keymap.set("n", "<C-f>", function()
-			find_file(pick)
-		end)
 		vim.keymap.set("n", "<C-g>", ":Pick oldfiles<cr>")
 		vim.keymap.set("n", "<leader>sh", pick.builtin.help)
 		vim.keymap.set("n", "<leader>'", pick.builtin.grep_live)

@@ -1,8 +1,0 @@
-[[session]]
-name = "Home"
-path = "~/"
-
-[[session]]
-name = "Test"
-path = "~/codes/"
-startup_command = "nvim ."

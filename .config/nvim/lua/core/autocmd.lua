@@ -1,23 +1,3 @@
-Import("core.buf_write")
-
--- Use 'q' to quit from common plugins
-Autocmd("FileType", {
-	pattern = {
-		"help",
-		"fugitive",
-		"git",
-		"qf",
-		"vim",
-	},
-	callback = function(event)
-		vim.cmd("setlocal listchars= nonumber norelativenumber")
-		vim.opt_local.wrap = false
-		vim.bo[event.buf].buflisted = false
-		Map("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
-		Map("n", "<esc>", "<cmd>noh<cr>", { buffer = event.buf, silent = true })
-	end,
-})
-
 -- Persistent Cursor
 Autocmd("BufReadPost", {
 	callback = function()
@@ -29,7 +9,7 @@ Autocmd("BufReadPost", {
 	end,
 })
 
---no auto comment
+-- no auto comment
 Autocmd("FileType", {
 	pattern = "*",
 	callback = function()
@@ -56,23 +36,4 @@ Autocmd("TextYankPost", {
 		vim.highlight.on_yank({ higroup = "CurSearch", timeout = 70 })
 	end,
 	group = "yank",
-})
-
--- cmdwin
-Augroup("CmdwinEvents", { clear = true })
-Autocmd("CmdwinEnter", {
-    group = "CmdwinEvents",
-    pattern = "*",
-    callback = function()
-        vim.o.laststatus = 0
-        vim.o.cmdheight = 0
-    end,
-})
-Autocmd("CmdwinLeave", {
-    group = "CmdwinEvents",
-    pattern = "*",
-    callback = function()
-        vim.o.laststatus = 2
-        vim.o.cmdheight = 1
-    end,
 })

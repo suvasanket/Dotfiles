@@ -12,7 +12,6 @@ import {
 import {
     switcher,
     tapModifiers,
-    unix_mapping,
 } from "./utils";
 
 writeToProfile(
@@ -43,15 +42,14 @@ function general_map() {
     }
 
     return rule("some general mappings").manipulators([
-        ...unix_mapping(),
-
         map("left_command").to("left_command").toIfAlone("escape"),
         map("right_control").to("escape"),
+        map("q", "right_option", "right_command").to$("shortcuts run 'quick quit'"),
 
         mapDoubleTap('↑').to('↖︎'),
         mapDoubleTap('↓').to('end'),
 
-        ...numberRules,
+        // ...numberRules,
     ]);
 }
 

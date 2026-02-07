@@ -51,3 +51,6 @@ fre_chpwd() {
 }
 typeset -gaU chpwd_functions
 chpwd_functions+=fre_chpwd
+
+# Added by Antigravity
+export PATH="/Users/suvasanketrout/.antigravity/antigravity/bin:$PATH"

@@ -128,7 +128,6 @@ run = ['move-node-to-workspace 4']
 if.app-id = 'com.canva.affinity'
 run = ['move-node-to-workspace 4']
 
-# 5
 [[on-window-detected]]
 if.app-id = 'org.videolan.vlc'
 run = ['layout floating','move-node-to-workspace 4']
@@ -145,9 +144,10 @@ run = ['layout floating', 'move-node-to-workspace 4']
 if.app-id = 'com.apple.ActivityMonitor'
 run = ['layout floating', 'move-node-to-workspace 4']
 
+# 5
 
 ## fallback
 [[on-window-detected]]
 check-further-callbacks = true
-run = ['move-node-to-workspace 4', 'layout floating']
+run = ['layout floating']
 ## APP SPACES
