@@ -33,10 +33,10 @@ alt-j = 'focus down'
 alt-k = 'focus up'
 alt-l = 'focus right'
 
-alt-shift-h = 'move left'
-alt-shift-j = 'move down'
-alt-shift-k = 'move up'
-alt-shift-l = 'move right'
+alt-ctrl-h = 'move left'
+alt-ctrl-j = 'move down'
+alt-ctrl-k = 'move up'
+alt-ctrl-l = 'move right'
 
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
@@ -47,11 +47,11 @@ alt-shift-enter = 'layout tiling accordion floating'
 # window close
 cmd-shift-w = 'close-all-windows-but-current --quit-if-last-window'
 
-ctrl-1 = 'workspace 1'
-ctrl-2 = 'workspace 2'
-ctrl-3 = 'workspace 3'
-ctrl-4 = 'workspace 4'
-ctrl-5 = 'workspace 5'
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
 
 alt-rightSquareBracket = 'workspace next'
 alt-leftSquareBracket = 'workspace prev'
@@ -59,11 +59,11 @@ alt-leftSquareBracket = 'workspace prev'
 alt-shift-rightSquareBracket = ['move-node-to-workspace next', 'workspace next']
 alt-shift-leftSquareBracket = [ 'move-node-to-workspace prev', 'workspace prev' ]
 
-ctrl-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
-ctrl-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
-ctrl-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
-ctrl-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
-ctrl-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+alt-ctrl-1 = ['move-node-to-workspace 1', 'workspace 1']
+alt-ctrl-2 = ['move-node-to-workspace 2', 'workspace 2']
+alt-ctrl-3 = ['move-node-to-workspace 3', 'workspace 3']
+alt-ctrl-4 = ['move-node-to-workspace 4', 'workspace 4']
+alt-ctrl-5 = ['move-node-to-workspace 5', 'workspace 5']
 
 ctrl-cmd-f = 'macos-native-fullscreen'
 alt-tab = 'focus-back-and-forth'
@@ -86,6 +86,10 @@ run = ['move-node-to-workspace 1']
 [[on-window-detected]]
 if.app-id="com.mitchellh.ghostty"
 run = ['layout floating', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id="org.gnu.Emacs"
+run = ['move-node-to-workspace 1']
 
 # 2
 [[on-window-detected]]
