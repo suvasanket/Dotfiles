@@ -25,8 +25,7 @@ if [ -z "$monitor" ]; then
 fi
 
 if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
-    sketchybar --animate sin 10 \
-        --set "$NAME" \
+    sketchybar --set "$NAME" \
         y_offset=2 y_offset=0 \
         background.drawing=on
 
@@ -35,7 +34,6 @@ if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
             display="$monitor" \
             drawing=on \
             label="$icons" \
-            background.clip=0.0 \
             label.color="$ACCENT_COLOR" \
             icon.color="$ACCENT_COLOR" \
             background.color="$TRANSPARENT"
@@ -43,7 +41,6 @@ if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
         sketchybar --set "$NAME" \
             display="$monitor" \
             drawing=on \
-            background.clip=0.0 \
             label="$icons" \
             label.color="$ACCENT_COLOR" \
             icon.color="$ACCENT_COLOR" \
@@ -56,7 +53,6 @@ else
             drawing=on \
             label="$icons" \
             background.drawing=off \
-            background.clip=0.0 \
             icon.color="$NONE" \
             label.color="$NONE" \
             background.color="$TRANSPARENT"
@@ -65,7 +61,6 @@ else
             display="$monitor" \
             drawing=on \
             label="$icons" \
-            background.clip=0.3 \
             label.color="$NONE" \
             icon.color="$NONE" \
             background.color="$TRANSPARENT"

@@ -6,17 +6,12 @@ return {
 		keys = {
 			{ "<leader>aq", "<cmd>TermClose<cr>" },
 			{ "<leader>aa", "<cmd>TermToggle<cr>" },
+			{ "<leader><cr>", "<cmd>Term<cr>" },
 		},
 
 		opts = {
-			mappings = {
-				Term = "<leader><cr>",
-			},
 			oz_make = {
 				override_make = true,
-			},
-			oz_git = {
-				win_type = "hor",
 			},
 			integration = {
 				oil = {

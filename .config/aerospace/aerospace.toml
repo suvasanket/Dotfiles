@@ -1,11 +1,6 @@
 after-startup-command = [
     'exec-and-forget /Users/suvasanketrout/.config/aerospace/scripts/startup_script.sh',
 ]
-# exec-on-workspace-change = [
-#     '/bin/bash',
-#     '-c',
-#     '/Users/suvasanketrout/.config/aerospace/workspace_change.sh'
-# ]
 
 on-focus-changed = [
     'exec-and-forget sketchybar --trigger aerospace_focus_change'
@@ -17,12 +12,13 @@ accordion-padding = 30
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 
-gaps.inner.horizontal = 5
-gaps.inner.vertical = 5
-gaps.outer.left = 5
-gaps.outer.bottom = 45
-gaps.outer.top = 5
-gaps.outer.right = 5
+[gaps]
+inner.horizontal = 0
+inner.vertical =   0
+outer.left =       0
+outer.bottom =     35
+outer.top =        0
+outer.right =      0
 
 [mode.main.binding]
 alt-slash = 'layout tiles horizontal vertical'
@@ -71,7 +67,7 @@ alt-tab = 'focus-back-and-forth'
 # cmd-h = []
 
 ##### open apps #####
-# ctrl-1 = ['exec-and-forget ~/.config/aerospace/open_ghostty.sh']
+cmd-enter = ['exec-and-forget ~/.config/aerospace/open_ghostty.sh']
 # ctrl-2 = ['exec-and-forget ~/.config/aerospace/open_browser.sh']
 # ctrl-3 = ['exec-and-forget open -a Finder']
 # cmd-h = ['exec-and-forget open -a Obsidian']

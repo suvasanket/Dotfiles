@@ -6,8 +6,8 @@ return {
 		opts = {
 			keymap = {
 				preset = "none",
-				["<C-k>"] = { "show", "hide" },
-				["<C-l>"] = { "select_and_accept" },
+				["<C-l>"] = { "show", "select_and_accept" },
+				["<C-g>"] = { "hide" },
 				["<C-CR>"] = { "show_documentation", "hide_documentation" },
 
 				["<C-p>"] = { "select_prev" },
@@ -22,9 +22,9 @@ return {
 			},
 
 			signature = { enabled = true },
-            cmdline = { enabled = false },
+			cmdline = { enabled = false },
 			sources = {
-                min_keyword_length = 5
+				min_keyword_length = 5,
 			},
 		},
 	},

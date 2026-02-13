@@ -1,5 +1,4 @@
 import {
-    duoLayer,
     ifApp,
     map,
     mapDoubleTap,
@@ -81,25 +80,20 @@ function app_browser() {
 }
 
 function vim_mode() {
-    let layer = duoLayer("s", "d")
-    return layer.manipulators([
-        withModifier("control")([
-            map("h").to("⌫"),
-            map("u").to("⌫" ,"‹⌘"),
-            map("w").to("⌫" ,"‹⌥")
+    const apps = [
+        "com.mitchellh.ghostty",
+        "org.gnu.Emacs"
+    ];
+    // return layer.manipulators([
+    return rule("edit-mode", ifApp(apps).unless()).manipulators([
+        withModifier("⌥")([
+            map("b").to("←", "⌥"),
+            map("f").to("→", "⌥"),
+            map("d").to("⌦", "⌥"),
+            withModifier("shift")([
+                map(",").to("↑", "⌘"),
+                map(".").to("↓", "⌘"),
+            ])
         ]),
-        withModifier("??")([
-            map("h").to("←"),
-            map("j").to("↓"),
-            map("k").to("↑"),
-            map("l").to("→"),
-
-            map("f").to("‹⌥"),
-            map("spacebar").to("‹⌘"),
-
-            map("n").to("delete_or_backspace"),
-            map("m").to("⌦"),
-            map("'").to("z", "⌘"),
-        ])
     ]);
 }

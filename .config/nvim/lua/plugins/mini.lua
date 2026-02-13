@@ -5,6 +5,9 @@ return {
 		-- icons --
 		require("mini.icons").setup()
 
+		-- bracketed --
+		require("mini.bracketed").setup()
+
 		-- cmdline --
 		require("mini.cmdline").setup({ autocomplete = { enable = false } })
 

@@ -8,7 +8,6 @@ BufMap("man", "n", "gd", "<cmd>execute 'Man ' . expand('<cword>')<cr>")
 Map("n", "<leader>qf", CMD("copen"))
 Map("n", "<leader>qc", CMD("Clearqflist"))
 Map("n", "<leader>l", CMD("Lazy"))
-Map({ "n", "i" }, "<F1>", CMD("silent w!"))
 Map("n", "<leader>j", CMD("t."), { desc = "duplicate line" })
 Map("n", "<leader>n", function()
 	vim.cmd("t.")
@@ -17,24 +16,24 @@ Map("n", "<leader>n", function()
 	pcall(vim.api.nvim_win_set_cursor, 0, pos)
 end)
 Map("n", "<C-;>", ":<up>", { silent = false })
-Map("n", "<leader>;", "gg=G``")
+Map("i", "<S-CR>", "<esc>O")
+Map("t", "<C-[>", "<C-\\><C-n>")
+Map("x", "<C-c>", "<C-]>")
+
+-- cmdline
 vim.keymap.set("c", "<C-l>", function()
 	pcall(vim.fn.wildtrigger)
 end)
-
--- insert mode
-Map("i", "<S-CR>", "<esc>O")
-Map({ "i", "v" }, "<M-left>", "<C-o>b")
-Map({ "i", "v" }, "<M-right>", "<C-o>w")
-Map("i", "<C-l>", "<C-x><C-n>")
-
--- term
-Map("t", "<C-[>", "<C-\\><C-n>")
-Map("t", "<C-S-\\>", "clear\n")
-
--- system mappings
-Map({ "i", "c" }, "<C-e>", "<end>")
-Map({ "i", "c" }, "<C-a>", "<home>")
+vim.keymap.set({ "c", "i" }, "<C-a>", "<Home>")
+vim.keymap.set({ "c", "i" }, "<C-e>", "<End>")
+vim.keymap.set({ "c", "i" }, "<C-f>", "<Right>")
+vim.keymap.set({ "c", "i" }, "<C-b>", "<Left>")
+vim.keymap.set({ "c", "i" }, "<M-f>", "<S-Right>")
+vim.keymap.set({ "c", "i" }, "<M-b>", "<S-Left>")
+vim.keymap.set({ "c", "i" }, "<C-d>", "<Del>")
+vim.keymap.set({ "c", "i" }, "<M-d>", "<S-Right><C-w>")
+vim.keymap.set({ "c", "i" }, "<C-k>", "<End><C-u>")
+vim.keymap.set("c", "<C-g>", "<C-f>")
 
 -- copy paste
 Map({ "n", "x" }, "gp", function()
@@ -72,9 +71,6 @@ Map("n", "zo", CMD("tabo"), { desc = "tab only" })
 Map("n", "<C-w>m", "<C-w>|<C-w>_")
 
 -- oz
-Map("n", "<leader>gl", CMD("GitLog"))
-Map("n", "<leader>ga", CMD("Gw"))
-Map("n", "g\\", CMD("Gcw! safe point!"))
 Map("n", "<C-Cr>", function()
 	local last_cmd = vim.fn.histget("cmd", -1)
 	if not last_cmd:match("Make") then
@@ -86,16 +82,6 @@ end)
 -- Search and Replace
 Map("n", "c.", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
 Map("n", "c>", [[:s/\<<C-r><C-w>\>//g<Left><Left>]], { silent = false, desc = "search and replace word under cursor" })
-
--- keep visual selection when (de)indenting
-Map("v", "<", "<gv", {})
-Map("v", ">", ">gv", {})
-
--- move line
-Map("n", "<C-p>", ":m-2<cr>==")
-Map("n", "<C-n>", ":m+1<cr>==")
-Map("x", "<C-p>", ":m '<-2<CR>gv=gv")
-Map("x", "<C-n>", ":m '>+1<CR>gv=gv")
 
 Map("n", "[s", CMD("earlier 1f"))
 Map("n", "]s", CMD("later 1f"))
