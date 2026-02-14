@@ -8,6 +8,20 @@ return {
 		-- bracketed --
 		require("mini.bracketed").setup()
 
+		-- move --
+		require("mini.move").setup({
+			mappings = {
+				left = "<C-M-h>",
+				right = "<C-M-l>",
+				down = "<C-M-j>",
+				up = "<C-M-k>",
+				line_left = "<C-M-h>",
+				line_right = "<C-M-l>",
+				line_down = "<C-M-j>",
+				line_up = "<C-M-k>",
+			},
+		})
+
 		-- cmdline --
 		require("mini.cmdline").setup({ autocomplete = { enable = false } })
 
@@ -18,13 +32,7 @@ return {
 
 		-- pick --
 		local pick = require("mini.pick")
-		pick.setup({
-			mappings = {
-				delete_char = "<C-h>",
-				refine = "<C-enter>",
-				mark_all = "<S-TAB>",
-			},
-		})
+		pick.setup()
 		vim.ui.select = pick.ui_select
 		vim.keymap.set("n", "<C-g>", ":Pick oldfiles<cr>")
 		vim.keymap.set("n", "<leader>sh", pick.builtin.help)
@@ -90,7 +98,7 @@ return {
 		vim.keymap.set("n", "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>")
 
 		-- statusline --
-		require("mini.statusline").setup()
+		-- require("mini.statusline").setup()
 
 		-- splitjoin --
 		require("mini.splitjoin").setup({ mappings = { toggle = "<C-j>" } })

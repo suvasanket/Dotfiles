@@ -36,6 +36,9 @@ setopt hist_find_no_dups
 if [[ $TMUX ]]; then
     alias clear='clear && tmux clear-history'
 fi
+function cl() {
+    clear && printf '\e[3J' && tmux clear-history
+}
 alias :q="exit"
 alias ta="tmux a || tmux new -s 'some'"
 alias vl='nvim -c "normal \`0"'
@@ -43,14 +46,9 @@ alias vi='nvim'
 alias ll="ls -laG"
 
 alias brewbak='brew bundle dump --force --file="~/dotfiles/Brewfile"'
-alias ha="/Users/suvasanketrout/codes/projects/habit_tracker/habit"
+# alias ha="/Users/suvasanketrout/codes/projects/habit_tracker/habit"
 
 cdl() { cd "$@" && ls; }
-fre_chpwd() {
-    fre --add "$(pwd)"
-}
-typeset -gaU chpwd_functions
-chpwd_functions+=fre_chpwd
 
 # Added by Antigravity
 export PATH="/Users/suvasanketrout/.antigravity/antigravity/bin:$PATH"

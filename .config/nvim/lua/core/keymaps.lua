@@ -18,7 +18,6 @@ end)
 Map("n", "<C-;>", ":<up>", { silent = false })
 Map("i", "<S-CR>", "<esc>O")
 Map("t", "<C-[>", "<C-\\><C-n>")
-Map("x", "<C-c>", "<C-]>")
 
 -- cmdline
 vim.keymap.set("c", "<C-l>", function()
