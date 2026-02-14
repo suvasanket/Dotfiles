@@ -9,18 +9,24 @@ return {
 			{ "<leader><cr>", "<cmd>Term<cr>" },
 		},
 
-		opts = {
-			oz_make = {
-				override_make = true,
-			},
-			integration = {
-				oil = {
-					entry_exec = {
-						use_fullpath = false,
+		config = function()
+			require("oz").setup({
+				oz_make = {
+					override_make = true,
+				},
+				integration = {
+					oil = {
+						entry_exec = {
+							use_fullpath = false,
+						},
 					},
 				},
-			},
-		},
+			})
+			-- statusline --
+			require("oz.git").on_job_exit(function()
+				update_git_branch()
+			end)
+		end,
 	},
 
 	{

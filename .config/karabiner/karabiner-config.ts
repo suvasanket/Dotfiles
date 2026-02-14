@@ -16,7 +16,7 @@ import {
 writeToProfile(
     "Default profile",
     [
-        vim_mode(),
+        edit_map(),
 
         general_map(),
 
@@ -32,18 +32,19 @@ writeToProfile(
 );
 
 function general_map() {
-    const numberRules = [];
-    for (let i = 0; i < 10; i++) {
-        const key = `${i}` as "0";
-
-        numberRules.push(map(key, "⌘").to(key, "⌃"));
-        numberRules.push(map(key, "⌃").to(key, "⌘"));
-    }
+    // const numberRules = [];
+    // for (let i = 0; i < 10; i++) {
+    //     const key = `${i}` as "0";
+    //
+    //     numberRules.push(map(key, "⌘").to(key, "⌃"));
+    //     numberRules.push(map(key, "⌃").to(key, "⌘"));
+    // }
 
     return rule("some general mappings").manipulators([
         map("left_command").to("left_command").toIfAlone("escape"),
         map("right_control").to("escape"),
         map("q", "right_option", "right_command").to$("shortcuts run 'quick quit'"),
+        map("`", "left_control").to$("shortcuts run 'add reminder'"),
 
         mapDoubleTap('↑').to('↖︎'),
         mapDoubleTap('↓').to('end'),
@@ -79,13 +80,19 @@ function app_browser() {
     ]);
 }
 
-function vim_mode() {
+function edit_map() {
     const apps = [
         "com.mitchellh.ghostty",
         "org.gnu.Emacs"
     ];
     // return layer.manipulators([
     return rule("edit-mode", ifApp(apps).unless()).manipulators([
+        withModifier("⌃")([
+            map("b").to("←"),
+            map("f").to("→"),
+            map("p").to("↑"),
+            map("n").to("↓"),
+        ]),
         withModifier("⌥")([
             map("b").to("←", "⌥"),
             map("f").to("→", "⌥"),

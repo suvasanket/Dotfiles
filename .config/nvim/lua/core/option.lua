@@ -6,8 +6,6 @@ o.inccommand = "split"
 if not pcall(vim.cmd.colorscheme, "fleet") then
 	vim.cmd.colorscheme("default")
 end
-o.termguicolors = true
-o.signcolumn = "auto"
 o.hlsearch = false
 o.incsearch = true
 
@@ -15,8 +13,6 @@ o.foldenable = true
 o.foldlevel = 99
 o.foldmethod = "expr"
 o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-o.foldcolumn = "0"
-o.fillchars:append({ fold = " " })
 
 vim.g.did_load_netrw = 0
 
@@ -31,8 +27,6 @@ o.autoread = true
 
 o.relativenumber = true
 o.number = true
--- o.guicursor = "n-v-c-i-sm:block,ci-ve:ver25,r-cr-o:hor20,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
-o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait40-blinkoff40-blinkon40-Cursor/lCursor"
 o.tabstop = 4
 o.shiftwidth = 4
 o.softtabstop = 4
@@ -52,3 +46,28 @@ o.autoindent = true
 o.showmode = false
 o.ruler = false
 o.conceallevel = 2
+
+-- Cache git branch to avoid running command on every statusline refresh
+local git_branch_cache = {}
+
+function _G.git_branch()
+	return git_branch_cache[GetProjectRoot()]
+end
+
+function _G.update_git_branch()
+	local branch = vim.fn.system("git branch --show-current 2>/dev/null | tr -d '\n'")
+	if branch ~= "" then
+		git_branch_cache[GetProjectRoot()] = branch
+	end
+end
+
+-- Update on buffer enter and after shell commands
+vim.api.nvim_create_autocmd({ "DirChanged" }, {
+	callback = function()
+		_G.update_git_branch()
+	end,
+})
+
+local defline = vim.o.statusline
+defline = defline:gsub("%%f", "%%f [%%{v:lua.git_branch()}]")
+vim.opt.statusline = string.format(" %s ", defline)
