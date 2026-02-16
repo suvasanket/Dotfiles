@@ -23,9 +23,11 @@ return {
 				},
 			})
 			-- statusline --
-			require("oz.git").on_job_exit(function()
-				update_git_branch()
-			end)
+			require("oz.git").on_job_exit("statusline", {
+				callback = function()
+					update_git_branch()
+				end,
+			})
 		end,
 	},
 

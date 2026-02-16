@@ -61,10 +61,12 @@ function _G.update_git_branch()
 	end
 end
 
--- Update on buffer enter and after shell commands
-vim.api.nvim_create_autocmd({ "DirChanged" }, {
+vim.api.nvim_create_autocmd({ "DirChanged", "BufEnter" }, {
+    once = true,
 	callback = function()
-		_G.update_git_branch()
+		if not git_branch_cache[GetProjectRoot() or vim.fn.cwd] then
+			_G.update_git_branch()
+		end
 	end,
 })
 
