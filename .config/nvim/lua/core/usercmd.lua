@@ -15,11 +15,6 @@ local ex = vim.fn.expand
 pwd = vim.fn.expand("%:p:h")
 file = vim.fn.expand("%:t")
 filewe = vim.fn.expand("%:t:r")
-
-local function sh(cmd)
-	local zhs = table.concat({ "!", cmd })
-	vim.cmd(zhs)
-end
 --}}}
 
 -- ftplugin {{{

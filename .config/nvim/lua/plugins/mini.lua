@@ -11,14 +11,14 @@ return {
 		-- move --
 		require("mini.move").setup({
 			mappings = {
-				left = "<C-M-h>",
-				right = "<C-M-l>",
-				down = "<C-M-j>",
-				up = "<C-M-k>",
-				line_left = "<C-M-h>",
-				line_right = "<C-M-l>",
-				line_down = "<C-M-j>",
-				line_up = "<C-M-k>",
+			    left = "<C-h>",
+			    right = "<C-l>",
+			    down = "<C-j>",
+			    up = "<C-k>",
+			    line_left = "<C-h>",
+			    line_right = "<C-l>",
+			    line_down = "<C-j>",
+			    line_up = "<C-k>",
 			},
 		})
 
@@ -34,7 +34,6 @@ return {
 		local pick = require("mini.pick")
 		pick.setup()
 		vim.ui.select = pick.ui_select
-		vim.keymap.set("n", "<C-g>", ":Pick oldfiles<cr>")
 		vim.keymap.set("n", "<leader>sh", pick.builtin.help)
 		vim.keymap.set("n", "<leader>'", pick.builtin.grep_live)
 
@@ -97,10 +96,7 @@ return {
 		})
 		vim.keymap.set("n", "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>")
 
-		-- statusline --
-		-- require("mini.statusline").setup()
-
 		-- splitjoin --
-		require("mini.splitjoin").setup({ mappings = { toggle = "<C-j>" } })
+		require("mini.splitjoin").setup({ mappings = {toggle = "<M-j>"} })
 	end,
 }

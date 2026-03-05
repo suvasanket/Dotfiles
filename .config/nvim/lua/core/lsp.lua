@@ -1,7 +1,7 @@
 Autocmd("LspAttach", {
 	callback = function(args)
 		local opts = { noremap = true, silent = true, buffer = args.buf }
-		Map({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, opts)
+		Map("i", "<C-k>", vim.lsp.buf.signature_help, opts)
 		Map("n", "gd", vim.lsp.buf.definition, opts)
 		Map("n", "<leader>wl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
@@ -11,6 +11,7 @@ Autocmd("LspAttach", {
 
 vim.diagnostic.config({
 	virtual_text = true,
+    underline = false,
 })
 
 ----------- ** server specific configs ** -----------

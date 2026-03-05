@@ -52,14 +52,14 @@ alt-5 = 'workspace 5'
 alt-rightSquareBracket = 'workspace next'
 alt-leftSquareBracket = 'workspace prev'
 
-alt-shift-rightSquareBracket = ['move-node-to-workspace next', 'workspace next']
-alt-shift-leftSquareBracket = [ 'move-node-to-workspace prev', 'workspace prev' ]
+alt-ctrl-rightSquareBracket = ['move-node-to-workspace next', 'workspace next']
+alt-ctrl-leftSquareBracket = [ 'move-node-to-workspace prev', 'workspace prev' ]
 
-alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
-alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
-alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
-alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
-alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+alt-ctrl-1 = ['move-node-to-workspace 1', 'workspace 1']
+alt-ctrl-2 = ['move-node-to-workspace 2', 'workspace 2']
+alt-ctrl-3 = ['move-node-to-workspace 3', 'workspace 3']
+alt-ctrl-4 = ['move-node-to-workspace 4', 'workspace 4']
+alt-ctrl-5 = ['move-node-to-workspace 5', 'workspace 5']
 
 ctrl-cmd-f = 'macos-native-fullscreen'
 alt-tab = 'focus-back-and-forth'
@@ -67,7 +67,8 @@ alt-tab = 'focus-back-and-forth'
 # cmd-h = []
 
 ##### open apps #####
-cmd-enter = ['exec-and-forget ~/.config/aerospace/open_ghostty.sh']
+cmd-enter = ['exec-and-forget open -a Ghostty']
+cmd-backslash = ['exec-and-forget open -a Reminders']
 # ctrl-2 = ['exec-and-forget ~/.config/aerospace/open_browser.sh']
 # ctrl-3 = ['exec-and-forget open -a Finder']
 # cmd-h = ['exec-and-forget open -a Obsidian']

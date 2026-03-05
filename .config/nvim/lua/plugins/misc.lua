@@ -23,27 +23,4 @@ return {
 			},
 		},
 	},
-
-	-- quick snippet capture
-	{
-		"chrisgrieser/nvim-scissors",
-		keys = {
-			{
-				"<leader>se",
-				function()
-					require("scissors").editSnippet()
-				end,
-				desc = "create Snippet",
-			},
-			{
-				"<leader>sa",
-				function()
-					require("scissors").addNewSnippet()
-				end,
-				mode = { "n", "x" },
-				desc = "create Snippet",
-			},
-		},
-		opts = { snippetDir = vim.fn.stdpath("config") .. "/snippets" },
-	},
 }

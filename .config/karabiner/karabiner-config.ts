@@ -1,7 +1,6 @@
 import {
     ifApp,
     map,
-    mapDoubleTap,
     rule,
     toKey,
     withModifier,
@@ -45,9 +44,7 @@ function general_map() {
         map("right_control").to("escape"),
         map("q", "right_option", "right_command").to$("shortcuts run 'quick quit'"),
         map("`", "left_control").to$("shortcuts run 'add reminder'"),
-
-        mapDoubleTap('↑').to('↖︎'),
-        mapDoubleTap('↓').to('end'),
+        map("b", "⌘⌥").to$(". /Users/suvasanketrout/dotfiles/.config/karabiner/bt_connect.sh"),
 
         // ...numberRules,
     ]);
@@ -75,8 +72,6 @@ function app_browser() {
             '›⌘': toKey('i', '⌘⌥'),
             // '‹⌃': toKey('s', '⌘⌃'),
         }),
-        map("n", "⌃").to("down_arrow"),
-        map("p", "⌃").to("up_arrow"),
     ]);
 }
 
@@ -92,6 +87,10 @@ function edit_map() {
             map("f").to("→"),
             map("p").to("↑"),
             map("n").to("↓"),
+            withModifier("shift")([
+                map("b").to("←", "⇧"),
+                map("f").to("→", "⇧"),
+            ])
         ]),
         withModifier("⌥")([
             map("b").to("←", "⌥"),
@@ -100,6 +99,8 @@ function edit_map() {
             withModifier("shift")([
                 map(",").to("↑", "⌘"),
                 map(".").to("↓", "⌘"),
+                map("b").to("←", "⌥⇧"),
+                map("f").to("→", "⌥⇧"),
             ])
         ]),
     ]);

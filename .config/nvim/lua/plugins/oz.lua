@@ -2,7 +2,8 @@ return {
 	{
 		"suvasanket/oz.nvim",
 		dir = "~/Developer/oz-nvim",
-		event = "VeryLazy",
+		-- event = "VeryLazy",
+		lazy = false,
 		keys = {
 			{ "<leader>aq", "<cmd>TermClose<cr>" },
 			{ "<leader>aa", "<cmd>TermToggle<cr>" },
@@ -11,6 +12,9 @@ return {
 
 		config = function()
 			require("oz").setup({
+				oz_git = {
+					win_type = "e",
+				},
 				oz_make = {
 					override_make = true,
 				},
@@ -24,18 +28,12 @@ return {
 			})
 			-- statusline --
 			require("oz.git").on_job_exit("statusline", {
-				callback = function()
-					update_git_branch()
+				callback = function(ev)
+					if ev.args[1] == "checkout" or ev.args[1] == "switch" then
+						update_git_branch()
+					end
 				end,
 			})
 		end,
-	},
-
-	{
-		"sindrets/diffview.nvim",
-		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
-		opts = {
-			use_icons = false,
-		},
 	},
 }
