@@ -31,13 +31,13 @@ writeToProfile(
 );
 
 function general_map() {
-    // const numberRules = [];
-    // for (let i = 0; i < 10; i++) {
-    //     const key = `${i}` as "0";
-    //
-    //     numberRules.push(map(key, "⌘").to(key, "⌃"));
-    //     numberRules.push(map(key, "⌃").to(key, "⌘"));
-    // }
+    const numberRules = [];
+    for (let i = 0; i < 10; i++) {
+        const key = `${i}` as "0";
+
+        numberRules.push(map(key, "⌘").to(key, "⌥"));
+        numberRules.push(map(key, "⌥").to(key, "⌘"));
+    }
 
     return rule("some general mappings").manipulators([
         map("left_command").to("left_command").toIfAlone("escape"),
@@ -46,7 +46,7 @@ function general_map() {
         map("`", "left_control").to$("shortcuts run 'add reminder'"),
         map("b", "⌘⌥").to$(". /Users/suvasanketrout/dotfiles/.config/karabiner/bt_connect.sh"),
 
-        // ...numberRules,
+        ...numberRules,
     ]);
 }
 
@@ -87,6 +87,8 @@ function edit_map() {
             map("f").to("→"),
             map("p").to("↑"),
             map("n").to("↓"),
+            map("w").to("⌫", "⌥"),
+            map("u").to("⌫", "⌘"),
             withModifier("shift")([
                 map("b").to("←", "⇧"),
                 map("f").to("→", "⇧"),

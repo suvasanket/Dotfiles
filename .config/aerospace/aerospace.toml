@@ -21,27 +21,7 @@ outer.top =        0
 outer.right =      0
 
 [mode.main.binding]
-alt-slash = 'layout tiles horizontal vertical'
-alt-comma = 'layout accordion horizontal vertical'
-
-alt-cmd-h = 'focus left'
-alt-cmd-j = 'focus down'
-alt-cmd-k = 'focus up'
-alt-cmd-l = 'focus right'
-
-alt-cmd-shift-h = 'move left'
-alt-cmd-shift-j = 'move down'
-alt-cmd-shift-k = 'move up'
-alt-cmd-shift-l = 'move right'
-
-alt-shift-minus = 'resize smart -50'
-alt-shift-equal = 'resize smart +50'
-
-## tiling
 alt-shift-enter = 'layout tiling accordion floating'
-
-# window close
-cmd-shift-w = 'close-all-windows-but-current --quit-if-last-window'
 
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
@@ -52,27 +32,21 @@ alt-5 = 'workspace 5'
 alt-rightSquareBracket = 'workspace next'
 alt-leftSquareBracket = 'workspace prev'
 
-alt-ctrl-rightSquareBracket = ['move-node-to-workspace next', 'workspace next']
-alt-ctrl-leftSquareBracket = [ 'move-node-to-workspace prev', 'workspace prev' ]
+cmd-ctrl-rightSquareBracket = ['move-node-to-workspace next', 'workspace next']
+cmd-ctrl-leftSquareBracket = [ 'move-node-to-workspace prev', 'workspace prev' ]
 
-alt-ctrl-1 = ['move-node-to-workspace 1', 'workspace 1']
-alt-ctrl-2 = ['move-node-to-workspace 2', 'workspace 2']
-alt-ctrl-3 = ['move-node-to-workspace 3', 'workspace 3']
-alt-ctrl-4 = ['move-node-to-workspace 4', 'workspace 4']
-alt-ctrl-5 = ['move-node-to-workspace 5', 'workspace 5']
+cmd-ctrl-1 = 'move-node-to-workspace --focus-follows-window 1'
+cmd-ctrl-2 = 'move-node-to-workspace --focus-follows-window 2'
+cmd-ctrl-3 = 'move-node-to-workspace --focus-follows-window 3'
+cmd-ctrl-4 = 'move-node-to-workspace --focus-follows-window 4'
+cmd-ctrl-5 = 'move-node-to-workspace --focus-follows-window 5'
 
 ctrl-cmd-f = 'macos-native-fullscreen'
 alt-tab = 'focus-back-and-forth'
-# cmd-m = []
-# cmd-h = []
 
 ##### open apps #####
 cmd-enter = ['exec-and-forget open -a Ghostty']
 cmd-backslash = ['exec-and-forget open -a Reminders']
-# ctrl-2 = ['exec-and-forget ~/.config/aerospace/open_browser.sh']
-# ctrl-3 = ['exec-and-forget open -a Finder']
-# cmd-h = ['exec-and-forget open -a Obsidian']
-# cmd-m = ['exec-and-forget open -a Activity\ Monitor']
 
 ## APP SPACES
 # 1
