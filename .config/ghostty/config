@@ -1,4 +1,4 @@
-initial-command = /Users/suvasanketrout/.config/ghostty/open_tmux.sh
+command = tmux new-session -A -s main
 
 # Font
 font-family = "Ioskeley Mono"
