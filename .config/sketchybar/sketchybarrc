@@ -1,103 +1,68 @@
 #!/bin/bash
 
-source "$CONFIG_DIR/colors.sh" # Loads all defined colors
-source "$CONFIG_DIR/icons.sh" # Loads all defined icons
+# Source colors
+source "$CONFIG_DIR/colors.sh"
 
-ITEM_DIR="$CONFIG_DIR/items" # Directory where the items are configured
-PLUGIN_DIR="$CONFIG_DIR/plugins" # Directory where all the plugin scripts are stored
-SCRIPTS_DIR="$CONFIG_DIR/scripts"
+# Global bar settings
+sketchybar --bar \
+           height=14 \
+           color=$BAR_COLOR \
+           padding_left=5 \
+           padding_right=5 \
+           blur_radius=0 \
+           position=bottom \
+           margin=0 \
+           sticky=on \
+           topmost=on
 
-FONT="SF Pro" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
-# FONT="CaskaydiaCove Nerd Font"
-PADDINGS=3 # All paddings use this value (icon, label, background)
+# Defaults
+sketchybar --default \
+           label.color=$LABEL_COLOR \
+           label.font="JetBrainsMono Nerd Font:Bold:12.0" \
+           icon.color=$GREY \
+           icon.font="JetBrainsMono Nerd Font:Regular:12.0" \
+           padding_left=5 \
+           padding_right=5 \
+           label.padding_left=2 \
+           label.padding_right=2 \
+           label.y_offset=-1 \
+           icon.y_offset=-1
 
-# Setting up and starting the helper process
-HELPER=git.felix.helper
-killall helper
-(cd $CONFIG_DIR/helper && make)
-$CONFIG_DIR/helper/helper $HELPER > /dev/null 2>&1 &
+# Aerospace space list & Window count (left)
+source "$CONFIG_DIR/items/aerospace.sh"
 
-# Unload the macOS on screen indicator overlay for volume change
-launchctl unload -F /System/Library/LaunchAgents/com.apple.OSDUIHelper.plist > /dev/null 2>&1 &
+# Network status (left)
+sketchybar --add item network left \
+           --set network update_freq=1 \
+           script="$CONFIG_DIR/plugins/network.sh" \
+           padding_left=15
 
-# Setting up the general bar appearance of the bar
-bar=(
-  height=35
-  color=$BAR_COLOR
-  border_width=0
-  border_color=$BAR_BORDER_COLOR
-  shadow=on
-  position=bottom
-  sticky=on
-  padding_left=0
-  padding_right=0
-  y_offset=0
-  margin=0
-  corner_radius=0
-  blur_radius=40
-  topmost=true
-)
+# Right section items
+sketchybar --add item time right \
+           --set time icon="" \
+           update_freq=60 \
+           script="$CONFIG_DIR/plugins/time.sh"
 
-sketchybar --bar "${bar[@]}"
+sketchybar --add item battery right \
+            --set battery icon="󰁹" \
+            update_freq=30 \
+            updates=on \
+            script="$CONFIG_DIR/plugins/battery.sh" \
+            --subscribe battery power_source_change system_woke
 
-# Setting up default values
-defaults=(
-  updates=when_shown
-  icon.font="$FONT:Bold:14.0"
-  icon.color=$ICON_COLOR
-  icon.padding_left=$PADDINGS
-  icon.padding_right=$PADDINGS
-  label.font="$FONT:Semibold:13.0"
-  label.color=$LABEL_COLOR
-  label.padding_left=$PADDINGS
-  label.padding_right=$PADDINGS
-  padding_right=$PADDINGS
-  padding_left=$PADDINGS
-  background.height=26
-  background.corner_radius=9
-  background.border_width=0
-  popup.background.border_width=2
-  popup.background.corner_radius=15
-  popup.background.border_color=$POPUP_BORDER_COLOR
-  popup.background.color=$POPUP_BACKGROUND_COLOR
-  popup.blur_radius=20
-  popup.background.shadow.drawing=on
-  scroll_texts=on
-)
+sketchybar --add item swap right \
+           --set swap icon="󰈔" \
+           update_freq=10 \
+           script="$CONFIG_DIR/plugins/swap.sh"
 
-sketchybar --default "${defaults[@]}"
+sketchybar --add item ram right \
+           --set ram icon="󰍛" \
+           update_freq=10 \
+           script="$CONFIG_DIR/plugins/ram.sh"
 
-# Left
-# source "$ITEM_DIR/apple.sh"
-# source "$ITEM_DIR/yabai.sh"
-source "$ITEM_DIR/aerospace.sh"
-# source "$ITEM_DIR/reminder.sh"
-# source "$ITEM_DIR/front_app.sh"
+sketchybar --add item cpu right \
+           --set cpu icon="󰻠" \
+           update_freq=5 \
+           script="$CONFIG_DIR/plugins/cpu.sh"
 
-# Center
-# source "$ITEM_DIR/spotify.sh"
-# source "$ITEM_DIR/media.sh"
-
-# Right
-source "$ITEM_DIR/dateTime.sh"
-source "$ITEM_DIR/caffeinate.sh"
-# source "$ITEM_DIR/ear_buds.sh"
-source "$ITEM_DIR/wifi.sh"
-source "$ITEM_DIR/battery.sh"
-source "$ITEM_DIR/ram.sh"
-source "$ITEM_DIR/cpu.sh"
-source "$ITEM_DIR/noti.sh"
-# source "$ITEM_DIR/calendar.sh"
-# source "$ITEM_DIR/brew.sh"
-# source "$ITEM_DIR/github.sh"
-# source "$ITEM_DIR/volume.sh"
-# source "$ITEM_DIR/svim.sh"
-
-sketchybar --hotload on
-
-# Forcing all item scripts to run (never do this outside of sketchybarrc)
 sketchybar --update
-# sketchydate
-# bottombar
-
-echo "sketchybar configuation loaded.."
