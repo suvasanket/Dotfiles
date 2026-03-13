@@ -18,7 +18,7 @@ sketchybar --bar \
 # Defaults
 sketchybar --default \
            label.color=$LABEL_COLOR \
-           label.font="JetBrainsMono Nerd Font:Bold:12.0" \
+           label.font="JetBrainsMono Nerd Font:ExtraBold:12.0" \
            icon.color=$GREY \
            icon.font="JetBrainsMono Nerd Font:Regular:12.0" \
            padding_left=5 \

@@ -8,8 +8,8 @@ FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)
 # Check if workspace has windows
 WINDOW_COUNT=$(aerospace list-windows --workspace "$1" --count)
 
-# Base styling: Bold
-STYLE="Bold"
+# Base styling: ExtraBold
+STYLE="ExtraBold"
 COLOR=$GREY
 
 # If workspace has windows, make it Green

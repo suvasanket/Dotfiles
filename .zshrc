@@ -5,10 +5,16 @@ fi
 
 # Shell integrations
 source <(fzf --zsh)
-# source $(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-# source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(zoxide init --cmd cd zsh)"
-eval "$(starship init zsh)"
+
+# prompt
+autoload -U colors && colors
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '(%b)'
+zstyle ':vcs_info:*' enable git
+setopt PROMPT_SUBST
+PROMPT='%B%F{cyan}%~%f%F{243}${vcs_info_msg_0_}%f %(?.%F{green}>%f.%F{red}x%f)%b '
 
 # tab complete
 autoload -Uz compinit
