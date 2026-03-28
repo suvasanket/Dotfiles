@@ -7,7 +7,7 @@ PRESSURE=$((100 - PRESSURE))
 COLOR=$GREY
 if [ $PRESSURE -gt 70 ]; then
   COLOR=$RED
-elif [ $PRESSURE -gt 40 ]; then
+elif [ $PRESSURE -gt 50 ]; then
   COLOR=$YELLOW
 fi
 

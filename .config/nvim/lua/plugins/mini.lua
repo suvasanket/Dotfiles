@@ -11,43 +11,19 @@ return {
 		-- move --
 		require("mini.move").setup({
 			mappings = {
-			    left = "<C-h>",
-			    right = "<C-l>",
-			    down = "<C-j>",
-			    up = "<C-k>",
-			    line_left = "<C-h>",
-			    line_right = "<C-l>",
-			    line_down = "<C-j>",
-			    line_up = "<C-k>",
+				left = "<C-h>",
+				right = "<C-l>",
+				down = "<C-j>",
+				up = "<C-k>",
+				line_left = "<C-h>",
+				line_right = "<C-l>",
+				line_down = "<C-j>",
+				line_up = "<C-k>",
 			},
 		})
 
 		-- cmdline --
 		require("mini.cmdline").setup({ autocomplete = { enable = false } })
-
-		-- extra --
-		local extra = require("mini.extra")
-		extra.setup()
-		vim.keymap.set("n", "<leader>cd", extra.pickers.diagnostic)
-
-		-- pick --
-		local pick = require("mini.pick")
-		pick.setup()
-		vim.ui.select = pick.ui_select
-		vim.keymap.set("n", "<leader>sh", pick.builtin.help)
-		vim.keymap.set("n", "<leader>'", pick.builtin.grep_live)
-
-		-- notify --
-		local notify = require("mini.notify")
-		notify.setup({ lsp_progress = { enable = false } })
-		local mini_notify = notify.make_notify()
-		vim.notify = function(msg, level, opts)
-			opts = opts or {}
-			if opts.title ~= nil then
-				msg = string.format("[[%s]]: %s", opts.title, msg)
-			end
-			mini_notify(msg, level)
-		end
 
 		-- ai --
 		local ai = require("mini.ai")
@@ -63,20 +39,7 @@ return {
 		vim.keymap.set("n", "<leader>gd", "<cmd>lua MiniDiff.toggle_overlay()<cr>")
 
 		-- surround --
-		require("mini.surround").setup({
-			mappings = {
-				add = "ys",
-				delete = "ds",
-				replace = "cs",
-				find = "",
-				find_left = "",
-				highlight = "",
-				update_n_lines = "",
-			},
-		})
-		vim.keymap.del("x", "ys")
-		vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
-		vim.keymap.set("n", "yss", "ys_", { remap = true })
+		require("mini.surround").setup()
 
 		-- hipatterns --
 		require("mini.hipatterns").setup({
@@ -97,6 +60,9 @@ return {
 		vim.keymap.set("n", "<leader>bt", "<cmd>lua MiniTrailspace.trim()<cr>")
 
 		-- splitjoin --
-		require("mini.splitjoin").setup({ mappings = {toggle = "<M-j>"} })
+		require("mini.splitjoin").setup({ mappings = { toggle = "<M-j>" } })
+
+        -- statusline --
+        require("mini.statusline").setup()
 	end,
 }

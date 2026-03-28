@@ -31,22 +31,22 @@ writeToProfile(
 );
 
 function general_map() {
-    const numberRules = [];
-    for (let i = 0; i < 10; i++) {
-        const key = `${i}` as "0";
-
-        numberRules.push(map(key, "⌘").to(key, "⌥"));
-        numberRules.push(map(key, "⌥").to(key, "⌘"));
-    }
+    // const numberRules = [];
+    // for (let i = 0; i < 10; i++) {
+    //     const key = `${i}` as "0";
+    //
+    //     numberRules.push(map(key, "⌘").to(key, "⌥"));
+    //     numberRules.push(map(key, "⌥").to(key, "⌘"));
+    // }
 
     return rule("some general mappings").manipulators([
         map("left_command").to("left_command").toIfAlone("escape"),
         map("right_control").to("escape"),
         map("q", "right_option", "right_command").to$("shortcuts run 'quick quit'"),
-        map("`", "left_control").to$("shortcuts run 'add reminder'"),
+        // map("`", "left_control").to$("shortcuts run 'add reminder'"),
         map("b", "⌘⌥").to$(". /Users/suvasanketrout/dotfiles/.config/karabiner/bt_connect.sh"),
 
-        ...numberRules,
+        // ...numberRules,
     ]);
 }
 

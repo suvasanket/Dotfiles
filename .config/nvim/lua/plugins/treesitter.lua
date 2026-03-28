@@ -10,15 +10,6 @@ return {
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "lua", "vim" },
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "s",
-						node_incremental = "S",
-						node_decremental = "-",
-						scope_incremental = "+",
-					},
-				},
 				highlight = {
 					enable = true,
 					disable = function(lang, buf)

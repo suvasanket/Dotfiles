@@ -46,30 +46,3 @@ o.autoindent = true
 o.showmode = false
 o.ruler = false
 o.conceallevel = 2
-
--- Cache git branch to avoid running command on every statusline refresh
-local git_branch_cache = {}
-
-function _G.git_branch()
-	return git_branch_cache[GetProjectRoot()]
-end
-
-function _G.update_git_branch()
-	local branch = vim.fn.system("git branch --show-current 2>/dev/null | tr -d '\n'")
-	if branch ~= "" then
-		git_branch_cache[GetProjectRoot()] = branch
-	end
-end
-
-vim.api.nvim_create_autocmd({ "DirChanged", "BufEnter" }, {
-    once = true,
-	callback = function()
-		if not git_branch_cache[GetProjectRoot() or vim.fn.cwd] then
-			_G.update_git_branch()
-		end
-	end,
-})
-
-local defline = vim.o.statusline
-defline = defline:gsub("%%f", "%%f [%%{v:lua.git_branch()}]")
-vim.opt.statusline = string.format(" %s ", defline)

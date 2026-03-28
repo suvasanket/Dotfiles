@@ -6,7 +6,10 @@ BufMap("man", "n", "gd", "<cmd>execute 'Man ' . expand('<cword>')<cr>")
 
 -- general
 Map("n", "<leader>qf", CMD("copen"))
-Map("n", "<leader>qc", CMD("Clearqflist"))
+Map("n", "<leader>qc", function()
+	vim.fn.setqflist({})
+	vim.cmd("cclose")
+end)
 Map("n", "<leader>l", CMD("Lazy"))
 Map("n", "<leader>j", CMD("t."), { desc = "duplicate line" })
 Map("n", "<leader>n", function()
@@ -18,6 +21,7 @@ end)
 Map("n", "<C-;>", ":<up>", { silent = false })
 Map("i", "<S-CR>", "<esc>O")
 Map("t", "<C-[>", "<C-\\><C-n>")
+Map("n", "<leader>i", "<cmd>G<cr>")
 
 -- cmdline
 vim.keymap.set("c", "<C-l>", function()
@@ -67,6 +71,7 @@ Map("n", "zH", CMD("tabmove +1"))
 Map("n", "z]", "mAZZ<C-w>v'A:delmark A<cr>")
 Map("n", "z[", "mAZZ:tabp<cr><C-w>v'A:delmark A<cr>")
 Map("n", "zo", CMD("tabo"), { desc = "tab only" })
+Map("n", "ZR", "<cmd>restart norm`0<cr>")
 
 -- window
 Map("n", "<C-w>m", "<C-w>|<C-w>_")
@@ -171,4 +176,4 @@ Map("n", "zo", function()
 end)
 
 -- find file --
-vim.keymap.set("n", "<C-f>", ":Find ")
+-- vim.keymap.set("n", "<C-f>", ":Find ")

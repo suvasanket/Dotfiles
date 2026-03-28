@@ -23,11 +23,11 @@ outer.right =      0
 [mode.main.binding]
 alt-shift-enter = 'layout tiling accordion floating'
 
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
+ctrl-1 = 'workspace 1'
+ctrl-2 = 'workspace 2'
+ctrl-3 = 'workspace 3'
+ctrl-4 = 'workspace 4'
+ctrl-5 = 'workspace 5'
 
 alt-rightSquareBracket = 'workspace next'
 alt-leftSquareBracket = 'workspace prev'
@@ -46,7 +46,7 @@ alt-tab = 'focus-back-and-forth'
 
 ##### open apps #####
 cmd-enter = ['exec-and-forget open -a Ghostty']
-cmd-backslash = ['exec-and-forget open -a Reminders']
+cmd-backslash = ['exec-and-forget open -a Things3']
 
 ## APP SPACES
 # 1

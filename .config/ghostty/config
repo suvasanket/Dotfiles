@@ -1,7 +1,7 @@
 command = tmux new-session -A -s main
 font-family = "Ioskeley Mono"
 font-style = "Medium"
-font-style-bold = "ExtraBold"
+font-style-bold = "Heavy"
 font-thicken = true
 font-size = 17
 adjust-cell-height = 15%
@@ -9,9 +9,9 @@ adjust-cell-height = 15%
 background = #101010
 theme = Cutie Pro
 confirm-close-surface = false
-shell-integration = zsh
-# window-padding-x = 15
-# window-padding-y = 10
+mouse-hide-while-typing = true
+window-padding-x = 15
+window-padding-y = 10
 
 ##################################
 keybind = super+backspace=text:\x15
@@ -40,9 +40,10 @@ keybind = cmd+digit_9=text:\x1d\x39
 
 keybind = shift+super+d=text:\x1d\x22
 keybind = super+d=text:\x1d\x25
-keybind = super+shift+enter=text:\x1d\x7a
+keybind = super+shift+m=text:\x1d\x7a
 keybind = cmd+[=text:\x1d\x1b[D
 keybind = cmd+]=text:\x1d\x1b[C
+keybind = ctrl+tab=text:\x1d\x2a
 
 # split size adjust
 keybind = cmd+ctrl+h=text:\x1d\x1b[1;5D

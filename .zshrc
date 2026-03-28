@@ -14,7 +14,7 @@ precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '(%b)'
 zstyle ':vcs_info:*' enable git
 setopt PROMPT_SUBST
-PROMPT='%B%F{cyan}%~%f%F{243}${vcs_info_msg_0_}%f %(?.%F{green}>%f.%F{red}x%f)%b '
+PROMPT='%B%F{cyan}%~%f%F{243}${vcs_info_msg_0_}%f %(?.%B%F{green}>%f.%B%F{red}*%f)%b '
 
 # tab complete
 autoload -Uz compinit

@@ -24,7 +24,7 @@ if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
                label.font="JetBrainsMono Nerd Font:$STYLE:12.0" \
                label.y_offset=-1 \
                background.drawing=on \
-               background.color=$GREY \
+               background.color=$WHITE \
                background.height=14 \
                background.y_offset=-3
 else
