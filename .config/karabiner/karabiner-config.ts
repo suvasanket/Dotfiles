@@ -40,7 +40,7 @@ function general_map() {
     // }
 
     return rule("some general mappings").manipulators([
-        map("left_command").to("left_command").toIfAlone("escape"),
+        map("left_option").to("left_option").toIfAlone("escape"),
         map("right_control").to("escape"),
         map("q", "right_option", "right_command").to$("shortcuts run 'quick quit'"),
         // map("`", "left_control").to$("shortcuts run 'add reminder'"),

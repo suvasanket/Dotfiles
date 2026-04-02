@@ -45,8 +45,10 @@ ctrl-cmd-f = 'macos-native-fullscreen'
 alt-tab = 'focus-back-and-forth'
 
 ##### open apps #####
-cmd-enter = ['exec-and-forget open -a Ghostty']
-cmd-backslash = ['exec-and-forget open -a Things3']
+alt-a = ['exec-and-forget open -a Ghostty']
+alt-s = ['exec-and-forget open -a Helium']
+alt-w = ['exec-and-forget open -a Obsidian']
+alt-e = ['exec-and-forget open -a Things3']
 
 ## APP SPACES
 # 1

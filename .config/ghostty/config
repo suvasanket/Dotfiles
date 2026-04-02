@@ -10,8 +10,7 @@ background = #101010
 theme = Cutie Pro
 confirm-close-surface = false
 mouse-hide-while-typing = true
-window-padding-x = 15
-window-padding-y = 10
+window-padding-x = 5
 
 ##################################
 keybind = super+backspace=text:\x15
