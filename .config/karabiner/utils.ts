@@ -30,12 +30,6 @@ export function switcher() {
       map('r', '⌃').to(']', '⌘⇧'),
   ]
 }
-export function unix_mapping() {
-  return [
-    map("u", "control").to("delete_or_backspace", "command"),
-    map("w", "control").to("delete_or_backspace", "option")
-  ]
-}
 
 /**
  * Map when tap a modifier key; keep as modifier when hold.

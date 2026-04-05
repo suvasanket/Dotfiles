@@ -89,13 +89,21 @@ run = ['move-node-to-workspace 2']
 
 # 3
 [[on-window-detected]]
-if.app-id = 'com.apple.finder'
-run = ['layout floating', 'move-node-to-workspace 3']
+if.app-id = 'md.obsidian'
+run = ['move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = ['move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = 'com.foobar2000.mac'
+run = ['move-node-to-workspace 3']
 
 # 4
 [[on-window-detected]]
-if.app-id = 'com.apple.mail'
-run = ['move-node-to-workspace 4']
+if.app-id = 'com.apple.finder'
+run = ['layout floating', 'move-node-to-workspace 4']
 
 [[on-window-detected]]
 if.app-id = 'net.whatsapp.WhatsApp'

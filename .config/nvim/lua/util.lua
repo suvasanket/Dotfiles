@@ -22,21 +22,6 @@ function M.root()
 	return vim.fs.root(0, patterns) or nil
 end
 
---- setup plugin
----@param name string plugin name
----@param event string|stringlib event
----@param tbl table config table
-function M.set(name, event, tbl)
-	vim.api.nvim_create_autocmd(event, {
-		callback = function()
-			if not tbl then
-				tbl = {}
-			end
-			require(name).setup(tbl)
-		end,
-	})
-end
-
 function M.cmdcr(cmd)
 	return "<Cmd>" .. cmd .. "<CR>"
 end
