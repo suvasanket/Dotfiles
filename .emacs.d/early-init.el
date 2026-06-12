@@ -15,6 +15,6 @@
 
 ;; fonts
 (set-face-attribute 'default nil
-                    :family "Ioskeley Mono"
+                    :family "IoskeleyMonoTerm Nerd Font"
                     :weight 'Medium
                     :height 170)

@@ -1,57 +1,54 @@
-command = tmux new-session -A -s main
-font-family = "Ioskeley Mono"
-font-style = "Medium"
-font-style-bold = "Heavy"
+## command = tmux new-session -A -s main
+font-family = "IoskeleyMonoTerm Nerd Font"
 font-thicken = true
 font-size = 17
 adjust-cell-height = 15%
 
 background = #101010
-theme = Cutie Pro
+theme = 0x96f
 confirm-close-surface = false
 mouse-hide-while-typing = true
 window-padding-x = 5
-window-decoration = none
+# window-decoration = none
 
 ##################################
-keybind = super+backspace=text:\x15
-keybind = alt+backspace=text:\x17
-keybind = super+shift+i=inspector:toggle
-keybind = super+k=text: clear\n
-
-########## TMUX MAPPINGs ########
-keybind = super+t=text:\x1d\x74
-keybind = super+w=text:\x1d\x71
-keybind = shift+ctrl+x=text:\x1d\x63
-keybind = shift+super+q=text:\x1d\x57
-keybind = shift+super+k=text:\x1d\x1b[23~
-keybind = shift+super+left_bracket=text:\x1d\x5b
-keybind = shift+super+right_bracket=text:\x1d\x5d
-
-keybind = cmd+digit_1=text:\x1d1
-keybind = cmd+digit_2=text:\x1d2
-keybind = cmd+digit_3=text:\x1d\x33
-keybind = cmd+digit_4=text:\x1d\x34
-keybind = cmd+digit_5=text:\x1d\x35
-keybind = cmd+digit_6=text:\x1d\x36
-keybind = cmd+digit_7=text:\x1d\x37
-keybind = cmd+digit_8=text:\x1d\x38
-keybind = cmd+digit_9=text:\x1d\x39
-
-keybind = shift+super+d=text:\x1d\x22
-keybind = super+d=text:\x1d\x25
-keybind = super+shift+m=text:\x1d\x7a
-keybind = cmd+[=text:\x1d\x1b[D
-keybind = cmd+]=text:\x1d\x1b[C
-keybind = ctrl+tab=text:\x1d\x2a
-
-# split size adjust
-keybind = cmd+ctrl+h=text:\x1d\x1b[1;5D
-keybind = cmd+ctrl+l=text:\x1d\x1b[1;5C
-keybind = cmd+ctrl+k=text:\x1d\x1b[1;5A
-keybind = cmd+ctrl+j=text:\x1d\x1b[1;5B
-keybind = cmd+ctrl+m=text:\x1d\x6d
+# keybind = super+backspace=text:\x15
+# keybind = alt+backspace=text:\x17
+# keybind = super+k=text: clear\n
 
 keybind = alt+left=unbind
 keybind = alt+right=unbind
 macos-option-as-alt = left
+
+########## TMUX MAPPINGs ########
+# keybind = super+t=text:\x1d\x74
+# keybind = super+w=text:\x1d\x71
+# keybind = shift+ctrl+x=text:\x1d\x63
+# keybind = shift+super+q=text:\x1d\x57
+# keybind = shift+super+k=text:\x1d\x1b[23~
+# keybind = shift+super+left_bracket=text:\x1d\x5b
+# keybind = shift+super+right_bracket=text:\x1d\x5d
+#
+# keybind = cmd+digit_1=text:\x1d1
+# keybind = cmd+digit_2=text:\x1d2
+# keybind = cmd+digit_3=text:\x1d\x33
+# keybind = cmd+digit_4=text:\x1d\x34
+# keybind = cmd+digit_5=text:\x1d\x35
+# keybind = cmd+digit_6=text:\x1d\x36
+# keybind = cmd+digit_7=text:\x1d\x37
+# keybind = cmd+digit_8=text:\x1d\x38
+# keybind = cmd+digit_9=text:\x1d\x39
+#
+# keybind = shift+super+d=text:\x1d\x22
+# keybind = super+d=text:\x1d\x25
+# keybind = super+shift+m=text:\x1d\x7a
+# keybind = cmd+[=text:\x1d\x1b[D
+# keybind = cmd+]=text:\x1d\x1b[C
+# keybind = ctrl+tab=text:\x1d\x2a
+#
+# # split size adjust
+# keybind = cmd+ctrl+h=text:\x1d\x1b[1;5D
+# keybind = cmd+ctrl+l=text:\x1d\x1b[1;5C
+# keybind = cmd+ctrl+k=text:\x1d\x1b[1;5A
+# keybind = cmd+ctrl+j=text:\x1d\x1b[1;5B
+# keybind = cmd+ctrl+m=text:\x1d\x6d

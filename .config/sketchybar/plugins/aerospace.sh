@@ -21,7 +21,7 @@ if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
     sketchybar --set $NAME \
                label="$1" \
                label.color=$BLACK \
-               label.font="JetBrainsMono Nerd Font:$STYLE:12.0" \
+               label.font="JetBrainsMono Nerd Font:$STYLE:10.0" \
                label.y_offset=-1 \
                background.drawing=on \
                background.color=$WHITE \
@@ -31,7 +31,7 @@ else
     sketchybar --set $NAME \
                label="$1" \
                label.color=$COLOR \
-               label.font="JetBrainsMono Nerd Font:$STYLE:12.0" \
+               label.font="JetBrainsMono Nerd Font:$STYLE:10.0" \
                label.y_offset=-1 \
                background.drawing=off
 fi

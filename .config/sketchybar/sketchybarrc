@@ -5,7 +5,7 @@ source "$CONFIG_DIR/colors.sh"
 
 # Global bar settings
 sketchybar --bar \
-           height=14 \
+           height=12 \
            color=$BAR_COLOR \
            padding_left=5 \
            padding_right=5 \
@@ -18,9 +18,9 @@ sketchybar --bar \
 # Defaults
 sketchybar --default \
            label.color=$LABEL_COLOR \
-           label.font="JetBrainsMono Nerd Font:ExtraBold:12.0" \
+           label.font="JetBrainsMono Nerd Font:ExtraBold:10.0" \
            icon.color=$GREY \
-           icon.font="JetBrainsMono Nerd Font:Regular:12.0" \
+           icon.font="JetBrainsMono Nerd Font:Regular:10.0" \
            padding_left=5 \
            padding_right=5 \
            label.padding_left=2 \

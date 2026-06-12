@@ -4,7 +4,10 @@ local root = require("util").root()
 local ftmap = require("util").ftmap
 
 -- oz
-vim.pack.add({ "file:///Users/suvasanketrout/Developer/oz-nvim" })
+vim.pack.add({ {
+	src = "file:///Users/suvasanketrout/Developer/oz-nvim",
+	version = "feat",
+} })
 require("oz").setup({
 	oz_git = {
 		win_type = "e",
@@ -26,37 +29,7 @@ end, { expr = true, silent = false })
 
 -- mark
 vim.pack.add({ "file:///Users/suvasanketrout/Developer/buf_mark-nvim" })
-require("buf_mark").setup({
-	mappings = {
-		marker_key = "m",
-	},
-})
-
--- snacks
-vim.pack.add({ "https://github.com/folke/snacks.nvim" })
-require("snacks").setup({
-	bigfile = { enabled = true },
-	quickfile = { enabled = true },
-	picker = { enabled = true },
-	notifier = { enabled = true },
-})
-map("n", "<leader>sh", cmd("lua require('snacks').picker('help')"), { desc = "help" })
-map("n", "<C-f>", function()
-	local root = root or vim.fn.getcwd()
-	require("snacks").picker.smart({
-		hidden = true,
-		cwd = root,
-		title = vim.fs.basename(root) .. "/",
-		layout = { preset = "ivy", preview = false },
-		supports_live = true,
-	})
-end)
-map("n", "<leader>'", function()
-	require("snacks").picker.grep({ cwd = root or vim.fn.getcwd() })
-end)
-map("n", "<leader>cd", function()
-	require("snacks").picker.diagnostics()
-end, { desc = "diagnostics" })
+require("buf_mark").setup()
 
 -- oil
 vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
@@ -95,14 +68,6 @@ end)
 
 -- mini
 vim.pack.add({ "https://github.com/nvim-mini/mini.nvim" })
-require("mini.basics").setup({
-	mappings = {
-		basic = false,
-	},
-	autocommands = {
-		relnum_in_visual_mode = true,
-	},
-})
 require("mini.icons").setup()
 require("mini.move").setup({
 	mappings = {
@@ -126,6 +91,7 @@ require("mini.hipatterns").setup({
 	highlighters = {
 		fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
 		todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+		wip = { pattern = "%f[%w]()WIP()%f[%W]", group = "MiniHipatternsHack" },
 		hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
 	},
 })
@@ -134,12 +100,16 @@ map("n", "<leader>bt", cmd("lua MiniTrailspace.trim()"))
 require("mini.splitjoin").setup({ mappings = { toggle = "<M-j>" } })
 require("mini.completion").setup()
 require("mini.cmdline").setup()
+require("mini.notify").setup({
+	lsp_progress = { enable = false },
+})
+vim.notify = MiniNotify.make_notify()
 
 -- mason
 vim.pack.add({ "https://github.com/neovim/nvim-lspconfig" })
 vim.pack.add({ "https://github.com/williamboman/mason.nvim" })
 require("mason").setup()
-vim.lsp.enable({ "lua_ls", "ts_ls", "sourcekit" })
+vim.lsp.enable({ "lua_ls", "ts_ls" }) -- "sourcekit"
 
 -- formatter
 vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
@@ -154,3 +124,20 @@ map("n", "<leader>f", cmd('lua require("conform").format({ async = true, lsp_for
 -- fidget
 vim.pack.add({ "https://github.com/j-hui/fidget.nvim" })
 require("fidget").setup()
+
+-- fff
+vim.pack.add({ "https://github.com/dmtrKovalenko/fff.nvim" })
+-- require('fff.download').download_or_build_binary()
+require("fff").setup({
+	keymaps = {
+		close = "<C-c>",
+	},
+})
+
+vim.keymap.set("n", "<C-f>", function()
+	require("fff").find_files_in_dir(root)
+end)
+vim.keymap.set("n", "<C-'>", function()
+	require("fff").live_grep()
+	require('fff').change_indexing_directory(root)
+end)

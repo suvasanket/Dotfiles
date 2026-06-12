@@ -43,7 +43,7 @@ function general_map() {
         map("right_control").to("escape"),
 		map("[", "⌃").to("escape"),
         map("q", "right_option", "right_command").to$("shortcuts run 'quick quit'"),
-        map("`", "left_control").to$("shortcuts run 'add reminder'"),
+        // map("`", "left_control").to$("shortcuts run 'add reminder'"),
         map("b", "⌘⌥").to$(". /Users/suvasanketrout/dotfiles/.config/karabiner/bt_connect.sh"),
 
         // ...numberRules,

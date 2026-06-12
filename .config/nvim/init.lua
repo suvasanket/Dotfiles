@@ -4,9 +4,9 @@ vim.g.mapleader = " "
 vim.pack.add({ "https://github.com/suvasanket/fleet.nvim" })
 vim.cmd.colorscheme("fleet")
 
+require("other")
 vim.fn.timer_start(10, function()
 	require("plugins")
-	require("other")
 	require("keymaps")
 end)
 

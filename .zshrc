@@ -54,8 +54,5 @@ alias brewbak='brew bundle dump --force --file="~/dotfiles/Brewfile"'
 
 cdl() { cd "$@" && ls; }
 
-# Added by Antigravity
-export PATH="/Users/suvasanketrout/.antigravity/antigravity/bin:$PATH"
-
 # Nerw CLI
 export PATH="$HOME/.nerw/bin:$PATH"

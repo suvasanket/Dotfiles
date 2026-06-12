@@ -30,9 +30,6 @@ vim.keymap.set({ "c", "i" }, "<C-d>", "<Del>")
 vim.keymap.set({ "c", "i" }, "<M-d>", "<S-Right><C-w>")
 vim.keymap.set({ "c", "i" }, "<C-k>", "<End><C-u>")
 map("c", "<C-g>", "<C-f>")
-map("c", "<C-l>", function()
-	pcall(vim.fn.wildtrigger)
-end)
 
 -- paste
 map({ "n", "x" }, "gp", function()
@@ -120,4 +117,3 @@ map("n", "<leader>u", cmd("Undotree"))
 
 -- qf mappgins
 ftmap("qf", "n", "c.", [[:cdo s/<C-r><C-w>//g<Left><Left>]])
-ftmap("qf", "n", "<C-g>", [[:Cfilter ]])
