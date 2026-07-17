@@ -1,6 +1,7 @@
 vim.cmd([[
 	set tabstop=4 shiftwidth=4 softtabstop=4 autochdir scrolloff=17
-	set nu relativenumber
+	set nu relativenumber nowrap smartcase
+	syntax on
 	packadd cfilter
 	packadd nvim.undotree
 	packadd nohlsearch

@@ -87,10 +87,6 @@ run = ['move-node-to-workspace 2']
 
 # 3
 [[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = ['move-node-to-workspace 3']
-
-[[on-window-detected]]
 if.app-id = 'com.apple.mail'
 run = ['move-node-to-workspace 3']
 
@@ -128,6 +124,9 @@ if.app-id = 'com.apple.ActivityMonitor'
 run = ['layout floating', 'move-node-to-workspace 4']
 
 # 5
+[[on-window-detected]]
+if.app-id = 'com.google.antigravity'
+run = ['move-node-to-workspace 5']
 
 ## fallback
 [[on-window-detected]]
