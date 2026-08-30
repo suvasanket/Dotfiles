@@ -1,6 +1,6 @@
 vim.cmd([[
 	set tabstop=4 shiftwidth=4 softtabstop=4 autochdir scrolloff=17
-	set nu relativenumber nowrap smartcase
+	set nu relativenumber nowrap ignorecase smartcase
 	syntax on
 	packadd cfilter
 	packadd nvim.undotree

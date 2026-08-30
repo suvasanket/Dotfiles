@@ -15,7 +15,7 @@ import {
 writeToProfile(
 	"Default profile",
 	[
-		edit_map(),
+		emacs_binding(),
 
 		general_map(),
 
@@ -40,13 +40,15 @@ function general_map() {
 	// }
 
 	return rule("some general mappings").manipulators([
-		map("right_option").to("escape"),
+		map("left_command").to("left_command").toIfAlone("escape"),
+		map("w", "⌃").to("⌫", "⌥"),
+		map("u", "⌃").to("⌫", "⌘"),
+
+		map("right_control").to("escape"),
 		map("[", "⌃").to("escape"),
 		map("q", "right_option", "right_command").to$("shortcuts run 'quick quit'"),
 		// map("`", "left_control").to$("shortcuts run 'add reminder'"),
 		map("b", "⌘⌥").to$(". /Users/suvasanketrout/dotfiles/.config/karabiner/bt_connect.sh"),
-
-		// ...numberRules,
 	]);
 }
 
@@ -75,7 +77,7 @@ function app_browser() {
 	]);
 }
 
-function edit_map() {
+function emacs_binding() {
 	const apps = [
 		"com.mitchellh.ghostty",
 		"org.gnu.Emacs",
@@ -88,8 +90,6 @@ function edit_map() {
 			map("f").to("→"),
 			map("p").to("↑"),
 			map("n").to("↓"),
-			map("w").to("⌫", "⌥"),
-			map("u").to("⌫", "⌘"),
 			withModifier("shift")([
 				map("b").to("←", "⇧"),
 				map("f").to("→", "⇧"),

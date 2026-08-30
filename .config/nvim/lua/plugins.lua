@@ -139,5 +139,9 @@ vim.keymap.set("n", "<C-f>", function()
 end)
 vim.keymap.set("n", "<C-'>", function()
 	require("fff").live_grep()
-	require('fff').change_indexing_directory(root)
+	require("fff").change_indexing_directory(root)
 end)
+
+-- Quicker
+vim.pack.add({ "https://github.com/stevearc/quicker.nvim" })
+require("quicker").setup()
