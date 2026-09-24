@@ -79,8 +79,7 @@ run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser.nightly'
-if.window-title-regex-substring = '(.*Brave)$'
-run = ['move-node-to-workspace 2']
+run = ['layout floating', 'move-node-to-workspace 2']
 
 # 3
 [[on-window-detected]]

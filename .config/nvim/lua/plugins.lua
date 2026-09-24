@@ -71,12 +71,12 @@ vim.pack.add({ "https://github.com/nvim-mini/mini.nvim" })
 require("mini.icons").setup()
 require("mini.move").setup({
 	mappings = {
-		left = "<C-h>",
-		right = "<C-l>",
+		left = "<S-TAB>",
+		right = "<TAB>",
 		down = "<C-j>",
 		up = "<C-k>",
-		line_left = "<C-h>",
-		line_right = "<C-l>",
+		line_left = "<S-TAB>",
+		line_right = "<TAB>",
 		line_down = "<C-j>",
 		line_up = "<C-k>",
 	},
@@ -99,7 +99,13 @@ require("mini.trailspace").setup({ only_in_normal_buffers = true })
 map("n", "<leader>bt", cmd("lua MiniTrailspace.trim()"))
 require("mini.splitjoin").setup({ mappings = { toggle = "<M-j>" } })
 require("mini.completion").setup()
+require("mini.basics").setup({
+	autocommands = {
+		relnum_in_visual_mode = true,
+	},
+})
 require("mini.cmdline").setup()
+require("mini.pick").setup()
 require("mini.notify").setup({
 	lsp_progress = { enable = false },
 })
@@ -135,7 +141,7 @@ require("fff").setup({
 })
 
 vim.keymap.set("n", "<C-f>", function()
-	require("fff").find_files_in_dir(root)
+	require("fff").find_files_in_dir(root or vim.fn.getcwd())
 end)
 vim.keymap.set("n", "<C-'>", function()
 	require("fff").live_grep()

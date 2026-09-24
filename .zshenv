@@ -7,4 +7,4 @@ export PATH="$HOME/.dev/.bin/nvim-macos-arm64/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # python
-export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.13/libexec/bin:$PATH"
+export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.12/libexec/bin:$PATH"

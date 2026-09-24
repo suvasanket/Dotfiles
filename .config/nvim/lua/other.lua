@@ -1,11 +1,12 @@
 vim.cmd([[
 	set tabstop=4 shiftwidth=4 softtabstop=4 autochdir scrolloff=17
-	set nu relativenumber nowrap ignorecase smartcase
 	syntax on
 	packadd cfilter
 	packadd nvim.undotree
 	packadd nohlsearch
 ]])
+
+-- set nu relativenumber nowrap ignorecase smartcase
 vim.opt.inccommand = "split"
 vim.opt.grepprg = "rg --vimgrep -u -S"
 
