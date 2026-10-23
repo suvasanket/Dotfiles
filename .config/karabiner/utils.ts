@@ -28,6 +28,8 @@ export function switcher() {
         // map('l', '⌘⌥⌃').to('⇥', '⌃'),
 	  map('s', '⌃').to('[', '⌘⇧'),
 	  map('x', '⌃').to(']', '⌘⇧'),
+	  map('s', '⌃⇧').to('page_up', '⌃⇧'),
+	  map('x', '⌃⇧').to('page_down', '⌃⇧'),
   ]
 }
 

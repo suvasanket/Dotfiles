@@ -8,3 +8,4 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # python
 export PATH="$(/opt/homebrew/bin/brew --prefix)/opt/python@3.12/libexec/bin:$PATH"
+. "$HOME/.cargo/env"

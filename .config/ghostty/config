@@ -19,6 +19,38 @@ keybind = alt+left=unbind
 keybind = alt+right=unbind
 macos-option-as-alt = left
 
+# Vim-mode keybindings for Ghostty.
+keybind = ctrl+shift+x=activate_key_table:vim
+keybind = vim/
+
+keybind = vim/j=scroll_page_lines:1
+keybind = vim/k=scroll_page_lines:-1
+
+keybind = vim/ctrl+d=scroll_page_down
+keybind = vim/ctrl+u=scroll_page_up
+keybind = vim/ctrl+f=scroll_page_down
+keybind = vim/ctrl+b=scroll_page_up
+keybind = vim/shift+j=scroll_page_down
+keybind = vim/shift+k=scroll_page_up
+
+keybind = vim/g>g=scroll_to_top
+keybind = vim/shift+g=scroll_to_bottom
+
+keybind = vim/slash=start_search
+keybind = vim/n=navigate_search:next
+
+keybind = vim/v=copy_to_clipboard
+keybind = vim/y=copy_to_clipboard
+
+keybind = vim/shift+semicolon=toggle_command_palette
+
+keybind = vim/escape=deactivate_key_table
+keybind = vim/a=deactivate_key_table
+keybind = vim/q=deactivate_key_table
+keybind = vim/i=deactivate_key_table
+
+keybind = vim/catch_all=ignore
+
 ########## TMUX MAPPINGs ########
 # keybind = super+t=text:\x1d\x74
 # keybind = super+w=text:\x1d\x71

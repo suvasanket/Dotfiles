@@ -98,13 +98,11 @@ require("mini.hipatterns").setup({
 require("mini.trailspace").setup({ only_in_normal_buffers = true })
 map("n", "<leader>bt", cmd("lua MiniTrailspace.trim()"))
 require("mini.splitjoin").setup({ mappings = { toggle = "<M-j>" } })
-require("mini.completion").setup()
 require("mini.basics").setup({
 	autocommands = {
 		relnum_in_visual_mode = true,
 	},
 })
-require("mini.cmdline").setup()
 require("mini.pick").setup()
 require("mini.notify").setup({
 	lsp_progress = { enable = false },
@@ -126,6 +124,26 @@ require("conform").setup({
 	},
 })
 map("n", "<leader>f", cmd('lua require("conform").format({ async = true, lsp_format = "fallback", range = range })'))
+
+-- blink
+vim.pack.add({ "https://github.com/saghen/blink.lib", "https://github.com/saghen/blink.cmp" })
+local cmp = require("blink.cmp")
+cmp.build():pwait()
+cmp.setup({
+	completion = {
+		accept = { auto_brackets = { enabled = true } },
+	},
+	keymap = {
+		["<C-l>"] = { "select_and_accept", "fallback" },
+	},
+	cmdline = {
+		keymap = {
+			preset = "cmdline",
+			["<C-l>"] = { "select_and_accept", "fallback" },
+		},
+		completion = { menu = { auto_show = true } },
+	},
+})
 
 -- fidget
 vim.pack.add({ "https://github.com/j-hui/fidget.nvim" })

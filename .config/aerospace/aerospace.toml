@@ -32,14 +32,14 @@ ctrl-5 = 'workspace 5'
 alt-rightSquareBracket = 'workspace next'
 alt-leftSquareBracket = 'workspace prev'
 
-cmd-ctrl-rightSquareBracket = ['move-node-to-workspace next', 'workspace next']
-cmd-ctrl-leftSquareBracket = [ 'move-node-to-workspace prev', 'workspace prev' ]
+ctrl-shift-rightSquareBracket = ['move-node-to-workspace next', 'workspace next']
+ctrl-shift-leftSquareBracket = [ 'move-node-to-workspace prev', 'workspace prev' ]
 
-cmd-ctrl-1 = 'move-node-to-workspace --focus-follows-window 1'
-cmd-ctrl-2 = 'move-node-to-workspace --focus-follows-window 2'
-cmd-ctrl-3 = 'move-node-to-workspace --focus-follows-window 3'
-cmd-ctrl-4 = 'move-node-to-workspace --focus-follows-window 4'
-cmd-ctrl-5 = 'move-node-to-workspace --focus-follows-window 5'
+ctrl-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
+ctrl-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
+ctrl-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
+ctrl-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
+ctrl-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
 
 ctrl-cmd-f = 'macos-native-fullscreen'
 alt-tab = 'exec-and-forget aerospace focus-back-and-forth || aerospace workspace-back-and-forth'

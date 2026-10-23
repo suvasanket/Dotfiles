@@ -7,5 +7,5 @@ sbar=/opt/homebrew/opt/sketchybar/bin/sketchybar
 $sbar &
 
 # dirsync
-killall dirsync
-$ds -s "/Users/suvasanketrout/Documents" -d "/Volumes/SanDisk/Documents" &
+# killall dirsync
+# $ds -s "/Users/suvasanketrout/Documents" -d "/Volumes/SanDisk/Documents" &
