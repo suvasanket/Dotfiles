@@ -47,7 +47,6 @@ cmd-shift-w = 'close-all-windows-but-current'
 
 ##### open apps #####
 # alt-a = ['exec-and-forget open -a Ghostty']
-cmd-ctrl-h = ['exec-and-forget open -a Ghostty']
 
 ## APP SPACES
 # 1
@@ -81,14 +80,9 @@ run = ['move-node-to-workspace 2']
 if.app-id = 'com.brave.Browser.nightly'
 run = ['layout floating', 'move-node-to-workspace 2']
 
-# 3
-[[on-window-detected]]
-if.app-id = 'com.google.antigravity'
-run = ['move-node-to-workspace 3']
-
 # 4
 [[on-window-detected]]
-if.app-id = 'net.whatsapp.WhatsApp'
+if.app-id = 'com.google.antigravity'
 run = ['move-node-to-workspace 4']
 
 [[on-window-detected]]
@@ -107,5 +101,5 @@ run = ['move-node-to-workspace 5']
 ## fallback
 [[on-window-detected]]
 check-further-callbacks = true
-run = ['layout floating']
+run = ['layout floating', 'move-node-to-workspace 3']
 ## APP SPACES

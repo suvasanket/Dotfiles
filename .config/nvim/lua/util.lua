@@ -19,7 +19,7 @@ end
 
 function M.root()
 	local patterns = { ".git", "Makefile", "package.json", "Cargo.toml", "go.mod" }
-	return vim.fs.root(0, patterns) or nil
+	return vim.fs.root(0, patterns) or vim.fn.getcwd()
 end
 
 function M.cmdcr(cmd)

@@ -1,5 +1,5 @@
 ## command = tmux new-session -A -s main
-font-family = "IoskeleyMonoTerm Nerd Font"
+font-family = "IoskeleyMonoTerm Nerd Font medium"
 font-thicken = true
 font-size = 17
 adjust-cell-height = 15%

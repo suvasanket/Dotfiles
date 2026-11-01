@@ -1,6 +1,5 @@
 local map = require("util").map
 local cmd = require("util").cmdcr
-local root = require("util").root()
 local ftmap = require("util").ftmap
 
 -- oz
@@ -135,11 +134,12 @@ cmp.setup({
 	},
 	keymap = {
 		["<C-l>"] = { "select_and_accept", "fallback" },
+		["<C-n>"] = {function(c) return c.select_next({ auto_insert = false }) end, "fallback"},
+		["<C-p>"] = {function(c) return c.select_prev({ auto_insert = false }) end, "fallback"},
 	},
 	cmdline = {
 		keymap = {
-			preset = "cmdline",
-			["<C-l>"] = { "select_and_accept", "fallback" },
+			preset = "inherit",
 		},
 		completion = { menu = { auto_show = true } },
 	},
@@ -151,19 +151,33 @@ require("fidget").setup()
 
 -- fff
 vim.pack.add({ "https://github.com/dmtrKovalenko/fff.nvim" })
--- require('fff.download').download_or_build_binary()
+vim.api.nvim_create_autocmd("PackChanged", {
+	callback = function(ev)
+		local name, kind = ev.data.spec.name, ev.data.kind
+		if name == "fff" and (kind == "install" or kind == "update") then
+			if not ev.data.active then
+				vim.cmd.packadd("fff")
+			end
+			require("fff.download").download_or_build_binary()
+		end
+	end,
+})
 require("fff").setup({
+	prompt = "> ",
+	layout = {
+		prompt_position = "top",
+	},
 	keymaps = {
 		close = "<C-c>",
 	},
 })
 
 vim.keymap.set("n", "<C-f>", function()
-	require("fff").find_files_in_dir(root or vim.fn.getcwd())
+	require("fff").find_files_in_dir(require("util").root())
 end)
 vim.keymap.set("n", "<C-'>", function()
 	require("fff").live_grep()
-	require("fff").change_indexing_directory(root)
+	require("fff").change_indexing_directory(require("util").root())
 end)
 
 -- Quicker
