@@ -134,8 +134,10 @@ cmp.setup({
 	},
 	keymap = {
 		["<C-l>"] = { "select_and_accept", "fallback" },
-		["<C-n>"] = {function(c) return c.select_next({ auto_insert = false }) end, "fallback"},
-		["<C-p>"] = {function(c) return c.select_prev({ auto_insert = false }) end, "fallback"},
+		["<C-j>"] = {function(c) return c.select_next({ auto_insert = false }) end, "fallback"},
+		["<C-k>"] = {function(c) return c.select_prev({ auto_insert = false }) end, "fallback"},
+		["<C-n>"] = { "fallback" },
+		["<C-p>"] = { "fallback" },
 	},
 	cmdline = {
 		keymap = {
@@ -169,6 +171,10 @@ require("fff").setup({
 	},
 	keymaps = {
 		close = "<C-c>",
+		move_up = { '<C-k>' },
+		move_down = { '<C-j>' },
+		cycle_previous_query = '<C-p>',
+		cycle_forward_query = '<C-n>',
 	},
 })
 
