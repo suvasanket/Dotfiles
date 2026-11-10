@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+# Configuration
+STATE_DIR="/tmp/omniroute_manager"
+INSTANCES_DIR="$STATE_DIR/instances"
+FAKE_BIN_DIR="$STATE_DIR/fake_bin"
+OMNI_PID_FILE="$STATE_DIR/omniroute.pid"
+OMNI_LOG_FILE="$STATE_DIR/omniroute.log"
+LOCK_DIR="$STATE_DIR/start.lock"
+
+# Change this if you pass custom flags to omniroute (e.g., "omniroute --port 8080")
+OMNI_CMD="omniroute"
+
+mkdir -p "$INSTANCES_DIR" "$FAKE_BIN_DIR"
+
+# Create a dummy 'open' and 'xdg-open' exclusively for omniroute
+# This guarantees omniroute CANNOT open a browser window on macOS
+if [[ ! -f "$FAKE_BIN_DIR/open" ]]; then
+printf "#!/bin/sh\nexit 0\n" > "$FAKE_BIN_DIR/open"
+chmod +x "$FAKE_BIN_DIR/open"
+fi
+
+is_omni_running() {
+	if [[ -f "$OMNI_PID_FILE" ]]; then
+		local pid
+			pid=$(cat "$OMNI_PID_FILE" 2>/dev/null)
+			if [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null; then
+				return 0
+					fi
+					fi
+					return 1
+}
+
+start_omniroute_bg() {
+# Atomic lock so opening 2 terminals at the exact same millisecond won't spawn 2 servers
+	if mkdir "$LOCK_DIR" 2>/dev/null; then
+		if ! is_omni_running; then
+# Prepend FAKE_BIN_DIR to PATH and set BROWSER=none to block browser launch
+			PATH="$FAKE_BIN_DIR:$PATH" BROWSER=none CI=true \
+				  nohup $OMNI_CMD >"$OMNI_LOG_FILE" 2>&1 &
+				  echo $! > "$OMNI_PID_FILE"
+				  fi
+				  rmdir "$LOCK_DIR" 2>/dev/null
+				  fi
+}
+
+cleanup() {
+# 1. Remove this harness instance
+	rm -f "$INSTANCES_DIR/$$"
+
+# 2. Count remaining live instances (and clean up any crashed/stale ones)
+		local active_count=0
+		shopt -s nullglob
+		for pid_file in "$INSTANCES_DIR"/*; do
+			local pid
+				pid=$(basename "$pid_file")
+				if kill -0 "$pid" 2>/dev/null; then
+					((active_count++))
+				else
+					rm -f "$pid_file" # Clean up stale PID from a force-closed terminal
+						fi
+						done
+
+# 3. If this was the last open agent, shut down omniroute
+						if [[ "$active_count" -eq 0 ]] && is_omni_running; then
+							local omni_pid
+								omni_pid=$(cat "$OMNI_PID_FILE" 2>/dev/null)
+								if [[ -n "$omni_pid" ]]; then
+# Kill both child processes (if wrapped by node/npx) and the main PID
+									pkill -TERM -P "$omni_pid" 2>/dev/null
+										kill -TERM "$omni_pid" 2>/dev/null
+										fi
+										rm -f "$OMNI_PID_FILE"
+										fi
+}
+
+# --- MAIN EXECUTION ---
+
+# 1. Register this instance PID and hook cleanup to exit/crash signals
+touch "$INSTANCES_DIR/$$"
+trap cleanup EXIT INT TERM HUP
+
+# 2. Fire-and-forget omniroute startup in a detached background subshell (0ms delay)
+( start_omniroute_bg & )
+
+# 3. Immediately launch the requested harness (pi, opencode, etc.) with all arguments
+	TOOL="$1"
+	shift
+	"$TOOL" "$@"

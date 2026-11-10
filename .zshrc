@@ -53,14 +53,12 @@ alias brewbak='brew bundle dump --force --file="~/dotfiles/Brewfile"'
 # alias ha="/Users/suvasanketrout/codes/projects/habit_tracker/habit"
 
 cdl() { cd "$@" && ls; }
-oc() { ~/.dev/.bin/opencode-wrapper.sh }
+oc() { ~/.config/opencode/opencode-wrapper.sh }
 
 # Nerw CLI
 export PATH="$HOME/.nerw/bin:$PATH"
 
-# Remember last working directory
-LAST_DIR_FILE="$HOME/.dev/zsh/last_dir"
-if [[ -f "$LAST_DIR_FILE" ]]; then
-  cd "$(cat "$LAST_DIR_FILE")" 2>/dev/null
-fi
-chpwd() { pwd > "$LAST_DIR_FILE" }
+# List any tools you want to trigger omniroute here
+for _agent_tool in pi opencode; do
+	eval "${_agent_tool}() { \"$HOME/dotfiles/scripts/omni-wrap\" ${_agent_tool} \"\$@\"; }"
+done

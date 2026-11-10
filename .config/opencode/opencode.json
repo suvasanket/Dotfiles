@@ -1,0 +1,46 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "compaction": {
+    "auto": true,
+    "keep": { "tokens": 15000 }
+  },
+  "plugins": [
+    "opencode-antigravity-auth"
+  ],
+  "provider": {
+	  "myprovider": {
+		  "npm": "@ai-sdk/openai-compatible",
+		  "name": "omni",
+		  "options": {
+			  "baseURL": "http://localhost:20128",
+			  "apiKey": "sk-3169289600aeab25-e06371-2937ed63"
+		  },
+		  "models": {
+			  "auto": {
+				  "name": "auto"
+			  },
+			  "auto/coding": {
+				  "name": "auto/coding"
+			  },
+			  "auto/fast": {
+				  "name": "auto/fast"
+			  },
+			  "auto/cheap": {
+				  "name": "auto/cheap"
+			  },
+			  "auto/smart": {
+				  "name": "auto/smart"
+			  },
+			  "auto/offline": {
+				  "name": "auto/offline"
+			  },
+			  "code-high": {
+				  "name": "code-high"
+			  },
+			  "code": {
+				  "name": "code"
+			  }
+		  }
+    }
+  }
+}

@@ -7,3 +7,4 @@ dev/*
 .DS_Store
 .config/nvim/lazy-lock.json
 .config/nvm/
+.config/herdr-app/

@@ -1,5 +1,5 @@
 vim.cmd([[
-	set tabstop=4 shiftwidth=4 softtabstop=4 autochdir scrolloff=17
+	set tabstop=4 shiftwidth=4 softtabstop=4 autochdir scrolloff=17 noswapfile
 	syntax on
 	packadd cfilter
 	packadd nvim.undotree

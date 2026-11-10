@@ -15,7 +15,7 @@ require("oz").setup({
 map("n", "<leader>aq", cmd("TermClose"))
 map("n", "<leader>aa", cmd("TermToggle"))
 map("n", "<leader><cr>", cmd("Term"))
-map("n", "<leader>i", cmd("G"))
+map("n", "<D-Cr>", cmd("G"))
 map("n", "gw", ":Grep <C-r><C-w><cr>")
 map("n", "g<cr>", ":Grep 'FIXME|TODO|WIP'<cr>")
 map({ "n", "v" }, "<C-'>", function()

@@ -46,9 +46,6 @@ function general_map() {
 
 		map("right_control").to("escape"),
 		map("[", "⌃").to("escape"),
-		map("q", "right_option", "right_command").to$("shortcuts run 'quick quit'"),
-		// map("`", "left_control").to$("shortcuts run 'add reminder'"),
-		map("b", "⌘⌥").to$(". /Users/suvasanketrout/dotfiles/.config/karabiner/bt_connect.sh"),
 	]);
 }
 
@@ -80,6 +77,7 @@ function app_browser() {
 function emacs_binding() {
 	const apps = [
 		"com.mitchellh.ghostty",
+		"dev.herdr.app",
 		"org.gnu.Emacs",
 		"md.obsidian"
 	];
